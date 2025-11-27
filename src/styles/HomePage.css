@@ -1,0 +1,30 @@
+:root {
+  --c-orange: hsl(38, 100, 48, 100%);
+  --c-dark-blue: rgba(16, 43, 97, 1) 25%;
+  --c-b-darker: rgba(6, 6, 64, 1) 67%;
+  --c-light-blue:rgba(6, 88, 173, 1) 100%;
+  --c-lighter-blue:rgba(24, 204, 240, 1) 84%;
+  --c-neutral-0: hsl(0, 0%, 100%);
+  --c-neutral-600: hsl(243, 23%, 30%);
+  --c-neutral-300: hsl(240, 6%, 70%);
+  --c-neutral-200: hsl(250, 6%, 84%);
+
+  --c-text-light: var(--c-neutral-0);
+  --c-header-bg: linear-gradient(23deg,var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
+  --c-main-bg: var(--c-dark-blue);
+  --c-second-bg: var(--c-b-darker);
+
+  --fs-96: calc(96 / 16 * 1rem);
+  --fs-52: calc(52 / 16 * 1rem);
+  --fs-32: calc(32 / 16 * 1rem);
+  --fs-28: calc(28 / 16 * 1rem);
+  --fs-20: calc(20 / 16 * 1rem);
+  --fs-18: calc(18 / 16 * 1rem);
+  --fs-16: calc(16 / 16 * 1rem);
+  --fs-14: calc(14 / 16 * 1rem);
+}
+
+.home-page {
+  background-color: var(--c-b-darker);
+  margin-top: 130px;
+}

@@ -1,0 +1,145 @@
+/* roboto-regular - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/roboto-v50-latin-regular.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-500 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: url('../assets/fonts/roboto-v50-latin-500.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-600 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/roboto-v50-latin-600.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* roboto-700 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: url('../assets/fonts/roboto-v50-latin-700.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* poppins-regular - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 400;
+  src: url('../assets/fonts/poppins-v24-latin-regular.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+/* poppins-600 - latin */
+@font-face {
+  font-display: swap;
+  /* Check https://developer.mozilla.org/en-US/docs/Web/CSS/@font-face/font-display for other options. */
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 600;
+  src: url('../assets/fonts/poppins-v24-latin-600.woff2') format('woff2');
+  /* Chrome 36+, Opera 23+, Firefox 39+, Safari 12+, iOS 10+ */
+}
+
+:root {
+  --c-orange: rgb(245, 155, 0);
+  --c-dark-blue: hsl(221, 82, 22, 50%);
+  --c-b-darker: hsl(221, 85, 16, 50%);
+  --c-neutral-0: hsl(0, 0%, 100%);
+  --c-neutral-600: hsl(243, 23%, 30%);
+  --c-neutral-300: hsl(240, 6%, 70%);
+  --c-neutral-200: hsl(250, 6%, 84%);
+
+  --c-text-light: var(--c-neutral-0);
+  --c-main-bg: var(--c-dark-blue);
+  --c-second-bg: var(--c-b-darker);
+
+  --fs-96: calc(96 / 16 * 1rem);
+  --fs-52: calc(52 / 16 * 1rem);
+  --fs-32: calc(32 / 16 * 1rem);
+  --fs-28: calc(28 / 16 * 1rem);
+  --fs-20: calc(20 / 16 * 1rem);
+  --fs-18: calc(18 / 16 * 1rem);
+  --fs-16: calc(16 / 16 * 1rem);
+  --fs-14: calc(14 / 16 * 1rem);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+* {
+  margin: 0;
+}
+
+img {
+  max-width: 100%;
+}
+
+body {
+  font-family: "Roboto", Arial, Helvetica, sans-serif;
+}
+
+h1,
+h2,
+h3 {
+  font-family: "Poppins", Arial, Helvetica, sans-serif;
+}
+
+input,
+button,
+textarea,
+select {
+  font: inherit;
+  width: 100%;
+  border: none;
+}
+
+
+  .wrapper {
+    display: grid;
+    grid-template-columns: 1fr calc(100% - 32px) 1fr;
+
+    @media (width >= calc(700 / 16 * 1rem)) {
+      grid-template-columns: 1fr min(calc(100% - 300px)) 1fr;
+    }
+
+    
+    @media (width <= calc(1100 / 16 * 1rem)) {
+      grid-template-columns: 1fr min(calc(100% - 150px)) 1fr;
+    }
+
+    @media (width <= calc(700 / 16 * 1rem)) {
+      grid-template-columns: 1fr min(calc(100% - 30px)) 1fr;
+    }
+  
+
+    > * {
+      grid-column: 2;
+    }
+  }
