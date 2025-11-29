@@ -8,28 +8,27 @@ export function Header() {
       <div className="wrapper">
         <div className="head">
           <div className="header-link">
-            <img className='logo' src="/src/assets/images/logo.png" alt="" />
-            <span className="logo-name">Rivz<span className="logo-ai-name">AI</span></span>
+            <Link to="/" className='logo-link'>
+              <img className='logo' src="/src/assets/images/logo.png" alt="" />
+              <span className="logo-name">Rivz<span className="logo-ai-name">AI</span></span>
+            </Link>
           </div>
           <div className="header-links-list">
-            
 
-              <Link to="/history">
-                History
-              </Link>
+            <Link className='link' to="/history">
+              History
+            </Link>
 
+            <Link className='link' to="/settings">
+              Settings
+            </Link>
 
-              <Link to="/settings">
-                Settings
-              </Link>
+            <Link to="/sign-up" className='get-started-btn'>
+              Get Started Free
+            </Link>
 
-              <div className="dark-mode">
-                <img src="/src/assests/images/dark(1).svg" alt="" />
-              </div>
-            
           </div>
         </div>
-
       </div>
     </div>
   )

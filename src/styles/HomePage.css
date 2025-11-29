@@ -1,9 +1,9 @@
 :root {
-  --c-orange: hsl(38, 100, 48, 100%);
-  --c-dark-blue: rgba(16, 43, 97, 1) 25%;
-  --c-b-darker: rgba(6, 6, 64, 1) 67%;
-  --c-light-blue:rgba(6, 88, 173, 1) 100%;
-  --c-lighter-blue:rgba(24, 204, 240, 1) 84%;
+  --c-orange: hsl(38, 100%, 48%);
+  --c-dark-blue: hsl(220, 72%, 22%) 25%;
+  --c-b-darker: hsl(240, 83%, 14%) 67%;
+  --c-light-blue:hsl(211, 93%, 35%) 100%;
+  --c-lighter-blue:hsl(190, 88%, 52%) 84%;
   --c-neutral-0: hsl(0, 0%, 100%);
   --c-neutral-600: hsl(243, 23%, 30%);
   --c-neutral-300: hsl(240, 6%, 70%);
