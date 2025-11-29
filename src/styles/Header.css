@@ -1,10 +1,10 @@
 :root {
   --c-orange: #f59b00;
-  --c-dark-blue: hsl(220, 72%, 22%) 25%;
-  --c-b-darker: #000035e3 67%;
-  --c-bleu-bg: hsl(240deg 100% 10% / 64%) 67%;
-  --c-light-blue: hsl(211, 93%, 35%) 100%;
-  --c-lighter-blue: hsl(190, 88%, 52%) 84%;
+  --c-dark-blue: hsl(220, 72%, 22%) ;
+  --c-b-darker: #000035e3 ;
+  --c-bleu-bg: hsl(240deg 100% 10% / 64%) ;
+  --c-light-blue: hsl(211, 93%, 35%);
+  --c-lighter-blue: hsl(190, 88%, 52%) ;
   --c-neutral-0: hsl(0, 0%, 100%);
   --c-neutral-600: hsl(243, 23%, 30%);
   --c-neutral-300: hsl(240, 6%, 70%);
@@ -34,6 +34,7 @@
   top: 0;
   left: 0;
   z-index: 1000;
+  border-bottom: 1px solid var(--c-main-bg);
 }
 
 .head {
