@@ -177,9 +177,9 @@
 }
 
 .inputs button {
-  width: 60px;
+  width: unset;
   background: linear-gradient(90deg, rgb(255 146 0 / 86%) 17%, rgba(198, 122, 35, 0.797) 68%, rgba(207, 140, 23, 0.83) 100%);
-  padding: 10px;
+  padding: 16px;
   border-radius: 8px;
   cursor: pointer;
   box-shadow: var(--main-bx-shdw);
@@ -198,11 +198,13 @@
 }
 
 .solve-it {
-  width: 150px;
-  height: 70px;
   font-size: var(--fs-28);
   color: var(--c-neutral-0);
   font-weight: 600;
+  padding: 19px 28px !important;
+  position: relative;
+  transition: transform 0.2s ease-out ;
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
 @layer keyframes {
@@ -250,6 +252,23 @@
     to {
       width: 100%;
     }
+  }
+
+  @keyframes glowPulse {
+   0%, 100% {
+    box-shadow: 
+      0 0 15px hsla(38, 100%, 48%, 0.3),
+      0 0 30px hsla(38, 100%, 48%, 0.15),
+      0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  50% {
+    box-shadow: 
+      0 0 35px hsla(38, 100%, 48%, 0.6),
+      0 0 70px hsla(20, 100%, 55%, 0.4),
+      0 0 100px hsla(10, 100%, 50%, 0.2),
+      0 4px 12px rgba(0, 0, 0, 0.3);
+  }
   }
 
 }
