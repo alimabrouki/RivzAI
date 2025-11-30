@@ -16,6 +16,9 @@
     --c-main-bg: var(--c-dark-blue);
     --c-second-bg: var(--c-b-darker);
 
+    --main-bx-shdw: 0 4px 30px rgb(0 0 0 / 34%);
+    --input-bx-shdw: 0 4px 30px rgb(0 0 0 / 20%);
+
     --fs-96: calc(96 / 16 * 1rem);
     --fs-52: calc(52 / 16 * 1rem);
     --fs-32: calc(32 / 16 * 1rem);
@@ -91,7 +94,7 @@
   overflow: hidden;
   white-space: nowrap;
   text-align: center;
-  animation: typing 3s steps(30, end) 3.5s forwards;
+  animation: typing 3s steps(30, end) 3s forwards;
 }
 
 .orange-under-title {
@@ -109,12 +112,48 @@
 .prompt-box {
   background-color: hsl(240deg 30.48% 26.91% / 29%);
   backdrop-filter: blur(18px);
-  padding: 300px 520px;
   border-radius: 8px;
   margin-top: 30px;
-  box-shadow: 0 4px 30px rgb(0 0 0 / 34%);
+  box-shadow: var(--main-bx-shdw);
   border: 1px solid var(--c-main-bg);
   animation: slideInFromBottom 1s ease-out forwards;
+  width: 130vh;
+  height: 73vh;
+}
+
+.prompt-input {
+  padding: 20px;
+  width: 75%;
+  margin: 30px 0 0 30px;
+  height: 40vh;
+  color: var(--c-neutral-0);
+  background-color: var(--c-bleu-bg);
+  border-radius: 12px;
+  box-shadow: var(--input-bx-shdw);
+  border: 1px solid var(--c-main-bg);
+  caret-color: var(--c-neutral-300);
+  resize: none;
+  scroll-behavior: smooth;
+}
+
+.prompt-input::-webkit-scrollbar {
+  width: 10px;
+}
+
+.prompt-input::-webkit-scrollbar-thumb {
+  
+  background-color: var(--c-main-bg);
+  border-top-right-radius: 12px;
+}
+
+.prompt-input::placeholder {
+  
+  color: var(--c-neutral-300);
+  font-size: var(--fs-20);
+}
+
+.prompt-input:focus {
+  outline: none;
 }
 
 @layer keyframes {

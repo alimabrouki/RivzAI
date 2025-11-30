@@ -22,7 +22,7 @@ export function HomePage() {
       jibnelk a9wa AI agents bech irivz w ye5dem m3ak as3eb les exercices
       </h3>
     <div className="prompt-box">
-
+      <textarea name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
     </div>
     </div>
    </div>
