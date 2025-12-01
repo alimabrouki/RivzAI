@@ -1,6 +1,7 @@
 import '../styles/index.css'
 import '../styles/Header.css'
 import '../styles/HomePage.css'
+import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
 export function SolveItBtn() {
@@ -35,11 +36,13 @@ export function SolveItBtn() {
 
   return (
     <div className="submit-btn">
+      <Link to="/results">
       <button className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
         transform: `translate(${position.x}px, ${position.y}px)`
       }}>
         Solve It
       </button>
+      </Link>
     </div>
   )
 }

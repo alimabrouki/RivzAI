@@ -30,8 +30,41 @@ export function HomePage() {
               <textarea name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
 
               <div className="inputs">
-                <UploadFile />
+               <div className="input-output">
+                 <UploadFile />
                 <RecordAudio />
+               </div>
+                
+               <div className="select-options">
+                 <div className="select-wrapper">
+                  <select name="school-level" id="school-level" className='select school-level'>
+                  <option value="7eme">7eme</option>
+                  <option value="8eme">8eme</option>
+                  <option value="9eme">9eme</option>
+                  <option value="1er">1ere</option>
+                  <option value="2eme">2eme</option>
+                  <option value="3eme">3eme</option>
+                  <option value="bac">Bac</option>
+                </select>
+                 </div>
+                 <div className="select-wrapper">
+                  <select name="think-type" id="think-type" className='select think-type'>
+                  <option value="fast">Fast</option>
+                  <option value="thinker">Thinker</option>
+                </select>
+                 </div>
+                <div className="select-wrapper">
+                  <select name="language" id="language" className='select language'>
+                  <option value="tunisian">Tunisian</option>
+                  <option value="arabic">Arabic</option>
+                  <option value="english">English</option>
+                  <option value="french">French</option>
+                </select>
+                </div>
+               </div>
+                <button type='button' className='multi-step-mode'>
+                  Multi-Step Mode
+                </button>
                 <SolveItBtn />
               </div>
             </div>
