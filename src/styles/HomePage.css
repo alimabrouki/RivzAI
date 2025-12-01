@@ -135,6 +135,7 @@
   caret-color: var(--c-neutral-300);
   resize: none;
   scroll-behavior: smooth;
+  font-size: var(--fs-20);
 }
 
 .prompt-input::-webkit-scrollbar {
@@ -160,6 +161,7 @@
 .prompt-input::placeholder {
   color: var(--c-neutral-300);
   font-size: var(--fs-20);
+  font-family: monospace;
 }
 
 .prompt-input:focus {
