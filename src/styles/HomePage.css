@@ -46,6 +46,7 @@
   color: var(--c-neutral-0);
   font-size: var(--fs-96);
   margin-top: 50px;
+  text-wrap: balance;
   opacity: 0;
   transform: translateY(50px);
   animation: slideInFromBottom 1s ease-out forwards;
@@ -84,9 +85,11 @@
   white-space: nowrap;
   text-align: center;
   animation: typing 3s steps(30, end) 1s forwards;
+  text-wrap: balance;
 }
 
 .under-title-two {
+  text-wrap: balance;
   color: var(--c-neutral-300);
   font-size: var(--fs-18);
   margin-bottom: 5px;

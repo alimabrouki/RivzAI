@@ -7,7 +7,7 @@ import { useRef } from 'react';
 export const RecordAudio = () => {
   const audioRef = useRef(null)
 
-  function recordAudio() {
+  const recordAudio = () => {
     audioRef.current.click();
   }
 

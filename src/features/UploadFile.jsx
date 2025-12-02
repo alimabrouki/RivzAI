@@ -8,7 +8,7 @@ export const UploadFile = () => {
 
   const inputRef = useRef(null);
 
-  function uploadFile() {
+  const uploadFile = () => {
     inputRef.current.click();
   }
 
