@@ -2,7 +2,7 @@ import '../styles/index.css'
 import '../styles/Header.css'
 import { Link } from 'react-router-dom'
 
-export function Header() {
+export const Header = () => {
   return (
     <div className="header">
       <div className="wrapper">

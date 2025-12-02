@@ -4,7 +4,7 @@ import '../styles/HomePage.css'
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
-export function SolveItBtn() {
+export const SolveItBtn = () => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
   const solveIt = useRef(null)
 
@@ -37,11 +37,11 @@ export function SolveItBtn() {
   return (
     <div className="submit-btn">
       <Link to="/results">
-      <button className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
-        transform: `translate(${position.x}px, ${position.y}px)`
-      }}>
-        Solve It
-      </button>
+        <button className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
+          transform: `translate(${position.x}px, ${position.y}px)`
+        }}>
+          Solve It
+        </button>
       </Link>
     </div>
   )

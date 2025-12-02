@@ -4,7 +4,7 @@ import '../styles/HomePage.css'
 import { Mic } from 'lucide-react'
 import { useRef } from 'react';
 
-export function RecordAudio() {
+export const RecordAudio = () => {
   const audioRef = useRef(null)
 
   function recordAudio() {

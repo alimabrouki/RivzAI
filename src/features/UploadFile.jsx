@@ -4,7 +4,7 @@ import '../styles/HomePage.css'
 import { Paperclip } from 'lucide-react'
 import { useRef } from 'react';
 
-export function UploadFile() {
+export const UploadFile = () => {
 
   const inputRef = useRef(null);
 
