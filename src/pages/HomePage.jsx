@@ -5,44 +5,11 @@ import { Header } from '../components/Header'
 import { RecordAudio } from '../features/RecordAudio'
 import { SolveItBtn } from '../features/SolveItBtn'
 import { UploadFile } from '../features/UploadFile'
-import { SelectOptions } from '../features/SelectOptions'
+import { SelectOptions } from '../features/select-options/SelectOptions'
 
 
 export const HomePage = () => {
-   const schoolLevelOptions = [
-      
-        {
-          id: 0,
-          option: '7eme'
-        },
   
-        {
-          id: 1,
-          option: '8eme'
-        },
-        {
-          id: 2,
-          option:'9eme'
-        },
-        {
-          id: 3,
-          option: '1ere'
-        },
-         {
-          id: 4,
-          option: '2eme'
-        },
-        {
-          id: 5,
-          option: '3eme'
-        },
-        {
-          id: 6,
-          option: 'Bac'
-        }
-      
-  
-    ]
 
   return (
     <>
@@ -69,7 +36,7 @@ export const HomePage = () => {
                   <RecordAudio />
                 </div>
 
-                <SelectOptions schoolLevelOptions={schoolLevelOptions} />               
+                <SelectOptions />               
                 <button type='button' className='multi-step-mode'>
                   Multi-Step Mode
                 </button>
