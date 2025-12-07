@@ -66,8 +66,8 @@ export function SelectOptions() {
   return (
     <div className="select-wrapper">
 
-      <SelectLevel  schoolOptions={schoolOptions} placeHolder={'SelectLevel'} storageKey={'level'}/>
-      <SelectLevel  schoolOptions={language} placeHolder={'Select Language'} storageKey={'language'} />
+      <SelectLevel  schoolOptions={schoolOptions} placeHolder={'Level'} storageKey={'level'}/>
+      <SelectLevel  schoolOptions={language} placeHolder={'Language'} storageKey={'language'} />
       <SelectLevel  schoolOptions={agentType} placeHolder={'Fast'} storageKey={'agenttype'} />
     </div>
 

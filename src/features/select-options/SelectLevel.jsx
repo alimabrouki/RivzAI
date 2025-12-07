@@ -28,6 +28,7 @@ export default function SelectLevel({schoolOptions,placeHolder,storageKey}) {
         <div className={isOpen ? 'options-list' : 'options-list-hidden'}>
           {isOpen &&
             schoolOptions.map((option) => (
+              <>
               <span
                 onClick={() => {
                   setSelectedOpt(option.option);
@@ -39,9 +40,11 @@ export default function SelectLevel({schoolOptions,placeHolder,storageKey}) {
               className={`option ${selectedOpt === option.option ? 'selected-option' : ''}`}>
                 {option.option}
               </span>
+              </>
             ))}
         </div>
         <span>{selectedOpt}</span>
+        <span className={`dropdown-arrow ${isOpen ? 'dropdown-arrow-down': ''}`}>▼</span>
       </div>
       </>
   )
