@@ -25,7 +25,7 @@ export default function SelectLevel({schoolOptions,placeHolder,storageKey}) {
       <div onClick={() => {
         setIsOpen(!isOpen)
       }} className="select-options" ref={dropDown}>
-        <div className={isOpen ? 'options-list' : ''}>
+        <div className={isOpen ? 'options-list' : 'options-list-hidden'}>
           {isOpen &&
             schoolOptions.map((option) => (
               <span
@@ -36,7 +36,7 @@ export default function SelectLevel({schoolOptions,placeHolder,storageKey}) {
                 }}
                 key={option.id}
                 value={option.option}
-              >
+              className={`option ${selectedOpt === option.option ? 'selected-option' : ''}`}>
                 {option.option}
               </span>
             ))}
