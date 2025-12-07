@@ -1,11 +1,9 @@
 import '../../styles/index.css'
 import '../../styles/Header.css'
 import '../../styles/SelectOptions.css'
-import { useEffect, useRef, useState } from 'react'
-import { User } from 'lucide-react';
 import SelectLevel from './SelectLevel';
 export function SelectOptions() {
-  const schoolLevelOptions = [
+  const schoolOptions = [
     {
       id: 0,
       option: '7eme'
@@ -64,13 +62,13 @@ export function SelectOptions() {
       option: 'Thinker'
     }
   ];
-
+ 
   return (
     <div className="select-wrapper">
 
-      <SelectLevel schoolLevelOptions={schoolLevelOptions} />
-      <SelectLevel language={language} />
-      <SelectLevel agentType={agentType} />
+      <SelectLevel  schoolOptions={schoolOptions} placeHolder={'SelectLevel'} storageKey={'level'}/>
+      <SelectLevel  schoolOptions={language} placeHolder={'Select Language'} storageKey={'language'} />
+      <SelectLevel  schoolOptions={agentType} placeHolder={'Fast'} storageKey={'agenttype'} />
     </div>
 
   )
