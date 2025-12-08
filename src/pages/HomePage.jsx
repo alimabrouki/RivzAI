@@ -35,9 +35,10 @@ export const HomePage = () => {
                   <UploadFile />
                   <RecordAudio />
                 </div>
-
                 <SelectOptions />               
-                <button type='button' className='multi-step-mode'>
+                <button onClick={() => {
+                  
+                }} type='button' className='multi-step-mode'>
                   Multi-Step Mode
                 </button>
                 <SolveItBtn />
