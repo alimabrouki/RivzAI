@@ -1,6 +1,6 @@
-import '../styles/index.css'
-import '../styles/Header.css'
-import '../styles/HomePage.css'
+import '../../styles/index.css'
+import '../../styles/Header.css'
+import '../../styles/HomePage.css'
 import { Paperclip } from 'lucide-react'
 import { useRef } from 'react';
 
