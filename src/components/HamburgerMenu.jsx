@@ -1,7 +1,6 @@
 import '../styles/index.css'
 import '../styles/Header.css'
 import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
 
 export const HamburgerMenu = ({handleHamMenu,isOpen}) => {
 

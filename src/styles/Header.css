@@ -110,7 +110,7 @@
     backdrop-filter: blur(5px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     width: 100%;
-    top: 61px;
+    top: 63px;
     left: 0;
     z-index: 1000;
     border-bottom: 1px solid var(--c-main-bg);
@@ -133,10 +133,16 @@
     top: 85px;
     z-index: 1200;
     gap: 33px;
+    font-size: var(--fs-20);
+  }
+
+  .header-links-list-mobile a {
+    color: var(--c-neutral-300);
   }
 
   .header-links-list a {
     margin-left: 0;
+    
   }
 
   .open-menu {
@@ -150,5 +156,10 @@
     color: var(--c-neutral-0);
     margin-left: auto;
     align-self: center;
+    translate: 4px 0px;
+  }
+
+  .get-started-btn {
+    padding: 13px;
   }
 }

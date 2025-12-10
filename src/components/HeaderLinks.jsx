@@ -1,8 +1,7 @@
 import '../styles/index.css'
 import '../styles/Header.css'
 import { Link } from 'react-router-dom'
-import { Menu, X } from 'lucide-react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { HamburgerMenu } from './HamburgerMenu'
 
 export const HeaderLinks = () => {
