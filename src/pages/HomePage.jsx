@@ -6,7 +6,7 @@ import { RecordAudio } from '../features/input-output/RecordAudio'
 import { SolveItBtn } from '../features/SolveItBtn'
 import { UploadFile } from '../features/input-output/UploadFile'
 import { SelectOptions } from '../features/select-options/SelectOptions'
-import MultiStepBtn from '../features/MultiStepBtn'
+import {MultiStepBtn} from '../features/MultiStepBtn'
 
 
 export const HomePage = () => {

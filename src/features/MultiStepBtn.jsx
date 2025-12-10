@@ -3,7 +3,8 @@ import '../styles/Header.css'
 import '../styles/HomePage.css'
 import { useState } from 'react'
 import {Dot } from 'lucide-react';
-export default function MultiStepBtn() {
+
+export const MultiStepBtn = () => {
   const [clicked, setClicked] = useState(false);
   const btnClicked = () => {
     setClicked(!clicked)

@@ -3,7 +3,7 @@ import '../../styles/Header.css'
 import '../../styles/SelectOptions.css'
 import { ChevronLeft } from 'lucide-react'
 import { useEffect, useRef, useState } from 'react'
-export default function SelectLevel({ schoolOptions, placeHolder, storageKey }) {
+export const SelectLevel = ({ schoolOptions, placeHolder, storageKey }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOpt, setSelectedOpt] = useState(
     JSON.parse(localStorage.getItem(storageKey)) ?? placeHolder

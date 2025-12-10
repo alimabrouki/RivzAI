@@ -1,14 +1,15 @@
 :root {
   --c-orange: #f59b00;
-  --c-dark-blue: hsl(220, 72%, 22%) ;
-  --c-b-darker: #000035e3 ;
-  --c-bleu-bg: hsl(240deg 100% 10% / 64%) ;
+  --c-dark-blue: hsl(220, 72%, 22%);
+  --c-b-darker: #000035e3;
+  --c-bleu-bg: hsl(240deg 100% 10% / 64%);
   --c-light-blue: hsl(211, 93%, 35%);
-  --c-lighter-blue: hsl(190, 88%, 52%) ;
+  --c-lighter-blue: hsl(190, 88%, 52%);
   --c-neutral-0: hsl(0, 0%, 100%);
   --c-neutral-600: hsl(243, 23%, 30%);
   --c-neutral-300: hsl(240, 6%, 70%);
   --c-neutral-200: hsl(250, 6%, 84%);
+  --c-mobile-menu: hsl(240deg 100% 10% / 84%);
 
   --c-text-light: var(--c-neutral-0);
   --c-header-bg: linear-gradient(23deg, var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
@@ -62,6 +63,7 @@
   color: var(--c-orange);
 }
 
+
 .header-link {
   margin: 12px 0;
 }
@@ -70,6 +72,7 @@
   margin-left: auto;
   align-self: center;
 }
+
 
 .header-links-list a {
   color: var(--c-neutral-300);
@@ -91,4 +94,61 @@
 
 .get-started-btn:hover {
   background: linear-gradient(90deg, rgb(240, 181, 2) 17%, rgba(240, 128, 0, 1) 68%, rgba(255, 162, 0, 1) 100%);
+}
+
+.open-menu {
+  display: none;
+}
+
+
+@media (width <=700px) {
+
+  .mobile-menu {
+    position: absolute;
+    height: 200px;
+    background: var(--c-mobile-menu);
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    top: 61px;
+    left: 0;
+    z-index: 1000;
+    border-bottom: 1px solid var(--c-main-bg);
+  }
+
+  .head {
+    position: relative;
+    justify-content: center;
+  }
+
+  .header-links-list{
+    display: none;
+  }
+
+  .header-links-list-mobile {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    align-items: center;
+    top: 85px;
+    z-index: 1200;
+    gap: 33px;
+  }
+
+  .header-links-list a {
+    margin-left: 0;
+  }
+
+  .open-menu {
+    display: block;
+    color: var(--c-neutral-0);
+    margin-left: auto;
+    align-self: center;
+  }
+  .close-menu {
+    display: block;
+    color: var(--c-neutral-0);
+    margin-left: auto;
+    align-self: center;
+  }
 }

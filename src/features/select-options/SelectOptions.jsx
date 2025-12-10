@@ -1,8 +1,8 @@
 import '../../styles/index.css'
 import '../../styles/Header.css'
 import '../../styles/SelectOptions.css'
-import SelectLevel from './SelectLevel';
-export function SelectOptions() {
+import {SelectLevel} from './SelectLevel';
+export const SelectOptions = () => {
   const schoolOptions = [
     {
       id: 0,
