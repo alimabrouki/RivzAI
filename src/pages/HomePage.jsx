@@ -37,9 +37,12 @@ export const HomePage = () => {
                   <RecordAudio />
                 </div>
                 <SelectOptions />               
+                <div className="btns">
                 <MultiStepBtn />
                 <SolveItBtn />
               </div>
+              </div>
+              
             </div>
           </div>
         </div>
