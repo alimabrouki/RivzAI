@@ -2,11 +2,7 @@ import '../styles/index.css'
 import '../styles/Header.css'
 import '../styles/HomePage.css'
 import { Header } from '../components/Header'
-import { RecordAudio } from '../features/input-output/RecordAudio'
-import { SolveItBtn } from '../features/SolveItBtn'
-import { UploadFile } from '../features/input-output/UploadFile'
-import { SelectOptions } from '../features/select-options/SelectOptions'
-import {MultiStepBtn} from '../features/MultiStepBtn'
+import { PromptBox } from './PromptBox'
 
 
 export const HomePage = () => {
@@ -28,22 +24,7 @@ export const HomePage = () => {
             <h3 className='under-title-two'>
               jibnelk a9wa AI agents bech irivz w ye5dem m3ak as3eb les exercices
             </h3>
-            <div className="prompt-box">
-              <textarea name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
-
-              <div className="inputs">
-                <div className="input-output">
-                  <UploadFile />
-                  <RecordAudio />
-                </div>
-                <SelectOptions />               
-                <div className="btns">
-                <MultiStepBtn />
-                <SolveItBtn />
-              </div>
-              </div>
-              
-            </div>
+           <PromptBox />
           </div>
         </div>
       </div>
