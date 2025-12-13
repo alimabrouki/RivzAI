@@ -34,7 +34,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 }
 
 @media (width <=700px) {
@@ -67,14 +67,12 @@
 @media (width <=700px) {
   .select-options {
     width: 140px;
-    font-size: 24px;
   }
 }
 
 @media (width <=558px) {
   .select-options {
     width: 112px;
-    font-size: 18px;
   }
 }
 
@@ -123,14 +121,12 @@
 @media (width <=700px) {
   .select-options .options-list {
     translate: 0px 43px;
-    font-size: 24px;
   }
 }
 
 @media (width <=558px) {
   .select-options .options-list {
     translate: 0px 35px;
-    font-size: 18px;
   }
 }
 

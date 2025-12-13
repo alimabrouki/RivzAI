@@ -44,8 +44,9 @@
 
 .hero-title {
   color: var(--c-neutral-0);
-  font-size: 40px;
+  font-size: 80px;
   margin-top: 50px;
+  text-align: center;
   text-wrap: balance;
   opacity: 0;
   transform: translateY(50px);
@@ -56,6 +57,13 @@
   .hero-title {
     margin-top: 0px;
     text-align: center;
+    font-size: 60px;
+  }
+}
+
+@media (width <=450px) {
+  .hero-title {
+    font-size: var(--fs-32);
   }
 }
 
@@ -69,8 +77,20 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  font-size: 60px;
-  /* animation: titleGradient 4s ease-in-out infinite; */
+  font-size: var(--fs-96);
+  animation: titleGradient 4s ease-in-out infinite;
+}
+
+@media (width <=450px) {
+  .orange-hero-title {
+    font-size: var(--fs-52) !important;
+  }
+}
+
+@media (width <=700px) {
+  .orange-hero-title {
+    font-size: 80px;
+  }
 }
 
 .orange-hero-title::after {
@@ -89,9 +109,9 @@
   font-size: var(--fs-18);
   margin-bottom: 5px;
   width: 0;
-  overflow: hidden;
   white-space: nowrap;
   text-align: center;
+  overflow: hidden;
   animation: typing 3s steps(30, end) 1s forwards;
 }
 
@@ -100,9 +120,9 @@
   font-size: var(--fs-18);
   margin-bottom: 5px;
   width: 0;
-  overflow: hidden;
   white-space: nowrap;
   text-align: center;
+  overflow: hidden;
   animation: typing 3s steps(30, end) 3s forwards;
 }
 
@@ -115,10 +135,10 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* animation: titleGradient 4s ease-in-out infinite; */
+  animation: titleGradient 4s ease-in-out infinite;
 }
 
-@media (width <=700px) {
+@media (width <=1000px) {
 
   .under-title,
   .under-title-two {
@@ -136,38 +156,23 @@
   box-shadow: var(--main-bx-shdw);
   border: 1px solid var(--c-main-bg);
   animation: slideInFromBottom 1s ease-out forwards;
-  width: 100%;
-  height: 73vh;
   display: flex;
 }
 
 @media (width <=700px) {
   .prompt-box {
-    width: 100%;
     flex-wrap: wrap;
     justify-content: space-evenly;
-    height: 80vh;
   }
 }
 
-@media (width <=558px) {
-  .prompt-box {
-    height: 88vh;
-  }
-}
-
-@media (width <=330px) {
-  .prompt-box {
-    height: 95vh;
-  }
-}
 
 
 .prompt-input {
   padding: 20px;
-  width: 75%;
-  margin: 10px 10px;
-  height: 40vh;
+  width: 500px;
+  height: 250px;
+  margin: 34px 10px 0px 10px;
   color: var(--c-neutral-0);
   background-color: var(--c-bleu-bg);
   border-radius: 12px;
@@ -177,13 +182,25 @@
   resize: none;
   scroll-behavior: smooth;
   font-size: var(--fs-20);
-  field-sizing: content;
+}
+
+@media (width <=450px) {
+  .prompt-input {
+    width: 290px !important;
+  }
 }
 
 @media (width <=700px) {
   .prompt-input {
-    width: 100%;
+    width: 380px;
     margin: 10px 10px 10px;
+    height: 190px;
+  }
+}
+
+@media (width <=300px) {
+  .prompt-input {
+    width: 250px;
   }
 }
 
@@ -223,16 +240,17 @@
   flex-direction: column;
   align-items: center;
   gap: 25px;
-  margin-top: 35px;
-  margin-left: 20px;
+  margin: 35px 20px;
 }
+
+
 
 @media (width <=700px) {
   .inputs {
     gap: 16px;
     display: grid;
     width: unset;
-    margin: 3px 20px;
+    margin: 20px 20px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
@@ -293,7 +311,7 @@
 
 @media (width <=558px) {
   .btns {
-    translate: 12px -80px;
+    translate: 12px -90px;
   }
 }
 
@@ -320,13 +338,19 @@
   padding: 17px 28px !important;
   position: relative;
   transition: transform 0.2s ease-out;
-  /* animation: glowPulse 3s ease-in-out infinite; */
+  animation: glowPulse 3s ease-in-out infinite;
 }
 
-@media (width <=1000px) {
+@media (width <=900px) {
   .solve-it {
-  padding: 10px 20px !important;
+    padding: 10px 20px !important;
+  }
 }
+
+@media (width <=700px) {
+  .solve-it {
+    padding: 10px 26px !important;
+  }
 }
 
 @media (width <=558px) {
@@ -370,11 +394,12 @@
   padding: 11px !important;
 }
 
-@media (width <=1000px) {
+@media (width <=900px) {
   .multi-step-mode {
-    padding: 6px !important;
+    padding: 11px 0 !important;
   }
 }
+
 
 @media (width <=558px) {
   .multi-step-mode {
