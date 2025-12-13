@@ -430,7 +430,7 @@
   gap: 20px;
 }
 
-@media (width <= 700px) {
+@media (width <=700px) {
   .formatted-prompts {
     display: none;
   }
@@ -475,6 +475,56 @@
 }
 
 .formatted-prompts span:hover::before {
+  opacity: 1;
+}
+
+.recent-homework {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+}
+
+.recent-homework h2 {
+  font-size: var(--fs-52);
+  color: var(--c-neutral-300);
+}
+
+.recent-homework span {
+  background: linear-gradient(340deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
+    padding: 35px 0px;
+    text-align: center;
+    overflow: hidden;
+    margin: 20px;
+    width: 650px;
+    border-radius: 8px;
+    font-size: var(--fs-18);
+    color: var(--c-neutral-200);
+    cursor: pointer;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+    font-family: monospace;
+    animation: slideInFromBottom 1s ease-out forwards;
+    transition: 0.2s ease;
+}
+
+.recent-homework span:hover {
+  translate: 0px -3px;
+}
+
+.recent-homework span::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s ease;
+  background: linear-gradient(40deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
+  opacity: 0;
+  z-index: -1;
+}
+
+.recent-homework span:hover::before {
   opacity: 1;
 }
 

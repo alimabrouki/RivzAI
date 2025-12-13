@@ -25,6 +25,12 @@ export const HomePage = () => {
               jibnelk a9wa AI agents bech irivz w ye5dem m3ak as3eb les exercices
             </h3>
            <PromptBox />
+           <div className="recent-homework">
+            <h2>Recent Homework</h2>
+            <span>ffkdsfsdkfskdfsdfsfskfsjosjfjsd</span>
+            <span>fhshfihsdifhsdfsdfhsdhfhdsuhfudsh</span>
+            <span>dsfsdfsjdfjsdjfjsdoijfosjdofjsodijfi</span>
+           </div>
           </div>
         </div>
       </div>
