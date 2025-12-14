@@ -4,8 +4,9 @@ import '../styles/HomePage.css'
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
-export const SolveItBtn = () => {
+export const SolveItBtn = ({submit}) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [submitted, setSubmitted] = useState('')
   const solveIt = useRef(null)
 
 
@@ -34,10 +35,17 @@ export const SolveItBtn = () => {
     setPosition({ x: 0, y: 0 });
   }
 
+  const submitPrompt = () => {
+    setSubmitted(submit)
+    console.log(submit)
+  }
+
+  
+
   return (
     <div className="submit-btn">
-      <Link to="/results">
-        <button className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
+      <Link to="">
+        <button onClick={submitPrompt} className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
           transform: `translate(${position.x}px, ${position.y}px)`
         }}>
           Solve It
