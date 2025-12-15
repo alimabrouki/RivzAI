@@ -28,9 +28,13 @@ export const PromptBox = ({handleAddHistory}) => {
   
   const onKeyDown = (e) => {
     if (e.key === 'Enter') {
+      if (e.shiftKey) {
+        setTextValue(textvalue)
+      } else {
       e.preventDefault();
       handleAddHistory(addHistory)
       setTextValue('')
+      }
     }
   }
   return (
