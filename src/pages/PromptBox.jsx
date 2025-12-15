@@ -6,10 +6,36 @@ import { SolveItBtn } from '../features/SolveItBtn'
 import { UploadFile } from '../features/input-output/UploadFile'
 import { SelectOptions } from '../features/select-options/SelectOptions'
 import {MultiStepBtn} from '../features/MultiStepBtn'
-export const PromptBox = () => {
+import { useEffect, useState } from 'react'
+
+
+export const PromptBox = ({handleAddHistory}) => {
+  const [textvalue, setTextValue] = useState('');
+  const [addHistory, setAddHistory] = useState('')
+
+  const handleSubmit = () => {
+    handleAddHistory(addHistory)
+    setTextValue('')
+  }
+ 
+  useEffect(() => {
+    setAddHistory(textvalue)
+  },[textvalue])
+
+  const handleTextArea = (e) => {
+    setTextValue(e.target.value)
+   }
+  
+  const onKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleAddHistory(addHistory)
+      setTextValue('')
+    }
+  }
   return (
      <div className="prompt-box">
-              <textarea name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
+              <textarea value={textvalue} onKeyDown={onKeyDown}  onChange={handleTextArea} name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
 
               <div className="inputs">
                 <div className="input-output">
@@ -19,7 +45,7 @@ export const PromptBox = () => {
                 <SelectOptions />               
                 <div className="btns">
                 <MultiStepBtn />
-                <SolveItBtn />
+                <SolveItBtn submit={handleSubmit} />
               </div>
               </div>
               <div className="formatted-prompts">
