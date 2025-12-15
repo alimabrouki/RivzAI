@@ -490,28 +490,28 @@
   color: var(--c-neutral-300);
 }
 
-.recent-homework span {
+.recent-homework .recent-prompt {
   background: linear-gradient(340deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
-    padding: 35px 0px;
-    text-align: center;
-    overflow: hidden;
-    margin: 20px;
-    width: 650px;
-    border-radius: 8px;
-    font-size: var(--fs-18);
-    color: var(--c-neutral-200);
-    cursor: pointer;
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-    font-family: monospace;
-    animation: slideInFromBottom 1s ease-out forwards;
-    transition: 0.2s ease;
+  padding: 35px 0px;
+  display: flex;
+  overflow: hidden;
+  margin: 20px;
+  width: 650px;
+  border-radius: 8px;
+  font-size: var(--fs-18);
+  color: var(--c-neutral-200);
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  font-family: monospace;
+  animation: slideInFromBottom 1s ease-out forwards;
+  transition: 0.2s ease;
 }
 
-.recent-homework span:hover {
+.recent-homework .recent-prompt:hover {
   translate: 0px -3px;
 }
 
-.recent-homework span::before {
+.recent-homework .recent-prompt::before {
   content: '';
   position: absolute;
   left: 0;
@@ -522,6 +522,17 @@
   background: linear-gradient(40deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
   opacity: 0;
   z-index: -1;
+}
+
+.recent-prompt span {
+  width: 560px;
+  display: block;
+  padding: 0px 0px 0px 45px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: linear-gradient(to right, #ffffff, #ffffff1a);
+  -webkit-background-clip: text;
+  color: transparent;
 }
 
 .recent-homework span:hover::before {

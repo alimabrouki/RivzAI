@@ -37,7 +37,7 @@ export const HomePage = () => {
               <h2>Recent Homework</h2>
               {
                 addedHitsory.map((history, index) => (
-                  <span key={index} >{history}</span>
+                  <span className='recent-prompt'><span key={index} >{history}</span></span>
                 ))
               }
             </div>
