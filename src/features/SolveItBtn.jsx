@@ -4,9 +4,9 @@ import '../styles/HomePage.css'
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 
-export const SolveItBtn = ({submit}) => {
+export const SolveItBtn = ({ submit }) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
-  const [submitted, setSubmitted] = useState('')
+
   const solveIt = useRef(null)
 
 
@@ -36,11 +36,8 @@ export const SolveItBtn = ({submit}) => {
   }
 
   const submitPrompt = () => {
-    setSubmitted(submit)
-    console.log(submit)
+    submit()
   }
-
-  
 
   return (
     <div className="submit-btn">
