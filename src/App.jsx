@@ -1,7 +1,6 @@
-import { Link } from 'react-router-dom'
 import { Route, Routes } from 'react-router'
 import './styles/index.css'
-import { HomePage } from './pages/HomePage'
+import { HomePage } from './pages/Home/HomePage'
 
 
 const App = () => {

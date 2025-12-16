@@ -1,14 +1,13 @@
-import '../styles/index.css'
-import '../styles/Header.css'
-import '../styles/HomePage.css'
-import '../styles/hooks-styles/useIntersectionAnimation.css'
-import { Header } from '../components/Header'
+import '../../styles/index.css'
+import '../../styles/Header.css'
+import '../../styles/HomePage.css'
+import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import { PromptBox } from './PromptBox'
 import { Link } from 'react-router-dom'
-import { useLocalStorage } from '../hooks/useLocalStorage'
-import { useIntersectionAnimation } from '../hooks/useIntersectionAnimation'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { useIntersectionAnimation } from '../../hooks/useIntersectionAnimation'
 
-export const HomePage = () => {
+export const HomePageWrapper = () => {
   const [addedHitsory, setAddedHistory] = useLocalStorage('newPrompt', [
     'Rewrite this paragraph simpler',
     'Translate to Arabic / French / English',
@@ -19,15 +18,10 @@ export const HomePage = () => {
     setAddedHistory((prevHistory => [newPrompt, ...prevHistory].slice(0, 3)));
   }
 
-  const observe = useIntersectionAnimation({threshold: 0.1})
-  return (
-    <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
-      <title>RivzAI</title>
-      <Header />
+  const observe = useIntersectionAnimation({threshold: 0.1});
 
-      <div className="home-page">
-        <div className="wrapper">
+  return (
+            <div className="wrapper">
           <div className="hero">
             <h1 className='hero-title'><span className='orange-hero-title'>Rivz</span> With <span className='orange-hero-title'>AI</span> Now!</h1>
             <h3 className='under-title'>
@@ -47,8 +41,5 @@ export const HomePage = () => {
             </div>
           </div>
         </div>
-      </div>
-    </>
-
   )
 }
