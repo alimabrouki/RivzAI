@@ -1,10 +1,12 @@
 import '../styles/index.css'
 import '../styles/Header.css'
 import '../styles/HomePage.css'
+import '../styles/hooks-styles/useIntersectionAnimation.css'
 import { Header } from '../components/Header'
 import { PromptBox } from './PromptBox'
 import { Link } from 'react-router-dom'
 import { useLocalStorage } from '../hooks/useLocalStorage'
+import { useIntersectionAnimation } from '../hooks/useIntersectionAnimation'
 
 export const HomePage = () => {
   const [addedHitsory, setAddedHistory] = useLocalStorage('newPrompt', [
@@ -16,6 +18,8 @@ export const HomePage = () => {
   const handleAddHistory = (newPrompt) => {
     setAddedHistory((prevHistory => [newPrompt, ...prevHistory].slice(0, 3)));
   }
+
+  const observe = useIntersectionAnimation({threshold: 0.1})
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
@@ -33,11 +37,11 @@ export const HomePage = () => {
               jibnelk a9wa AI agents bech irivz w ye5dem m3ak as3eb les exercices
             </h3>
             <PromptBox handleAddHistory={handleAddHistory} />
-            <div className="recent-homework">
-              <h2>Recent Homework</h2>
+            <div ref={observe} className="recent-homework slide-in">
+              <h2 ref={observe} className='slide-in'>Recent Homework</h2>
               {
                 addedHitsory.map((history, index) => (
-                  <Link key={index} to={'/history'} className='recent-prompt'><span key={index} >{history}</span></Link>
+                  <Link ref={observe} key={index} to={'/history'} className='recent-prompt slide-in'><span className='slide-in' ref={observe} key={index} >{history}</span></Link>
                 ))
               }
             </div>

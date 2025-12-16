@@ -490,7 +490,7 @@
 .recent-homework h2 {
   font-size: var(--fs-52);
   color: var(--c-neutral-300);
-  animation: slideInFromBottom 1s ease-out forwards;
+  /* animation: slideInFromBottom 1s ease-out forwards; */
 }
 
 @media (width <=700px) {
@@ -512,7 +512,7 @@
   cursor: pointer;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
   font-family: monospace;
-  animation: slideInFromBottom 1s ease-out forwards;
+  /* animation: slideInFromBottom 1s ease-out forwards; */
   transition: 0.2s ease;
 }
 
