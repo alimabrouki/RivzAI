@@ -11,9 +11,8 @@ export const HomePage = () => {
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
       <title>RivzAI</title>
       <Header />
-
       <div className="home-page">
-      <HomePageWrapper />
+        <HomePageWrapper />
       </div>
     </>
 

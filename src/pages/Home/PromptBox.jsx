@@ -1,6 +1,4 @@
-import '../../styles/index.css'
-import '../../styles/Header.css'
-import '../../styles/HomePage.css'
+import '../../styles/PromptBox.css'
 import { RecordAudio } from '../../features/input-output/RecordAudio'
 import { SolveItBtn } from '../../features/SolveItBtn'
 import { UploadFile } from '../../features/input-output/UploadFile'

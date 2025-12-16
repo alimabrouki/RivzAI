@@ -1,0 +1,92 @@
+.recent-homework {
+  display: flex;
+  flex-direction: column;
+  margin-top: 50px;
+  align-items: center;
+}
+
+.recent-homework h2 {
+  font-size: var(--fs-52);
+  color: var(--c-neutral-300);
+  /* animation: slideInFromBottom 1s ease-out forwards; */
+}
+
+@media (width <=700px) {
+  .recent-homework h2 {
+    font-size: 35px;
+  }
+}
+
+.recent-homework .recent-prompt {
+  background: linear-gradient(340deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
+  padding: 35px 0px;
+  width: 560px;
+  display: flex;
+  overflow: hidden;
+  margin: 20px;
+  border-radius: 8px;
+  font-size: var(--fs-18);
+  color: var(--c-neutral-200);
+  cursor: pointer;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+  font-family: monospace;
+  /* animation: slideInFromBottom 1s ease-out forwards; */
+  transition: 0.2s ease;
+}
+
+@media (width <=700px) {
+  .recent-prompt {
+    width: 500px !important;
+  }
+}
+
+@media (width <=558px) {
+  .recent-prompt {
+    width: 350px !important;
+  }
+}
+
+@media (width <=400px) {
+  .recent-prompt {
+    width: 300px !important;
+  }
+}
+
+.recent-homework .recent-prompt:hover {
+  translate: 0px -3px;
+}
+
+.recent-homework .recent-prompt::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: opacity 0.2s ease;
+  background: linear-gradient(40deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
+  opacity: 0;
+  z-index: -1;
+}
+
+.recent-prompt span {
+  margin-right: 45px;
+  width: 515px;
+  display: block;
+  padding: 0px 0px 0px 45px;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: linear-gradient(to right, #eaeaea, #ffffff38);
+  -webkit-background-clip: text;
+  color: transparent;
+}
+
+@media (width <=500px) {
+  .recent-prompt span {
+    font-size: var(--fs-14);
+  }
+}
+
+.recent-homework .recent-prompt:hover::before {
+  opacity: 1;
+}
