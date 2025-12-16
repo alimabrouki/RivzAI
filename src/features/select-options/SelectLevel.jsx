@@ -2,15 +2,11 @@ import '../../styles/index.css'
 import '../../styles/Header.css'
 import '../../styles/SelectOptions.css'
 import { ChevronLeft } from 'lucide-react'
+import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useEffect, useRef, useState } from 'react'
 export const SelectLevel = ({ schoolOptions, placeHolder, storageKey }) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [selectedOpt, setSelectedOpt] = useState(
-    JSON.parse(localStorage.getItem(storageKey)) ?? placeHolder
-  )
-  useEffect(() => {
-    localStorage.setItem(storageKey, JSON.stringify(selectedOpt))
-  }, [selectedOpt, storageKey])
+  const [selectedOpt, setSelectedOpt] = useLocalStorage(storageKey ,placeHolder)
 
   const dropDown = useRef(null)
   useEffect(() => {

@@ -3,15 +3,15 @@ import '../styles/Header.css'
 import '../styles/HomePage.css'
 import { Header } from '../components/Header'
 import { PromptBox } from './PromptBox'
-import { useEffect, useState } from 'react'
-
+import { Link } from 'react-router-dom'
+import { useLocalStorage } from '../hooks/useLocalStorage'
 
 export const HomePage = () => {
-  const [addedHitsory, setAddedHistory] = useState(JSON.parse(localStorage.getItem('newPrompt')) ?? [])
-
-  useEffect(() => {
-    localStorage.setItem('newPrompt', JSON.stringify(addedHitsory))
-  }, [addedHitsory])
+  const [addedHitsory, setAddedHistory] = useLocalStorage('newPrompt', [
+    'Rewrite this paragraph simpler',
+    'Translate to Arabic / French / English',
+    'Summaries of lessons'
+  ])
 
   const handleAddHistory = (newPrompt) => {
     setAddedHistory((prevHistory => [newPrompt, ...prevHistory].slice(0, 3)));
@@ -37,7 +37,7 @@ export const HomePage = () => {
               <h2>Recent Homework</h2>
               {
                 addedHitsory.map((history, index) => (
-                  <span className='recent-prompt'><span key={index} >{history}</span></span>
+                  <Link key={index} to={'/history'} className='recent-prompt'><span key={index} >{history}</span></Link>
                 ))
               }
             </div>
