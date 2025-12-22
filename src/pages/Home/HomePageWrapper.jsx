@@ -2,6 +2,7 @@ import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import { PromptBox } from './PromptBox'
 import { RecentHomework } from './RecentHomework'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
+import { FeaturesBoxes } from './FeaturesBoxes'
 export const HomePageWrapper = () => {
   const [addedHitsory, setAddedHistory] = useLocalStorage('newPrompt', [
     'Rewrite this paragraph simpler',
@@ -21,10 +22,11 @@ export const HomePageWrapper = () => {
           RivzAI brings elite AI problem-solving straight to your homework <span className='orange-under-title'>Fast</span>, <span className="orange-under-title"> Precise</span>, <span className="orange-under-title"> Grade-boosting</span>
         </h3>
         <h3 className='under-title-two'>
-          jibnelk a9wa AI agents bech irivz w ye5dem m3ak as3eb les exercices
+          jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
         <PromptBox handleAddHistory={handleAddHistory} />
         <RecentHomework addHistory={addedHitsory} />
+        <FeaturesBoxes />
       </div>
     </div>
   )
