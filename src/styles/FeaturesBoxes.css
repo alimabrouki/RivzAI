@@ -2,6 +2,7 @@
   display: flex;
   margin-top: 50px;
   gap: 40px;
+  animation: slideInFromBottom 1s ease-out forwards;
 }
 
 .box {
@@ -11,6 +12,17 @@
   background: #00003542;
   backdrop-filter: blur(5px);
   cursor: pointer;
+}
+
+.box:hover {
+  background: linear-gradient(90deg,
+      hsl(38, 100%, 48%) 0%,
+      hsl(20, 100%, 55%) 50%,
+      hsl(20, 100%, 48%) 100%);
+  background-size: 200% 100%;
+  animation: boxGradient 2s ease-in-out infinite;
+  transform: translateY(-5px);
+  transition: .5s ease;
 }
 
 .feature {
@@ -30,7 +42,7 @@
   margin: 5px;
   font-size: var(--fs-16) calc(16 / 16 * 1rem);
   color: var(--c-neutral-300);
-
+  font-weight: 500;
 }
 
 .feature h3 {
@@ -40,11 +52,38 @@
 }
 
 .icon {
-      background: #30303cc9;
+  background: #30303cc9;
   border-radius: 8px;
   padding: 10px;
   width: 65px;
   height: 50px;
   color: var(--c-orange);
   animation: titleGradient 4s ease-in-out infinite;
+}
+
+@keyframes boxGradient {
+  0% {
+
+    background-position: 0% 50%;
+  }
+
+  50% {
+
+    background-position: 100% 50%;
+  }
+
+  100% {
+
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes boxTransform {
+  0% {
+    transform: translateY(0px);
+  }
+
+  100% {
+    transform: translateY(5px);
+  }
 }
