@@ -23,7 +23,7 @@
   width: 560px;
   display: flex;
   overflow: hidden;
-  margin: 20px;
+  margin: 20px 0px;
   border-radius: 8px;
   font-size: var(--fs-18);
   color: var(--c-neutral-200);

@@ -1,9 +1,16 @@
 .features-boxes {
   display: flex;
-  margin-top: 50px;
+  margin: 50px 0px;
   gap: 40px;
   animation: slideInFromBottom 1s ease-out forwards;
 }
+
+@media (max-width:700px) {
+  .features-boxes {
+    flex-direction: column;
+  }
+}
+
 
 .box {
   padding: 25px;
@@ -12,6 +19,12 @@
   background: #00003542;
   backdrop-filter: blur(5px);
   cursor: pointer;
+}
+
+@media (max-width:900px) and (min-width:700px) {
+  .box {
+    padding: 15px;
+  }
 }
 
 .box:hover {
@@ -37,6 +50,14 @@
   height: 170px;
 }
 
+@media (max-width:900px) and (min-width:700px) {
+  .feature {
+    width: 170px;
+    height: 170px;
+  }
+}
+
+
 .feature span {
   text-align: center;
   margin: 5px;
@@ -60,6 +81,15 @@
   color: var(--c-orange);
   animation: titleGradient 4s ease-in-out infinite;
 }
+
+@media (max-width:900px) and (min-width:700px) {
+  .icon {
+    width: 40px;
+    height: 30px;
+    padding: 0px;
+  }
+}
+
 
 @keyframes boxGradient {
   0% {
