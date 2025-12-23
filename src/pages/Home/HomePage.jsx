@@ -3,6 +3,7 @@ import '../../styles/Header.css'
 import '../../styles/HomePage.css'
 import { Header } from '../../components/Header'
 import { HomePageWrapper } from './HomePageWrapper'
+import { PresentFeatures } from './PresentFeatures'
 
 export const HomePage = () => {
 
@@ -14,6 +15,7 @@ export const HomePage = () => {
       <div className="home-page">
         <HomePageWrapper />
       </div>
+      <PresentFeatures />
     </>
 
   )

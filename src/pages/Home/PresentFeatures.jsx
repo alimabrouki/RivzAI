@@ -1,4 +1,4 @@
-import { GraduationCap, School, Waypoints } from "lucide-react"
+import { GraduationCap, School, TrendingUp, Waypoints } from "lucide-react"
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation"
 import '../../styles/hooks-styles/useInterSectionAnimation.css'
 import '../../styles/PresentFeatures.css'
@@ -14,8 +14,10 @@ export const PresentFeatures = () => {
         <div ref={observe} className="f-box slide-in">
           <h3 className="box-title">Modes</h3>
           <div className="teacher-mode">
-            <GraduationCap className="i"/>
-            <span>Teacher Mode</span>
+            <div className="ft-title">
+              <GraduationCap className="i" />
+              <span>Teacher Mode</span>
+            </div>
             <ul>
               <li>Full Exam Generator</li>
               <li>Custom Difficulty</li>
@@ -25,8 +27,10 @@ export const PresentFeatures = () => {
             </ul>
           </div>
           <div className="multi-step-mode-f">
-            <Waypoints className="i" />
-            <span>Multi-Step Mode :</span>
+            <div className="ft-title">
+              <Waypoints className="i" />
+              <span>Multi-Step Mode</span>
+            </div>
             <ul>
               <li>Think Step By Step</li>
               <li>Explantion In Student Level-Language</li>
@@ -37,8 +41,10 @@ export const PresentFeatures = () => {
         </div>
         <div ref={observe} className="f-box slide-in">
           <h3 className="box-title">Made For Tunisia</h3>
-          <School className="i"/>
-          <span>Tunisian-Specific Curriculum :</span>
+          <div className="ft-title">
+            <School className="i" />
+            <span>Tunisian-Specific Curriculum</span>
+          </div>
           <ul>
             <li>Bac Math Curriculum Fully Supported</li>
             <li>Bac Science Curriculum Fully Supported</li>
@@ -50,6 +56,10 @@ export const PresentFeatures = () => {
         </div>
         <div ref={observe} className="f-box slide-in">
           <h3 className="box-title">Smart Learning Engine</h3>
+          <div className="ft-title">
+            <TrendingUp className="i" />
+            <span>Grade Boosters</span>
+          </div>
           <ul>
             <li>You Can Choose Both Fast Or Thinker Version</li>
             <li>No Cheating Allowed We Give You Hints And Steps Instead</li>

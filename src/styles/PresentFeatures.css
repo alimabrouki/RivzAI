@@ -1,0 +1,65 @@
+:root {
+  --c-green: oklch(0.72 0.22 149.58);
+}
+
+.present-features {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  background: hsl(240deg 100% 10% / 23%);
+}
+
+.features-title {
+  margin: 20px 0px 80px 0px;
+  font-size: var(--fs-52);
+  color: var(--c-neutral-300)
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.f-box {
+  border: 1px solid var(--c-main-bg);
+  display: flex;
+  flex-direction: column;
+  width: 330px;
+  background: linear-gradient(41deg, rgb(0 2 3 / 34%) 44%, rgb(0 0 53 / 40%) 95%);
+  padding: 50px 25px;
+  border-radius: 15px;
+}
+
+.f-box .box-title {
+  align-self: center;
+  color: var(--c-orange);
+  font-size: var(--fs-20);
+}
+
+.f-box .ft-title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.f-box .i {
+  color: var(--c-green);
+}
+
+.f-box span {
+  color: var(--c-green);
+  font-weight: 800;
+}
+
+.f-box ul {
+  color: var(--c-neutral-300);
+  font-weight: 500;
+}
+
+
+.f-box li {
+  margin: 10px 0px;
+}
