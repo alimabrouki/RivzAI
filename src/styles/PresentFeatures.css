@@ -1,5 +1,6 @@
 :root {
   --c-green: oklch(0.72 0.22 149.58);
+  --c-dark-orange: #ff8216;
 }
 
 .present-features {
@@ -11,7 +12,7 @@
 }
 
 .features-title {
-  margin: 20px 0px 80px 0px;
+  margin: 50px 0px 80px 0px;
   font-size: var(--fs-52);
   color: var(--c-neutral-300)
 }
@@ -20,21 +21,30 @@
   display: flex;
   flex-wrap: wrap;
   gap: 40px;
+  margin-bottom: 100px;
 }
 
 .f-box {
-  border: 1px solid var(--c-main-bg);
+  border: 2px solid var(--c-main-bg);
   display: flex;
   flex-direction: column;
-  width: 330px;
-  background: linear-gradient(41deg, rgb(0 2 3 / 34%) 44%, rgb(0 0 53 / 40%) 95%);
-  padding: 50px 25px;
+  width: 350px;
+  background: linear-gradient(41deg, rgb(0 2 3 / 34%) 44%, transparent);
+  padding: 30px 25px;
   border-radius: 15px;
+  transition: 0.2s ease;
+}
+
+.f-box:hover {
+  box-shadow: rgba(245, 155, 0, 0.6) 0px 0px 40px, 
+  rgba(255, 102, 26, 0.3) 0px 0px 80px, 
+  rgba(0, 0, 0, 0.4) 0px 8px 16px;
+  border-color: var(--c-orange);
 }
 
 .f-box .box-title {
   align-self: center;
-  color: var(--c-orange);
+  color: var(--c-dark-orange);
   font-size: var(--fs-20);
 }
 
@@ -43,6 +53,7 @@
   align-items: center;
   gap: 10px;
   margin-top: 20px;
+  margin-left: 25px;
 }
 
 .f-box .i {
