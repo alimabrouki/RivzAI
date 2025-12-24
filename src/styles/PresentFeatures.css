@@ -14,12 +14,20 @@
 .features-title {
   margin: 50px 0px 80px 0px;
   font-size: var(--fs-52);
-  color: var(--c-neutral-300)
+  color: var(--c-neutral-300);
+  text-align: center;
+}
+
+@media (width <=700px) {
+  .features-title {
+    font-size: 35px;
+  }
 }
 
 .features {
   display: flex;
   flex-wrap: wrap;
+  justify-content: space-evenly;
   gap: 40px;
   margin-bottom: 100px;
 }
@@ -29,10 +37,17 @@
   display: flex;
   flex-direction: column;
   width: 350px;
+  height: 500px;
   background: linear-gradient(41deg, rgb(0 2 3 / 34%) 44%, transparent);
   padding: 30px 25px;
   border-radius: 15px;
   transition: 0.2s ease;
+}
+
+@media (width <= 400px) {
+  .f-box {
+    width: 270px;
+  }
 }
 
 .f-box:hover {
@@ -43,7 +58,7 @@
 }
 
 .f-box .box-title {
-  align-self: center;
+  text-align: center;
   color: var(--c-dark-orange);
   font-size: var(--fs-20);
 }
@@ -53,7 +68,6 @@
   align-items: center;
   gap: 10px;
   margin-top: 20px;
-  margin-left: 25px;
 }
 
 .f-box .i {

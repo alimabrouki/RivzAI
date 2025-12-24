@@ -8,7 +8,7 @@
 .recent-homework h2 {
   font-size: var(--fs-52);
   color: var(--c-neutral-300);
-  /* animation: slideInFromBottom 1s ease-out forwards; */
+  text-align: center;
 }
 
 @media (width <=700px) {
