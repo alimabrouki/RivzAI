@@ -4,6 +4,7 @@ import '../../styles/HomePage.css'
 import { Header } from '../../components/Header'
 import { HomePageWrapper } from './HomePageWrapper'
 import { PresentFeatures } from './PresentFeatures'
+import { Footer } from './Footer'
 
 export const HomePage = () => {
 
@@ -16,6 +17,7 @@ export const HomePage = () => {
         <HomePageWrapper />
       </div>
       <PresentFeatures />
+      <Footer />
     </>
 
   )
