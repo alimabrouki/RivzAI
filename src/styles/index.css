@@ -140,7 +140,7 @@ select {
 
 
   @media (width <=calc(1100 / 16 * 1rem)) {
-    grid-template-columns: 1fr min(calc(100% - 120px)) 1fr;
+    grid-template-columns: 1fr min(calc(100% - 25px)) 1fr;
   }
 
   @media (width <=calc(700 / 16 * 1rem)) {

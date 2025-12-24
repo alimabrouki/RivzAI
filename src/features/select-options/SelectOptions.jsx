@@ -6,50 +6,12 @@ export const SelectOptions = () => {
   const schoolOptions = [
     {
       id: 0,
-      option: '7eme'
+      option: 'Bac Science'
     },
 
     {
       id: 1,
-      option: '8eme'
-    },
-    {
-      id: 2,
-      option: '9eme'
-    },
-    {
-      id: 3,
-      option: '1ere'
-    },
-    {
-      id: 4,
-      option: '2eme'
-    },
-    {
-      id: 5,
-      option: '3eme'
-    },
-    {
-      id: 6,
-      option: 'Bac'
-    }
-  ];
-  const language = [
-    {
-      id: 7,
-      option: 'Tunisian'
-    },
-    {
-      id: 8,
-      option: 'Arabic'
-    },
-    {
-      id: 9,
-      option: 'English'
-    },
-    {
-      id:10,
-      option: 'French'
+      option: 'Bac Math'
     }
   ];
   const agentType = [
@@ -65,9 +27,7 @@ export const SelectOptions = () => {
  
   return (
     <div className="select-wrapper">
-
       <SelectLevel  schoolOptions={schoolOptions} placeHolder={'Level'} storageKey={'level'}/>
-      <SelectLevel  schoolOptions={language} placeHolder={'Language'} storageKey={'language'} />
       <SelectLevel  schoolOptions={agentType} placeHolder={'Fast'} storageKey={'agenttype'} />
     </div>
 

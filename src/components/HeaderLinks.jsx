@@ -10,10 +10,10 @@ export const HeaderLinks = () => {
   const handleHamMenu = (open) => {
     setIsOpen(open)
   }
- 
+
   return (
     <>
-     <div className="wrapper">
+      <div className="wrapper">
         <div className="head">
           <div className="header-link">
             <Link to="/" className='logo-link'>
@@ -21,8 +21,12 @@ export const HeaderLinks = () => {
               <span className="logo-name">Rivz<span className="logo-ai-name">AI</span></span>
             </Link>
           </div>
-        
-           <div className={isOpen ? 'header-links-list-mobile' : 'header-links-list'}>
+
+          <div className={isOpen ? 'header-links-list-mobile' : 'header-links-list'}>
+
+            <Link className='link' to="/history">
+              Teacher Mode
+            </Link>
 
             <Link className='link' to="/history">
               History
@@ -35,14 +39,14 @@ export const HeaderLinks = () => {
             <Link to="/sign-up" className='get-started-btn'>
               Get Started Free
             </Link>
-            
+
           </div>
-     
+
           <HamburgerMenu isOpen={isOpen} handleHamMenu={handleHamMenu} />
         </div>
         <div className={isOpen ? 'mobile-menu' : ''}></div>
       </div>
-     
+
     </>
   )
 }

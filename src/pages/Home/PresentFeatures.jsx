@@ -66,6 +66,7 @@ export const PresentFeatures = () => {
             <li>Upload Your Hand Written Exercices And We Solve It Together</li>
             <li>Save Your Homework History And Find It Later</li>
             <li>Spot Mistakes In Questions</li>
+            <li>Talk To Our AI Agent In Tunisian Or Any Language And Get Fast Solutions</li>
           </ul>
         </div>
       </div>
