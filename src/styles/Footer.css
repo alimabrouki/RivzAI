@@ -65,3 +65,7 @@
 .social-links a {
   color: var(--c-neutral-300);
 }
+
+.social-links a:hover {
+  color: var(--c-orange);
+}
