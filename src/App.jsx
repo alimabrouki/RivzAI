@@ -1,6 +1,7 @@
 import { Route, Routes } from 'react-router'
-import './styles/index.css'
 import { HomePage } from './pages/Home/HomePage'
+import { HistoryPage } from './pages/History/HistoryPage'
+import './styles/index.css'
 
 
 const App = () => {
@@ -9,8 +10,8 @@ const App = () => {
   return (
    
       <Routes>
-        <Route index element={<HomePage />}/>
-  
+        <Route index path='/' element={<HomePage />}/>
+        <Route index path='/history' element={<HistoryPage />}/>
       </Routes>
     
   )
