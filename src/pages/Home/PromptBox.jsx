@@ -1,4 +1,4 @@
-import '../../styles/PromptBox.css'
+import '../../styles/home-page/PromptBox.css'
 import { RecordAudio } from '../../features/input-output/RecordAudio'
 import { SolveItBtn } from '../../features/SolveItBtn'
 import { UploadFile } from '../../features/input-output/UploadFile'

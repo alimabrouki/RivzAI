@@ -1,6 +1,6 @@
 import '../styles/index.css'
-import '../styles/Header.css'
-import '../styles/HomePage.css'
+import '../styles/header/Header.css'
+import '../styles/home-page/HomePage.css'
 import { useState } from 'react'
 import {Dot } from 'lucide-react';
 

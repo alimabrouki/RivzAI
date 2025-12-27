@@ -1,6 +1,6 @@
 import '../styles/index.css'
-import '../styles/Header.css'
-import '../styles/HomePage.css'
+import '../styles/header/Header.css'
+import '../styles/home-page/HomePage.css'
 import { Link } from 'react-router-dom'
 import { useRef, useState } from 'react'
 

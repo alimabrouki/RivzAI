@@ -1,5 +1,5 @@
 import '../styles/index.css'
-import '../styles/Header.css'
+import '../styles/header/Header.css'
 import { Menu, X } from 'lucide-react'
 
 export const HamburgerMenu = ({handleHamMenu,isOpen}) => {

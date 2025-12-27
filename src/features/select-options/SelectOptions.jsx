@@ -1,6 +1,6 @@
 import '../../styles/index.css'
-import '../../styles/Header.css'
-import '../../styles/SelectOptions.css'
+import '../../styles/header/Header.css'
+import '../../styles/home-page/SelectOptions.css'
 import {SelectLevel} from './SelectLevel';
 export const SelectOptions = () => {
   const schoolOptions = [

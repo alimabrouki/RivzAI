@@ -1,5 +1,5 @@
 import '../styles/index.css'
-import '../styles/Header.css'
+import '../styles/header/Header.css'
 import {HeaderLinks} from './HeaderLinks'
 
 export const Header = () => {

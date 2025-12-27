@@ -1,19 +1,23 @@
 import '../styles/index.css'
-import '../styles/Header.css'
-import { Link } from 'react-router-dom'
+import '../styles/header/Header.css'
+import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { HamburgerMenu } from './HamburgerMenu'
 
 export const HeaderLinks = () => {
-  const [isOpen, setIsOpen] = useState(false)
+  const [isOpen, setIsOpen] = useState(false);
 
+  const location = useLocation();
   const handleHamMenu = (open) => {
     setIsOpen(open)
   }
 
+  
+  const isHistoryPage =  location.pathname === '/history';
+
   return (
     <>
-      <div className="wrapper">
+      <div className={`wrapper ${isHistoryPage ? 'history-page' : ''}`}>
         <div className="head">
           <div className="header-link">
             <Link to="/" className='logo-link'>
@@ -28,7 +32,7 @@ export const HeaderLinks = () => {
               Teacher Mode
             </Link>
 
-            <Link className='link' to="/history">
+            <Link to="/history" className='link'>
               History
             </Link>
 

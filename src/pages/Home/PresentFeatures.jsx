@@ -1,7 +1,7 @@
 import { GraduationCap, School, TrendingUp, Waypoints } from "lucide-react"
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation"
 import '../../styles/hooks-styles/useInterSectionAnimation.css'
-import '../../styles/PresentFeatures.css'
+import '../../styles/home-page/PresentFeatures.css'
 
 export const PresentFeatures = () => {
   const observe = useIntersectionAnimation({ threshold: 0.1 })

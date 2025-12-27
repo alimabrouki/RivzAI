@@ -1,5 +1,5 @@
 import '../../styles/hooks-styles/useIntersectionAnimation.css'
-import '../../styles/RecentHomework.css'
+import '../../styles/home-page/RecentHomework.css'
 import { Link } from 'react-router-dom'
 import { useIntersectionAnimation } from '../../hooks/useIntersectionAnimation'
 

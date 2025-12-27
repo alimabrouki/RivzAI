@@ -1,6 +1,6 @@
 import '../../styles/index.css'
-import '../../styles/Header.css'
-import '../../styles/SelectOptions.css'
+import '../../styles/header/Header.css'
+import '../../styles/home-page/SelectOptions.css'
 import { ChevronLeft } from 'lucide-react'
 import { useLocalStorage } from '../../hooks/useLocalStorage'
 import { useEffect, useRef, useState } from 'react'

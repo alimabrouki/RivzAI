@@ -3,7 +3,7 @@ import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation"
 import '../../styles/hooks-styles/useInterSectionAnimation.css'
-import '../../styles/Footer.css'
+import '../../styles/home-page/Footer.css'
 
 export const Footer = () => {
   const observe = useIntersectionAnimation({ threshold: 0.1 })
