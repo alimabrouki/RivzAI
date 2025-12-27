@@ -4,11 +4,16 @@ import '../../styles/history-page/HistoryPage.css';
 import { Header } from '../../components/Header';
 import { Search } from 'lucide-react';
 import { getRelativeTime } from '../../utils/getRelativeTime';
+import {randomColor} from 'randomcolor';
 
 export const HistoryPage = () => {
   const recentPrompts = JSON.parse(localStorage.getItem('newPrompt')) || [];
-  const recentHomework = [...recentPrompts];
-  const currentDate = new Date().toLocaleString()
+  const recentHomework = recentPrompts.map((prompt) => ({
+    Text: prompt.text || prompt,
+    timestamp: prompt.timestamp || new Date().toISOString(),
+    color: randomColor()
+}));
+  
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
@@ -34,11 +39,22 @@ export const HistoryPage = () => {
          <div className="homework-cards">
           {recentHomework.map((homework,index) => (
           <div className='homework-card' key={index}>
+            <div style={
+            {
+              position: 'absolute',
+              left: '0',
+              top: '0',
+              width: '4px',
+              bottom: '0',
+              backgroundColor:homework.color,
+              borderRadius: '16px 0 0 16px'
+            }  
+            } className="left-line"></div>
             <h2>Homework Title</h2>
             <div className="user-prompt">
-              {homework}
+              {homework.text}
             </div>
-            <span>{getRelativeTime(currentDate)}</span>
+            <span>{getRelativeTime(homework.timestamp)}</span>
             </div>         
           ))}
          </div>
