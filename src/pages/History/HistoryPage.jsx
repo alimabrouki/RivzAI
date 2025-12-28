@@ -12,10 +12,8 @@ export const HistoryPage = () => {
     if (typeof prompt === "string") {
       return {
         text: prompt.text || prompt,
-        timestamp: prompt.timestamp || new Date().toISOString(),
-        color: randomColor({
-          luminosity: 'dark'
-        })
+        timestamp: prompt.timestamp || new Date().toISOString()
+
       }
     }
     return prompt;
@@ -36,41 +34,46 @@ export const HistoryPage = () => {
             <div className="search-bar">
               <input type="text" placeholder='Search your homework history...' />
 
-              <Search />
+                  <Search />
 
-            </div>
-            <div className="filter-history">
-              <button>All</button>
-              <button>Bac Math</button>
-              <button>Bac Science</button>
-            </div>
-            <div className="homework-cards">
-              {recentHomework.map((homework, index) => (
-                <div className='homework-card' key={index}>
-                  <div style={
-                    {
-                      position: 'absolute',
-                      left: '0',
-                      top: '0',
-                      width: '4px',
-                      bottom: '0',
-                      backgroundColor: homework.color,
-                      borderRadius: '16px 0 0 16px'
-                    }
-                  } className="left-line"></div>
-                  <h2>Homework Title</h2>
-                  <div className="user-prompt">
-                    {homework.text}
+                
+              </div>
+              <div className="filter-history">
+                <button>All</button>
+                <button>Bac Math</button>
+                <button>Bac Science</button>
+              </div>
+              <div className="homework-cards">
+                {recentHomework.map((homework, index) => (
+                  <div className='homework-card' key={index}>
+                    <div style={
+                      {
+                        position: 'absolute',
+                        left: '0',
+                        top: '0',
+                        width: '4px',
+                        bottom: '0',
+                        backgroundColor: randomColor({
+                          luminosity: 'dark'
+                        }),
+                        borderRadius: '16px 0 0 16px'
+                      }
+                    } className="left-line"></div>
+                    <div className="card-content">
+                      <h2>Homework Title</h2>
+                      <div className="user-prompt">
+                        "{homework.text}"
 
+                      </div>
+                      <span>{getRelativeTime(homework.timestamp)}</span>
+                      <span className='view-details'>View Details</span>
+                    </div>
                   </div>
-                  <span>{getRelativeTime(homework.timestamp)}</span>
-                  <span>View Details</span>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
     </>
   )
 }

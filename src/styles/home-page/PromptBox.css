@@ -203,7 +203,7 @@
   padding: 17px 28px !important;
   position: relative;
   transition: transform 0.2s ease-out;
-  animation: glowPulse 3s ease-in-out infinite;
+  /* animation: glowPulse 3s ease-in-out infinite; */
 }
 
 @media (width <=900px) {
