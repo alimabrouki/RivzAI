@@ -152,6 +152,14 @@
   /* under 700px change margin right to less px */
 }
 
+.prompt-time {
+  color: var(--c-neutral-300);
+}
+
 .card-content .view-details {
   margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--c-orange);
 }

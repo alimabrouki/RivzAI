@@ -3,23 +3,31 @@ import '../../styles/header/Header.css';
 import '../../styles/history-page/HistoryPage.css';
 import { Header } from '../../components/Header';
 import { Search } from 'lucide-react';
+import {  useState } from 'react';
+import { HomeworkCard } from './HomeworkCard';
 import { getRelativeTime } from '../../utils/getRelativeTime';
-import { randomColor } from 'randomcolor';
 
 export const HistoryPage = () => {
   const recentPrompts = JSON.parse(localStorage.getItem('newPrompt')) || [];
-  const recentHomework = recentPrompts.map((prompt) => {
-    if (typeof prompt === "string") {
-      return {
-        text: prompt.text || prompt,
-        timestamp: prompt.timestamp || new Date().toISOString()
 
+   const recentHomework =
+    recentPrompts.map((prompt) => {  
+      if (typeof prompt === 'object' && prompt.timestamp) {
+        return {
+          text: prompt.text || prompt,
+          timestamp: prompt.timestamp
       }
-    }
-    return prompt;
-  });
-  console.log(recentHomework)
-  console.log(recentPrompts)
+      }
+      if (typeof prompt === 'string') {
+        return {
+          text: prompt,
+          timestamp: new Date().toISOString()
+        }
+      }
+      return prompt;
+  })
+  
+
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
@@ -33,47 +41,17 @@ export const HistoryPage = () => {
           <div className="recent-h">
             <div className="search-bar">
               <input type="text" placeholder='Search your homework history...' />
-
-                  <Search />
-
-                
-              </div>
-              <div className="filter-history">
-                <button>All</button>
-                <button>Bac Math</button>
-                <button>Bac Science</button>
-              </div>
-              <div className="homework-cards">
-                {recentHomework.map((homework, index) => (
-                  <div className='homework-card' key={index}>
-                    <div style={
-                      {
-                        position: 'absolute',
-                        left: '0',
-                        top: '0',
-                        width: '4px',
-                        bottom: '0',
-                        backgroundColor: randomColor({
-                          luminosity: 'dark'
-                        }),
-                        borderRadius: '16px 0 0 16px'
-                      }
-                    } className="left-line"></div>
-                    <div className="card-content">
-                      <h2>Homework Title</h2>
-                      <div className="user-prompt">
-                        "{homework.text}"
-
-                      </div>
-                      <span>{getRelativeTime(homework.timestamp)}</span>
-                      <span className='view-details'>View Details</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <Search />
             </div>
+            <div className="filter-history">
+              <button>All</button>
+              <button>Bac Math</button>
+              <button>Bac Science</button>
+            </div>
+            <HomeworkCard recentHomework={recentHomework} />
           </div>
         </div>
+      </div>
     </>
   )
 }

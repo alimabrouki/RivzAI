@@ -11,7 +11,10 @@ export const HomePageWrapper = () => {
   ]);
 
   const handleAddHistory = (newPrompt) => {
-    setAddedHistory((prevHistory => [newPrompt, ...prevHistory]));
+    setAddedHistory((prevHistory => [{
+      text: newPrompt,
+      timestamp: new Date().toISOString()
+    }, ...prevHistory]));
   }
 
   return (
