@@ -94,13 +94,17 @@
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
-  color: #fff;
+  color: var(--c-text-light);
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
   backdrop-filter: blur(10px);
   transition: all 0.3s ease;
   width: fit-content;
+}
+
+.btn-active {
+background: linear-gradient(90deg, rgb(255 146 0 / 86%) 17%, rgba(198, 122, 35, 0.797) 68%, rgba(207, 140, 23, 0.83) 100%)!important;
 }
 
 .homework-cards {

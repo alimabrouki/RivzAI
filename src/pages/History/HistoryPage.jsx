@@ -3,9 +3,8 @@ import '../../styles/header/Header.css';
 import '../../styles/history-page/HistoryPage.css';
 import { Header } from '../../components/Header';
 import { Search } from 'lucide-react';
-import {  useState } from 'react';
 import { HomeworkCard } from './HomeworkCard';
-import { getRelativeTime } from '../../utils/getRelativeTime';
+import { FilterHistory } from './FilterHistory';
 
 export const HistoryPage = () => {
   const recentPrompts = JSON.parse(localStorage.getItem('newPrompt')) || [];
@@ -43,11 +42,7 @@ export const HistoryPage = () => {
               <input type="text" placeholder='Search your homework history...' />
               <Search />
             </div>
-            <div className="filter-history">
-              <button>All</button>
-              <button>Bac Math</button>
-              <button>Bac Science</button>
-            </div>
+           <FilterHistory />
             <HomeworkCard recentHomework={recentHomework} />
           </div>
         </div>
