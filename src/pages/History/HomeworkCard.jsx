@@ -1,12 +1,15 @@
 import { memo } from 'react';
 import { getRelativeTime } from '../../utils/getRelativeTime';
-import { MoveRight, Search } from 'lucide-react';
-export const HomeworkCard = memo(
-  ({ recentHomework }) => {
+import { MoveRight } from 'lucide-react';
+export const HomeworkCards = memo(
+  ({ recentHomework,handleClickedCard }) => {
+    
     return (
+       
       <div className="homework-cards">
         {recentHomework.map((homework, index) => (
-          <div className='homework-card' key={index}>
+          
+          <div onClick={() => handleClickedCard(homework)} className='homework-card' key={index}>
             <div style={
               {
                 position: 'absolute',
@@ -29,9 +32,14 @@ export const HomeworkCard = memo(
                 <MoveRight />
               </span>
             </div>
-          </div>
+          </div>  
+      
+         
         ))}
+      
       </div>
+        
+          
     )
   }
 )
