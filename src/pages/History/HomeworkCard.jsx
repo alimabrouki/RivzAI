@@ -22,7 +22,7 @@ export const HomeworkCards = memo(
               }
             } className="left-line"></div>
             <div className="card-content">
-              <h2>Homework Title</h2>
+              <h2 className='homework-title'>Homework Title</h2>
               <div className="user-prompt">
                 "{homework.text}"
               </div>

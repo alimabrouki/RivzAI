@@ -46,6 +46,10 @@
   /* animation: titleGradient 4s ease-in-out infinite; */
 }
 
+.recent-h {
+  position: relative;
+}
+
 .search-bar {
   position: relative;
   max-width: 600px;
