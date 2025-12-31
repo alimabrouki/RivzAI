@@ -135,7 +135,43 @@
   display: flex;
   padding: 20px;
   border-top: 2px solid var(--c-neutral-600);
+  align-items: center;
 }
+
+.prompt-in {
+  padding: 20px;
+  outline: none;
+  color: var(--c-neutral-0);
+  background-color: var(--c-bleu-bg);
+  border-radius: 12px;
+  box-shadow: var(--input-bx-shdw);
+  border: 1px solid var(--c-main-bg);
+  caret-color: var(--c-neutral-300);
+  resize: none;
+  scroll-behavior: smooth;
+  font-size: var(--fs-20);
+}
+
+.prompt-in::-webkit-scrollbar {
+  width: 10px;
+}
+
+.prompt-in::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0px;
+}
+
+.prompt-in::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: var(--c-light-blue);
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.prompt-in::-webkit-scrollbar-thumb:hover {
+  background: var(--c-light-blue);
+}
+
 
 .prompt-section button {
   width: fit-content;
