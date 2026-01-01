@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Copy, Download, SendHorizonal, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 import {RecordAudio} from '../../features/input-output/RecordAudio';
 import {UploadFile} from '../../features/input-output/UploadFile' 
@@ -6,6 +6,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import '../../styles/history-page/HomeworkResult.css';
 
 export const HomeworkResult = ({ clickedCard, closeResult }) => {
+  const [isTyping, setIsTyping] = useState('');
   const resultWindow = useRef(null);
   const promptIn = useRef(null);
   useEffect(() => {
@@ -16,8 +17,8 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
     })
   })
 
-  const textareaFocus = () => {
-    promptIn.current.focus()
+  const handleTextarea = (e) => {
+    setIsTyping(e.target.value)
   }
   return (
     <>
@@ -58,10 +59,10 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
               </div>
             </div>
             <div className="prompt-section">
-              <TextareaAutosize ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+              <TextareaAutosize value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
               <RecordAudio />
               <UploadFile />
-              <button className='submit-prompt'><SendHorizonal /></button>
+              <button style={{background: isTyping ? 'var(--c-dark-orange' : ''}} className='submit-prompt'><SendHorizonal /></button>
             </div>
           </div>
         </>
