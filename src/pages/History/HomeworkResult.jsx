@@ -1,9 +1,13 @@
-import { useEffect, useRef } from 'react'
-import '../../styles/history-page/HomeworkResult.css'
-import { Copy, Download, SendHorizonal, Share, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import { useEffect, useRef } from 'react';
+import { Copy, Download, SendHorizonal, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import {RecordAudio} from '../../features/input-output/RecordAudio';
+import {UploadFile} from '../../features/input-output/UploadFile' 
+import TextareaAutosize from 'react-textarea-autosize';
+import '../../styles/history-page/HomeworkResult.css';
+
 export const HomeworkResult = ({ clickedCard, closeResult }) => {
   const resultWindow = useRef(null);
-
+  const promptIn = useRef(null);
   useEffect(() => {
     document.addEventListener('mousedown', (e) => {
       if (resultWindow.current && !resultWindow.current.contains(e.target)) {
@@ -11,6 +15,10 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
       }
     })
   })
+
+  const textareaFocus = () => {
+    promptIn.current.focus()
+  }
   return (
     <>
       {clickedCard && (
@@ -50,8 +58,10 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
               </div>
             </div>
             <div className="prompt-section">
-              <textarea name="" id=""></textarea>
-              <button><SendHorizonal /></button>
+              <TextareaAutosize ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+              <RecordAudio />
+              <UploadFile />
+              <button className='submit-prompt'><SendHorizonal /></button>
             </div>
           </div>
         </>

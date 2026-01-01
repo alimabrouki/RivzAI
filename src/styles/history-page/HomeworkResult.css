@@ -139,10 +139,11 @@
 }
 
 .prompt-in {
+  margin-bottom: 55px;
   padding: 20px;
   outline: none;
   color: var(--c-neutral-0);
-  background-color: var(--c-bleu-bg);
+  background-color: var(--c-neutral-600);
   border-radius: 12px;
   box-shadow: var(--input-bx-shdw);
   border: 1px solid var(--c-main-bg);
@@ -172,7 +173,37 @@
   background: var(--c-light-blue);
 }
 
+.prompt-section .submit-prompt {
+  width: 50px;
+  position: absolute;
+  bottom: 22px;
+  right: 22px;
+  height: 40px;
+  border-radius: 8px;
+  color: var(--c-neutral-0);
+  background: var(--c-neutral-300);
+}
+
+.prompt-section :nth-child(3) {
+  width: revert-layer;
+  position: absolute;
+  bottom: 22px;
+  right: 100px;
+  padding: 6px 11px;
+  border-radius: 8px;
+}
+
+.prompt-section :nth-child(5) {
+  width: 50px;
+  position: absolute;
+  bottom: 22px;
+  right: 180px;
+  height: 40px;
+  border-radius: 8px;
+}
 
 .prompt-section button {
-  width: fit-content;
+  color: var(--c-b-darker);
+  background: var(--c-dark-orange);
+  cursor: pointer;
 }
