@@ -1,21 +1,10 @@
 import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import { PromptBox } from './PromptBox'
 import { RecentHomework } from './RecentHomework'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { FeaturesBoxes } from './FeaturesBoxes'
-export const HomePageWrapper = () => {
-  const [addedHitsory, setAddedHistory] = useLocalStorage('newPrompt', [
-    'Rewrite this paragraph simpler',
-    'Translate to Arabic / French / English',
-    'Summaries of lessons'
-  ]);
 
-  const handleAddHistory = (newPrompt) => {
-    setAddedHistory((prevHistory => [{
-      text: newPrompt,
-      timestamp: new Date().toISOString()
-    }, ...prevHistory]));
-  }
+import { FeaturesBoxes } from './FeaturesBoxes'
+export const HomePageWrapper = ({handleAddHistory,addedHistory}) => {
+ 
 
   return (
     <div className="wrapper">
@@ -28,7 +17,7 @@ export const HomePageWrapper = () => {
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
         <PromptBox handleAddHistory={handleAddHistory} />
-        <RecentHomework addHistory={addedHitsory} />
+        <RecentHomework addHistory={addedHistory} />
         <FeaturesBoxes />
       </div>
     </div>

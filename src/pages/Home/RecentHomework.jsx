@@ -10,8 +10,8 @@ export const RecentHomework = ({ addHistory }) => {
     <div ref={observe} className="recent-homework slide-in">
       <h2 ref={observe} className='slide-in'>Recent Homework</h2>
       {
-        addHistory.slice(0,3).map((history, index) => (
-          <Link ref={observe} key={index} to={'/history'} className='recent-prompt slide-in'><span className='slide-in' ref={observe} key={index} >"{history.text || history}"</span></Link>
+        addHistory.slice(0,3).map((history) => (
+          <Link ref={observe} key={history.id}  to={'/history'} className='recent-prompt slide-in'><span className='slide-in' ref={observe} key={history.id} >"{history.text || history}"</span></Link>
         ))
       }
     </div>

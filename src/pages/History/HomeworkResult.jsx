@@ -1,12 +1,16 @@
 import { useEffect, useRef, useState } from 'react';
 import { Copy, Download, SendHorizonal, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
-import {RecordAudio} from '../../features/input-output/RecordAudio';
-import {UploadFile} from '../../features/input-output/UploadFile' 
+import { RecordAudio } from '../../features/input-output/RecordAudio';
+import { UploadFile } from '../../features/input-output/UploadFile'
 import TextareaAutosize from 'react-textarea-autosize';
 import '../../styles/history-page/HomeworkResult.css';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 export const HomeworkResult = ({ clickedCard, closeResult }) => {
   const [isTyping, setIsTyping] = useState('');
+  const [isSubmitted, setIsSubmitted] = useLocalStorage('currentPrompt', []);
+  const [currentConv, setCurrentConv] = useLocalStorage(isSubmitted, []);
+
   const resultWindow = useRef(null);
   const promptIn = useRef(null);
   useEffect(() => {
@@ -16,10 +20,23 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
       }
     })
   })
+  useEffect(() => {
+    
+  },[isSubmitted])
 
   const handleTextarea = (e) => {
-    setIsTyping(e.target.value)
+    setIsTyping(e.target.value);
   }
+
+  const submitPrompt = () => {
+    setIsSubmitted(prevHistory => [...prevHistory, isTyping])
+
+    setIsTyping('');
+    console.log(isSubmitted)
+    console.log(isTyping)
+  }
+
+
   return (
     <>
       {clickedCard && (
@@ -30,39 +47,47 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
               <h2 className='homework-title'>Homework Title</h2>
               <X className='close-window' onClick={closeResult} />
             </div>
+
             <div className="chat-section">
-              <div style={{display:'flex', alignItems: 'flex-end',flexDirection:'column' , margin: '20px 0'}} className="chat-messages">
+
+
+              <div  style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
                 <div className="rslt-user-prompt">
-                <p>{clickedCard.text}</p>
-              </div>
-              <div className="ai-response">
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum aliquam quia consectetur deleniti blanditiis dolore, autem suscipit tempora corrupti modi repellendus, inventore neque molestiae in minima nihil veniam, dignissimos sint.
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem mollitia labore facere esse, nam voluptas tempore aspernatur illum enim eos quos itaque tempora eius excepturi cumque veritatis distinctio. Nobis, vitae!
-                <br />
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat accusantium nostrum dolorum! Omnis possimus nam optio. Perferendis ut quae vel explicabo, odit dolorum nihil, tempore eos veritatis quaerat et magnam.
-            <br />
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum veniam officia molestiae blanditiis odio tempore dolor dolore, quia itaque dolorum quo ducimus, non optio dolores perferendis laboriosam sunt libero laborum.
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum amet, aperiam omnis architecto est, vitae libero facilis accusamus magnam, aspernatur ea animi nobis? Omnis eius rem nesciunt vero tenetur animi!
-                Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem possimus eius,
-                <br />
-                 porro, facilis animi molestias, iste doloribus obcaecati debitis maxime praesentium reiciendis odit mollitia blanditiis tempore eveniet cum quo voluptate!
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta in eaque nemo sed explicabo et cumque tempora ducimus, animi quas dolorum aliquid, architecto perferendis. Nulla vero dolor quidem aperiam.
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, ipsa quis minus dolores labore distinctio vitae, culpa laudantium fugit ratione omnis possimus! Nemo in illum laboriosam voluptas, consequatur aspernatur sit!
-                <div className="actions">
-                  <Copy />
-                  <Download />
-                  <ThumbsUp />
-                  <ThumbsDown />
-                  <Share2 />
+                  <p>{clickedCard.text}</p>
                 </div>
+                {/* <div className="ai-response">
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum aliquam quia consectetur deleniti blanditiis dolore, autem suscipit tempora corrupti modi repellendus, inventore neque molestiae in minima nihil veniam, dignissimos sint.
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem mollitia labore facere esse, nam voluptas tempore aspernatur illum enim eos quos itaque tempora eius excepturi cumque veritatis distinctio. Nobis, vitae!
+                  <br />
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fugiat accusantium nostrum dolorum! Omnis possimus nam optio. Perferendis ut quae vel explicabo, odit dolorum nihil, tempore eos veritatis quaerat et magnam.
+                  <br />
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum veniam officia molestiae blanditiis odio tempore dolor dolore, quia itaque dolorum quo ducimus, non optio dolores perferendis laboriosam sunt libero laborum.
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Dolorum amet, aperiam omnis architecto est, vitae libero facilis accusamus magnam, aspernatur ea animi nobis? Omnis eius rem nesciunt vero tenetur animi!
+                  Lorem ipsum dolor, sit amet consectetur adipisicing elit. Exercitationem possimus eius,
+                  <br />
+                  porro, facilis animi molestias, iste doloribus obcaecati debitis maxime praesentium reiciendis odit mollitia blanditiis tempore eveniet cum quo voluptate!
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Adipisci soluta in eaque nemo sed explicabo et cumque tempora ducimus, animi quas dolorum aliquid, architecto perferendis. Nulla vero dolor quidem aperiam.
+                  Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto, ipsa quis minus dolores labore distinctio vitae, culpa laudantium fugit ratione omnis possimus! Nemo in illum laboriosam voluptas, consequatur aspernatur sit!
+                  <div className="actions">
+                    <Copy />
+                    <Download />
+                    <ThumbsUp />
+                    <ThumbsDown />
+                    <Share2 />
+                  </div>
+                </div> */}
+                {isSubmitted.map((userPrompt, index) => (
+                  <div key={index} className="rslt-user-prompt">{userPrompt}</div>
+
+                ))}
               </div>
-              </div>
+
             </div>
             <div className="prompt-section">
               <TextareaAutosize value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
               <RecordAudio />
               <UploadFile />
-              <button style={{background: isTyping ? 'var(--c-dark-orange' : ''}} className='submit-prompt'><SendHorizonal /></button>
+              <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
             </div>
           </div>
         </>

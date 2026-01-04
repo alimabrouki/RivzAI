@@ -3,7 +3,7 @@ import '../../styles/header/Header.css';
 import '../../styles/history-page/HistoryPage.css';
 import { Header } from '../../components/Header';
 import { Search } from 'lucide-react';
-import { HomeworkCards } from './HomeworkCard';
+import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
 import { HomeworkResult } from './HomeworkResult';
 import { useState } from 'react';
@@ -19,22 +19,23 @@ const [clickedCard, setClickedCard] = useState(null);
 
   const recentPrompts = JSON.parse(localStorage.getItem('newPrompt')) || [];
 
-  const recentHomework =
-    recentPrompts.map((prompt) => {
-      if (typeof prompt === 'object' && prompt.timestamp) {
-        return {
-          text: prompt.text || prompt,
-          timestamp: prompt.timestamp
-        }
-      }
-      if (typeof prompt === 'string') {
-        return {
-          text: prompt,
-          timestamp: new Date().toISOString()
-        }
-      }
-      return prompt;
-    })
+  // const recentHomework =
+  //   recentPrompts.map((prompt) => {
+  //     if (typeof prompt === 'object' && prompt.timestamp) {
+  //       return {
+  //         id : crypto.randomUUID(),
+  //         text: prompt.text || prompt,
+  //         timestamp: prompt.timestamp
+  //       }
+  //     }
+  //     if (typeof prompt === 'string') {
+  //       return {
+  //         text: prompt,
+  //         timestamp: new Date().toISOString()
+  //       }
+  //     }
+  //     return prompt;
+  //   })
 
 
   return (
@@ -53,7 +54,7 @@ const [clickedCard, setClickedCard] = useState(null);
               <Search />
             </div>
             <FilterHistory />
-            <HomeworkCards  handleClickedCard={handleClickedCard} recentHomework={recentHomework} />
+            <HomeworkCards  handleClickedCard={handleClickedCard} recentHomework={recentPrompts} />
             <HomeworkResult closeResult={() => setClickedCard(null)}  clickedCard={clickedCard} />
           </div>
         </div>

@@ -7,9 +7,9 @@ export const HomeworkCards = memo(
     return (
        
       <div className="homework-cards">
-        {recentHomework.map((homework, index) => (
+        {recentHomework.map((homework) => (
           
-          <div onClick={() => handleClickedCard(homework)} className='homework-card' key={index}>
+          <div onClick={() => handleClickedCard(homework)} className='homework-card' key={homework.id}>
             <div style={
               {
                 position: 'absolute',
