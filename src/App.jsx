@@ -6,27 +6,28 @@ import { useLocalStorage } from '../src/hooks/useLocalStorage'
 
 
 const App = () => {
-   const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', [
-      'Rewrite this paragraph simpler',
-      'Translate to Arabic / French / English',
-      'Summaries of lessons'
-    ]);
+   const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', []);
   
     const handleAddHistory = (newPrompt) => {
       const historyItem = {
         id: crypto.randomUUID(),
+        title: newPrompt.slice(0,50),
         text: typeof newPrompt === 'string' ?  newPrompt : newPrompt.text ,
+        messages: [{
+          role: 'user',
+          content: typeof newPrompt === 'string' ?  newPrompt : newPrompt.text
+        }],
         timestamp: new Date().toISOString()
       }
       setAddedHistory(prevHistory => [historyItem,...prevHistory ])
       console.log(addedHistory)
     }
-
+  
   return (
    
       <Routes>
         <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />}/>
-        <Route index path='/history' element={<HistoryPage addedHistory={addedHistory} />}/>
+        <Route index path='/history' element={<HistoryPage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />}/>
       </Routes>
     
   )
