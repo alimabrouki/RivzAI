@@ -6,28 +6,53 @@ import { useLocalStorage } from '../src/hooks/useLocalStorage'
 
 
 const App = () => {
-   const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', []);
+   const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', [
+   'r','v','z'
+   ]);
   
     const handleAddHistory = (newPrompt) => {
       const historyItem = {
         id: crypto.randomUUID(),
         title: newPrompt.slice(0,50),
         text: typeof newPrompt === 'string' ?  newPrompt : newPrompt.text ,
-        messages: [{
+        messages: [
+          {
           role: 'user',
           content: typeof newPrompt === 'string' ?  newPrompt : newPrompt.text
-        }],
+        },
+        {
+          role: 'ai',
+          content: 'lets win in life !'
+        }
+      ],
         timestamp: new Date().toISOString()
       }
       setAddedHistory(prevHistory => [historyItem,...prevHistory ])
-      console.log(addedHistory)
     }
+
+    const updateMessages = (cardId,message) => {
+     setAddedHistory(prev =>
+      prev.map((card) => 
+      card.id === cardId ? {
+        ...card,
+        messages:[
+          ...card.messages,
+         message
+        ]
+      } : card
+      )
+     ) 
+    }
+
+    // const onUpdate = (updatedCard) => {
+    //   setAddedHistory(prevHis => [updatedCard,...prevHis])
+    // }
   
   return (
    
       <Routes>
         <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />}/>
-        <Route index path='/history' element={<HistoryPage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />}/>
+        <Route index path='/history' element={<HistoryPage  handleAddHistory={handleAddHistory} addedHistory={addedHistory} updateMessages={updateMessages} />}/>
       </Routes>
     
   )
