@@ -4,15 +4,16 @@ import { RecordAudio } from '../../features/input-output/RecordAudio';
 import { UploadFile } from '../../features/input-output/UploadFile'
 import TextareaAutosize from 'react-textarea-autosize';
 import '../../styles/history-page/HomeworkResult.css';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 
-export const HomeworkResult = ({ clickedCard, closeResult }) => {
+export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recentHomework }) => {
   const [isTyping, setIsTyping] = useState('');
-  const [isSubmitted, setIsSubmitted] = useLocalStorage('currentPrompt', []);
-  const [currentConv, setCurrentConv] = useLocalStorage(isSubmitted, []);
+
 
   const resultWindow = useRef(null);
   const promptIn = useRef(null);
+
+
+
   useEffect(() => {
     document.addEventListener('mousedown', (e) => {
       if (resultWindow.current && !resultWindow.current.contains(e.target)) {
@@ -20,42 +21,49 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
       }
     })
   })
-  useEffect(() => {
-    
-  },[isSubmitted])
+
 
   const handleTextarea = (e) => {
     setIsTyping(e.target.value);
   }
 
   const submitPrompt = () => {
-    setIsSubmitted(prevHistory => [...prevHistory, isTyping])
 
+    if (!isTyping.trim() || !clickedCard) return;
+
+    updateMessages(clickedCard.id, {
+      role: 'user',
+      content: isTyping
+    })
     setIsTyping('');
-    console.log(isSubmitted)
-    console.log(isTyping)
+    console.log(clickedCard)
+    console.log(messages)
   }
-
-
+  const validCard = recentHomework.filter((card) => card && typeof card === 'object' && card.id)
+  const currentCard = clickedCard ?
+    validCard.find((card) => card.id === clickedCard.id)
+    : [];
+  const messages = currentCard.messages || [];
   return (
     <>
-      {clickedCard && (
-        <>
-          <div ref={resultWindow} className="result-window">
-            <div className="result-header">
-              <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
-              <h2 className='homework-title'>Homework Title</h2>
-              <X className='close-window' onClick={closeResult} />
-            </div>
+      {clickedCard &&
+        <div ref={resultWindow} className="result-window">
 
-            <div className="chat-section">
+          <div className="result-header">
+            <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
+            <h2 className='homework-title'>{clickedCard.title}</h2>
+            <X className='close-window' onClick={closeResult} />
+          </div>
+
+          <div className="chat-section">
 
 
-              <div  style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
-                <div className="rslt-user-prompt">
-                  <p>{clickedCard.text}</p>
-                </div>
-                {/* <div className="ai-response">
+            <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
+              <div className="rslt-user-prompt">
+                <p>{clickedCard.text}</p>
+              </div>
+              {
+              /* <div className="ai-response">
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Dolorum aliquam quia consectetur deleniti blanditiis dolore, autem suscipit tempora corrupti modi repellendus, inventore neque molestiae in minima nihil veniam, dignissimos sint.
                   Lorem ipsum, dolor sit amet consectetur adipisicing elit. Exercitationem mollitia labore facere esse, nam voluptas tempore aspernatur illum enim eos quos itaque tempora eius excepturi cumque veritatis distinctio. Nobis, vitae!
                   <br />
@@ -76,22 +84,24 @@ export const HomeworkResult = ({ clickedCard, closeResult }) => {
                     <Share2 />
                   </div>
                 </div> */}
-                {isSubmitted.map((userPrompt, index) => (
-                  <div key={index} className="rslt-user-prompt">{userPrompt}</div>
+              {
+                messages.map((prompt, index) => (
+
+                  <div key={index} className={`rslt-${prompt.role}-prompt`}>{prompt.content}</div>
+
 
                 ))}
-              </div>
+            </div>
 
-            </div>
-            <div className="prompt-section">
-              <TextareaAutosize value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
-              <RecordAudio />
-              <UploadFile />
-              <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
-            </div>
           </div>
-        </>
-      )}
+          <div className="prompt-section">
+            <TextareaAutosize value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+            <RecordAudio />
+            <UploadFile />
+            <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
+          </div>
+        </div>
+      }
     </>
   )
 }

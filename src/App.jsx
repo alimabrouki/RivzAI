@@ -43,10 +43,6 @@ const App = () => {
       )
      ) 
     }
-
-    // const onUpdate = (updatedCard) => {
-    //   setAddedHistory(prevHis => [updatedCard,...prevHis])
-    // }
   
   return (
    

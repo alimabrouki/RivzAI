@@ -8,34 +8,12 @@ import { FilterHistory } from './FilterHistory';
 import { HomeworkResult } from './HomeworkResult';
 import { useState } from 'react';
 
-export const HistoryPage = () => {
+export const HistoryPage = ({addedHistory,handleAddHistory,updateMessages}) => {
 const [clickedCard, setClickedCard] = useState(null);
 
   const handleClickedCard = (homework) => {
       setClickedCard(homework)
     }
-
-  
-
-  const recentPrompts = JSON.parse(localStorage.getItem('newPrompt')) || [];
-
-  // const recentHomework =
-  //   recentPrompts.map((prompt) => {
-  //     if (typeof prompt === 'object' && prompt.timestamp) {
-  //       return {
-  //         id : crypto.randomUUID(),
-  //         text: prompt.text || prompt,
-  //         timestamp: prompt.timestamp
-  //       }
-  //     }
-  //     if (typeof prompt === 'string') {
-  //       return {
-  //         text: prompt,
-  //         timestamp: new Date().toISOString()
-  //       }
-  //     }
-  //     return prompt;
-  //   })
 
 
   return (
@@ -54,8 +32,8 @@ const [clickedCard, setClickedCard] = useState(null);
               <Search />
             </div>
             <FilterHistory />
-            <HomeworkCards  handleClickedCard={handleClickedCard} recentHomework={recentPrompts} />
-            <HomeworkResult closeResult={() => setClickedCard(null)}  clickedCard={clickedCard} />
+            <HomeworkCards  handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
+            <HomeworkResult handleAddHistory={handleAddHistory} closeResult={() => setClickedCard(null)}  clickedCard={clickedCard} recentHomework={addedHistory} updateMessages={updateMessages} />
           </div>
         </div>
       </div>
