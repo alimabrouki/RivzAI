@@ -113,7 +113,7 @@
   font-size: var(--fs-18);
 }
 
-.ai-response {
+.rslt-ai-prompt {
   align-self: flex-start;
   color: var(--c-text-light);
   margin-left: 25px;
@@ -124,7 +124,7 @@
   font-size: var(--fs-18);
 }
 
-.ai-response .actions {
+.rslt-ai-prompt .actions {
   display: flex;
   gap: 15px;
   color: var(--c-neutral-300);

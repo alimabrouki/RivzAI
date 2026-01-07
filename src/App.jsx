@@ -7,7 +7,18 @@ import { useLocalStorage } from '../src/hooks/useLocalStorage'
 
 const App = () => {
    const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', [
-   'r','v','z'
+   {
+        id: crypto.randomUUID(),
+        title: 'new homework',
+        text: 'new homework' ,
+        messages: [
+          {
+          role: 'user',
+          content: 'new homework'
+        }
+      ],
+        timestamp: new Date().toISOString()
+      }
    ]);
   
     const handleAddHistory = (newPrompt) => {
@@ -19,10 +30,6 @@ const App = () => {
           {
           role: 'user',
           content: typeof newPrompt === 'string' ?  newPrompt : newPrompt.text
-        },
-        {
-          role: 'ai',
-          content: 'lets win in life !'
         }
       ],
         timestamp: new Date().toISOString()
