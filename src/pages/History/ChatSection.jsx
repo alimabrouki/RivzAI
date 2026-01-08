@@ -1,12 +1,15 @@
-import { useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import { Copy, Download, SendHorizonal, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 
 export const ChatSection = ({ messages, markMessageAnimated, clickedCard }) => {
+  const [reaction,setReaction] = useState(null)
   const lastMessage = useRef(null);
 
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({ behavior: 'smooth' })
-  }, [messages.length])
+  }, [messages.length]);
+
+  
   console.log(messages)
   return (
     <div className="chat-section">
@@ -25,8 +28,8 @@ export const ChatSection = ({ messages, markMessageAnimated, clickedCard }) => {
                 <div className="actions">
                   <Copy />
                   <Download />
-                  <ThumbsUp />
-                  <ThumbsDown />
+                  <ThumbsUp style={{color: reaction === 'like' ? 'var(--c-orange)' : ''}} onClick={() => setReaction(prev => prev === 'like' ? null : 'like')} />
+                  <ThumbsDown style={{color: reaction === 'dislike' ? 'var(--c-orange)' : ''}} onClick={() => setReaction(prev => prev === 'dislike' ? null : 'dislike')} />
                   <Share2 />
                 </div>
               }
