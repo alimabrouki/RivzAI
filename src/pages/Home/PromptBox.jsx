@@ -3,11 +3,11 @@ import { RecordAudio } from '../../features/input-output/RecordAudio'
 import { SolveItBtn } from '../../features/SolveItBtn'
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SelectOptions } from '../../features/select-options/SelectOptions'
-import {MultiStepBtn} from '../../features/MultiStepBtn'
+import { MultiStepBtn } from '../../features/MultiStepBtn'
 import { useEffect, useState } from 'react'
 
 
-export const PromptBox = ({handleAddHistory}) => {
+export const PromptBox = ({ handleAddHistory }) => {
   const [textvalue, setTextValue] = useState('');
   const [addHistory, setAddHistory] = useState('')
 
@@ -15,46 +15,45 @@ export const PromptBox = ({handleAddHistory}) => {
     handleAddHistory(addHistory)
     setTextValue('')
   }
- 
+
   useEffect(() => {
     setAddHistory(textvalue)
-  },[textvalue])
+  }, [textvalue])
 
   const handleTextArea = (e) => {
     setTextValue(e.target.value)
-   }
-  
+  }
+
   const onKeyDown = (e) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
-        setTextValue(textvalue)
+        handleTextArea(e)
       } else {
-      e.preventDefault();
-      handleAddHistory(addHistory)
-      setTextValue('')
+        e.preventDefault();
+        handleSubmit()
       }
     }
   }
   return (
-     <div className="prompt-box">
-              <textarea value={textvalue} onKeyDown={onKeyDown}  onChange={handleTextArea} name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
+    <div className="prompt-box">
+      <textarea value={textvalue} onKeyDown={onKeyDown} onChange={handleTextArea} name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
 
-              <div className="inputs">
-                <div className="input-output">
-                  <UploadFile />
-                  <RecordAudio />
-                </div>
-                <SelectOptions />               
-                <div className="btns">
-                <MultiStepBtn />
-                <SolveItBtn submit={handleSubmit} />
-              </div>
-              </div>
-              <div className="formatted-prompts">
-                <span>“Solve this problem”</span>
-                <span>“Explain this chapter”</span>
-                <span>“Correct my answer”</span>
-              </div>
-            </div>
+      <div className="inputs">
+        <div className="input-output">
+          <UploadFile />
+          <RecordAudio />
+        </div>
+        <SelectOptions />
+        <div className="btns">
+          <MultiStepBtn />
+          <SolveItBtn submit={handleSubmit} />
+        </div>
+      </div>
+      <div className="formatted-prompts">
+        <span>“Solve this problem”</span>
+        <span>“Explain this chapter”</span>
+        <span>“Correct my answer”</span>
+      </div>
+    </div>
   )
 }

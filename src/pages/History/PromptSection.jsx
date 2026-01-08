@@ -23,18 +23,30 @@ export const PromptSection = ({ updateMessages, clickedCard }) => {
 
     setIsTyping('');
 
-    setTimeout(() => {
+    const timeout = setTimeout(() => {
       updateMessages(clickedCard.id, {
         id: crypto.randomUUID(),
         role: 'ai',
-        content: 'welcome,sorry this is still a demo comeback soon and have a great experience thank you enjoy your day',
+        content: 'welcome,sorry this is still a demo comeback soon and have a great experience louuuuuuyyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu thank you enjoy your day',
         animated: true
       })
     }, 1500);
+    return () => clearTimeout(timeout)
+  }
+
+  const onEnterDown = (e) => {
+    if (e.key === 'Enter') {
+      if (e.shiftKey) {
+        handleTextarea(e)
+      } else {
+        e.preventDefault()
+        submitPrompt()
+      }
+    }
   }
   return (
     <div className="prompt-section">
-      <TextareaAutosize value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+      <TextareaAutosize onKeyDown={onEnterDown} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
       <RecordAudio />
       <UploadFile />
       <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
