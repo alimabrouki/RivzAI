@@ -4,11 +4,10 @@ import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { X } from 'lucide-react';
 
-export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recentHomework }) => {
+export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recentHomework,markMessageAnimated }) => {
 
-  
   const resultWindow = useRef(null);
-  
+
   const validCard = recentHomework.filter((card) => card && typeof card === 'object' && card.id)
   const currentCard = clickedCard ?
     validCard.find((card) => card.id === clickedCard.id)
@@ -22,19 +21,18 @@ export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recen
       }
     })
   });
-  console.log(messages.length)
+
   return (
     <>
       {clickedCard &&
         <div ref={resultWindow} className="result-window">
-
           <div className="result-header">
             <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
             <h2 className='homework-title'>{clickedCard.title}</h2>
             <X className='close-window' onClick={closeResult} />
           </div>
-                <ChatSection messages={messages} />
-                <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
+          <ChatSection clickedCard={clickedCard} markMessageAnimated={markMessageAnimated} messages={messages} />
+          <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>
       }
     </>

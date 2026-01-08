@@ -8,7 +8,7 @@ import { FilterHistory } from './FilterHistory';
 import { HomeworkResult } from './HomeworkResult';
 import { useState } from 'react';
 
-export const HistoryPage = ({addedHistory,handleAddHistory,updateMessages}) => {
+export const HistoryPage = ({addedHistory,handleAddHistory,updateMessages,markMessageAnimated}) => {
 const [clickedCard, setClickedCard] = useState(null);
 
   const handleClickedCard = (homework) => {
@@ -33,7 +33,7 @@ const [clickedCard, setClickedCard] = useState(null);
             </div>
             <FilterHistory />
             <HomeworkCards  handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
-            <HomeworkResult handleAddHistory={handleAddHistory} closeResult={() => setClickedCard(null)}  clickedCard={clickedCard} recentHomework={addedHistory} updateMessages={updateMessages} />
+            <HomeworkResult markMessageAnimated={markMessageAnimated} handleAddHistory={handleAddHistory} closeResult={() => setClickedCard(null)}  clickedCard={clickedCard} recentHomework={addedHistory} updateMessages={updateMessages} />
           </div>
         </div>
       </div>

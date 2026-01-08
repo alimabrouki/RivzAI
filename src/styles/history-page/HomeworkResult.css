@@ -122,8 +122,9 @@
   word-break: keep-all;
   max-width: 800px;
   font-size: var(--fs-18);
-  animation: typing 3s steps(30, end) 1s forwards;
 }
+
+
 
 .rslt-ai-prompt .actions {
   display: flex;
