@@ -13,8 +13,7 @@ export const HistoryPage = ({
   handleAddHistory,
   updateMessages,
   markMessageAnimated,
-  markLike,
-  markDislike
+  markReaction
 }) => {
   const [clickedCard, setClickedCard] = useState(null);
 
@@ -47,8 +46,7 @@ export const HistoryPage = ({
               clickedCard={clickedCard}
               recentHomework={addedHistory}
               updateMessages={updateMessages}
-              markLike={markLike}
-              markDislike={markDislike} />
+              markReaction={markReaction} />
           </div>
         </div>
       </div>

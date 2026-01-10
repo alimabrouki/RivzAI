@@ -1,12 +1,11 @@
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { Copy, Download, SendHorizonal, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import { useEffect, useLayoutEffect, useRef } from "react";
+import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 
 export const ChatSection = ({
   messages,
   markMessageAnimated,
   clickedCard,
-  markLike,
-  markDislike
+  markReaction
 }) => {
   const lastMessage = useRef(null);
   useEffect(() => {
@@ -38,11 +37,11 @@ export const ChatSection = ({
                   <Download />
                   <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }} 
                   onClick={() => {
-                    markLike(clickedCard.id, prompt.id, prompt.reaction)
+                    markReaction(clickedCard.id, prompt.id,'like')
                   }
                   } />
                   <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
-                    markDislike(clickedCard.id, prompt.id, prompt.reaction)
+                    markReaction(clickedCard.id, prompt.id, 'dislike')
                   }
                   } />
                   <Share2 />

@@ -10,8 +10,7 @@ export const HomeworkResult = ({
   updateMessages,
   recentHomework,
   markMessageAnimated,
-  markLike,
-  markDislike
+  markReaction
 }) => {
 
   const resultWindow = useRef(null);
@@ -43,8 +42,7 @@ export const HomeworkResult = ({
             clickedCard={clickedCard}
             markMessageAnimated={markMessageAnimated}
             messages={messages}
-            markLike={markLike}
-            markDislike={markDislike}
+            markReaction={markReaction}
           />
           <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>

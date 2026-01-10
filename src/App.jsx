@@ -71,41 +71,23 @@ const App = () => {
       ))
   }
 
-  const markLike = (clickedCardId,msgId,reaction) => {
-    setAddedHistory(prev =>
-      prev.map((card) =>
-      card.id === clickedCardId ? 
+ const markReaction = (clickedCardId,msgId,reactionType) => {
+  setAddedHistory(prev => 
+    prev.map((card) => 
+    card.id === clickedCardId ? 
+  {
+    ...card,
+    messages: card.messages.map((m) => 
+    m.id === msgId ? 
     {
-      ...card,
-      messages: card.messages.map((m) => 
-        m.id === msgId ?
-        {
-          ...m,
-           reaction: reaction === 'like' ? null : 'like'
-        } : m
-      )
-    } : card
-      )
+      ...m,
+      reaction: m.reaction === reactionType ? null : reactionType
+    } : m
     )
-  }
-
-   const markDislike = (clickedCardId,msgId,reaction) => {
-    setAddedHistory(prev =>
-      prev.map((card) =>
-      card.id === clickedCardId ? 
-    {
-      ...card,
-      messages: card.messages.map((m) => 
-        m.id === msgId ?
-        {
-          ...m,
-           reaction: reaction === 'dislike' ? null : 'dislike'
-        } : m
-      )
-    } : card
-      )
+  }: card
     )
-  }
+  )
+ }
 
   return (
 
@@ -116,8 +98,7 @@ const App = () => {
       handleAddHistory={handleAddHistory} 
       addedHistory={addedHistory} 
       updateMessages={updateMessages}
-      markLike={markLike}
-      markDislike={markDislike}
+      markReaction={markReaction}
       />} />
     </Routes>
 
