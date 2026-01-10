@@ -28,7 +28,8 @@ export const PromptSection = ({ updateMessages, clickedCard }) => {
         id: crypto.randomUUID(),
         role: 'ai',
         content: 'welcome,sorry this is still a demo comeback soon and have a great experience louuuuuuyyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu thank you enjoy your day',
-        animated: true
+        animated: true,
+        reaction: ''
       })
     }, 1500);
     return () => clearTimeout(timeout)

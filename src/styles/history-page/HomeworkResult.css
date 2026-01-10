@@ -133,6 +133,10 @@
   margin-top: 20px;
 }
 
+.rslt-ai-prompt svg {
+  cursor: pointer;
+}
+
 .prompt-section {
   display: flex;
   padding: 20px;

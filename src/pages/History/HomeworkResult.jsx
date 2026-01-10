@@ -4,7 +4,15 @@ import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { X } from 'lucide-react';
 
-export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recentHomework,markMessageAnimated }) => {
+export const HomeworkResult = ({
+  clickedCard,
+  closeResult,
+  updateMessages,
+  recentHomework,
+  markMessageAnimated,
+  markLike,
+  markDislike
+}) => {
 
   const resultWindow = useRef(null);
 
@@ -31,7 +39,13 @@ export const HomeworkResult = ({ clickedCard, closeResult, updateMessages, recen
             <h2 className='homework-title'>{clickedCard.title}</h2>
             <X className='close-window' onClick={closeResult} />
           </div>
-          <ChatSection clickedCard={clickedCard} markMessageAnimated={markMessageAnimated} messages={messages} />
+          <ChatSection
+            clickedCard={clickedCard}
+            markMessageAnimated={markMessageAnimated}
+            messages={messages}
+            markLike={markLike}
+            markDislike={markDislike}
+          />
           <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>
       }
