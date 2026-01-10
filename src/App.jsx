@@ -3,6 +3,7 @@ import { HomePage } from './pages/Home/HomePage'
 import { HistoryPage } from './pages/History/HistoryPage'
 import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
+import { MdSportsGolf } from 'react-icons/md'
 
 
 const App = () => {
@@ -70,11 +71,54 @@ const App = () => {
       ))
   }
 
+  const markLike = (clickedCardId,msgId,reaction) => {
+    setAddedHistory(prev =>
+      prev.map((card) =>
+      card.id === clickedCardId ? 
+    {
+      ...card,
+      messages: card.messages.map((m) => 
+        m.id === msgId ?
+        {
+          ...m,
+           reaction: reaction === 'like' ? null : 'like'
+        } : m
+      )
+    } : card
+      )
+    )
+  }
+
+   const markDislike = (clickedCardId,msgId,reaction) => {
+    setAddedHistory(prev =>
+      prev.map((card) =>
+      card.id === clickedCardId ? 
+    {
+      ...card,
+      messages: card.messages.map((m) => 
+        m.id === msgId ?
+        {
+          ...m,
+           reaction: reaction === 'dislike' ? null : 'dislike'
+        } : m
+      )
+    } : card
+      )
+    )
+  }
+
   return (
 
     <Routes>
       <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
-      <Route index path='/history' element={<HistoryPage markMessageAnimated={markMessageAnimated} handleAddHistory={handleAddHistory} addedHistory={addedHistory} updateMessages={updateMessages} />} />
+      <Route index path='/history' element={<HistoryPage  
+      markMessageAnimated={markMessageAnimated} 
+      handleAddHistory={handleAddHistory} 
+      addedHistory={addedHistory} 
+      updateMessages={updateMessages}
+      markLike={markLike}
+      markDislike={markDislike}
+      />} />
     </Routes>
 
   )
