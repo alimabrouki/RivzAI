@@ -3,9 +3,8 @@ import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 
 export const ChatSection = ({
   messages,
-  markMessageAnimated,
+  markMessageAnimation,
   clickedCard,
-  markReaction
 }) => {
   const lastMessage = useRef(null);
   useEffect(() => {
@@ -25,7 +24,7 @@ export const ChatSection = ({
           messages.map((prompt) => (
 
             <div
-              onAnimationEnd={() => markMessageAnimated(clickedCard.id, prompt.id)}
+              onAnimationEnd={() => markMessageAnimation(clickedCard.id, prompt.id)}
               key={prompt.id}
               className={`rslt-${prompt.role}-prompt`}
               style={{ animation: prompt.animated ? 'typing 3s steps(30, end) 1s forwards' : '' }}
@@ -37,11 +36,11 @@ export const ChatSection = ({
                   <Download />
                   <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }} 
                   onClick={() => {
-                    markReaction(clickedCard.id, prompt.id,'like')
+                    markMessageAnimation(clickedCard.id, prompt.id,'like')
                   }
                   } />
                   <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
-                    markReaction(clickedCard.id, prompt.id, 'dislike')
+                    markMessageAnimation(clickedCard.id, prompt.id, 'dislike')
                   }
                   } />
                   <Share2 />

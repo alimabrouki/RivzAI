@@ -12,8 +12,7 @@ export const HistoryPage = ({
   addedHistory,
   handleAddHistory,
   updateMessages,
-  markMessageAnimated,
-  markReaction
+  mmarkMessageAnimation
 }) => {
   const [clickedCard, setClickedCard] = useState(null);
 
@@ -40,13 +39,13 @@ export const HistoryPage = ({
             <FilterHistory />
             <HomeworkCards handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
             <HomeworkResult
-              markMessageAnimated={markMessageAnimated}
+              markMessageAnimation={markMessageAnimation}
               handleAddHistory={handleAddHistory}
               closeResult={() => setClickedCard(null)}
               clickedCard={clickedCard}
               recentHomework={addedHistory}
               updateMessages={updateMessages}
-              markReaction={markReaction} />
+               />
           </div>
         </div>
       </div>

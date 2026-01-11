@@ -9,8 +9,7 @@ export const HomeworkResult = ({
   closeResult,
   updateMessages,
   recentHomework,
-  markMessageAnimated,
-  markReaction
+ markMessageAnimation
 }) => {
 
   const resultWindow = useRef(null);
@@ -40,9 +39,8 @@ export const HomeworkResult = ({
           </div>
           <ChatSection
             clickedCard={clickedCard}
-            markMessageAnimated={markMessageAnimated}
             messages={messages}
-            markReaction={markReaction}
+            markMessageAnimation={markMessageAnimation}
           />
           <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>

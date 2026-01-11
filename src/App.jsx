@@ -54,7 +54,7 @@ const App = () => {
     )
   }
 
-  const markMessageAnimated = (clickedCardId, msgId) => {
+  const markMessageAnimation = (clickedCardId, msgId, reactionType) => {
     setAddedHistory(prev =>
       prev.map((card) =>
         card.id === clickedCardId ?
@@ -64,41 +64,25 @@ const App = () => {
               m.id === msgId ?
                 {
                   ...m,
-                  animated: false
+                  animated: false,
+                  reaction: m.reaction === reactionType ? null : reactionType
                 } : m
             )
           } : card
       ))
   }
 
- const markReaction = (clickedCardId,msgId,reactionType) => {
-  setAddedHistory(prev => 
-    prev.map((card) => 
-    card.id === clickedCardId ? 
-  {
-    ...card,
-    messages: card.messages.map((m) => 
-    m.id === msgId ? 
-    {
-      ...m,
-      reaction: m.reaction === reactionType ? null : reactionType
-    } : m
-    )
-  }: card
-    )
-  )
- }
 
   return (
 
     <Routes>
       <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
       <Route index path='/history' element={<HistoryPage  
-      markMessageAnimated={markMessageAnimated} 
+      markMessageAnimation={markMessageAnimation} 
       handleAddHistory={handleAddHistory} 
       addedHistory={addedHistory} 
       updateMessages={updateMessages}
-      markReaction={markReaction}
+      
       />} />
     </Routes>
 
