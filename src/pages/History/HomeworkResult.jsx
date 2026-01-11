@@ -42,7 +42,7 @@ export const HomeworkResult = ({
             messages={messages}
             markMessageAnimation={markMessageAnimation}
           />
-          <PromptSection updateMessages={updateMessages} clickedCard={clickedCard} />
+          <PromptSection markMessageAnimation={markMessageAnimation} messages={messages} updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>
       }
     </>

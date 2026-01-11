@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 
-export const TypingMessage = ({text}) => {
+export const TypingMessage = ({ text, onDone }) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -12,7 +12,9 @@ export const TypingMessage = ({text}) => {
       }, 20);
       return () => clearTimeout(timeout)
     }
-  },[currentIndex,text])
+    onDone()
+  }, [currentIndex, text,onDone])
+
 
   return (
     <div className="">

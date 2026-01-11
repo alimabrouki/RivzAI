@@ -7,11 +7,12 @@ import { SendHorizonal } from 'lucide-react';
 export const PromptSection = ({ updateMessages, clickedCard }) => {
   const [isTyping, setIsTyping] = useState('');
   const promptIn = useRef(null);
-
+ 
   const handleTextarea = (e) => {
     setIsTyping(e.target.value);
   };
 
+  
   const submitPrompt = () => {
     if (!isTyping.trim() || !clickedCard) return;
 
@@ -31,8 +32,10 @@ export const PromptSection = ({ updateMessages, clickedCard }) => {
         animated: true,
         reaction: ''
       })
+      
     }, 1500);
-    return () => clearTimeout(timeout)
+    return () => clearTimeout(timeout);
+    
   }
 
   const onEnterDown = (e) => {

@@ -27,12 +27,13 @@ export const ChatSection = ({
           messages.map((prompt) => (
 
             <div
-              onAnimationEnd={() => markMessageAnimation(clickedCard.id, prompt.id)}
               key={prompt.id}
               className={`rslt-${prompt.role}-prompt`}
             >
-              {prompt === aiMessage && prompt.animated ?
-                <TypingMessage text={prompt.content} /> :
+              {prompt === aiMessage && prompt.animated
+                ?
+                <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(clickedCard.id, prompt.id)} />
+                :
                 prompt.content
               }
               {
