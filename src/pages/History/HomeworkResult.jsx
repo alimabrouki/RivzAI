@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import '../../styles/history-page/HomeworkResult.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
@@ -9,7 +9,9 @@ export const HomeworkResult = ({
   closeResult,
   updateMessages,
   recentHomework,
- markMessageAnimation
+  markMessageAnimation,
+  handleAiTyping,
+  aiIsTyping
 }) => {
 
   const resultWindow = useRef(null);
@@ -38,11 +40,14 @@ export const HomeworkResult = ({
             <X className='close-window' onClick={closeResult} />
           </div>
           <ChatSection
+            aiIsTyping={aiIsTyping}
             clickedCard={clickedCard}
             messages={messages}
             markMessageAnimation={markMessageAnimation}
           />
-          <PromptSection markMessageAnimation={markMessageAnimation} messages={messages} updateMessages={updateMessages} clickedCard={clickedCard} />
+          <PromptSection
+            handleAiTyping={handleAiTyping}
+            markMessageAnimation={markMessageAnimation} messages={messages} updateMessages={updateMessages} clickedCard={clickedCard} />
         </div>
       }
     </>

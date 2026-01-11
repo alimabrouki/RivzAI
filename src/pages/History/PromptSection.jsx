@@ -4,8 +4,9 @@ import { RecordAudio } from '../../features/input-output/RecordAudio';
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SendHorizonal } from 'lucide-react';
 
-export const PromptSection = ({ updateMessages, clickedCard }) => {
+export const PromptSection = ({ updateMessages, clickedCard,handleAiTyping }) => {
   const [isTyping, setIsTyping] = useState('');
+  
   const promptIn = useRef(null);
  
   const handleTextarea = (e) => {
@@ -23,7 +24,8 @@ export const PromptSection = ({ updateMessages, clickedCard }) => {
     });
 
     setIsTyping('');
-
+    handleAiTyping(true);
+    
     const timeout = setTimeout(() => {
       updateMessages(clickedCard.id, {
         id: crypto.randomUUID(),
@@ -31,8 +33,7 @@ export const PromptSection = ({ updateMessages, clickedCard }) => {
         content: 'welcome,sorry this is still a demo comeback soon and have a great experience louuuuuuyyuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuuu thank you enjoy your day',
         animated: true,
         reaction: ''
-      })
-      
+      })  
     }, 1500);
     return () => clearTimeout(timeout);
     

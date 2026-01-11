@@ -5,6 +5,7 @@ export const ChatSection = ({
   messages,
   markMessageAnimation,
   clickedCard,
+  aiIsTyping
 }) => {
   const lastMessage = useRef(null);
   const aiMessage = messages.findLast((msg) => msg.role === 'ai')
@@ -12,7 +13,8 @@ export const ChatSection = ({
     console.log(messages)
     console.log(aiMessage)
     console.log(clickedCard)
-  }, [messages, aiMessage, clickedCard]);
+    console.log(aiIsTyping)
+  }, [messages, aiMessage, clickedCard, aiIsTyping]);
 
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({ behavior: 'smooth' })
@@ -25,36 +27,40 @@ export const ChatSection = ({
       <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
         {
           messages.map((prompt) => (
+            <>
+              <div
+                key={prompt.id}
+                className={`rslt-${prompt.role}-prompt`}
+              >
+                {prompt === aiMessage && prompt.animated
+                  ?
+                  <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(clickedCard.id, prompt.id)} />
+                  :
+                  prompt.content
+                }
 
-            <div
-              key={prompt.id}
-              className={`rslt-${prompt.role}-prompt`}
-            >
-              {prompt === aiMessage && prompt.animated
-                ?
-                <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(clickedCard.id, prompt.id)} />
-                :
-                prompt.content
-              }
-              {
-                prompt.role === 'ai' &&
-                <div className="actions">
-                  <Copy />
-                  <Download />
-                  <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }}
-                    onClick={() => {
-                      markMessageAnimation(clickedCard.id, prompt.id, 'like')
+                {
+                  prompt.role === 'ai' &&
+                  <div className="actions">
+                    <Copy />
+                    <Download />
+                    <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }}
+                      onClick={() => {
+                        markMessageAnimation(clickedCard.id, prompt.id, 'like')
+                      }
+                      } />
+                    <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
+                      markMessageAnimation(clickedCard.id, prompt.id, 'dislike')
                     }
                     } />
-                  <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
-                    markMessageAnimation(clickedCard.id, prompt.id, 'dislike')
-                  }
-                  } />
-                  <Share2 />
-                </div>
+                    <Share2 />
+                  </div>
+                }
+              </div>
+              {aiIsTyping &&
+                <div className="rslt-ai-prompt"> loading... </div>
               }
-            </div>
-
+            </>
           ))}
         <div ref={lastMessage} className="dummy-msg"></div>
       </div>

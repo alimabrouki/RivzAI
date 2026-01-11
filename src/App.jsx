@@ -4,6 +4,7 @@ import { HistoryPage } from './pages/History/HistoryPage'
 import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { MdSportsGolf } from 'react-icons/md'
+import { useState } from 'react'
 
 
 const App = () => {
@@ -22,6 +23,12 @@ const App = () => {
       timestamp: new Date().toISOString()
     }
   ]);
+
+  const [aiIsTyping, setAiIsTyping] = useState(false);
+  
+    const handleAiTyping = (state) => {
+      setAiIsTyping(state)
+    }
 
   const handleAddHistory = (newPrompt) => {
     const historyItem = {
@@ -52,6 +59,7 @@ const App = () => {
         } : card
       )
     )
+     setAiIsTyping(false)
   }
 
   const markMessageAnimation = (clickedCardId, msgId, reactionType) => {
@@ -70,6 +78,7 @@ const App = () => {
             )
           } : card
       ))
+     
   }
 
 
@@ -77,7 +86,9 @@ const App = () => {
 
     <Routes>
       <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
-      <Route index path='/history' element={<HistoryPage  
+      <Route index path='/history' element={<HistoryPage 
+      handleAiTyping={handleAiTyping}
+      aiIsTyping={aiIsTyping} 
       markMessageAnimation={markMessageAnimation} 
       handleAddHistory={handleAddHistory} 
       addedHistory={addedHistory} 
