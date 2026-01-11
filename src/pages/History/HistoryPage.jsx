@@ -12,7 +12,7 @@ export const HistoryPage = ({
   addedHistory,
   handleAddHistory,
   updateMessages,
-  mmarkMessageAnimation
+  markMessageAnimation
 }) => {
   const [clickedCard, setClickedCard] = useState(null);
 

@@ -1,16 +1,19 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
-
+import { TypingMessage } from "./TypingMessage";
 export const ChatSection = ({
   messages,
   markMessageAnimation,
   clickedCard,
 }) => {
   const lastMessage = useRef(null);
+  const aiMessage = messages.findLast((msg) => msg.role === 'ai')
   useEffect(() => {
     console.log(messages)
-    
-  }, [messages])
+    console.log(aiMessage)
+    console.log(clickedCard)
+  }, [messages, aiMessage, clickedCard]);
+
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages.length]);
@@ -27,18 +30,21 @@ export const ChatSection = ({
               onAnimationEnd={() => markMessageAnimation(clickedCard.id, prompt.id)}
               key={prompt.id}
               className={`rslt-${prompt.role}-prompt`}
-              style={{ animation: prompt.animated ? 'typing 3s steps(30, end) 1s forwards' : '' }}
-            >{prompt.content}
+            >
+              {prompt === aiMessage && prompt.animated ?
+                <TypingMessage text={prompt.content} /> :
+                prompt.content
+              }
               {
                 prompt.role === 'ai' &&
                 <div className="actions">
                   <Copy />
                   <Download />
-                  <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }} 
-                  onClick={() => {
-                    markMessageAnimation(clickedCard.id, prompt.id,'like')
-                  }
-                  } />
+                  <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }}
+                    onClick={() => {
+                      markMessageAnimation(clickedCard.id, prompt.id, 'like')
+                    }
+                    } />
                   <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
                     markMessageAnimation(clickedCard.id, prompt.id, 'dislike')
                   }
