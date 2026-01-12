@@ -21,6 +21,32 @@ const App = () => {
         }
       ],
       timestamp: new Date().toISOString()
+    },
+    {
+      id: crypto.randomUUID(),
+      title: 'new homework',
+      text: 'new homework',
+      messages: [
+        {
+          id: crypto.randomUUID(),
+          role: 'user',
+          content: 'new homework'
+        }
+      ],
+      timestamp: new Date().toISOString()
+    },
+    {
+      id: crypto.randomUUID(),
+      title: 'new homework',
+      text: 'new homework',
+      messages: [
+        {
+          id: crypto.randomUUID(),
+          role: 'user',
+          content: 'new homework'
+        }
+      ],
+      timestamp: new Date().toISOString()
     }
   ]);
 

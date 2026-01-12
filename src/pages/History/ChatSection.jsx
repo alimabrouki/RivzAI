@@ -26,25 +26,27 @@ export const ChatSection = ({
 
   return (
     <>
-    <div className="chat-section">
-      <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
+      <div className="chat-section">
+        <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
 
-        {
-          messages.map((prompt) => (
-            
+          {
+            messages.map((prompt) => (
+
               <div
                 key={prompt.id}
                 className={`rslt-${prompt.role}-prompt`}
               >
                 {prompt === aiMessage && prompt.animated
                   ?
+
                   <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(clickedCard.id, prompt.id)} />
+
                   :
                   prompt.content
                 }
 
                 {
-                  prompt.role === 'ai' &&
+                  prompt.role === 'ai' && !prompt.animated &&
                   <div className="actions">
                     <Copy />
                     <Download />
@@ -61,18 +63,27 @@ export const ChatSection = ({
 
                   </div>
                 }
-                {aiIsTyping &&
-                <div key={prompt.id} className="rslt-ai-prompt"> loading... </div>
-              }
               </div>
-              
-            
-          ))}
-        
-      </div> 
-       <div ref={lastMessage} className="dummy-msg"></div>
-    </div>
-  
+
+
+
+
+
+            ))
+          }
+          {aiIsTyping &&
+            <div className="typing"> 
+            <div className="typing-bubble">
+              <span className="typing-dot"></span>
+              <span className="typing-dot"></span>
+              <span className="typing-dot"></span>
+            </div>
+            </div>
+          }
+        </div>
+        <div ref={lastMessage} className="dummy-msg"></div>
+      </div>
+
     </>
   )
 }

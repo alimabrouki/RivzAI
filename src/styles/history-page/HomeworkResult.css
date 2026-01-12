@@ -103,6 +103,7 @@
 
 .rslt-user-prompt {
   color: #aeaeb7;
+  margin-top: 15px;
   margin-right: 25px;
   padding: 10px;
   border-radius: 10px 20px 0 20px;
@@ -212,4 +213,53 @@
   color: var(--c-b-darker);
   background: var(--c-dark-orange);
   cursor: pointer;
+}
+
+.typing {
+  display: flex;
+  margin-top: 50px;
+  margin-left: 25px;
+  align-self: flex-start;
+}
+
+.typing-bubble {
+  padding: 11px 15px;
+  background: var(--c-light-blue);
+  border-radius: 20px 20px 20px 4px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--c-orange);
+  border-radius: 50%;
+}
+
+.typing-dot:nth-child(1) {
+  animation: typingBounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation: typingBounce 1.4s infinite 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation: typingBounce 1.4s infinite 0.4s;
+}
+
+@keyframes typingBounce {
+
+  0%,
+  60%,
+  100% {
+    transform: translateY(0);
+  }
+
+  30% {
+    transform: translateY(-5px);
+  }
 }

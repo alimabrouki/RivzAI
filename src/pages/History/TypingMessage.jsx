@@ -9,7 +9,7 @@ export const TypingMessage = ({ text, onDone }) => {
       const timeout = setTimeout(() => {
         setDisplayText(prev => prev + text[currentIndex])
         setCurrentIndex(prev => prev + 1)
-      }, 20);
+      }, 30);
       return () => clearTimeout(timeout)
     }
     onDone()
