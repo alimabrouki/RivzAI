@@ -6,7 +6,7 @@ import { Search } from 'lucide-react';
 import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
 import { HomeworkResult } from './HomeworkResult';
-import { useState } from 'react';
+import { useLayoutEffect, useRef, useState } from 'react';
 
 export const HistoryPage = ({
   addedHistory,
@@ -17,6 +17,11 @@ export const HistoryPage = ({
   aiIsTyping
 }) => {
   const [clickedCard, setClickedCard] = useState(null);
+  const scrollUp = useRef(null)
+
+  useLayoutEffect(() => {
+    scrollUp.current?.scrollIntoView({behavior: 'smooth'})
+  },[clickedCard])
 
   const handleClickedCard = (homework) => {
     setClickedCard(homework)
@@ -38,6 +43,7 @@ export const HistoryPage = ({
               <input type="text" placeholder='Search your homework history...' />
               <Search />
             </div>
+            <div ref={scrollUp} className="dummy"></div>
             <FilterHistory />
             <HomeworkCards handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
             <HomeworkResult

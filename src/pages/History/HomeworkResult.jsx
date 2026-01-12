@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import '../../styles/history-page/HomeworkResult.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
@@ -29,6 +29,8 @@ export const HomeworkResult = ({
       }
     })
   });
+
+ 
 
   return (
     <>

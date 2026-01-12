@@ -17,17 +17,21 @@ export const ChatSection = ({
   }, [messages, aiMessage, clickedCard, aiIsTyping]);
 
   useLayoutEffect(() => {
-    lastMessage.current?.scrollIntoView({ behavior: 'smooth' })
+    lastMessage.current?.scrollIntoView({
+      behavior: 'smooth', block: 'end'
+    })
   }, [messages.length]);
 
 
 
   return (
+    <>
     <div className="chat-section">
       <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
+
         {
           messages.map((prompt) => (
-            <>
+            
               <div
                 key={prompt.id}
                 className={`rslt-${prompt.role}-prompt`}
@@ -54,16 +58,21 @@ export const ChatSection = ({
                     }
                     } />
                     <Share2 />
+
                   </div>
                 }
-              </div>
-              {aiIsTyping &&
-                <div className="rslt-ai-prompt"> loading... </div>
+                {aiIsTyping &&
+                <div key={prompt.id} className="rslt-ai-prompt"> loading... </div>
               }
-            </>
+              </div>
+              
+            
           ))}
-        <div ref={lastMessage} className="dummy-msg"></div>
-      </div>
+        
+      </div> 
+       <div ref={lastMessage} className="dummy-msg"></div>
     </div>
+  
+    </>
   )
 }
