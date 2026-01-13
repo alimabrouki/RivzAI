@@ -1,11 +1,11 @@
 import { useEffect, useRef } from 'react';
-import '../../styles/history-page/HomeworkResult.css';
+import '../../styles/history-page/ChatPage.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { X } from 'lucide-react';
+import { useParams } from 'react-router-dom';
 
-export const HomeworkResult = ({
-  clickedCard,
+export const ChatPage = ({
   closeResult,
   addMessage,
   markMessageAnimation,
@@ -13,14 +13,15 @@ export const HomeworkResult = ({
   aiIsTyping,
   recentHomework
 }) => {
+  const { cardId } = useParams();
 
   const resultWindow = useRef(null);
 
-  const validCard = recentHomework.filter((card) => card && typeof card === 'object' && card.id)
-  const currentCard = clickedCard ?
-    validCard.find((card) => card.id === clickedCard.id)
-    : [];
-  const messages = currentCard.messages || [];
+  const validCard = recentHomework.filter((card) => card && typeof card === 'object' && card.id);
+
+  const card = validCard.find((card) => card.id === cardId);
+
+  const messages = card.messages || [];
 
   useEffect(() => {
     document.addEventListener('mousedown', (e) => {
@@ -30,27 +31,24 @@ export const HomeworkResult = ({
     })
   });
 
-
   return (
-    <>
-      {clickedCard &&
+    <>      
         <div ref={resultWindow} className="result-window">
           <div className="result-header">
             <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
-            <h2 className='homework-title'>{clickedCard.title}</h2>
+            <h2 className='homework-title'>{card.title}</h2>
             <X className='close-window' onClick={closeResult} />
           </div>
           <ChatSection
             aiIsTyping={aiIsTyping}
-            clickedCard={clickedCard}
+            cardId={card.id}
             markMessageAnimation={markMessageAnimation}
             messages={messages}
           />
           <PromptSection
             handleAiTyping={handleAiTyping}
-            addMessage={addMessage} clickedCard={clickedCard} />
+            addMessage={addMessage} cardId={card.id} />
         </div>
-      }
     </>
   )
 }

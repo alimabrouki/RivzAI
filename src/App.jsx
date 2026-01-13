@@ -1,6 +1,7 @@
-import { Route, Routes } from 'react-router'
+import { Route, Routes, useNavigate } from 'react-router'
 import { HomePage } from './pages/Home/HomePage'
 import { HistoryPage } from './pages/History/HistoryPage'
+import { ChatPage } from './pages/History/ChatPage'
 import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { useState } from 'react'
@@ -50,6 +51,12 @@ const App = () => {
   ]);
 
   const [aiIsTyping, setAiIsTyping] = useState(false);
+
+  const navigate = useNavigate();
+
+  const handleClickedCard = (homework) => {
+    navigate(`/history/${homework.id}`)
+  }
 
   const handleAddHistory = (newPrompt) => {
     const historyItem = {
@@ -103,22 +110,27 @@ const App = () => {
             )
           } : card
       ))
-
   }
-
 
   return (
 
     <Routes>
       <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
-      <Route index path='/history' 
-      element={<HistoryPage
-        addedHistory={addedHistory}
-        handleAiTyping={handleAiTyping}
-        aiIsTyping={aiIsTyping}
-        markMessageAnimation={markMessageAnimation}
-        addMessage={addMessage}
-      />} />
+      <Route index path='/history'
+        element={<HistoryPage
+          addedHistory={addedHistory}
+          handleClickedCard={handleClickedCard}
+        />} />
+      <Route index path='/history/:cardId' element={
+        <ChatPage
+          handleAiTyping={handleAiTyping}
+          aiIsTyping={aiIsTyping}
+          markMessageAnimation={markMessageAnimation}
+          addMessage={addMessage}
+          recentHomework={addedHistory}
+          closeResult={() => navigate(-1)}
+        />
+      } />
     </Routes>
 
   )

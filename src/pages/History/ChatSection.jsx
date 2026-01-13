@@ -5,9 +5,10 @@ export const ChatSection = ({
   messages,
   markMessageAnimation,
   aiIsTyping,
-  clickedCard
+  cardId
 }) => {
   const lastMessage = useRef(null);
+
   const aiMessage = messages.findLast((msg) => msg.role === 'ai')
 
   useLayoutEffect(() => {
@@ -31,7 +32,7 @@ export const ChatSection = ({
                 {prompt === aiMessage && prompt.animated
                   ?
 
-                  <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(clickedCard.id, prompt.id)} />
+                  <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(cardId, prompt.id)} />
 
                   :
                   prompt.content
@@ -44,11 +45,11 @@ export const ChatSection = ({
                     <Download />
                     <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }}
                       onClick={() => {
-                        markMessageAnimation(clickedCard.id, prompt.id, 'like')
+                        markMessageAnimation(cardId, prompt.id, 'like')
                       }
                       } />
                     <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
-                      markMessageAnimation(clickedCard.id, prompt.id, 'dislike')
+                      markMessageAnimation(cardId, prompt.id, 'dislike')
                     }
                     } />
                     <Share2 />
@@ -56,11 +57,6 @@ export const ChatSection = ({
                   </div>
                 }
               </div>
-
-
-
-
-
             ))
           }
           {aiIsTyping &&

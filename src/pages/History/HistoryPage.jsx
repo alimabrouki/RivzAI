@@ -5,26 +5,12 @@ import { Header } from '../../components/Header';
 import { Search } from 'lucide-react';
 import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
-import { HomeworkResult } from './HomeworkResult';
-import { useState } from 'react';
 
 export const HistoryPage = ({
   addedHistory,
-  addMessage,
-  markMessageAnimation,
-  handleAiTyping,
-  aiIsTyping
+  handleClickedCard
 }) => {
-  const [activeCardId, setActiveCardId] = useState(null);
 
-
-  const handleClickedCard = (homework) => {
-    setActiveCardId(homework.id)
-  }
-  const clickedCard = addedHistory.find((card) => card.id === activeCardId);
-
-
-  console.log(activeCardId)
   return (
     <>
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
@@ -43,16 +29,6 @@ export const HistoryPage = ({
             <div className="dummy"></div>
             <FilterHistory />
             <HomeworkCards handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
-            <HomeworkResult
-              handleAiTyping={handleAiTyping}
-              aiIsTyping={aiIsTyping}
-              markMessageAnimation={markMessageAnimation}
-              closeResult={() => setActiveCardId(null)}
-              clickedCard={clickedCard}
-              addMessage={addMessage}
-              recentHomework={addedHistory}
-        
-            />
           </div>
         </div>
       </div>
