@@ -7,11 +7,11 @@ import { X } from 'lucide-react';
 export const HomeworkResult = ({
   clickedCard,
   closeResult,
-  updateMessages,
-  recentHomework,
+  addMessage,
   markMessageAnimation,
   handleAiTyping,
-  aiIsTyping
+  aiIsTyping,
+  recentHomework
 }) => {
 
   const resultWindow = useRef(null);
@@ -30,7 +30,6 @@ export const HomeworkResult = ({
     })
   });
 
- 
 
   return (
     <>
@@ -44,12 +43,12 @@ export const HomeworkResult = ({
           <ChatSection
             aiIsTyping={aiIsTyping}
             clickedCard={clickedCard}
-            messages={messages}
             markMessageAnimation={markMessageAnimation}
+            messages={messages}
           />
           <PromptSection
             handleAiTyping={handleAiTyping}
-            markMessageAnimation={markMessageAnimation} messages={messages} updateMessages={updateMessages} clickedCard={clickedCard} />
+            addMessage={addMessage} clickedCard={clickedCard} />
         </div>
       }
     </>

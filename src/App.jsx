@@ -3,7 +3,6 @@ import { HomePage } from './pages/Home/HomePage'
 import { HistoryPage } from './pages/History/HistoryPage'
 import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
-import { MdSportsGolf } from 'react-icons/md'
 import { useState } from 'react'
 
 
@@ -51,10 +50,6 @@ const App = () => {
   ]);
 
   const [aiIsTyping, setAiIsTyping] = useState(false);
-  
-    const handleAiTyping = (state) => {
-      setAiIsTyping(state)
-    }
 
   const handleAddHistory = (newPrompt) => {
     const historyItem = {
@@ -73,7 +68,11 @@ const App = () => {
     setAddedHistory(prevHistory => [historyItem, ...prevHistory])
   }
 
-  const updateMessages = (cardId, message) => {
+  const handleAiTyping = (state) => {
+    setAiIsTyping(state)
+  }
+
+  const addMessage = (cardId, message) => {
     setAddedHistory(prev =>
       prev.map((card) =>
         card.id === cardId ? {
@@ -85,13 +84,13 @@ const App = () => {
         } : card
       )
     )
-     setAiIsTyping(false)
+    setAiIsTyping(false)
   }
 
-  const markMessageAnimation = (clickedCardId, msgId, reactionType) => {
+  const markMessageAnimation = (CardId, msgId, reactionType) => {
     setAddedHistory(prev =>
       prev.map((card) =>
-        card.id === clickedCardId ?
+        card.id === CardId ?
           {
             ...card,
             messages: card.messages.map((m) =>
@@ -104,7 +103,7 @@ const App = () => {
             )
           } : card
       ))
-     
+
   }
 
 
@@ -112,14 +111,13 @@ const App = () => {
 
     <Routes>
       <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
-      <Route index path='/history' element={<HistoryPage 
-      handleAiTyping={handleAiTyping}
-      aiIsTyping={aiIsTyping} 
-      markMessageAnimation={markMessageAnimation} 
-      handleAddHistory={handleAddHistory} 
-      addedHistory={addedHistory} 
-      updateMessages={updateMessages}
-      
+      <Route index path='/history' 
+      element={<HistoryPage
+        addedHistory={addedHistory}
+        handleAiTyping={handleAiTyping}
+        aiIsTyping={aiIsTyping}
+        markMessageAnimation={markMessageAnimation}
+        addMessage={addMessage}
       />} />
     </Routes>
 

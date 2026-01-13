@@ -1,28 +1,20 @@
-import { useEffect, useLayoutEffect, useRef } from "react";
+import { useLayoutEffect, useRef } from "react";
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 import { TypingMessage } from "./TypingMessage";
 export const ChatSection = ({
   messages,
   markMessageAnimation,
-  clickedCard,
-  aiIsTyping
+  aiIsTyping,
+  clickedCard
 }) => {
   const lastMessage = useRef(null);
   const aiMessage = messages.findLast((msg) => msg.role === 'ai')
-  useEffect(() => {
-    console.log(messages)
-    console.log(aiMessage)
-    console.log(clickedCard)
-    console.log(aiIsTyping)
-  }, [messages, aiMessage, clickedCard, aiIsTyping]);
 
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({
       behavior: 'smooth', block: 'end'
     })
   }, [messages.length]);
-
-
 
   return (
     <>
@@ -72,12 +64,12 @@ export const ChatSection = ({
             ))
           }
           {aiIsTyping &&
-            <div className="typing"> 
-            <div className="typing-bubble">
-              <span className="typing-dot"></span>
-              <span className="typing-dot"></span>
-              <span className="typing-dot"></span>
-            </div>
+            <div className="typing">
+              <div className="typing-bubble">
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+                <span className="typing-dot"></span>
+              </div>
             </div>
           }
         </div>
