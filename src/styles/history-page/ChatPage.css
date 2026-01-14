@@ -67,7 +67,6 @@
 
 .close-window {
   margin-left: auto;
-  background-color: var(--c-light-blue);
   color: var(--c-neutral-300);
   cursor: pointer;
   width: 40px;

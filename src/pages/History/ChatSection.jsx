@@ -15,7 +15,9 @@ export const ChatSection = ({
     lastMessage.current?.scrollIntoView({
       behavior: 'smooth', block: 'end'
     })
-  }, [messages.length]);
+  }, [messages]);
+
+  
 
   return (
     <>
@@ -68,11 +70,10 @@ export const ChatSection = ({
               </div>
             </div>
           }
-          
         </div>
-        
+        <div ref={lastMessage} className="dummy-msg"></div>
       </div>
-<div ref={lastMessage} className="dummy-msg"></div>
+      
     </>
   )
 }
