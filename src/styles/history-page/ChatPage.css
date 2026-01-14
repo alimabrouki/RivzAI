@@ -103,12 +103,11 @@
 .rslt-user-prompt {
   color: #aeaeb7;
   margin-top: 15px;
-  margin-right: 25px;
   padding: 10px;
   border-radius: 10px 20px 0 20px;
   background-color: rebeccapurple;
   overflow-wrap: break-word;
-  word-break: keep-all;
+  word-break: break-word;
   max-width: 500px;
   font-size: var(--fs-18);
 }
@@ -116,10 +115,9 @@
 .rslt-ai-prompt {
   align-self: flex-start;
   color: var(--c-text-light);
-  margin-left: 25px;
   padding: 10px;
   margin-top: 50px;
-  word-break: keep-all;
+  word-break: break-word;
   max-width: 800px;
   font-size: var(--fs-18);
 }
