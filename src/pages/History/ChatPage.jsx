@@ -3,7 +3,7 @@ import '../../styles/history-page/ChatPage.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { Header } from '../../components/Header';
-import { X } from 'lucide-react';
+import { BsFillArrowLeftCircleFill } from "react-icons/bs";
 import { useParams } from 'react-router-dom';
 
 export const ChatPage = ({
@@ -30,15 +30,12 @@ export const ChatPage = ({
     <>
       <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
       <title>Chat</title>
-
-      <Header />
-<div ref={resultWindow} className="chat-page">
-      <div className="wrapper">
-        
+      <div ref={resultWindow} className="chat-page">
+        <div className="wrapper">
           <div className="chat-header">
             <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
             <h2 className='homework-title'>{card.title}</h2>
-            <X className='close-window' onClick={closeResult} />
+            <BsFillArrowLeftCircleFill className='close-window' onClick={closeResult} />
           </div>
           <ChatSection
             aiIsTyping={aiIsTyping}
@@ -49,6 +46,7 @@ export const ChatPage = ({
           <PromptSection
             handleAiTyping={handleAiTyping}
             addMessage={addMessage} cardId={card.id} />
+          <div className="mistakes-alert">RivzAI can make mistakes. Check Responses.</div>
         </div>
       </div>
     </>

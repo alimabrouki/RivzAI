@@ -70,9 +70,9 @@
   background-color: var(--c-light-blue);
   color: var(--c-neutral-300);
   cursor: pointer;
-  width: 30px;
-  height: 30px;
-  border-radius: 5px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
 }
 
 .chat-section {
@@ -249,6 +249,12 @@
 
 .typing-dot:nth-child(3) {
   animation: typingBounce 1.4s infinite 0.4s;
+}
+
+.mistakes-alert {
+  text-align: center;
+  margin: 7px 0px;
+  color: var(--c-neutral-200);
 }
 
 @keyframes typingBounce {
