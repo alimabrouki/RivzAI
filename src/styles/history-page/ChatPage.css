@@ -76,7 +76,7 @@
 }
 
 .chat-section {
-  height: 66vh;
+  height: 67vh;
   overflow-y: auto;
   scroll-behavior: smooth;
 }
@@ -142,11 +142,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 20px;
+  padding: 10px;
   border-top: 2px solid var(--c-neutral-600);
   align-items: center;
   background-color: var(--c-neutral-600);
-  border-radius: 12px;
+  border-radius: 30px;
   box-shadow: var(--input-bx-shdw);
   border: 1px solid var(--c-main-bg);
 }
@@ -156,6 +156,7 @@
   padding: 20px;
   outline: none;
   color: var(--c-neutral-0);
+  border-radius: 30px;
   background-color: var(--c-neutral-600);
   caret-color: var(--c-neutral-300);
   resize: none;
@@ -189,10 +190,9 @@
 
 .prompt-btns .submit-prompt {
   position: absolute;
-  right: 20px;
+  right: 10px;
   width: 50px;
   height: 40px;
-  border-radius: 8px;
   color: var(--c-neutral-0);
   background: var(--c-neutral-300);
 }
@@ -200,13 +200,11 @@
 .prompt-btns :nth-child(2) {
   width: revert-layer;
   padding: 6px 11px;
-  border-radius: 8px;
 }
 
 .prompt-btns :nth-child(4) {
   width: 50px;
   height: 40px;
-  border-radius: 8px;
 }
 
 .prompt-btns button {
@@ -214,6 +212,7 @@
   background: var(--c-dark-orange);
   cursor: pointer;
   margin: 0 5px;
+  border-radius: 16px;
 }
 
 .typing {
