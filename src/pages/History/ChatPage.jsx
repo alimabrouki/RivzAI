@@ -1,7 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import '../../styles/history-page/ChatPage.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
+import { Header } from '../../components/Header';
 import { X } from 'lucide-react';
 import { useParams } from 'react-router-dom';
 
@@ -23,18 +24,18 @@ export const ChatPage = ({
 
   const messages = card.messages || [];
 
-  useEffect(() => {
-    document.addEventListener('mousedown', (e) => {
-      if (resultWindow.current && !resultWindow.current.contains(e.target)) {
-        closeResult()
-      }
-    })
-  });
 
   return (
-    <>      
-        <div ref={resultWindow} className="result-window">
-          <div className="result-header">
+
+    <>
+      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <title>Chat</title>
+
+      <Header />
+<div ref={resultWindow} className="chat-page">
+      <div className="wrapper">
+        
+          <div className="chat-header">
             <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
             <h2 className='homework-title'>{card.title}</h2>
             <X className='close-window' onClick={closeResult} />
@@ -49,6 +50,7 @@ export const ChatPage = ({
             handleAiTyping={handleAiTyping}
             addMessage={addMessage} cardId={card.id} />
         </div>
+      </div>
     </>
   )
 }

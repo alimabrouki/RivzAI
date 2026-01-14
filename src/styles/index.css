@@ -132,26 +132,9 @@ select {
 
 
 .wrapper {
-  display: grid;
-  grid-template-columns: 1fr calc(100% - 32px) 1fr;
-
-  @media (width >=calc(700 / 16 * 1rem)) {
-    grid-template-columns: 1fr min(calc(100% - 100px)) 1fr;
-  }
-
-  /* try 100 px on both pages */
-
-
-  @media (width <=calc(1100 / 16 * 1rem)) {
-    grid-template-columns: 1fr min(calc(100% - 25px)) 1fr;
-  }
-
-  @media (width <=calc(700 / 16 * 1rem)) {
-    grid-template-columns: 1fr min(calc(100% - 30px)) 1fr;
-  }
-
-
-  >* {
-    grid-column: 2;
-  }
+  max-width: 1200px; 
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 15px; 
+  padding-right: 15px;
 }

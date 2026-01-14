@@ -68,10 +68,11 @@ export const ChatSection = ({
               </div>
             </div>
           }
+          
         </div>
-        <div ref={lastMessage} className="dummy-msg"></div>
+        
       </div>
-
+<div ref={lastMessage} className="dummy-msg"></div>
     </>
   )
 }
