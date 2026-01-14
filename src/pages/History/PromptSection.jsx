@@ -50,9 +50,11 @@ export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
   return (
     <div className="prompt-section">
       <TextareaAutosize onKeyDown={onEnterDown} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
-      <RecordAudio />
-      <UploadFile />
-      <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
+      <div className="prompt-btns">
+        <RecordAudio />
+        <UploadFile />
+        <button onClick={submitPrompt} style={{ background: isTyping ? 'var(--c-dark-orange' : '' }} className='submit-prompt'><SendHorizonal /></button>
+      </div>
     </div>
   )
 }

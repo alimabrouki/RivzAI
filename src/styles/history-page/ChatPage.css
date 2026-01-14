@@ -30,37 +30,37 @@
   }
 }
 
-.result-window {
-  transform: translateX(-50%);
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 100%;
-  max-width: 900px;
-  /* height: 85vh; */
-  background: linear-gradient(41deg, #000000, var(--c-dark-blue));
-  border: 1px solid rgba(245, 155, 0, 0.3);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: rgba(0, 0, 0, 0.6) 0px 25px 80px, rgba(245, 155, 0, 0.15) 0px 0px 60px;
-  display: flex;
-  flex-direction: column;
-  /* animation: ; */
+
+@media (min-width: 1300px) {
+  .chat-page .wrapper {
+    padding: 0px 200px;
+  }
 }
 
-.result-header {
+@media (900px < width <=1300px) {
+  .chat-page .wrapper {
+    padding: 0px 130px;
+  }
+}
+
+@media (700px < width <=900px) {
+  .chat-page .wrapper {
+    padding: 0px 60px;
+  }
+}
+
+.chat-header {
   display: flex;
-  padding: 20px;
+  padding: 10px;
   align-items: center;
-  border-bottom: 2px solid var(--c-neutral-600);
-  background: linear-gradient(135deg, rgba(245, 155, 0, 0.15) 0%, rgba(139, 92, 246, 0.1) 100%);
+  border-bottom: 1px solid var(--c-neutral-600);
 }
 
 .math-icon {
   width: 50px;
 }
 
-.result-header .homework-title {
+.chat-header .homework-title {
   margin-left: 20px;
   color: var(--c-text-light);
 }
@@ -76,7 +76,7 @@
 }
 
 .chat-section {
-  height: 70vh;
+  height: 66vh;
   overflow-y: auto;
   scroll-behavior: smooth;
 }
@@ -139,21 +139,24 @@
 }
 
 .prompt-section {
+  position: relative;
   display: flex;
+  flex-direction: column;
   padding: 20px;
   border-top: 2px solid var(--c-neutral-600);
   align-items: center;
-}
-
-.prompt-in {
-  margin-bottom: 55px;
-  padding: 20px;
-  outline: none;
-  color: var(--c-neutral-0);
   background-color: var(--c-neutral-600);
   border-radius: 12px;
   box-shadow: var(--input-bx-shdw);
   border: 1px solid var(--c-main-bg);
+}
+
+.prompt-in {
+  height: 70px !important;
+  padding: 20px;
+  outline: none;
+  color: var(--c-neutral-0);
+  background-color: var(--c-neutral-600);
   caret-color: var(--c-neutral-300);
   resize: none;
   scroll-behavior: smooth;
@@ -180,39 +183,37 @@
   background: var(--c-light-blue);
 }
 
-.prompt-section .submit-prompt {
-  width: 50px;
+.prompt-btns {
+  align-self: start;
+}
+
+.prompt-btns .submit-prompt {
   position: absolute;
-  bottom: 22px;
-  right: 22px;
+  right: 20px;
+  width: 50px;
   height: 40px;
   border-radius: 8px;
   color: var(--c-neutral-0);
   background: var(--c-neutral-300);
 }
 
-.prompt-section :nth-child(3) {
+.prompt-btns :nth-child(2) {
   width: revert-layer;
-  position: absolute;
-  bottom: 22px;
-  right: 100px;
   padding: 6px 11px;
   border-radius: 8px;
 }
 
-.prompt-section :nth-child(5) {
+.prompt-btns :nth-child(4) {
   width: 50px;
-  position: absolute;
-  bottom: 22px;
-  right: 180px;
   height: 40px;
   border-radius: 8px;
 }
 
-.prompt-section button {
+.prompt-btns button {
   color: var(--c-b-darker);
   background: var(--c-dark-orange);
   cursor: pointer;
+  margin: 0 5px;
 }
 
 .typing {
