@@ -15,7 +15,7 @@ export const ChatSection = ({
     lastMessage.current?.scrollIntoView({
       behavior: 'smooth', block: 'end'
     })
-  }, [messages]);
+  }, [messages.length]);
 
   
 
