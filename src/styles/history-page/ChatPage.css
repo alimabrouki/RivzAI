@@ -115,7 +115,6 @@
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 500px;
-  font-size: var(--fs-18);
 }
 
 .rslt-ai-prompt {
@@ -125,10 +124,13 @@
   margin-top: 50px;
   word-break: break-word;
   max-width: 800px;
-  font-size: var(--fs-18);
 }
 
-
+@media (width >= 700px) {
+  .rslt-user-prompt,.rslt-ai-prompt {
+    font-size: var(--fs-18);
+  }
+}
 
 .rslt-ai-prompt .actions {
   display: flex;
