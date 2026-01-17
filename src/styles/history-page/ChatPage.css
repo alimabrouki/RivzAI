@@ -49,6 +49,10 @@
   }
 }
 
+.chat-page {
+  position: relative;
+}
+
 .chat-header {
   display: flex;
   padding: 10px;
@@ -63,6 +67,65 @@
 .chat-header .homework-title {
   margin-left: 20px;
   color: var(--c-text-light);
+}
+
+.head-btns {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  gap: 30px;
+}
+
+.delete-btn {
+  color: var(--c-neutral-300);
+  cursor: pointer;
+  width: 35px;
+  height: 35px;
+  border-radius: 50%;
+}
+
+.deletion-alert {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%);
+  background: var(--c-neutral-300);
+  display: flex;
+  border-radius: 16px;
+  flex-direction: column;
+  z-index: 101;
+}
+
+.deletion-alert .alert-message {
+  font-size: var(--fs-18);
+  padding: 30px;
+  text-align: center;
+  font-weight: 600;
+  color: var(--c-main-bg);
+}
+
+.alert-btns {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  margin-bottom: 25px;
+}
+
+.alert-btns button {
+  color: var(--c-b-darker);
+  background: var(--c-dark-orange);
+  border-radius: 16px;
+  padding: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  width: revert-layer;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: var(--c-bleu-bg);
 }
 
 .close-window {
@@ -126,8 +189,10 @@
   max-width: 800px;
 }
 
-@media (width >= 700px) {
-  .rslt-user-prompt,.rslt-ai-prompt {
+@media (width >=700px) {
+
+  .rslt-user-prompt,
+  .rslt-ai-prompt {
     font-size: var(--fs-18);
   }
 }

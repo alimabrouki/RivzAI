@@ -8,7 +8,7 @@ import { useState } from 'react'
 
 
 const App = () => {
-  const [addedHistory, setAddedHistory] = useLocalStorage('newPrompt', [
+  const [addedHistory, setAddedHistory] = useLocalStorage('Homeworks', [
     {
       id: crypto.randomUUID(),
       title: 'new homework',
@@ -77,6 +77,13 @@ const App = () => {
     openHistoryCard(card.id)
   }
 
+  const deleteHistoryItem = (deletedCardId) => {
+    setAddedHistory(prev =>
+      prev.filter((item) => item.id !== deletedCardId)
+    );
+    navigate('/history/')
+  }
+
   const handlHistoryCardClick = (homework) => {
     openHistoryCard(homework.id)
   }
@@ -127,12 +134,13 @@ const App = () => {
         />} />
       <Route index path='/history/:cardId' element={
         <ChatPage
+          deleteHistoryItem={deleteHistoryItem}
           handleAiTyping={handleAiTyping}
           aiIsTyping={aiIsTyping}
           markMessageAnimation={markMessageAnimation}
           addMessage={addMessage}
           recentHomework={addedHistory}
-          closeResult={() => navigate(-1)}
+          closeChat={() => navigate(-1)}
         />
       } />
     </Routes>
