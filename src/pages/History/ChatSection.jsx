@@ -1,11 +1,13 @@
-import { useLayoutEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 import { TypingMessage } from "./TypingMessage";
 export const ChatSection = ({
   messages,
   markMessageAnimation,
   aiIsTyping,
-  cardId
+  card,
+  addMessage,
+  handleAiTyping
 }) => {
   const lastMessage = useRef(null);
 
@@ -17,7 +19,24 @@ export const ChatSection = ({
     })
   }, [messages.length]);
 
-  
+  useEffect(() => {
+    if (!card) return;
+    if (card.messages.length === 1) {
+      handleAiTyping(true)
+      const timeout = setTimeout(() => {
+        addMessage(card.id, {
+          id: crypto.randomUUID(),
+          role: 'ai',
+          content: 'welcome, sorry this is still a demo comeback soon and have a great experience thank you enjoy your day',
+          animated: true,
+          reaction: ''
+        })
+      }, 1500);
+      
+      return () => clearTimeout(timeout)
+    }
+    console.log(card.messages)
+  }, [card, addMessage,handleAiTyping])
 
   return (
     <>
@@ -34,7 +53,7 @@ export const ChatSection = ({
                 {prompt === aiMessage && prompt.animated
                   ?
 
-                  <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(cardId, prompt.id)} />
+                  <TypingMessage text={prompt.content} onDone={() => markMessageAnimation(card.id, prompt.id)} />
 
                   :
                   prompt.content
@@ -47,11 +66,11 @@ export const ChatSection = ({
                     <Download />
                     <ThumbsUp style={{ color: prompt.reaction === 'like' ? 'var(--c-orange)' : '' }}
                       onClick={() => {
-                        markMessageAnimation(cardId, prompt.id, 'like')
+                        markMessageAnimation(card.id, prompt.id, 'like')
                       }
                       } />
                     <ThumbsDown style={{ color: prompt.reaction === 'dislike' ? 'var(--c-orange)' : '' }} onClick={() => {
-                      markMessageAnimation(cardId, prompt.id, 'dislike')
+                      markMessageAnimation(card.id, prompt.id, 'dislike')
                     }
                     } />
                     <Share2 />
@@ -73,7 +92,7 @@ export const ChatSection = ({
         </div>
         <div ref={lastMessage} className="dummy-msg"></div>
       </div>
-      
+
     </>
   )
 }

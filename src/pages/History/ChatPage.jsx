@@ -39,13 +39,17 @@ export const ChatPage = ({
           </div>
           <ChatSection
             aiIsTyping={aiIsTyping}
-            cardId={card.id}
+            card={card}
             markMessageAnimation={markMessageAnimation}
             messages={messages}
+            addMessage={addMessage}
+            handleAiTyping={handleAiTyping}
           />
           <PromptSection
             handleAiTyping={handleAiTyping}
-            addMessage={addMessage} cardId={card.id} />
+            addMessage={addMessage} 
+            cardId={card.id} 
+            />
           <div className="mistakes-alert">RivzAI can make mistakes. Check Responses.</div>
         </div>
       </div>
