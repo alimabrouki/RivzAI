@@ -35,19 +35,13 @@ export const SolveItBtn = ({ submit }) => {
     setPosition({ x: 0, y: 0 });
   }
 
-  const submitPrompt = () => {
-    submit()
-  }
-
   return (
     <div className="submit-btn">
-      <Link to="">
-        <button onClick={submitPrompt} className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
+        <button onClick={() => submit()} className='solve-it' ref={solveIt} type="submit" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
           transform: `translate(${position.x}px, ${position.y}px)`
         }}>
           Solve It
         </button>
-      </Link>
     </div>
   )
 }

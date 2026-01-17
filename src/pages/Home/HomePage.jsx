@@ -6,7 +6,7 @@ import { HomePageWrapper } from './HomePageWrapper'
 import { PresentFeatures } from './PresentFeatures'
 import { Footer } from './Footer'
 
-export const HomePage = ({handleAddHistory, addedHistory, handleOpenLastCard
+export const HomePage = ({addHistory, addedHistory
 }) => {
 
   return (
@@ -15,7 +15,7 @@ export const HomePage = ({handleAddHistory, addedHistory, handleOpenLastCard
       <title>RivzAI</title>
       <Header />
       <div className="home-page">
-        <HomePageWrapper handleOpenLastCard={handleOpenLastCard}  handleAddHistory={handleAddHistory} addedHistory={addedHistory} />
+        <HomePageWrapper addHistory={addHistory} addedHistory={addedHistory} />
       </div>
       <PresentFeatures />
       <Footer />

@@ -119,11 +119,11 @@ const App = () => {
   return (
 
     <Routes>
-      <Route index path='/' element={<HomePage handleOpenLastCard={handleOpenLastCard} handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
+      <Route index path='/' element={<HomePage addHistory={addHistory} addedHistory={addedHistory} />} />
       <Route index path='/history'
         element={<HistoryPage
           addedHistory={addedHistory}
-          handleClickedCard={handleClickedCard}
+          handlHistoryCardClick={handlHistoryCardClick}
         />} />
       <Route index path='/history/:cardId' element={
         <ChatPage

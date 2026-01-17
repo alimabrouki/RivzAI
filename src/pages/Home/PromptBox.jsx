@@ -5,18 +5,13 @@ import { UploadFile } from '../../features/input-output/UploadFile'
 import { SelectOptions } from '../../features/select-options/SelectOptions'
 import { MultiStepBtn } from '../../features/MultiStepBtn'
 import { useState } from 'react'
-import { useNavigate } from 'react-router-dom'
 
-
-export const PromptBox = ({ handleAddHistory, handleOpenLastCard }) => {
+export const PromptBox = ({ addHistory}) => {
   const [textvalue, setTextValue] = useState('');
 
-
-
   const handleSubmit = () => {
-    handleAddHistory(textvalue)
+    addHistory(textvalue)
     setTextValue('')
-    handleOpenLastCard(textvalue)
   }
 
   const handleTextArea = (e) => {
@@ -45,7 +40,7 @@ export const PromptBox = ({ handleAddHistory, handleOpenLastCard }) => {
         <SelectOptions />
         <div className="btns">
           <MultiStepBtn />
-          <SolveItBtn submit={handleSubmit} />
+          <SolveItBtn submit={() => handleSubmit()} />
         </div>
       </div>
       <div className="formatted-prompts">

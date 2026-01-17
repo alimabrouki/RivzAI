@@ -8,7 +8,7 @@ import { FilterHistory } from './FilterHistory';
 
 export const HistoryPage = ({
   addedHistory,
-  handleClickedCard
+ handlHistoryCardClick
 }) => {
 
   return (
@@ -28,7 +28,7 @@ export const HistoryPage = ({
             </div>
             <div className="dummy"></div>
             <FilterHistory />
-            <HomeworkCards handleClickedCard={handleClickedCard} recentHomework={addedHistory} />
+            <HomeworkCards handlHistoryCardClick={handlHistoryCardClick} recentHomework={addedHistory} />
           </div>
         </div>
       </div>
