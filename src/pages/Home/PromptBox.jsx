@@ -4,21 +4,20 @@ import { SolveItBtn } from '../../features/SolveItBtn'
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SelectOptions } from '../../features/select-options/SelectOptions'
 import { MultiStepBtn } from '../../features/MultiStepBtn'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
+import { useNavigate } from 'react-router-dom'
 
 
-export const PromptBox = ({ handleAddHistory }) => {
+export const PromptBox = ({ handleAddHistory, handleOpenLastCard }) => {
   const [textvalue, setTextValue] = useState('');
-  const [addHistory, setAddHistory] = useState('')
+
+
 
   const handleSubmit = () => {
-    handleAddHistory(addHistory)
+    handleAddHistory(textvalue)
     setTextValue('')
+    handleOpenLastCard(textvalue)
   }
-
-  useEffect(() => {
-    setAddHistory(textvalue)
-  }, [textvalue])
 
   const handleTextArea = (e) => {
     setTextValue(e.target.value)
@@ -34,10 +33,10 @@ export const PromptBox = ({ handleAddHistory }) => {
       }
     }
   }
+
   return (
     <div className="prompt-box">
       <textarea value={textvalue} onKeyDown={onKeyDown} onChange={handleTextArea} name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
-
       <div className="inputs">
         <div className="input-output">
           <UploadFile />

@@ -3,7 +3,7 @@ import { PromptBox } from './PromptBox'
 import { RecentHomework } from './RecentHomework'
 
 import { FeaturesBoxes } from './FeaturesBoxes'
-export const HomePageWrapper = ({handleAddHistory,addedHistory}) => {
+export const HomePageWrapper = ({handleAddHistory,addedHistory,handleOpenLastCard}) => {
  
 
   return (
@@ -16,7 +16,7 @@ export const HomePageWrapper = ({handleAddHistory,addedHistory}) => {
         <h3 className='under-title-two'>
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
-        <PromptBox handleAddHistory={handleAddHistory} />
+        <PromptBox handleOpenLastCard={handleOpenLastCard}  recentHomework={addedHistory} handleAddHistory={handleAddHistory} />
         <RecentHomework addHistory={addedHistory} />
         <FeaturesBoxes />
       </div>

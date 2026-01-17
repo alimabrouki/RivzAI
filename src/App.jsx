@@ -49,35 +49,39 @@ const App = () => {
       timestamp: new Date().toISOString()
     }
   ]);
-
   const [aiIsTyping, setAiIsTyping] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleClickedCard = (homework) => {
-    navigate(`/history/${homework.id}`)
+  const openHistoryCard = (id) => navigate(`/history/${id}`);
+
+  const createHistoryItem = (newPrompt) => ({
+    id: crypto.randomUUID(),
+    title: newPrompt.slice(0, 50),
+    text: typeof newPrompt === 'string' ? newPrompt : newPrompt.text,
+    messages: [
+      {
+        id: crypto.randomUUID(),
+        role: 'user',
+        content: typeof newPrompt === 'string' ? newPrompt : newPrompt.text
+      }
+    ],
+    timestamp: new Date().toISOString()
+  });
+
+  const prependHistoryItem = (item) => setAddedHistory(prev => [item, ...prev]);
+
+  const addHistory = (newPrompt) => {
+    const card = createHistoryItem(newPrompt);
+    prependHistoryItem(card);
+    openHistoryCard(card.id)
   }
 
-  const handleAddHistory = (newPrompt) => {
-    const historyItem = {
-      id: crypto.randomUUID(),
-      title: newPrompt.slice(0, 50),
-      text: typeof newPrompt === 'string' ? newPrompt : newPrompt.text,
-      messages: [
-        {
-          id: crypto.randomUUID(),
-          role: 'user',
-          content: typeof newPrompt === 'string' ? newPrompt : newPrompt.text
-        }
-      ],
-      timestamp: new Date().toISOString()
-    }
-    setAddedHistory(prevHistory => [historyItem, ...prevHistory])
+  const handlHistoryCardClick = (homework) => {
+    openHistoryCard(homework.id)
   }
 
-  const handleAiTyping = (state) => {
-    setAiIsTyping(state)
-  }
+  const handleAiTyping = (state) => setAiIsTyping(state);
 
   const addMessage = (cardId, message) => {
     setAddedHistory(prev =>
@@ -115,7 +119,7 @@ const App = () => {
   return (
 
     <Routes>
-      <Route index path='/' element={<HomePage handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
+      <Route index path='/' element={<HomePage handleOpenLastCard={handleOpenLastCard} handleAddHistory={handleAddHistory} addedHistory={addedHistory} />} />
       <Route index path='/history'
         element={<HistoryPage
           addedHistory={addedHistory}
