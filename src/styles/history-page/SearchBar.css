@@ -1,0 +1,111 @@
+.search-bar {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto 40px;
+}
+
+.search-bar input {
+  padding: 14px 48px 14px 20px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  color: var(--c-neutral-0);
+  font-size: 16px;
+  backdrop-filter: blur(10px);
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.search-bar input:focus {
+  border-color: rgba(245, 155, 0, 0.5);
+  box-shadow: 0 0 20px rgba(245, 155, 0, 0.2);
+}
+
+.search-bar input::placeholder {
+  color: var(--c-neutral-300);
+}
+
+.search-bar .lucide-search {
+  position: absolute;
+  right: 20px;
+  top: 10px;
+  color: var(--c-orange);
+}
+
+.search-bar .search-rslt {
+  position: absolute;
+  top: calc(100% + 8px);
+  left: 0;
+  right: 0;
+  max-height: 400px;
+  overflow-y: auto;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  animation: slideDown 0.3s ease;
+  scroll-behavior: smooth;
+}
+
+.search-rslt-card {
+  padding: 14px 20px;
+  color: var(--c-neutral-0);
+  font-size: 16px;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.search-rslt-card:last-child {
+  border-bottom: none;
+}
+
+.search-rslt-card:hover {
+  background: rgba(245, 155, 0, 0.1);
+  border-left: 3px solid var(--c-orange);
+  padding-left: 17px;
+}
+
+.search-rslt-title {
+  font-weight: 600;
+  color: var(--c-neutral-0);
+  margin-bottom: 4px;
+}
+
+.search-no-rslt {
+  padding: 20px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+.search-rslt::-webkit-scrollbar {
+  width: 6px;
+}
+
+.search-rslt::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 3px;
+}
+
+.search-rslt::-webkit-scrollbar-thumb {
+  background: var(--c-orange);
+  border-radius: 3px;
+}
+
+.search-rslt::-webkit-scrollbar-thumb:hover {
+  background: var(--c-orange);
+}
+
+
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

@@ -1,5 +1,6 @@
 import { Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
+import '../../styles/history-page/SearchBar.css'
 
 export const SearchBar = ({ recentHomework }) => {
   const [query, setQuery] = useState('');
@@ -22,11 +23,15 @@ export const SearchBar = ({ recentHomework }) => {
     <div className="search-bar">
       <input value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
       <Search />
-      <div className="search-rslt">
+      { query !== '' && <div className="search-rslt">
         {filteredCards.map(card =>
-          <div key={card.id}>{card.title}</div>
+          <div className='search-rslt-card' key={card.id}>
+            <div className="search-rslt-title">
+              {card.title}
+            </div>
+            </div>
         )}
-      </div>
+      </div>}
     </div>
   )
 }
