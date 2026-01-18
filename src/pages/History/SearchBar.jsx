@@ -1,0 +1,32 @@
+import { Search } from 'lucide-react';
+import { useMemo, useState } from 'react';
+
+export const SearchBar = ({ recentHomework }) => {
+  const [query, setQuery] = useState('');
+
+  const filteredCards = useMemo(() => {
+    if (!query) return [];
+
+    const q = query.toLowerCase();
+    const startsWith = recentHomework.filter((card) =>
+      card.title.toLowerCase().startsWith(q)
+    );
+    const includes = recentHomework.filter((card) =>
+      !card.title.toLowerCase().startsWith(q) &&
+      card.title.toLowerCase().includes(q)
+    )
+    return [...startsWith, ...includes]
+  }, [recentHomework, query])
+
+  return (
+    <div className="search-bar">
+      <input value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
+      <Search />
+      <div className="search-rslt">
+        {filteredCards.map(card =>
+          <div key={card.id}>{card.title}</div>
+        )}
+      </div>
+    </div>
+  )
+}

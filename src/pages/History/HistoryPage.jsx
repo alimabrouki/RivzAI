@@ -2,9 +2,9 @@ import '../../styles/index.css';
 import '../../styles/header/Header.css';
 import '../../styles/history-page/HistoryPage.css';
 import { Header } from '../../components/Header';
-import { Search } from 'lucide-react';
 import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
+import { SearchBar } from './SearchBar';
 
 export const HistoryPage = ({
   addedHistory,
@@ -22,10 +22,7 @@ export const HistoryPage = ({
             Your History
           </h1>
           <div className="recent-h">
-            <div className="search-bar">
-              <input type="text" placeholder='Search your homework history...' />
-              <Search />
-            </div>
+            <SearchBar recentHomework={addedHistory} />
             <div className="dummy"></div>
             <FilterHistory />
             <HomeworkCards handlHistoryCardClick={handlHistoryCardClick} recentHomework={addedHistory} />
