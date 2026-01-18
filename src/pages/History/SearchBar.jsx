@@ -1,9 +1,12 @@
 import { Search } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import '../../styles/history-page/SearchBar.css'
+import { useNavigate } from 'react-router-dom';
 
 export const SearchBar = ({ recentHomework }) => {
   const [query, setQuery] = useState('');
+
+  const navigate = useNavigate();
 
   const filteredCards = useMemo(() => {
     if (!query) return [];
@@ -25,7 +28,7 @@ export const SearchBar = ({ recentHomework }) => {
       <Search />
       { query !== '' && <div className="search-rslt">
         {filteredCards.map(card =>
-          <div className='search-rslt-card' key={card.id}>
+          <div onClick={() => navigate(`/history/${card.id}`)} className='search-rslt-card' key={card.id}>
             <div className="search-rslt-title">
               {card.title}
             </div>
