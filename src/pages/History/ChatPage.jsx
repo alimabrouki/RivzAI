@@ -3,7 +3,7 @@ import '../../styles/history-page/ChatPage.css';
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
-import { useParams } from 'react-router-dom';
+import { Navigate, useParams } from 'react-router-dom';
 
 export const ChatPage = ({
   closeChat,
@@ -20,13 +20,7 @@ export const ChatPage = ({
 
   const deletionAlert = useRef(null);
 
-  const validCard = recentHomework.filter((card) => card && typeof card === 'object' && card.id);
-
-  const card = validCard.find((card) => card.id === cardId);
-
-  const messages = card.messages || [];
-
-  const toggleDeletionAlert = () => setIsOpen(!isopen);
+  const card = recentHomework.find((card) => card.id === cardId);
 
   useEffect(() => {
 
@@ -39,7 +33,7 @@ export const ChatPage = ({
     document.addEventListener('mousedown', handler);
 
     return () => document.removeEventListener('mousedown', handler);
-  }, [])
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e) => {
@@ -51,19 +45,25 @@ export const ChatPage = ({
 
     return () => document.removeEventListener('keydown', handleKeyDown);
 
-  }, [closeChat])
+  }, [closeChat]);
 
   useEffect(() => {
     const handler = (e) => {
       if (e.key === 'Delete') {
-        toggleDeletionAlert()
+        setIsOpen(!isopen)
       }
     }
     document.addEventListener('keydown', handler);
 
-    return () => document.removeEventListener('keydown',handler);
+    return () => document.removeEventListener('keydown', handler);
 
-  },[toggleDeletionAlert])
+  }, [isopen]);
+
+  if (!card) {
+    return <Navigate to={'/history/'} replace />
+  }
+
+  const messages = card.messages ?? [];
 
   return (
 
@@ -77,7 +77,7 @@ export const ChatPage = ({
             <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
             <h2 className='homework-title'>{card.title}</h2>
             <div className="head-btns">
-              <BsFillTrash3Fill className='delete-btn' onClick={toggleDeletionAlert} />
+              <BsFillTrash3Fill className='delete-btn' onClick={() => setIsOpen(!isopen)} />
               <BsFillArrowLeftCircleFill className='close-window' onClick={closeChat} />
             </div>
             {isopen &&
@@ -87,7 +87,7 @@ export const ChatPage = ({
                 </div>
                 <div className="alert-btns">
                   <button onClick={() => deleteHistoryItem(card.id)} className="yes-btn">Yes</button>
-                  <button onClick={toggleDeletionAlert} className="no-btn">No</button>
+                  <button onClick={() => setIsOpen(!isopen)} className="no-btn">No</button>
                 </div>
               </div>
             }

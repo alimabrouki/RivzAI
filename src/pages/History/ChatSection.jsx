@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 import { TypingMessage } from "./TypingMessage";
+
 export const ChatSection = ({
   messages,
   markMessageAnimation,
@@ -43,7 +44,7 @@ export const ChatSection = ({
       <div className="chat-section">
         <div style={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column', margin: '20px 0' }} className="chat-messages">
 
-          {
+          { 
             messages.map((prompt) => (
 
               <div
