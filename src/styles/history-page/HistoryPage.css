@@ -74,12 +74,22 @@
 }
 
 .btn-active {
-background: linear-gradient(90deg, rgb(255 146 0 / 86%) 17%, rgba(198, 122, 35, 0.797) 68%, rgba(207, 140, 23, 0.83) 100%)!important;
+  background: linear-gradient(90deg, rgb(255 146 0 / 86%) 17%, rgba(198, 122, 35, 0.797) 68%, rgba(207, 140, 23, 0.83) 100%) !important;
 }
 
 .homework-cards {
   max-width: 800px;
   margin: 0 auto;
+}
+
+.left-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  bottom: 0;
+  background-color: var(--c-orange);
+  border-radius: 16px 0 0 16px;
 }
 
 .homework-card {

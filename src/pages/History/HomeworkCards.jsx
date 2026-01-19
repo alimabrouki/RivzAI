@@ -1,26 +1,23 @@
-import { memo } from 'react';
+import { memo, useState } from 'react';
 import { getRelativeTime } from '../../utils/getRelativeTime';
 import { MoveRight } from 'lucide-react';
 export const HomeworkCards = memo(
-  ({ recentHomework,handlHistoryCardClick }) => {
+  ({ recentHomework, handlHistoryCardClick }) => {
+    const [limit, setLimit] = useState(10);
+
+    const handleLoadMore = () => {
+      setLimit(prev => prev + 10)
+    }
+
+    const visibleCards = recentHomework.slice(0, limit);
     
     return (
-       
+
       <div className="homework-cards">
-        {recentHomework.map((homework,index) => (
-          
-          <div onClick={() => handlHistoryCardClick(homework)} className='homework-card' key={index}>
-            <div style={
-              {
-                position: 'absolute',
-                left: '0',
-                top: '0',
-                width: '4px',
-                bottom: '0',
-                backgroundColor: 'orange',
-                borderRadius: '16px 0 0 16px'
-              }
-            } className="left-line"></div>
+        {visibleCards.map((homework) => (
+
+          <div onClick={() => handlHistoryCardClick(homework)} className='homework-card' key={homework.id}>
+            <div className="left-line"></div>
             <div className="card-content">
               <h2 className='homework-title'>{homework.title}</h2>
               <div className="user-prompt">
@@ -32,15 +29,11 @@ export const HomeworkCards = memo(
                 <MoveRight />
               </span>
             </div>
-          </div>  
-      
-         
+          </div>
         ))}
-      
+        {visibleCards.length < recentHomework.length && 
+        <button onClick={handleLoadMore} style={{background:'white', padding: '20px'}}>Load More</button>}
       </div>
-        
-          
     )
-  }
-)
+  })
 
