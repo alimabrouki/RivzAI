@@ -67,6 +67,12 @@
   padding-left: 17px;
 }
 
+.highlight-rslt {
+  background: rgba(245, 155, 0, 0.1);
+  border-left: 3px solid var(--c-orange);
+  padding-left: 17px;
+}
+
 .search-rslt-title {
   font-weight: 600;
   color: var(--c-neutral-0);

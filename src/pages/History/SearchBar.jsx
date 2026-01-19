@@ -1,12 +1,14 @@
 import { Search } from 'lucide-react';
-import { use, useEffect, useMemo, useRef, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import '../../styles/history-page/SearchBar.css'
 import { useNavigate } from 'react-router-dom';
 
 export const SearchBar = ({ recentHomework }) => {
   const [query, setQuery] = useState('');
 
-  const [dropped,setDropped] = useState()
+  const [dropped,setDropped] = useState(null);
+
+  const [activeIndex, setActiveIndex] = useState(-1);
 
   const navigate = useNavigate();
 
@@ -39,13 +41,35 @@ export const SearchBar = ({ recentHomework }) => {
     return () => document.removeEventListener('mousedown',handler)
   },[])
 
+  const handleKeyDown = (e) => {
+    if (!filteredCards.length) return;
+
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      setActiveIndex(prev => 
+        (prev + 1) % filteredCards.length
+      )
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      setActiveIndex(prev => 
+        (prev - 1 + filteredCards.length) % filteredCards.length
+      )
+    }
+
+    if (e.key === 'Enter' && activeIndex >= 0) {
+      navigate(`/history/${filteredCards[activeIndex].id}`)
+    }
+  }
+
   return (
     <div ref={search} className="search-bar">
-      <input onFocus={() => setDropped(true)} value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
+      <input onKeyDown={handleKeyDown} onFocus={() => setDropped(true)} value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
       <Search />
       { query && dropped && <div className="search-rslt">
-        {filteredCards.map(card =>
-          <div onClick={() => navigate(`/history/${card.id}`)} className='search-rslt-card' key={card.id}>
+        {filteredCards.map((card, index) =>
+          <div onClick={() => navigate(`/history/${card.id}`)} className={`search-rslt-card ${index === activeIndex ? 'highlight-rslt' : ''}`} key={card.id}>
             <div className="search-rslt-title">
               {card.title}
             </div>
