@@ -12,7 +12,9 @@ export const SearchBar = ({ recentHomework }) => {
 
   const navigate = useNavigate();
 
-  const search = useRef(null)
+  const search = useRef(null);
+
+  const cards = useRef([]);
 
   const filteredCards = useMemo(() => {
     if (!query) return [];
@@ -62,14 +64,22 @@ export const SearchBar = ({ recentHomework }) => {
       navigate(`/history/${filteredCards[activeIndex].id}`)
     }
   }
-
+  useEffect(() => {
+    const el = cards.current[activeIndex];
+    if (el) {
+      el.scrollIntoView({
+        block: 'nearest',
+        behavior: 'smooth'
+      });
+    }
+  })
   return (
     <div ref={search} className="search-bar">
       <input onKeyDown={handleKeyDown} onFocus={() => setDropped(true)} value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
       <Search />
       { query && dropped && <div className="search-rslt">
         {filteredCards.map((card, index) =>
-          <div onClick={() => navigate(`/history/${card.id}`)} className={`search-rslt-card ${index === activeIndex ? 'highlight-rslt' : ''}`} key={card.id}>
+          <div ref={(el) => (cards.current[index] = el) } onClick={() => navigate(`/history/${card.id}`)} className={`search-rslt-card ${index === activeIndex ? 'highlight-rslt' : ''}`} key={card.id}>
             <div className="search-rslt-title">
               {card.title}
             </div>
