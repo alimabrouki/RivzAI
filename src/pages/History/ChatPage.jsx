@@ -14,7 +14,7 @@ export const ChatPage = ({
   recentHomework,
   deleteHistoryItem
 }) => {
-  const [isopen,setIsOpen] = useState(false)
+  const [isopen, setIsOpen] = useState(false)
 
   const { cardId } = useParams();
 
@@ -29,12 +29,41 @@ export const ChatPage = ({
   const toggleDeletionAlert = () => setIsOpen(!isopen);
 
   useEffect(() => {
-   document.addEventListener('mousedown', (e) => {
-     if (deletionAlert.current && !deletionAlert.current.contains(e.target)) {
-      setIsOpen(!isopen)
+
+    const handler = (e) => {
+      if (deletionAlert.current && !deletionAlert.current.contains(e.target)) {
+        setIsOpen(false)
+      }
     }
-   })
-  },[isopen])
+
+    document.addEventListener('mousedown', handler);
+
+    return () => document.removeEventListener('mousedown', handler);
+  }, [])
+
+  useEffect(() => {
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') {
+        closeChat();
+      }
+    }
+    document.addEventListener('keydown', handleKeyDown);
+
+    return () => document.removeEventListener('keydown', handleKeyDown);
+
+  }, [closeChat])
+
+  useEffect(() => {
+    const handler = (e) => {
+      if (e.key === 'Delete') {
+        toggleDeletionAlert()
+      }
+    }
+    document.addEventListener('keydown', handler);
+
+    return () => document.removeEventListener('keydown',handler);
+
+  },[toggleDeletionAlert])
 
   return (
 
@@ -51,16 +80,16 @@ export const ChatPage = ({
               <BsFillTrash3Fill className='delete-btn' onClick={toggleDeletionAlert} />
               <BsFillArrowLeftCircleFill className='close-window' onClick={closeChat} />
             </div>
-            {isopen && 
-            <div ref={deletionAlert} className='deletion-alert'>
-              <div className="alert-message">
-                Are You Sure You Want To Delete '{card.title}' ?
+            {isopen &&
+              <div ref={deletionAlert} className='deletion-alert'>
+                <div className="alert-message">
+                  Are You Sure You Want To Delete '{card.title}' ?
+                </div>
+                <div className="alert-btns">
+                  <button onClick={() => deleteHistoryItem(card.id)} className="yes-btn">Yes</button>
+                  <button onClick={toggleDeletionAlert} className="no-btn">No</button>
+                </div>
               </div>
-              <div className="alert-btns">
-              <button onClick={() => deleteHistoryItem(card.id)} className="yes-btn">Yes</button>
-              <button onClick={toggleDeletionAlert} className="no-btn">No</button>
-              </div>
-            </div>
             }
           </div>
           <ChatSection
