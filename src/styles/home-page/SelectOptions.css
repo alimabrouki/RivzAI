@@ -50,7 +50,7 @@
   width: 135px;
   text-align: center;
   padding: 10px;
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 500;
   color: var(--c-neutral-0);
   background: linear-gradient(135deg, hsl(220, 72%, 22%) 0%, hsl(220, 72%, 18%) 100%);
