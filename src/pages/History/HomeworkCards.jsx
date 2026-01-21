@@ -25,11 +25,13 @@ export const HomeworkCards = memo(
               <div className="user-prompt">
                 "{homework.text}"
               </div>
-              <span className='prompt-time'>{getRelativeTime(homework.timestamp)}</span>
+             <div className="card-details">
+               <span className='prompt-time'>{getRelativeTime(homework.timestamp)}</span>
               <span className='view-details'>
                 <span>View Details </span>
                 <MoveRight />
               </span>
+             </div>
             </div>
           </div>
         ))}

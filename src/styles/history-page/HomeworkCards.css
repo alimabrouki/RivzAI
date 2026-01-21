@@ -40,12 +40,10 @@
 
 .card-content h2 {
   color: var(--c-neutral-0);
-  margin-bottom: 10px;
 }
 
 .card-content .user-prompt {
   color: var(--c-neutral-300);
-  margin-bottom: 15px;
   padding: 12px 0;
   overflow: hidden;
   white-space: nowrap;
@@ -54,11 +52,14 @@
   color: transparent;
   font-size: var(--fs-16);
   margin-right: 70px;
-  /* under 700px change margin right to less px */
 }
 
 .prompt-time {
   color: var(--c-neutral-300);
+}
+
+.card-details {
+  display: flex;
 }
 
 .card-content .view-details {
