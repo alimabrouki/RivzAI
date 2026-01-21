@@ -72,20 +72,25 @@ export const SearchBar = ({ recentHomework }) => {
         behavior: 'smooth'
       });
     }
-  })
+  },[activeIndex])
   return (
     <div ref={search} className="search-bar">
       <input onKeyDown={handleKeyDown} onFocus={() => setDropped(true)} value={query} onChange={e => setQuery(e.target.value)} type="text" placeholder='Search your homework history...' />
       <Search />
       { query && dropped && <div className="search-rslt">
-        {filteredCards.map((card, index) =>
+        {
+      filteredCards.length === 0 ? 
+      <div className="no-results">no card</div>
+      :
+         filteredCards.map((card, index) =>
           <div ref={(el) => (cards.current[index] = el) } onClick={() => navigate(`/history/${card.id}`)} className={`search-rslt-card ${index === activeIndex ? 'highlight-rslt' : ''}`} key={card.id}>
             <div className="search-rslt-title">
-              {card.title}
+              {card.title} 
             </div>
             </div>
         )}
-      </div>}
+      </div>
+      }
     </div>
   )
 }
