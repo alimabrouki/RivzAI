@@ -213,13 +213,11 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: 10px;
-  border-top: 2px solid var(--c-neutral-600);
   align-items: center;
-  background-color: var(--c-neutral-600);
+  padding: 10px;
   border-radius: 30px;
-  box-shadow: var(--input-bx-shdw);
-  border: 1px solid var(--c-main-bg);
+  background-color: var(--c-neutral-600);
+  cursor: text;
 }
 
 .prompt-in {

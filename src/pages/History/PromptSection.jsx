@@ -47,8 +47,12 @@ export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
       }
     }
   }
+
+  const focusPrompt = () => {
+    document.querySelector('.prompt-in').focus();
+  }
   return (
-    <div className="prompt-section">
+    <div className="prompt-section" onClick={focusPrompt}>
       <TextareaAutosize onKeyDown={onEnterDown} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
       <div className="prompt-btns">
         <RecordAudio />
