@@ -113,14 +113,14 @@
     gap: 16px;
     display: grid;
     width: unset;
-    margin: 20px 20px;
+    margin: 50px 20px;
     grid-template-columns: 1fr 1fr 1fr;
   }
 }
 
 @media (width <=558px) {
   .inputs {
-    gap: 30px;
+    gap: 15px;
     grid-template-columns: 118px 118px;
     grid-template-rows: 1fr 85px;
   }
@@ -169,14 +169,12 @@
   .btns {
     display: flex;
     flex-direction: column;
-    align-self: self-start;
-    gap: 34px;
   }
 }
 
 @media (width <=558px) {
   .btns {
-    translate: 12px -90px;
+    translate: 60px 15px;
   }
 }
 
@@ -220,9 +218,7 @@
 
 @media (width <=558px) {
   .solve-it {
-    width: 250px !important;
-    padding: 12px !important;
-    font-size: 36px !important;
+    width: 150px !important;
   }
 }
 
@@ -268,7 +264,7 @@
 
 @media (width <=558px) {
   .multi-step-mode {
-    width: 95px !important;
+    width: 150px !important;
   }
 }
 

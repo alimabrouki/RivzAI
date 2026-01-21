@@ -34,7 +34,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: 10px;
 }
 
 @media (width <=700px) {
@@ -72,7 +72,7 @@
 
 @media (width <=558px) {
   .select-options {
-    width: 112px;
+    width: 135px;
   }
 }
 
