@@ -1,6 +1,8 @@
 import { memo, useState } from 'react';
 import { getRelativeTime } from '../../utils/getRelativeTime';
+import '../../styles/history-page/HomeworkCards.css';
 import { MoveRight } from 'lucide-react';
+
 export const HomeworkCards = memo(
   ({ recentHomework, handlHistoryCardClick }) => {
     const [limit, setLimit] = useState(10);
@@ -10,7 +12,7 @@ export const HomeworkCards = memo(
     }
 
     const visibleCards = recentHomework.slice(0, limit);
-    
+
     return (
 
       <div className="homework-cards">
@@ -31,8 +33,12 @@ export const HomeworkCards = memo(
             </div>
           </div>
         ))}
-        {visibleCards.length < recentHomework.length && 
-        <button onClick={handleLoadMore} style={{background:'white', padding: '20px'}}>Load More</button>}
+        {visibleCards.length < recentHomework.length &&
+          <div className="load-more">
+            <button onClick={handleLoadMore}>
+              Load More
+            </button>
+          </div>}
       </div>
     )
   })
