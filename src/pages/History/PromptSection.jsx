@@ -3,6 +3,7 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { RecordAudio } from '../../features/input-output/RecordAudio';
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SendHorizonal } from 'lucide-react';
+import '../../styles/history-page/PromptSection.css';
 
 export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
   const [isTyping, setIsTyping] = useState('');
@@ -37,23 +38,20 @@ export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
     }, 1500);
   }
 
-  const onEnterDown = (e) => {
+  const onKey = (e) => {
     if (e.key === 'Enter') {
-      if (e.shiftKey) {
-        handleTextarea(e)
-      } else {
+      if (e.shiftKey) return;
         e.preventDefault()
-        submitPrompt()
-      }
+        submitPrompt() 
     }
   }
 
   const focusPrompt = () => {
-    document.querySelector('.prompt-in').focus();
+    promptIn.current.focus();
   }
   return (
     <div className="prompt-section" onClick={focusPrompt}>
-      <TextareaAutosize onKeyDown={onEnterDown} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+      <TextareaAutosize onKeyDown={onKey} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
       <div className="prompt-btns">
         <RecordAudio />
         <UploadFile />

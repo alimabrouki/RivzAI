@@ -1,0 +1,106 @@
+.chat-section {
+  height: 67vh;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+@media (min-height: 700px) {
+  .chat-section {
+    height: 74vh;
+  }
+}
+
+.chat-section::-webkit-scrollbar {
+  width: 10px;
+}
+
+.chat-section::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 6px 0px;
+}
+
+.chat-section::-webkit-scrollbar-thumb {
+  background-clip: padding-box;
+  background-color: var(--c-light-blue);
+  border-radius: 12px;
+  border: 1px solid transparent;
+}
+
+.chat-section::-webkit-scrollbar-thumb:hover {
+  background: var(--c-light-blue);
+}
+
+.rslt-user-prompt {
+  color: #aeaeb7;
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 10px 20px 0 20px;
+  background-color: rebeccapurple;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  max-width: 500px;
+}
+
+.rslt-ai-prompt {
+  align-self: flex-start;
+  color: var(--c-text-light);
+  padding: 10px;
+  margin-top: 50px;
+  word-break: break-word;
+  max-width: 800px;
+}
+
+@media (width >=700px) {
+
+  .rslt-user-prompt,
+  .rslt-ai-prompt {
+    font-size: var(--fs-18);
+  }
+}
+
+.rslt-ai-prompt .actions {
+  display: flex;
+  gap: 15px;
+  color: var(--c-neutral-300);
+  margin-top: 20px;
+}
+
+.rslt-ai-prompt svg {
+  cursor: pointer;
+}
+
+.typing {
+  display: flex;
+  margin-top: 50px;
+  margin-left: 25px;
+  align-self: flex-start;
+}
+
+.typing-bubble {
+  padding: 11px 15px;
+  background: var(--c-light-blue);
+  border-radius: 20px 20px 20px 4px;
+  backdrop-filter: blur(10px);
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
+
+.typing-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--c-orange);
+  border-radius: 50%;
+}
+
+.typing-dot:nth-child(1) {
+  animation: typingBounce 1.4s infinite;
+}
+
+.typing-dot:nth-child(2) {
+  animation: typingBounce 1.4s infinite 0.2s;
+}
+
+.typing-dot:nth-child(3) {
+  animation: typingBounce 1.4s infinite 0.4s;
+}

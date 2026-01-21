@@ -1,6 +1,7 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
 import { TypingMessage } from "./TypingMessage";
+import '../../styles/history-page/ChatSection.css'
 
 export const ChatSection = ({
   messages,

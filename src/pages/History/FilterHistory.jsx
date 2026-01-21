@@ -1,5 +1,5 @@
 import { useState } from "react"
-import '../../styles/history-page/HistoryPage.css';
+import '../../styles/history-page/FilterHistory.css';
 export const FilterHistory = () => {
   const [clicked, setClicked] = useState(0);
   return (

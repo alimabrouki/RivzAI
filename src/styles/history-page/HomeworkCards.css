@@ -1,3 +1,74 @@
+.homework-cards {
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.left-line {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 4px;
+  bottom: 0;
+  background-color: var(--c-orange);
+  border-radius: 16px 0 0 16px;
+}
+
+.homework-card {
+  position: relative;
+  background: linear-gradient(41deg, rgb(0 2 3 / 34%) 44%, var(--c-dark-blue));
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 10px;
+  padding-left: 32px;
+  cursor: pointer;
+  backdrop-filter: blur(20px);
+  overflow: hidden;
+  transition: 0.2s ease;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  margin: 20px 0;
+}
+
+.homework-card:hover {
+  border-color: rgba(245, 155, 0, 0.4);
+  box-shadow: 0 0px 24px rgba(245, 155, 0, 0.2);
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+}
+
+.card-content h2 {
+  color: var(--c-neutral-0);
+  margin-bottom: 10px;
+}
+
+.card-content .user-prompt {
+  color: var(--c-neutral-300);
+  margin-bottom: 15px;
+  padding: 12px 0;
+  overflow: hidden;
+  white-space: nowrap;
+  background-image: linear-gradient(to right, #eaeaea, #ffffff38);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-size: var(--fs-16);
+  margin-right: 70px;
+  /* under 700px change margin right to less px */
+}
+
+.prompt-time {
+  color: var(--c-neutral-300);
+}
+
+.card-content .view-details {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--c-orange);
+}
+
 .load-more {
   display: flex;
   flex-direction: column;
