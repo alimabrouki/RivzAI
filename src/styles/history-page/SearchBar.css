@@ -79,7 +79,7 @@
   margin-bottom: 4px;
 }
 
-.search-no-rslt {
+.no-results {
   padding: 20px;
   text-align: center;
   color: rgba(255, 255, 255, 0.5);
@@ -104,6 +104,8 @@
 .search-rslt::-webkit-scrollbar-thumb:hover {
   background: var(--c-orange);
 }
+
+
 
 
 @keyframes slideDown {

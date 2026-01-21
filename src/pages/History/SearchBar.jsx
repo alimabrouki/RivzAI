@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 export const SearchBar = ({ recentHomework }) => {
   const [query, setQuery] = useState('');
 
-  const [dropped,setDropped] = useState(null);
+  const [dropped,setDropped] = useState(false);
 
   const [activeIndex, setActiveIndex] = useState(-1);
 
@@ -79,8 +79,9 @@ export const SearchBar = ({ recentHomework }) => {
       <Search />
       { query && dropped && <div className="search-rslt">
         {
-      filteredCards.length === 0 ? 
-      <div className="no-results">no card</div>
+      filteredCards.length === 0 
+      ? 
+      <div className="no-results">No Homework Found</div>
       :
          filteredCards.map((card, index) =>
           <div ref={(el) => (cards.current[index] = el) } onClick={() => navigate(`/history/${card.id}`)} className={`search-rslt-card ${index === activeIndex ? 'highlight-rslt' : ''}`} key={card.id}>
