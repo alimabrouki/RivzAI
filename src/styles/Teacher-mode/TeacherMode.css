@@ -1,0 +1,146 @@
+@layer root {
+  :root {
+    --c-orange: hsl(38, 100%, 48%);
+    --c-dark-blue: hsl(220, 72%, 22%);
+    --c-b-darker: hsl(240deg 100% 10.31% / 89%);
+    --c-bleu-bg: hsl(240deg 100% 10% / 64%);
+    --c-light-blue: hsl(211, 93%, 35%);
+    --c-lighter-blue: hsl(190, 88%, 52%);
+    --c-neutral-0: hsl(0, 0%, 100%);
+    --c-neutral-600: hsl(243, 23%, 30%);
+    --c-neutral-300: #aeaeb7;
+    --c-neutral-200: hsl(252, 6%, 84%);
+
+    --c-text-light: var(--c-neutral-0);
+    --c-header-bg: linear-gradient(23deg, var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
+    --c-main-bg: var(--c-dark-blue);
+    --c-second-bg: var(--c-b-darker);
+
+    --main-bx-shdw: 0 4px 30px rgb(0 0 0 / 34%);
+    --input-bx-shdw: 0 4px 30px rgb(0 0 0 / 20%);
+
+    --fs-96: calc(96 / 16 * 1rem);
+    --fs-52: calc(52 / 16 * 1rem);
+    --fs-32: calc(32 / 16 * 1rem);
+    --fs-28: calc(28 / 16 * 1rem);
+    --fs-20: calc(20 / 16 * 1rem);
+    --fs-18: calc(18 / 16 * 1rem);
+    --fs-16: calc(16 / 16 * 1rem);
+    --fs-14: calc(14 / 16 * 1rem);
+  }
+}
+
+.teacherMode {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: 4rem 1rem;
+}
+
+.teacherCard {
+  width: 100%;
+  max-width: 760px;
+  background: var(--c-neutral-0);
+  border-radius: 16px;
+  padding: 3rem;
+  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+}
+
+
+.teacherHeader {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.teacherHeader h1 {
+  color: var(--c-light-blue);
+  font-size: 2.2rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.teacherHeader p {
+  font-size: 1rem;
+  color: var(--c-neutral-600);
+  max-width: 540px;
+  margin: 0 auto;
+}
+
+
+.teacherSteps {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.stepBox {
+  border-radius: 12px;
+  padding: 1.5rem;
+  background-color: var(--c-neutral-0);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 600;
+  font-size: 0.85rem;
+  color: var(--c-light-blue);
+}
+
+.stepHeader svg {
+  color: var(--c-light-blue);
+}
+
+.stepBox label {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #334155;
+}
+
+.stepBox select {
+  appearance: none;
+  padding: 0.7rem 0.8rem;
+  font-size: 0.95rem;
+  border-radius: 8px;
+  background-color: #f1f5f9;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.stepBox select:focus {
+  outline: none;
+}
+
+
+.teacherCta {
+  margin-top: 3rem;
+  text-align: center;
+}
+
+.teacherCta p {
+  font-size: 0.95rem;
+  color: #475569;
+  margin-bottom: 1.2rem;
+}
+
+.teacherCta button {
+  padding: 0.9rem 2.2rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  border-radius: 999px;
+  border: none;
+  background-color: var(--c-orange);
+  color: var(--c-light-blue);
+  cursor: not-allowed;
+}
+
+.teacherNote {
+  margin-top: 2rem;
+  font-size: 0.8rem;
+  color: #64748b;
+  text-align: center;
+}
