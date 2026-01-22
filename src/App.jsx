@@ -5,6 +5,7 @@ import { ChatPage } from './pages/History/ChatPage'
 import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { useState } from 'react'
+import TeacherMode from './pages/teacher-mode/TeacherMode'
 
 
 const App = () => {
@@ -143,6 +144,10 @@ const App = () => {
           closeChat={() => navigate(-1)}
         />
       } />
+      <Route index path='/teacher-mode/' element={
+        <TeacherMode />
+      } />
+
     </Routes>
 
   )
