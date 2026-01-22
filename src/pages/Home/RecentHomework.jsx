@@ -11,7 +11,7 @@ export const RecentHomework = ({ recentHistory }) => {
       <h2 ref={observe} className='slide-in'>Recent Homework</h2>
       {
         recentHistory.slice(0,3).map((history) => (
-          <Link ref={observe} key={history.id}  to={`/history/${history.id}`} className='recent-prompt slide-in'><span className='slide-in' ref={observe} key={history.id} >"{history.text || history}"</span></Link>
+          <Link ref={observe} key={history.id}  to={`/history/${history.id}`} className='recent-prompt slide-in'><span className='slide-in' ref={observe} key={history.id} >" {history.text || history} "</span></Link>
         ))
       }
     </div>
