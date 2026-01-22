@@ -35,15 +35,16 @@
   display: flex;
   justify-content: center;
   padding: 4rem 1rem;
+  background: radial-gradient(at 10% 20%, hsla(220, 72%, 22%, 1) 0%, transparent 50%), radial-gradient(at 80% 0%, hsla(35, 100%, 30%, 0.3) 0%, transparent 50%), radial-gradient(at 0% 100%, hsla(220, 72%, 18%, 1) 0%, transparent 50%), radial-gradient(at 100% 100%, hsl(35deg 100% 48% / 24%) 0%, transparent 50%), linear-gradient(180deg, hsl(220, 72%, 20%) 0%, hsl(220, 65%, 16%) 100%);
 }
 
 .teacherCard {
   width: 100%;
   max-width: 760px;
-  background: var(--c-neutral-0);
+  background-color: hsl(240deg 30.48% 26.91% / 29%);
   border-radius: 16px;
   padding: 3rem;
-  box-shadow: 0 12px 32px rgba(15, 23, 42, 0.08);
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
 }
 
 
@@ -53,7 +54,7 @@
 }
 
 .teacherHeader h1 {
-  color: var(--c-light-blue);
+  color: var(--c-orange);
   font-size: 2.2rem;
   font-weight: 700;
   margin-bottom: 0.75rem;
@@ -61,7 +62,7 @@
 
 .teacherHeader p {
   font-size: 1rem;
-  color: var(--c-neutral-600);
+  color: var(--c-neutral-200);
   max-width: 540px;
   margin: 0 auto;
 }
@@ -77,7 +78,7 @@
 .stepBox {
   border-radius: 12px;
   padding: 1.5rem;
-  background-color: var(--c-neutral-0);
+  background-color: var(--c-b-darker);
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -99,7 +100,7 @@
 .stepBox label {
   font-size: 0.9rem;
   font-weight: 600;
-  color: #334155;
+  color: var(--c-neutral-300);
 }
 
 .stepBox select {
@@ -108,7 +109,7 @@
   font-size: 0.95rem;
   border-radius: 8px;
   background-color: #f1f5f9;
-  color: #94a3b8;
+  color: var(--c-bleu-bg);
   cursor: not-allowed;
 }
 
@@ -124,7 +125,7 @@
 
 .teacherCta p {
   font-size: 0.95rem;
-  color: #475569;
+  color: var(--c-neutral-200);
   margin-bottom: 1.2rem;
 }
 
@@ -142,6 +143,6 @@
 .teacherNote {
   margin-top: 2rem;
   font-size: 0.8rem;
-  color: #64748b;
+  color: var(--c-neutral-300);
   text-align: center;
 }

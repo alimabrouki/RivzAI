@@ -79,7 +79,7 @@
   background-clip: text;
   -webkit-text-fill-color: transparent;
   font-size: var(--fs-96);
-  /* animation: titleGradient 4s ease-in-out infinite; */
+  animation: titleGradient 4s ease-in-out infinite;
 }
 
 @media (width <=450px) {
@@ -116,8 +116,6 @@
   animation: typing 3s steps(30, end) 1s forwards;
 }
 
-
-
 .under-title-two {
   color: var(--c-neutral-300);
   font-size: var(--fs-18);
@@ -138,7 +136,7 @@
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
-  /* animation: titleGradient 4s ease-in-out infinite; */
+  animation: titleGradient 4s ease-in-out infinite;
 }
 
 @media (width <=1200px) {

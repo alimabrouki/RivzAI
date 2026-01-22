@@ -1,7 +1,6 @@
-import '../styles/index.css'
-import '../styles/header/Header.css'
-import '../styles/home-page/HomePage.css'
-import { Link } from 'react-router-dom'
+import '../styles/index.css';
+import '../styles/header/Header.css';
+import '../styles/home-page/HomePage.css';
 import { useRef, useState } from 'react'
 
 export const SolveItBtn = ({ submit }) => {
