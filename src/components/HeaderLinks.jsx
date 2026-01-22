@@ -28,16 +28,12 @@ export const HeaderLinks = () => {
 
           <div className={isOpen ? 'header-links-list-mobile' : 'header-links-list'}>
 
-            <Link className='link' to="/history">
+            <Link className='link' to="/teacher-mode">
               Teacher Mode
             </Link>
 
             <Link to="/history" className='link'>
               History
-            </Link>
-
-            <Link className='link' to="/settings">
-              Settings
             </Link>
 
             <Link to="/sign-up" className='get-started-btn'>
