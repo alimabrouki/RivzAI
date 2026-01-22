@@ -11,7 +11,7 @@ export const Footer = () => {
     <div ref={observe} className="footer slide-in">
       <h2 className="footer-title">Your Education Is Your Most Valuable Asset</h2>
       <p>Build it now — for free.</p>
-      <Link to="/sign-up" className='get-started-btn'>
+      <Link to="/auth" className='get-started-btn'>
         Get Started Free
       </Link>
       <div className="social-links">

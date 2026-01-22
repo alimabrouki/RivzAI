@@ -36,7 +36,7 @@ export const HeaderLinks = () => {
               History
             </Link>
 
-            <Link to="/sign-up" className='get-started-btn'>
+            <Link to="/auth" className='get-started-btn'>
               Get Started Free
             </Link>
 

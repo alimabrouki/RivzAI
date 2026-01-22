@@ -6,6 +6,7 @@ import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { useState } from 'react'
 import TeacherMode from './pages/teacher-mode/TeacherMode'
+import AuthPage from './pages/auth/AuthPage'
 
 
 const App = () => {
@@ -146,6 +147,9 @@ const App = () => {
       } />
       <Route index path='/teacher-mode/' element={
         <TeacherMode />
+      } />
+      <Route index path='/auth/' element={
+        <AuthPage />
       } />
 
     </Routes>
