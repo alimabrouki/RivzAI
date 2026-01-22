@@ -277,7 +277,7 @@
 
 .formatted-prompts {
   position: absolute;
-  bottom: 30px;
+  bottom: 17px;
   left: 10px;
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -292,7 +292,7 @@
 
 .formatted-prompts span {
   background: linear-gradient(41deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
-  padding: 13px 0px;
+  padding: 13px 4px;
   border-radius: 8px;
   font-size: var(--fs-18);
   color: var(--c-neutral-200);

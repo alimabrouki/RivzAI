@@ -149,7 +149,7 @@
   }
 }
 
-@layer keyframes {
+/* @layer keyframes {
   @keyframes slideInFromBottom {
     0% {
       opacity: 0;
@@ -215,4 +215,4 @@
     }
   }
 
-}
+} */
