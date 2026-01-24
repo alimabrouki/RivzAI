@@ -36,7 +36,7 @@ export const SolveItBtn = ({ submit }) => {
 
   return (
     <div className="submit-btn">
-        <button onClick={() => submit()} className='solve-it' ref={solveIt} type="button" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
+        <button onClick={() => submit()} data-testid='solve-it' className='solve-it' ref={solveIt} type="button" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
           transform: `translate(${position.x}px, ${position.y}px)`
         }}>
           Solve It
