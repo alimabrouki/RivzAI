@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "../../styles/Teacher-mode/teacherMode.css";
 import { GraduationCap, BookOpen, ClipboardList } from "lucide-react";
 
@@ -56,7 +57,9 @@ const TeacherMode = () => {
 
           <div className="teacherCta">
             <p>Teacher accounts will be available after launch.</p>
-            <button disabled>Get started free</button>
+             <Link to="/auth" className='cta-btn'>
+              Get Started Free
+            </Link>
           </div>
 
           <footer className="teacherNote">
