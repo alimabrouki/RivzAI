@@ -8,7 +8,7 @@ import { SearchBar } from './SearchBar';
 
 export const HistoryPage = ({
   addedHistory,
- handlHistoryCardClick
+ handleHistoryCardClick
 }) => {
 
   return (
@@ -25,7 +25,7 @@ export const HistoryPage = ({
             <SearchBar recentHomework={addedHistory} />
             <div className="dummy"></div>
             <FilterHistory />
-            <HomeworkCards handlHistoryCardClick={handlHistoryCardClick} recentHomework={addedHistory} />
+            <HomeworkCards handleHistoryCardClick={handleHistoryCardClick} recentHomework={addedHistory} />
           </div>
         </div>
       </div>

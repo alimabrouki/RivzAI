@@ -9,15 +9,16 @@ describe('homework cards', () => {
         id: '1',
         title: 'math homework',
         text: 'Solve x + 2 = 5',
-        timeStamp: Date.now()
+        messages:[],
+        timestamp: new Date().toISOString()
       }
     ];
 
-    const handlHistoryCardClick = vi.fn();
+    const handleHistoryCardClick = vi.fn();
 
     render(<HomeworkCards
       recentHomework={homework}
-      handlHistoryCardClick={handlHistoryCardClick} />);
+      handleHistoryCardClick={handleHistoryCardClick} />);
 
     expect(
       screen.getByText('math homework')
@@ -38,21 +39,22 @@ describe('homework cards', () => {
         id: '1',
         title: 'math homework',
         text: 'Solve x + 2 = 5',
-        timeStamp: Date.now()
+        messages:[],
+        timestamp: new Date().toISOString()
       }
     ];
 
-    const handlHistoryCardClick = vi.fn();
+    const handleHistoryCardClick = vi.fn();
 
     render(<HomeworkCards
       recentHomework={homework}
-      handlHistoryCardClick={handlHistoryCardClick} />);
+      handlHistoryCardClick={handleHistoryCardClick} />);
 
       fireEvent.click(screen.getByText('math homework'));
 
-      expect(handlHistoryCardClick).toBeCalledTimes(1);
+      expect(handleHistoryCardClick).toBeCalledTimes(1);
 
-      expect(handlHistoryCardClick).toBeCalledWith(homework[0]);
-      
+      expect(handleHistoryCardClick).toBeCalledWith(homework[0]);
+
   })
 })

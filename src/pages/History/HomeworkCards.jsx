@@ -4,7 +4,7 @@ import '../../styles/history-page/HomeworkCards.css';
 import { MoveRight } from 'lucide-react';
 
 export const HomeworkCards = memo(
-  ({ recentHomework, handlHistoryCardClick }) => {
+  ({ recentHomework, handleHistoryCardClick }) => {
     const [limit, setLimit] = useState(10);
 
     const handleLoadMore = () => {
@@ -18,7 +18,7 @@ export const HomeworkCards = memo(
       <div className="homework-cards">
         {visibleCards.map((homework) => (
 
-          <div onClick={() => handlHistoryCardClick(homework)} data-testid='homework-card' className='homework-card' key={homework.id}>
+          <div onClick={() => handleHistoryCardClick(homework)} data-testid='homework-card' className='homework-card' key={homework.id}>
             <div className="left-line"></div>
             <div className="card-content">
               <h2 className='homework-title'>{homework.title}</h2>

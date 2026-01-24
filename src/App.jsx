@@ -9,7 +9,7 @@ import TeacherMode from './pages/teacher-mode/TeacherMode'
 import AuthPage from './pages/auth/AuthPage'
 
 
-const App = () => {
+export const App = () => {
   const [addedHistory, setAddedHistory] = useLocalStorage('Homeworks', [
     {
       id: crypto.randomUUID(),
@@ -86,7 +86,7 @@ const App = () => {
     navigate('/history/')
   }
 
-  const handlHistoryCardClick = (homework) => {
+  const handleHistoryCardClick = (homework) => {
     openHistoryCard(homework.id)
   }
 
@@ -132,7 +132,7 @@ const App = () => {
       <Route index path='/history'
         element={<HistoryPage
           addedHistory={addedHistory}
-          handlHistoryCardClick={handlHistoryCardClick}
+          handleHistoryCardClick={handleHistoryCardClick}
         />} />
       <Route index path='/history/:cardId' element={
         <ChatPage
