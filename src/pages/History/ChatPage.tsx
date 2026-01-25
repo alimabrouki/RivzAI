@@ -4,6 +4,17 @@ import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
 import { Navigate, useParams } from 'react-router-dom';
+import { HomeworkCard, Message } from '../../types/Chat';
+
+type ChatPageProps = {
+  closeChat: () => void ;
+  addMessage: (message : Message) => void ;
+  markMessageAnimation: (id: string , reactionType: string) => void ;
+  handleAiTyping: (state: boolean) => void;
+  aiIsTyping: boolean ;
+  recentHomework: HomeworkCard[];
+  deleteHistoryItem: (id: string) => void
+}
 
 export const ChatPage = ({
   closeChat,
@@ -13,19 +24,19 @@ export const ChatPage = ({
   aiIsTyping,
   recentHomework,
   deleteHistoryItem
-}) => {
+}: ChatPageProps) => {
   const [isopen, setIsOpen] = useState(false)
 
   const { cardId } = useParams();
 
-  const deletionAlert = useRef(null);
+  const deletionAlert = useRef<HTMLDivElement | null>(null);
 
   const card = recentHomework.find((card) => card.id === cardId);
 
   useEffect(() => {
 
-    const handler = (e) => {
-      if (deletionAlert.current && !deletionAlert.current.contains(e.target)) {
+    const handler = (e: MouseEvent) => {
+      if (deletionAlert.current && !deletionAlert.current.contains(e.target as Node)) {
         setIsOpen(false)
       }
     }
@@ -36,7 +47,7 @@ export const ChatPage = ({
   }, []);
 
   useEffect(() => {
-    const handleKeyDown = (e) => {
+    const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         closeChat();
       }
@@ -48,7 +59,7 @@ export const ChatPage = ({
   }, [closeChat]);
 
   useEffect(() => {
-    const handler = (e) => {
+    const handler = (e: KeyboardEvent) => {
       if (e.key === 'Delete') {
         setIsOpen(!isopen)
       }

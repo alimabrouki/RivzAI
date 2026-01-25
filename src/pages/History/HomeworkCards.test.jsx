@@ -48,7 +48,7 @@ describe('homework cards', () => {
 
     render(<HomeworkCards
       recentHomework={homework}
-      handlHistoryCardClick={handleHistoryCardClick} />);
+      handleHistoryCardClick={handleHistoryCardClick} />);
 
       fireEvent.click(screen.getByText('math homework'));
 
