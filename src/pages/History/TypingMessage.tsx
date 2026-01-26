@@ -1,6 +1,11 @@
 import { useEffect, useState } from "react"
 
-export const TypingMessage = ({ text, onDone }) => {
+type TypingMessageProps = {
+  text : string ;
+  onDone: () => void
+}
+
+export const TypingMessage = ({ text, onDone } : TypingMessageProps) => {
   const [displayText, setDisplayText] = useState('');
   const [currentIndex, setCurrentIndex] = useState(0);
 
