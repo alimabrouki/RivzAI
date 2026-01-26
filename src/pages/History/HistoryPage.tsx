@@ -5,11 +5,17 @@ import { Header } from '../../components/Header';
 import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
 import { SearchBar } from './SearchBar';
+import type { HomeworkCard } from '../../types/Chat';
+
+type HistoryPageProps = {
+  addedHistory: HomeworkCard[];
+  handleHistoryCardClick: (homework: HomeworkCard) => void
+}
 
 export const HistoryPage = ({
   addedHistory,
  handleHistoryCardClick
-}) => {
+}: HistoryPageProps) => {
 
   return (
     <>
