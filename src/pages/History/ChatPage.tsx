@@ -4,14 +4,14 @@ import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
 import { Navigate, useParams } from 'react-router-dom';
-import { HomeworkCard, Message } from '../../types/Chat';
+import type { HomeworkCard, Message } from '../../types/Chat';
 
 type ChatPageProps = {
-  closeChat: () => void ;
-  addMessage: (message : Message) => void ;
-  markMessageAnimation: (id: string , reactionType: string) => void ;
+  closeChat: () => void;
+  addMessage: (cardId: string, message: Message) => void;
+  markMessageAnimation: (id: string, reactionType: string) => void;
   handleAiTyping: (state: boolean) => void;
-  aiIsTyping: boolean ;
+  aiIsTyping: boolean;
   recentHomework: HomeworkCard[];
   deleteHistoryItem: (id: string) => void
 }

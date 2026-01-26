@@ -1,7 +1,21 @@
 import { useEffect, useLayoutEffect, useRef } from "react";
-import { Copy, Download, Share2, ThumbsDown, ThumbsUp, X } from 'lucide-react';
+import { Copy, Download, Share2, ThumbsDown, ThumbsUp} from 'lucide-react';
 import { TypingMessage } from "./TypingMessage";
 import '../../styles/history-page/ChatSection.css'
+import type { HomeworkCard, Message } from "../../types/Chat";
+
+type ChatSectionProps = {
+  messages: Message[];
+  markMessageAnimation: (
+    CardId: string , 
+    messageId: string,
+    reactionType?: 'like' | 'dislike'
+  ) => void ;
+  aiIsTyping: boolean ;
+  card: HomeworkCard;
+  addMessage: (cardId: string ,message : Message) => void ;
+  handleAiTyping: (state: boolean) => void;
+}
 
 export const ChatSection = ({
   messages,
@@ -10,8 +24,8 @@ export const ChatSection = ({
   card,
   addMessage,
   handleAiTyping
-}) => {
-  const lastMessage = useRef(null);
+}: ChatSectionProps) => {
+  const lastMessage = useRef<HTMLDivElement | null>(null);
 
   const aiMessage = messages.findLast((msg) => msg.role === 'ai')
 
