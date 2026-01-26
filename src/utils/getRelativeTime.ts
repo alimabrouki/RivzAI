@@ -1,7 +1,8 @@
-export const getRelativeTime = (timestamp) => {
+
+export const getRelativeTime =  (timestamp : number | string | Date) => {
   const now = new Date();
   const past =  new Date(timestamp);
-  const diffInSeconds  = Math.floor((now - past) / 1000);
+  const diffInSeconds  = Math.floor((now.getTime() - past.getTime()) / 1000);
 
   if (diffInSeconds < 60) return `${diffInSeconds} sec${diffInSeconds !== 1 ? 's' : ''} ago`;
   const diffInMinutes = Math.floor(diffInSeconds / 60);
