@@ -4,9 +4,13 @@ import { SolveItBtn } from '../../features/SolveItBtn'
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SelectOptions } from '../../features/select-options/SelectOptions'
 import { MultiStepBtn } from '../../features/MultiStepBtn'
-import { useState } from 'react'
+import { useState, type ChangeEvent, type KeyboardEvent } from 'react'
 
-export const PromptBox = ({ addHistory}) => {
+type PromptBoxProps = {
+  addHistory: (newPrompt: string) => void
+}
+
+export const PromptBox = ({ addHistory}: PromptBoxProps) => {
   const [textvalue, setTextValue] = useState('');
 
   const handleSubmit = () => {
@@ -14,14 +18,14 @@ export const PromptBox = ({ addHistory}) => {
     setTextValue('')
   }
 
-  const handleTextArea = (e) => {
-    setTextValue(e.target.value)
+  const handleTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
+    setTextValue(e.target.value )
   }
 
-  const onKeyDown = (e) => {
+  const onKeyDown = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
-        handleTextArea(e)
+        handleTextArea(e as unknown as ChangeEvent<HTMLTextAreaElement>)
       } else {
         e.preventDefault();
         handleSubmit()
