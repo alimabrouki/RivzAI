@@ -2,7 +2,12 @@ import '../styles/index.css'
 import '../styles/header/Header.css'
 import { Menu, X } from 'lucide-react'
 
-export const HamburgerMenu = ({handleHamMenu,isOpen}) => {
+type HamburgerMenuProps = {
+  isOpen: boolean;
+  handleHamMenu: (open: boolean) => void
+}
+
+export const HamburgerMenu = ({handleHamMenu,isOpen}: HamburgerMenuProps) => {
 
   const openMenu = () => {
     handleHamMenu(!isOpen)

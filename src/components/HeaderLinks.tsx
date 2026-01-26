@@ -8,7 +8,7 @@ export const HeaderLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const location = useLocation();
-  const handleHamMenu = (open) => {
+  const handleHamMenu = (open: boolean) => {
     setIsOpen(open)
   }
 
