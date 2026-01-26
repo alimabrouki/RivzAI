@@ -2,9 +2,15 @@ import { memo, useState } from 'react';
 import { getRelativeTime } from '../../utils/getRelativeTime';
 import '../../styles/history-page/HomeworkCards.css';
 import { MoveRight } from 'lucide-react';
+import type { HomeworkCard } from '../../types/Chat';
+
+type HomeworkCardsProps = {
+  recentHomework: HomeworkCard[];
+  handleHistoryCardClick: (homework: HomeworkCard) => void
+}
 
 export const HomeworkCards = memo(
-  ({ recentHomework, handleHistoryCardClick }) => {
+  ({ recentHomework, handleHistoryCardClick }:HomeworkCardsProps) => {
     const [limit, setLimit] = useState(10);
 
     const handleLoadMore = () => {
