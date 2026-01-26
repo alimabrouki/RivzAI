@@ -6,10 +6,10 @@ import { useRef } from 'react';
 
 export const UploadFile = () => {
 
-  const inputRef = useRef(null);
+  const inputRef = useRef<HTMLInputElement | null>(null);
 
   const uploadFile = () => {
-    inputRef.current.click();
+    inputRef.current?.click();
   }
 
   return (
