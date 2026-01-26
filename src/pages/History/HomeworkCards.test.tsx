@@ -1,6 +1,7 @@
 import { it, describe, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { HomeworkCards } from "./HomeworkCards";
+import '@testing-library/jest-dom'
 
 describe('homework cards', () => {
   it('renders homework cards', () => {
@@ -10,7 +11,7 @@ describe('homework cards', () => {
         title: 'math homework',
         text: 'Solve x + 2 = 5',
         messages:[],
-        timestamp: new Date().toISOString()
+        timestamp: Date.now()
       }
     ];
 
@@ -40,7 +41,7 @@ describe('homework cards', () => {
         title: 'math homework',
         text: 'Solve x + 2 = 5',
         messages:[],
-        timestamp: new Date().toISOString()
+        timestamp: Date.now()
       }
     ];
 
