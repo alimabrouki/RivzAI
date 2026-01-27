@@ -22,6 +22,12 @@
   font-size: var(--fs-20);
 }
 
+@media (width <=700px) {
+  .prompt-in {
+    padding: 10px;
+  }
+}
+
 .prompt-in::-webkit-scrollbar {
   width: 10px;
 }
