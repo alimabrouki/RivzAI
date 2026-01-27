@@ -39,6 +39,7 @@
   overflow-wrap: break-word;
   word-break: break-word;
   max-width: 500px;
+  margin-right: 30px;
 }
 
 .rslt-ai-prompt {
