@@ -1,15 +1,19 @@
 import '../styles/index.css';
 import '../styles/header/Header.css';
 import '../styles/home-page/HomePage.css';
-import { useRef, useState } from 'react'
+import { useRef, useState, type MouseEvent } from 'react'
 
-export const SolveItBtn = ({ submit }) => {
+type SolveItBtnProps = {
+  submit: () => void
+}
+
+export const SolveItBtn = ({ submit }: SolveItBtnProps) => {
   const [position, setPosition] = useState({ x: 0, y: 0 });
 
-  const solveIt = useRef(null)
+  const solveIt = useRef<HTMLButtonElement | null>(null)
 
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!solveIt.current) return;
 
 
@@ -36,11 +40,11 @@ export const SolveItBtn = ({ submit }) => {
 
   return (
     <div className="submit-btn">
-        <button onClick={() => submit()} data-testid='solve-it' className='solve-it' ref={solveIt} type="button" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
-          transform: `translate(${position.x}px, ${position.y}px)`
-        }}>
-          Solve It
-        </button>
+      <button onClick={() => submit()} data-testid='solve-it' className='solve-it' ref={solveIt} type="button" onMouseMove={handleMouseMove} onMouseLeave={handleMouseLeave} style={{
+        transform: `translate(${position.x}px, ${position.y}px)`
+      }}>
+        Solve It
+      </button>
     </div>
   )
 }
