@@ -1,5 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
 import '../../styles/history-page/ChatPage.css';
+import mathIcon from '../../assets/images/math-icon.svg'
+import logo from "../../assets/images/logo.png"
 import { PromptSection } from './PromptSection';
 import { ChatSection } from './ChatSection';
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
@@ -79,13 +81,13 @@ export const ChatPage = ({
   return (
 
     <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <link rel="icon" type="image/svg+xml" href={logo}/>
       <title>Chat</title>
       <div className="chat-page">
         {isopen && <div className="backdrop"></div>}
         <div className="wrapper">
           <div className="chat-header">
-            <img className='math-icon' src="/src/assets/images/math-icon.svg" alt="" />
+            <img className='math-icon' src={mathIcon} alt="" />
             <h2 className='homework-title'>{card.title}</h2>
             <div className="head-btns">
               <BsFillTrash3Fill className='delete-btn' onClick={() => setIsOpen(!isopen)} />
