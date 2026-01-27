@@ -4,14 +4,14 @@ import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import '../../styles/home-page/PresentFeatures.css'
 
 export const PresentFeatures = () => {
-  const observe = useIntersectionAnimation({ threshold: 0.1 })
+  useIntersectionAnimation({ threshold: 0.1 })
   return (
-    <div ref={observe} className="present-features slide-in">
+    <div className="present-features slide-in">
       <h2 className="features-title">
         Built For Students Trusted By Teachers
       </h2>
       <div className="features">
-        <div ref={observe} className="f-box slide-in">
+        <div className="f-box slide-in">
           <h3 className="box-title">Modes</h3>
           <div className="teacher-mode">
             <div className="ft-title">
@@ -39,7 +39,7 @@ export const PresentFeatures = () => {
             </ul>
           </div>
         </div>
-        <div ref={observe} className="f-box slide-in">
+        <div className="f-box slide-in">
           <h3 className="box-title">Made For Tunisia</h3>
           <div className="ft-title">
             <School className="i" />
@@ -54,7 +54,7 @@ export const PresentFeatures = () => {
             <li>Same Logic Used In Classrooms And Exams</li>
           </ul>
         </div>
-        <div ref={observe} className="f-box slide-in">
+        <div className="f-box slide-in">
           <h3 className="box-title">Smart Learning Engine</h3>
           <div className="ft-title">
             <TrendingUp className="i" />

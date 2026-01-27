@@ -21,7 +21,7 @@ export const HeaderLinks = () => {
         <div className="head">
           <div className="header-link">
             <Link to="/" className='logo-link'>
-              <img className='logo' src="/src/assets/images/logo.png" alt="" />
+              <img className='logo' src="../assets/images/logo.png" alt="RivzAI Logo" />
               <span className="logo-name">Rivz<span className="logo-ai-name">AI</span></span>
             </Link>
           </div>

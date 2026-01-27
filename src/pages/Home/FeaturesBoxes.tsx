@@ -3,24 +3,24 @@ import { useIntersectionAnimation } from '../../hooks/useIntersectionAnimation'
 import '../../styles/home-page/FeaturesBoxes.css'
 import '../../styles/hooks-styles/useIntersectionAnimation.css'
 export const FeaturesBoxes = () => {
-  const observe = useIntersectionAnimation({threshold : 0.1})
+ useIntersectionAnimation({threshold : 0.1})
   return (
-    <div ref={observe} className="features-boxes slide-in">
-        <div ref={observe} className="box slide-in">
+    <div className="features-boxes slide-in">
+        <div className="box slide-in">
           <div className="feature">
             <TrendingUp className='icon' size={30} />
             <h3 className="highlight-ft">AI-Powered</h3>
             <span>Grade Booster for Faster HomeWork Mastery</span>
           </div>
         </div>
-        <div ref={observe} className="box slide-in">
+        <div className="box slide-in">
           <div className="feature">
             <GraduationCap className='icon' size={30} />
             <h3 className="highlight-ft">Teacher Mode</h3>
             <span>Smart Homework Generator</span>
           </div>
         </div>
-        <div ref={observe} className="box slide-in">
+        <div className="box slide-in">
           <div className="feature">
           <School className='icon' size={30} />
           <h3 className="highlight-ft">100%</h3>

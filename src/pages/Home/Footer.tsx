@@ -6,9 +6,9 @@ import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import '../../styles/home-page/Footer.css'
 
 export const Footer = () => {
-  const observe = useIntersectionAnimation({ threshold: 0.1 })
+  useIntersectionAnimation({ threshold: 0.1 })
   return (
-    <div ref={observe} className="footer slide-in">
+    <div className="footer slide-in">
       <h2 className="footer-title">Your Education Is Your Most Valuable Asset</h2>
       <p>Build it now — for free.</p>
       <Link to="/auth" className='get-started-btn'>

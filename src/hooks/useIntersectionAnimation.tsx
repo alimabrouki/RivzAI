@@ -1,24 +1,21 @@
-import { useRef, useEffect } from "react";
+import { useEffect } from "react";
 
-export const useIntersectionAnimation = (options: IntersectionObserverInit = { threshold: 0.1}) => {
-  const observerRef = useRef<IntersectionObserver| null>(null);
-
-  const observe = (element : HTMLDivElement | null) => {
-    if (!element || !observerRef.current) return;
-    observerRef.current.observe(element)
-  };
-
+export const useIntersectionAnimation = (
+  options: IntersectionObserverInit = { threshold: 0.1 }
+) => {
   useEffect(() => {
-    observerRef.current = new IntersectionObserver((entries) => {
+    const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
-          entry.target.classList.add('active');
-          observerRef.current?.unobserve(entry.target);
+          entry.target.classList.add("active");
+          observer.unobserve(entry.target);
         }
       });
-    },options);
-    return () => observerRef.current?.disconnect();
-  },[options])
+    }, options);
 
-  return observe
-}
+    const elements = document.querySelectorAll(".slide-in");
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, [options]);
+};
