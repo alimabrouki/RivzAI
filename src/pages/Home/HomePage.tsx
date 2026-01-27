@@ -6,6 +6,7 @@ import { HomePageWrapper } from './HomePageWrapper'
 import { PresentFeatures } from './PresentFeatures'
 import { Footer } from './Footer'
 import type { HomeworkCard } from '../../types/Chat'
+import logo from "../../assets/images/logo.png"
 
 type HomePageProps = {
   addHistory: (newPrompt: string) => void;
@@ -20,7 +21,7 @@ export const HomePage = ({
 
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>RivzAI</title>
       <Header />
       <div className="home-page">

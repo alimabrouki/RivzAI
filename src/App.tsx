@@ -20,7 +20,7 @@ export const App = () => {
         {
           id: crypto.randomUUID(),
           role: 'user',
-          content: 'new homework'
+          content: 'Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.'
         }
       ],
       timestamp: new Date().toISOString()
@@ -33,7 +33,7 @@ export const App = () => {
         {
           id: crypto.randomUUID(),
           role: 'user',
-          content: 'new homework'
+          content: 'Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.'
         }
       ],
       timestamp: new Date().toISOString()
@@ -46,7 +46,7 @@ export const App = () => {
         {
           id: crypto.randomUUID(),
           role: 'user',
-          content: 'new homework'
+          content: 'Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.'
         }
       ],
       timestamp: new Date().toISOString()

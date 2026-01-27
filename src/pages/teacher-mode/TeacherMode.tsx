@@ -1,11 +1,11 @@
 import { Link } from "react-router-dom";
 import "../../styles/Teacher-mode/TeacherMode.css";
 import { GraduationCap, BookOpen, ClipboardList } from "lucide-react";
-
+import logo from "../../assets/images/logo.png"
 const TeacherMode = () => {
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Teacher Mode</title>
       <div className="teacherMode">
         <div className="teacherCard">

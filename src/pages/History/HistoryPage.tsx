@@ -6,6 +6,7 @@ import { HomeworkCards } from './HomeworkCards';
 import { FilterHistory } from './FilterHistory';
 import { SearchBar } from './SearchBar';
 import type { HomeworkCard } from '../../types/Chat';
+import logo from "../../assets/images/logo.png"
 
 type HistoryPageProps = {
   addedHistory: HomeworkCard[];
@@ -19,7 +20,7 @@ export const HistoryPage = ({
 
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>History</title>
       <Header />
       <div className="history">

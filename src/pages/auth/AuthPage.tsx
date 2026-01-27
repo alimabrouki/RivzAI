@@ -1,10 +1,10 @@
 import '../../styles/Auth/AuthPage.css';
 import { BsGoogle } from "react-icons/bs";
-
+import logo from "../../assets/images/logo.png"
 const AuthPage = () => {
   return (
     <>
-      <link rel="icon" type="image/svg+xml" href="/src/assets/images/logo.png" />
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Auth</title>
       <div className="authPage">
         <div className="authCard">

@@ -3,6 +3,7 @@ import '../styles/header/Header.css'
 import { Link, useLocation } from 'react-router-dom'
 import { useState } from 'react'
 import { HamburgerMenu } from './HamburgerMenu'
+import logo from "../assets/images/logo.png"
 
 export const HeaderLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,7 +22,7 @@ export const HeaderLinks = () => {
         <div className="head">
           <div className="header-link">
             <Link to="/" className='logo-link'>
-              <img className='logo' src="../assets/images/logo.png" alt="RivzAI Logo" />
+              <img className='logo' src={logo} alt="RivzAI Logo" />
               <span className="logo-name">Rivz<span className="logo-ai-name">AI</span></span>
             </Link>
           </div>
