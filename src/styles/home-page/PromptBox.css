@@ -254,6 +254,12 @@
   padding: 11px !important;
 }
 
+.multi-step-mode-on {
+  background: linear-gradient(90deg, rgb(240, 181, 2) 17%, rgba(240, 128, 0, 1) 68%, rgba(255, 162, 0, 1) 100%);
+  color: var(--c-neutral-0);
+  font-weight: 500;
+}
+
 @media (width <=900px) {
   .multi-step-mode {
     padding: 11px 0 !important;
@@ -267,9 +273,16 @@
   }
 }
 
-.dot-on-off {
+.dot-off {
   position: absolute;
   color: var(--c-bleu-bg);
+  right: -15px;
+  top: -16px;
+}
+
+.dot-on {
+  position: absolute;
+  color: var(--c-neutral-0);
   right: -15px;
   top: -16px;
 }
