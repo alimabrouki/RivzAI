@@ -22,11 +22,7 @@
   font-size: var(--fs-20);
 }
 
-@media (width <=700px) {
-  .prompt-in {
-    padding: 10px;
-  }
-}
+
 
 .prompt-in::-webkit-scrollbar {
   width: 10px;
@@ -35,6 +31,12 @@
 .prompt-in::-webkit-scrollbar-track {
   background: transparent;
   margin: 6px 0px;
+}
+
+@media (width <=700px) {
+.prompt-in::-webkit-scrollbar-track {
+  margin: 0px 0px;
+}
 }
 
 .prompt-in::-webkit-scrollbar-thumb {
