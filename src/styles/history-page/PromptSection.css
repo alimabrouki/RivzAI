@@ -10,7 +10,6 @@
 }
 
 .prompt-in {
-  height: 70px !important;
   padding: 20px;
   outline: none;
   color: var(--c-neutral-0);
