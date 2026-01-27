@@ -5,9 +5,18 @@ import { Header } from '../../components/Header'
 import { HomePageWrapper } from './HomePageWrapper'
 import { PresentFeatures } from './PresentFeatures'
 import { Footer } from './Footer'
+import type { HomeworkCard } from '../../types/Chat'
 
-export const HomePage = ({addHistory, addedHistory
-}) => {
+type HomePageProps = {
+  addHistory: (newPrompt: string) => void;
+  addedHistory: HomeworkCard[]
+}
+
+
+export const HomePage = ({
+  addHistory, 
+  addedHistory
+}: HomePageProps) => {
 
   return (
     <>
