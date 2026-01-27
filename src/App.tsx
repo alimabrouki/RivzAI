@@ -7,6 +7,7 @@ import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { useState } from 'react'
 import TeacherMode from './pages/teacher-mode/TeacherMode'
 import AuthPage from './pages/auth/AuthPage'
+import type { HomeworkCard, Message } from './types/Chat'
 
 
 export const App = () => {
@@ -55,45 +56,47 @@ export const App = () => {
 
   const navigate = useNavigate();
 
-  const openHistoryCard = (id) => navigate(`/history/${id}`);
+  const openHistoryCard = (id: string) => navigate(`/history/${id}`);
 
-  const createHistoryItem = (newPrompt) => ({
+  const createHistoryItem = (newPrompt: string): HomeworkCard => ({
     id: crypto.randomUUID(),
     title: newPrompt.slice(0, 50),
-    text: typeof newPrompt === 'string' ? newPrompt : newPrompt.text,
+    text: newPrompt,
     messages: [
       {
         id: crypto.randomUUID(),
         role: 'user',
-        content: typeof newPrompt === 'string' ? newPrompt : newPrompt.text
+        content: newPrompt,
+        animated: true,
+        reaction: null
       }
     ],
     timestamp: new Date().toISOString()
   });
 
-  const prependHistoryItem = (item) => setAddedHistory(prev => [item, ...prev]);
+  const prependHistoryItem = (item: HomeworkCard) => setAddedHistory((prev: HomeworkCard[]) => [item, ...prev]);
 
-  const addHistory = (newPrompt) => {
+  const addHistory = (newPrompt: string) => {
     const card = createHistoryItem(newPrompt);
     prependHistoryItem(card);
     openHistoryCard(card.id)
   }
 
-  const deleteHistoryItem = (deletedCardId) => {
-    setAddedHistory(prev =>
+  const deleteHistoryItem = (deletedCardId: string) => {
+    setAddedHistory((prev: HomeworkCard[]) =>
       prev.filter((item) => item.id !== deletedCardId)
     );
     navigate('/history/')
   }
 
-  const handleHistoryCardClick = (homework) => {
+  const handleHistoryCardClick = (homework: HomeworkCard) => {
     openHistoryCard(homework.id)
   }
 
-  const handleAiTyping = (state) => setAiIsTyping(state);
+  const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
-  const addMessage = (cardId, message) => {
-    setAddedHistory(prev =>
+  const addMessage = (cardId: string, message: Message) => {
+    setAddedHistory((prev: HomeworkCard[]) =>
       prev.map((card) =>
         card.id === cardId ? {
           ...card,
@@ -107,13 +110,13 @@ export const App = () => {
     setAiIsTyping(false)
   }
 
-  const markMessageAnimation = (CardId, msgId, reactionType) => {
-    setAddedHistory(prev =>
-      prev.map((card) =>
-        card.id === CardId ?
+  const markMessageAnimation = (cardId: string, msgId: string, reactionType?: 'like' | 'dislike' | null) => {
+    setAddedHistory((prev: HomeworkCard[]) =>
+      prev.map((card: HomeworkCard) =>
+        card.id === cardId ?
           {
             ...card,
-            messages: card.messages.map((m) =>
+            messages: card.messages.map((m: Message) =>
               m.id === msgId ?
                 {
                   ...m,
@@ -126,7 +129,6 @@ export const App = () => {
   }
 
   return (
-
     <Routes>
       <Route index path='/' element={<HomePage addHistory={addHistory} addedHistory={addedHistory} />} />
       <Route index path='/history'
@@ -151,9 +153,7 @@ export const App = () => {
       <Route index path='/auth/' element={
         <AuthPage />
       } />
-
     </Routes>
-
   )
 }
 

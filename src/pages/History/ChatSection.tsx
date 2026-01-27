@@ -7,9 +7,9 @@ import type { HomeworkCard, Message } from "../../types/Chat";
 type ChatSectionProps = {
   messages: Message[];
   markMessageAnimation: (
-    CardId: string , 
-    messageId: string,
-    reactionType?: 'like' | 'dislike'
+    cardId: string , 
+    msgId: string,
+    reactionType?: 'like' | 'dislike' | null
   ) => void ;
   aiIsTyping: boolean ;
   card: HomeworkCard;
@@ -45,7 +45,7 @@ export const ChatSection = ({
           role: 'ai',
           content: 'welcome, sorry this is still a demo comeback soon and have a great experience thank you enjoy your day',
           animated: true,
-          reaction: ''
+          reaction: null
         })
       }, 1500);
       
