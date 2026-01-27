@@ -9,7 +9,7 @@ import type { HomeworkCard, Message } from '../../types/Chat';
 type ChatPageProps = {
   closeChat: () => void;
   addMessage: (cardId: string, message: Message) => void;
-  markMessageAnimation: (id: string, reactionType: string) => void;
+  markMessageAnimation: (cardId: string, msgId: string, reactionType?: 'like' | 'dislike' | null ) => void;
   handleAiTyping: (state: boolean) => void;
   aiIsTyping: boolean;
   recentHomework: HomeworkCard[];

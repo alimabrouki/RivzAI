@@ -1,20 +1,34 @@
-import '../../styles/index.css'
-import '../../styles/header/Header.css'
-import '../../styles/home-page/SelectOptions.css'
-import { ChevronLeft } from 'lucide-react'
-import { useLocalStorage } from '../../hooks/useLocalStorage'
-import { useEffect, useRef, useState } from 'react'
-export const SelectLevel = ({ schoolOptions, placeHolder, storageKey }) => {
+import '../../styles/index.css';
+import '../../styles/header/Header.css';
+import '../../styles/home-page/SelectOptions.css';
+import { ChevronLeft } from 'lucide-react';
+import { useLocalStorage } from '../../hooks/useLocalStorage';
+import { useEffect, useRef, useState } from 'react';
+
+type SelectLevelProps = {
+  schoolOptions: {id: number ; option: string}[];
+  placeHolder: string;
+  storageKey: string
+}
+
+export const SelectLevel = ({ 
+  schoolOptions, 
+  placeHolder, 
+  storageKey }:SelectLevelProps) => {
+
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOpt, setSelectedOpt] = useLocalStorage(storageKey ,placeHolder)
 
-  const dropDown = useRef(null)
+  const dropDown = useRef<HTMLDivElement | null>(null)
   useEffect(() => {
-    document.addEventListener('mousedown', (e) => {
-      if (dropDown.current && !dropDown.current.contains(e.target)) {
+    const handler = (e: MouseEvent) => {
+      if (dropDown.current && !dropDown.current.contains(e.target as Node)) {
         setIsOpen(false)
       }
-    })
+    }
+    document.addEventListener('mousedown', handler);
+
+    return () => document.removeEventListener('mousedown', handler)
   }, [])
 
   const onFocusShadow = {
@@ -40,7 +54,6 @@ export const SelectLevel = ({ schoolOptions, placeHolder, storageKey }) => {
                   console.log(option.option);
                 }}
                 key={option.id}
-                value={option.option}
                 className={`option ${selectedOpt === option.option ? 'selected-option' : ''}`}>
                 {option.option}
               </span>
