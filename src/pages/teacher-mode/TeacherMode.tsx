@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import "../../styles/Teacher-mode/teacherMode.css";
+import "../../styles/Teacher-mode/TeacherMode.css";
 import { GraduationCap, BookOpen, ClipboardList } from "lucide-react";
 
 const TeacherMode = () => {
