@@ -1,11 +1,19 @@
 import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import { PromptBox } from './PromptBox'
 import { RecentHomework } from './RecentHomework'
-
 import { FeaturesBoxes } from './FeaturesBoxes'
-export const HomePageWrapper = ({addHistory,addedHistory}) => {
- 
+import type { HomeworkCard } from '../../types/Chat'
 
+type HomePageWrapperProps = {
+  addHistory: (newPrompt: string) => void;
+  addedHistory: HomeworkCard[]
+}
+
+export const HomePageWrapper = ({
+  addHistory, 
+  addedHistory
+} : HomePageWrapperProps) => {
+ 
   return (
     <div className="wrapper">
       <div className="hero">
@@ -16,7 +24,7 @@ export const HomePageWrapper = ({addHistory,addedHistory}) => {
         <h3 className='under-title-two'>
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
-        <PromptBox recentHomework={addedHistory} addHistory={addHistory} />
+        <PromptBox addHistory={addHistory} />
         <RecentHomework recentHistory={addedHistory} />
         <FeaturesBoxes />
       </div>
