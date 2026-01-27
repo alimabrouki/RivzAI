@@ -14,8 +14,8 @@ export const App = () => {
   const [addedHistory, setAddedHistory] = useLocalStorage('Homeworks', [
     {
       id: crypto.randomUUID(),
-      title: 'new homework',
-      text: 'new homework',
+      title: 'The Water Cycle Explained',
+      text: 'Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.',
       messages: [
         {
           id: crypto.randomUUID(),
@@ -27,8 +27,8 @@ export const App = () => {
     },
     {
       id: crypto.randomUUID(),
-      title: 'new homework',
-      text: 'new homework',
+      title: 'Solve Quadratic Equations',
+      text: 'Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.',
       messages: [
         {
           id: crypto.randomUUID(),
@@ -40,8 +40,8 @@ export const App = () => {
     },
     {
       id: crypto.randomUUID(),
-      title: 'new homework',
-      text: 'new homework',
+      title: 'Photosynthesis Process',
+      text: 'Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.',
       messages: [
         {
           id: crypto.randomUUID(),
