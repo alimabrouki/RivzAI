@@ -11,7 +11,7 @@ describe('homework cards', () => {
         title: 'math homework',
         text: 'Solve x + 2 = 5',
         messages:[],
-        timestamp: Date.now()
+        timestamp: new Date().toISOString()
       }
     ];
 
@@ -41,7 +41,7 @@ describe('homework cards', () => {
         title: 'math homework',
         text: 'Solve x + 2 = 5',
         messages:[],
-        timestamp: Date.now()
+        timestamp: new Date().toISOString()
       }
     ];
 
