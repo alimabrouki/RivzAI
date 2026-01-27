@@ -1,6 +1,6 @@
 import { GraduationCap, School, TrendingUp, Waypoints } from "lucide-react"
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation"
-import '../../styles/hooks-styles/useInterSectionAnimation.css'
+import '../../styles/hooks-styles/useIntersectionAnimation.css'
 import '../../styles/home-page/PresentFeatures.css'
 
 export const PresentFeatures = () => {
