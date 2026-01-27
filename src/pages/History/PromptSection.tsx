@@ -1,16 +1,27 @@
-import { useRef, useState } from "react";
+import { useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
 import TextareaAutosize from 'react-textarea-autosize';
 import { RecordAudio } from '../../features/input-output/RecordAudio';
 import { UploadFile } from '../../features/input-output/UploadFile'
 import { SendHorizonal } from 'lucide-react';
 import '../../styles/history-page/PromptSection.css';
+import type { Message } from "../../types/Chat";
 
-export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
+type PromptSectionProps = {
+  addMessage: (cardId: string, message: Message) => void;
+  cardId: string;
+  handleAiTyping: (state: boolean) => void;
+}
+
+export const PromptSection = ({ 
+  addMessage, 
+  cardId, 
+  handleAiTyping
+ }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState('');
 
-  const promptIn = useRef(null);
+  const promptIn = useRef<HTMLTextAreaElement | null>(null);
 
-  const handleTextarea = (e) => {
+  const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsTyping(e.target.value);
   };
 
@@ -33,21 +44,21 @@ export const PromptSection = ({ addMessage, cardId, handleAiTyping }) => {
         role: 'ai',
         content: 'welcome, sorry this is still a demo comeback soon and have a great experience thank you enjoy your day',
         animated: true,
-        reaction: ''
+        reaction: null
       })
     }, 1500);
   }
 
-  const onKey = (e) => {
+  const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return;
-        e.preventDefault()
-        submitPrompt() 
+      e.preventDefault()
+      submitPrompt()
     }
   }
 
   const focusPrompt = () => {
-    promptIn.current.focus();
+    promptIn.current?.focus();
   }
   return (
     <div className="prompt-section" onClick={focusPrompt}>
