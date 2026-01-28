@@ -2,6 +2,12 @@
 
 RivzAI is an AI-powered educational platform designed to help students solve and understand homework problems according to the Tunisian school curriculum. It includes both **student and teacher modes**, as well as a **homework history** feature.
 
+### Desktop View
+![RivzAI Desktop](src/assets/images/homepage.png)
+
+### Mobile View
+![RivzAI Mobile](src/assets/images/mobile-view.png)
+
 ## Features
 
 - **Student Mode:** Ask questions and receive guided solutions to homework problems.  
