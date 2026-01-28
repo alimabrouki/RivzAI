@@ -60,7 +60,7 @@ export const App = () => {
 
   const createHistoryItem = (newPrompt: string): HomeworkCard => ({
     id: crypto.randomUUID(),
-    title: newPrompt.slice(0, 50),
+    title: newPrompt.slice(0, 25),
     text: newPrompt,
     messages: [
       {

@@ -17,7 +17,7 @@ export const RecentHomework = ({ recentHistory }: { recentHistory: HomeworkCard[
           to={`/history/${history.id}`}
           className="recent-prompt slide-in"
         >
-          <span className="slide-in">"{history.text}"</span>
+          <span className="slide-in">"{history.text.slice(0, 60)}"</span>
         </Link>
       ))}
     </div>
