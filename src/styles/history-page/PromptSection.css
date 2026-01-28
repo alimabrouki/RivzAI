@@ -23,8 +23,7 @@
   overflow-y: auto;
 }
 
-@media (width >= 700px) {
-  .prompt-in::-webkit-scrollbar {
+.prompt-in::-webkit-scrollbar {
   width: 10px;
 }
 
@@ -42,6 +41,17 @@
 
 .prompt-in::-webkit-scrollbar-thumb:hover {
   background: var(--c-light-blue);
+}
+
+@media (width <= 700px) {
+  .prompt-in {
+  overflow-y: auto;
+  scrollbar-width: none;        
+}
+
+.prompt-in::-webkit-scrollbar {
+  width: 0;
+  height: 0;                     
 }
 }
 

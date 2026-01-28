@@ -92,6 +92,10 @@
     color: var(--c-neutral-300);
     white-space: normal;
     margin-right: 0px;
+    background-image: none;
+    -webkit-background-clip: initial;
+    background-clip: initial;
+    color: var(--c-neutral-300);
   }
 }
 
