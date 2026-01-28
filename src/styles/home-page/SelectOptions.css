@@ -43,6 +43,12 @@
   }
 }
 
+@media (width <=330px) {
+  .select-wrapper {
+    align-self: unset;
+  }
+}
+
 .select-options {
   display: flex;
   justify-content: center;

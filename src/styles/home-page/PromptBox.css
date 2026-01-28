@@ -125,11 +125,19 @@
   }
 }
 
+@media (330px < width < 558px) {
+  .inputs {
+    translate: -15px -25px;
+  }
+}
+
 @media (width <=330px) {
   .inputs {
     gap: 30px;
-    grid-template-columns: 118px;
-    grid-template-rows: none;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
 }
 
@@ -245,6 +253,16 @@
 
   .input-output button {
     width: 80%;
+  }
+}
+
+@media (width <=330px) {
+  .input-output {
+    align-self: unset;
+  }
+
+  .input-output button {
+    width: unset;
   }
 }
 
