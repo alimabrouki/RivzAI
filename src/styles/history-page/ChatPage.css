@@ -67,6 +67,7 @@
 .chat-header .homework-title {
   margin-left: 20px;
   color: var(--c-text-light);
+  word-break: break-word;
 }
 
 .head-btns {
@@ -74,6 +75,13 @@
   align-items: center;
   margin-left: auto;
   gap: 30px;
+}
+
+@media (width <= 700px) {
+  .head-btns {
+  gap: 10px;
+}
+
 }
 
 .delete-btn {
