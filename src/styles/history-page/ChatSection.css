@@ -42,6 +42,12 @@
   margin-right: 30px;
 }
 
+@media (width <= 700px) {
+  .rslt-user-prompt {
+    margin-right: 10px
+  }
+}
+
 .rslt-ai-prompt {
   align-self: flex-start;
   color: var(--c-text-light);
@@ -49,14 +55,6 @@
   margin-top: 50px;
   word-break: break-word;
   max-width: 800px;
-}
-
-@media (width >=700px) {
-
-  .rslt-user-prompt,
-  .rslt-ai-prompt {
-    font-size: var(--fs-18);
-  }
 }
 
 .rslt-ai-prompt .actions {

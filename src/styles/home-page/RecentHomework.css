@@ -32,11 +32,14 @@
   font-weight: bold;
   animation: slideInFromBottom 1s ease-out forwards;
   transition: 0.2s ease;
+  position: relative;
 }
 
 @media (width <=700px) {
   .recent-prompt {
     width: 500px !important;
+    font-size: var(--fs-16) !important;
+    font-weight: 500 !important;
   }
 }
 
@@ -80,6 +83,18 @@
   -webkit-background-clip: text;
   color: transparent;
 }
+
+@media (width <=700px) {
+  .recent-prompt span {
+    width: 100%;
+    max-width: 100%;
+    padding: 0 15px;
+    color: var(--c-neutral-300);
+    white-space: normal;
+    margin-right: 0px;
+  }
+}
+
 
 .recent-homework .recent-prompt:hover::before {
   opacity: 1;
