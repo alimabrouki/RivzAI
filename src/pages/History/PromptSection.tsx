@@ -62,7 +62,7 @@ export const PromptSection = ({
   }
   return (
     <div className="prompt-section" onClick={focusPrompt}>
-      <TextareaAutosize onKeyDown={onKey} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' maxRows={10} name="" id="" />
+      <TextareaAutosize onKeyDown={onKey} value={isTyping} onChange={handleTextarea} ref={promptIn} className='prompt-in' minRows={1} maxRows={10} name="" id="" />
       <div className="prompt-btns">
         <RecordAudio />
         <UploadFile />

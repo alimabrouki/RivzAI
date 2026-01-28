@@ -18,7 +18,16 @@
   caret-color: var(--c-neutral-300);
   resize: none;
   scroll-behavior: smooth;
-  font-size: var(--fs-20);
+  font-size: 16px;
+  line-height: 1.4;
+  overflow-y: auto;
+}
+
+@media (width <=700px) {
+  .prompt-in {
+    max-height: calc(1.4em * 4 + 40px);
+    overflow-y: auto;
+  }
 }
 
 .prompt-in::-webkit-scrollbar {
@@ -31,9 +40,9 @@
 }
 
 @media (width <=700px) {
-.prompt-in::-webkit-scrollbar-track {
-  margin: 0px 0px;
-}
+  .prompt-in::-webkit-scrollbar-track {
+    margin: 0px 0px;
+  }
 }
 
 .prompt-in::-webkit-scrollbar-thumb {
