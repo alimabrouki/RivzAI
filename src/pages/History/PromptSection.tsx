@@ -12,14 +12,16 @@ type PromptSectionProps = {
   handleAiTyping: (state: boolean) => void;
 }
 
-export const PromptSection = ({ 
-  addMessage, 
-  cardId, 
+export const PromptSection = ({
+  addMessage,
+  cardId,
   handleAiTyping
- }: PromptSectionProps) => {
+}: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState('');
 
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
+
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsTyping(e.target.value);
@@ -52,8 +54,13 @@ export const PromptSection = ({
   const onKey = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) return;
-      e.preventDefault()
-      submitPrompt()
+      if (isMobile) {
+        return;
+      } else {
+        e.preventDefault()
+        submitPrompt()
+      }
+
     }
   }
 

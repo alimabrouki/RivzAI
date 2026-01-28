@@ -13,6 +13,9 @@ type PromptBoxProps = {
 export const PromptBox = ({ addHistory}: PromptBoxProps) => {
   const [textvalue, setTextValue] = useState('');
 
+  const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+
   const handleSubmit = () => {
     addHistory(textvalue)
     setTextValue('')
@@ -26,6 +29,9 @@ export const PromptBox = ({ addHistory}: PromptBoxProps) => {
     if (e.key === 'Enter') {
       if (e.shiftKey) {
         handleTextArea(e as unknown as ChangeEvent<HTMLTextAreaElement>)
+      } 
+      if (isMobile) {
+        return;
       } else {
         e.preventDefault();
         handleSubmit()
