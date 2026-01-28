@@ -81,12 +81,6 @@
   color: transparent;
 }
 
-@media (width <=500px) {
-  .recent-prompt span {
-    font-size: var(--fs-14);
-  }
-}
-
 .recent-homework .recent-prompt:hover::before {
   opacity: 1;
 }

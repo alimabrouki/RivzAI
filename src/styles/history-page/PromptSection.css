@@ -21,8 +21,6 @@
   font-size: var(--fs-20);
 }
 
-
-
 .prompt-in::-webkit-scrollbar {
   width: 10px;
 }
