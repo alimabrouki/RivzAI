@@ -14,6 +14,12 @@
   width: 10px;
 }
 
+@media (width <=700px) {
+  .chat-section::-webkit-scrollbar {
+    width: 4px;
+  }
+}
+
 .chat-section::-webkit-scrollbar-track {
   background: transparent;
   margin: 6px 0px;
@@ -42,7 +48,7 @@
   margin-right: 30px;
 }
 
-@media (width <= 700px) {
+@media (width <=700px) {
   .rslt-user-prompt {
     margin-right: 10px
   }
