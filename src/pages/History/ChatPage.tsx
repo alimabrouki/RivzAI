@@ -88,7 +88,7 @@ export const ChatPage = ({
         <div className="wrapper">
           <div className="chat-header">
             <img className='math-icon' src={mathIcon} alt="" />
-            <h2 className='homework-title'>{card.title}</h2>
+            <div className='homework-title'>{card.title}</div>
             <div className="head-btns">
               <BsFillTrash3Fill className='delete-btn' onClick={() => setIsOpen(!isopen)} />
               <BsFillArrowLeftCircleFill className='close-window' onClick={closeChat} />

@@ -51,7 +51,6 @@ export const ChatSection = ({
       
       return () => clearTimeout(timeout)
     }
-    console.log(card.messages)
   }, [card, addMessage,handleAiTyping])
 
   return (

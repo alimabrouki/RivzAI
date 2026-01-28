@@ -27,7 +27,7 @@ export const HomeworkCards = memo(
           <div onClick={() => handleHistoryCardClick(homework)} data-testid='homework-card' className='homework-card' key={homework.id}>
             <div className="left-line"></div>
             <div className="card-content">
-              <h2 className='homework-title'>{homework.title}</h2>
+              <div className='homework-title'>{homework.title}</div>
               <div className="user-prompt">
                 "{homework.text}"
               </div>
