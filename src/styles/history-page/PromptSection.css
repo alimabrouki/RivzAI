@@ -23,26 +23,14 @@
   overflow-y: auto;
 }
 
-@media (width <=700px) {
-  .prompt-in {
-    max-height: calc(1.4em * 4 + 40px);
-    overflow-y: auto;
-  }
-}
-
-.prompt-in::-webkit-scrollbar {
+@media (width >= 700px) {
+  .prompt-in::-webkit-scrollbar {
   width: 10px;
 }
 
 .prompt-in::-webkit-scrollbar-track {
   background: transparent;
   margin: 6px 0px;
-}
-
-@media (width <=700px) {
-  .prompt-in::-webkit-scrollbar-track {
-    margin: 0px 0px;
-  }
 }
 
 .prompt-in::-webkit-scrollbar-thumb {
@@ -54,6 +42,7 @@
 
 .prompt-in::-webkit-scrollbar-thumb:hover {
   background: var(--c-light-blue);
+}
 }
 
 .prompt-btns {
