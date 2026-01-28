@@ -23,6 +23,10 @@
   overflow-y: auto;
 }
 
+.prompt-in::placeholder {
+  color: var(--c-neutral-300);
+}
+
 .prompt-in::-webkit-scrollbar {
   width: 10px;
 }
