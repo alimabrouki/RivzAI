@@ -44,7 +44,7 @@ export const PromptSection = ({
       addMessage(cardId, {
         id: crypto.randomUUID(),
         role: 'ai',
-        content: `You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.`,
+        content: 'You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.',
         animated: true,
         reaction: null
       })
