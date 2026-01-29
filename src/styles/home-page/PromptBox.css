@@ -38,7 +38,7 @@
   caret-color: var(--c-neutral-300);
   resize: none;
   scroll-behavior: smooth;
-  font-size: var(--fs-20);
+  font-size: var(--fs-18);
 }
 
 @media (width <=900px) {
@@ -52,6 +52,7 @@
     width: 380px;
     margin: 10px 10px 10px;
     height: 190px;
+    font-size: var(--fs-16);
   }
 }
 
@@ -89,7 +90,6 @@
 
 .prompt-input::placeholder {
   color: var(--c-neutral-300);
-  font-size: var(--fs-20);
   font-family: monospace;
 }
 
