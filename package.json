@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "bootstrap-icons": "^1.13.1",
+    "express": "^5.2.1",
     "lucide-react": "^0.555.0",
     "randomcolor": "^0.6.2",
     "react": "^19.2.0",
@@ -39,5 +40,18 @@
     "typescript-eslint": "^8.46.4",
     "vite": "^7.2.4",
     "vitest": "^4.0.17"
-  }
+  },
+  "description": "RivzAI is an AI-powered educational platform designed to help students solve and understand homework problems according to the Tunisian school curriculum. It includes both **student and teacher modes**, as well as a **homework history** feature.",
+  "main": "eslint.config.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alimabrouki/RivzAI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/alimabrouki/RivzAI/issues"
+  },
+  "homepage": "https://github.com/alimabrouki/RivzAI#readme"
 }
