@@ -13,8 +13,10 @@
     "deploy": "gh-pages -d dist"
   },
   "dependencies": {
+    "@prisma/client": "^7.8.0",
     "bootstrap-icons": "^1.13.1",
     "lucide-react": "^0.555.0",
+    "pg": "^8.20.0",
     "randomcolor": "^0.6.2",
     "react": "^19.2.0",
     "react-dom": "^19.2.0",
@@ -41,6 +43,7 @@
     "globals": "^16.5.0",
     "jsdom": "^26.1.0",
     "nodemon": "^3.1.14",
+    "prisma": "^7.8.0",
     "tsx": "^4.21.0",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.46.4",
