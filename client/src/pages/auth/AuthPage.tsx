@@ -6,26 +6,27 @@ const AuthPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isRegistering, setIsRegistering] = useState(false);
-  const [emailError, setEmailError] = useState("");
-  const [passError, setPassError] = useState("");
+  const [error, setError] = useState({
+    email: "",
+    password: "",
+  });
 
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
 
   const handleRegister = () => {
     console.log(email, password);
+    const newErrors = {
+      email: "",
+      password: "",
+    };
     if (!isEmailValid) {
-      setEmailError("Please enter a valid email");
-      return;
-    } else {
-      setEmailError("");
+      newErrors.email = "Please enter a valid email";
     }
     if (!isPasswordValid) {
-      setPassError("Password must be at least 8 characters");
-      return;
-    } else {
-      setPassError("");
+      newErrors.password = "Password must be at least 8 characters";
     }
+    setError(newErrors);
   };
 
   return (
@@ -54,7 +55,7 @@ const AuthPage = () => {
             placeholder="Email address"
             className="authInput"
           />
-          {emailError && <p className="authError">{emailError}</p>}
+          {error.email && <p className="authError">{error.email}</p>}
           <input
             value={password}
             onChange={(e) => setPassword(e.target.value)}
@@ -62,7 +63,7 @@ const AuthPage = () => {
             placeholder="Password"
             className="authInput"
           />
-          {passError && <p className="authError">{passError}</p>}
+          {error.password && <p className="authError">{error.password}</p>}
 
           <button
             onClick={handleRegister}
@@ -70,11 +71,6 @@ const AuthPage = () => {
           >
             Sign in
           </button>
-
-          <p className="authNote">
-            This project is currently frontend-only. Authentication will be
-            added later.
-          </p>
         </div>
       </div>
     </>
