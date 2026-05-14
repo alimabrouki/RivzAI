@@ -1,7 +1,10 @@
 import '../../styles/Auth/AuthPage.css';
 import { BsGoogle } from "react-icons/bs";
 import logo from "../../assets/images/logo.png"
+import { useState } from 'react';
 const AuthPage = () => {
+  const [email, setEmail] = useState("")
+  const [password, setPassword] = useState("")
   return (
     <>
       <link rel="icon" type="image/svg+xml" href={logo} />
@@ -13,16 +16,16 @@ const AuthPage = () => {
             Access Teacher Mode, save homework, and manage your account.
           </p>
 
-          <button className="authButton disabled">
+          <button className="authButton">
             <BsGoogle size={18} /> Continue with Google
           </button>
 
           <div className="authDivider"><span>or</span></div>
 
-          <input type="email" placeholder="Email address" disabled className="authInput" />
-          <input type="password" placeholder="Password" disabled className="authInput" />
+          <input value={email} onChange={(e) => setEmail(e.target.value)} type="email" placeholder="Email address" className="authInput" />
+          <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" placeholder="Password" className="authInput" />
 
-          <button className="authButton disabled">Sign in</button>
+          <button className="authButton">Sign in</button>
 
           <p className="authNote">
             This project is currently frontend-only. Authentication will be added later.
