@@ -18,3 +18,11 @@ model User {
   password      String
   conversations conversation[]
 }
+
+model conversation {
+  id        Int       @id @default(autoincrement())
+  userId    Int
+  user      User      @relation(fields: [userId], references: [id])
+  messages  Message[]
+  createdAt DateTime  @default(now())
+}
