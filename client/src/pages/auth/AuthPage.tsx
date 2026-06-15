@@ -20,7 +20,7 @@ const AuthPage = () => {
     password: "",
   });
 
-  const [emailError, setEmailError] = useState("");
+  const [authError, setAuthError] = useState("");
 
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
@@ -65,14 +65,19 @@ const AuthPage = () => {
           username,
         });
         if (result.error) {
-          setEmailError(result.error);
+          setAuthError(result.error);
           return;
         }
       } else {
-        await loginUser({
+        const result = await loginUser({
           email,
           password,
         });
+        if (result.error) {
+          setAuthError(result.error);
+          console.log(result.error);
+          return;
+        }
       }
     } catch (error) {
       if (error instanceof Error) {
@@ -134,7 +139,7 @@ const AuthPage = () => {
             placeholder="Email address"
             className="authInput"
           />
-          {emailError && <p className="authError">{emailError}</p>}
+          {authError && <p className="authError">{authError}</p>}
           {error.email && <p className="authError">{error.email}</p>}
 
           <input
@@ -157,7 +162,7 @@ const AuthPage = () => {
                 : ""
             }`}
           >
-            {isSubmitting && !emailError
+            {isSubmitting && !authError
               ? "Loading..."
               : isLoginMode
                 ? "Sign In"
