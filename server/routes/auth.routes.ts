@@ -14,7 +14,7 @@ authRouter.post("/register", async (req, res) => {
 
     if (existingUser) {
       return res.status(409).json({
-        message: "email already exists",
+        message: "This Email Already Signed Up",
       });
     }
 
