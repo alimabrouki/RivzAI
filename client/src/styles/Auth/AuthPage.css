@@ -12,7 +12,13 @@
     --c-neutral-200: hsl(252, 6%, 84%);
 
     --c-text-light: var(--c-neutral-0);
-    --c-header-bg: linear-gradient(23deg, var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
+    --c-header-bg: linear-gradient(
+      23deg,
+      var(--c-dark-blue),
+      var(--c-b-darker),
+      var(--c-light-blue),
+      var(--c-lighter-blue)
+    );
     --c-main-bg: var(--c-dark-blue);
     --c-second-bg: var(--c-b-darker);
 
@@ -35,7 +41,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  background: radial-gradient(at 10% 20%, hsla(220, 72%, 22%, 1) 0%, transparent 50%), radial-gradient(at 80% 0%, hsla(35, 100%, 30%, 0.3) 0%, transparent 50%), radial-gradient(at 0% 100%, hsla(220, 72%, 18%, 1) 0%, transparent 50%), radial-gradient(at 100% 100%, hsl(35deg 100% 48% / 24%) 0%, transparent 50%), linear-gradient(180deg, hsl(220, 72%, 20%) 0%, hsl(220, 65%, 16%) 100%);
+  background:
+    radial-gradient(at 10% 20%, hsla(220, 72%, 22%, 1) 0%, transparent 50%),
+    radial-gradient(at 80% 0%, hsla(35, 100%, 30%, 0.3) 0%, transparent 50%),
+    radial-gradient(at 0% 100%, hsla(220, 72%, 18%, 1) 0%, transparent 50%),
+    radial-gradient(
+      at 100% 100%,
+      hsl(35deg 100% 48% / 24%) 0%,
+      transparent 50%
+    ),
+    linear-gradient(180deg, hsl(220, 72%, 20%) 0%, hsl(220, 65%, 16%) 100%);
   padding: 2rem;
 }
 
@@ -62,7 +77,8 @@
   margin-bottom: 1.8rem;
 }
 
-.authButton {
+.authButton,
+.authSwitchButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -79,22 +95,25 @@
   transition: all 0.2s ease;
 }
 
+.authButton.disabled {
+  opacity: 0.6;
+}
 
 .authDivider {
   display: flex;
   align-items: center;
   gap: 12px;
   margin: 1.5rem 0;
-  color: rgba(255,255,255,0.5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 0.85rem;
 }
 
 .authDivider::before,
 .authDivider::after {
-  content: '';
+  content: "";
   flex: 1;
   height: 1px;
-  background: rgba(255,255,255,0.1);
+  background: rgba(255, 255, 255, 0.1);
 }
 
 .authInput {
@@ -102,13 +121,13 @@
   padding: 0.85rem;
   margin-bottom: 1rem;
   border-radius: 10px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: var(--c-b-darker);
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
 }
 
-.authNote {
-  font-size: 0.8rem;
-  color: rgba(255,255,255,0.45);
-  margin-top: 1.5rem;
+.authError {
+  font-size: 0.95rem;
+  color: hsl(0deg 100% 47.57%);
+  margin-bottom: 0.8rem;
 }
