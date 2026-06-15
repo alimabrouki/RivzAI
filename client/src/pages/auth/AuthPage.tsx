@@ -2,6 +2,8 @@ import "../../styles/Auth/AuthPage.css";
 import { BsGoogle } from "react-icons/bs";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
+import registerUser from "../../api/registerUser";
+import loginUser from "../../api/loginUser";
 
 const AuthPage = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -22,7 +24,7 @@ const AuthPage = () => {
   const isPasswordValid = password.length >= 8;
   const isUsernameValid = username.trim().length >= 3;
 
-  const handleAuth = () => {
+  const handleAuth = async () => {
     setIsSubmitting(true);
 
     const newErrors = {
@@ -51,6 +53,25 @@ const AuthPage = () => {
     if (hasErrors) {
       setIsSubmitting(false);
       return;
+    }
+    let data;
+    try {
+      if (!isLoginMode) {
+        data = await registerUser({
+          email,
+          password,
+          username,
+        });
+      } else {
+        data = await loginUser({
+          email,
+          password,
+        });
+      }
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
     }
 
     console.log({
