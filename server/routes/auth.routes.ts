@@ -63,9 +63,11 @@ authRouter.post("/login", async (req, res) => {
       });
     }
 
-    return res.status(201).json({
-      message: "Login Successful",
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
     });
+
+    return res.status(201).json(token);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
