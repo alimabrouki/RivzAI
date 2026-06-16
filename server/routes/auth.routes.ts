@@ -1,5 +1,6 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
+import jwt from "jsonwebtoken";
 const authRouter = Router();
 
 authRouter.post("/register", async (req, res) => {
@@ -25,7 +26,12 @@ authRouter.post("/register", async (req, res) => {
         password,
       },
     });
-    return res.status(201).json(user);
+
+    const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
+    });
+
+    return res.status(201).json(token);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
