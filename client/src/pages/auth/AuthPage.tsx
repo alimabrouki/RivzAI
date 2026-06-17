@@ -2,6 +2,7 @@ import "../../styles/Auth/AuthPage.css";
 import { BsGoogle } from "react-icons/bs";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import registerUser from "../../api/registerUser";
 import loginUser from "../../api/loginUser";
 
@@ -21,6 +22,8 @@ const AuthPage = () => {
   });
 
   const [authError, setAuthError] = useState("");
+
+  const navigate = useNavigate();
 
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
@@ -68,6 +71,8 @@ const AuthPage = () => {
           setAuthError(result.error);
           return;
         }
+        localStorage.setItem("token", result.token);
+        navigate("/");
       } else {
         const result = await loginUser({
           email,
@@ -78,6 +83,9 @@ const AuthPage = () => {
           console.log(result.error);
           return;
         }
+        localStorage.setItem("token", result.token);
+        navigate("/");
+        console.log(result.token);
       }
     } catch (error) {
       if (error instanceof Error) {
