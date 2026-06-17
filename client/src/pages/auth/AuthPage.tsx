@@ -130,7 +130,10 @@ const AuthPage = () => {
             <>
               <input
                 value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setAuthError("");
+                }}
                 type="text"
                 placeholder="Username"
                 className="authInput"
@@ -142,7 +145,10 @@ const AuthPage = () => {
 
           <input
             value={email}
-            onChange={(e) => setEmail(e.target.value)}
+            onChange={(e) => {
+              setEmail(e.target.value);
+              setAuthError("");
+            }}
             type="email"
             placeholder="Email address"
             className="authInput"
@@ -152,7 +158,10 @@ const AuthPage = () => {
 
           <input
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={(e) => {
+              setPassword(e.target.value);
+              setAuthError("");
+            }}
             type="password"
             placeholder="Password"
             className="authInput"
