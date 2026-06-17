@@ -31,7 +31,10 @@ authRouter.post("/register", async (req, res) => {
       expiresIn: "24h",
     });
 
-    return res.status(201).json(token);
+    return res.status(201).json({
+      token,
+      user,
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -66,7 +69,7 @@ authRouter.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-
+    console.log(token);
     return res.status(201).json(token);
   } catch (error) {
     if (error instanceof Error) {
