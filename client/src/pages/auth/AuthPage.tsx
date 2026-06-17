@@ -91,6 +91,8 @@ const AuthPage = () => {
       if (error instanceof Error) {
         console.log(error.message);
       }
+    } finally {
+      setIsSubmitting(false);
     }
 
     console.log({
@@ -99,8 +101,6 @@ const AuthPage = () => {
       password,
       mode: isLoginMode ? "login" : "register",
     });
-
-    setIsSubmitting(false);
   };
   return (
     <>
