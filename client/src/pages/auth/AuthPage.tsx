@@ -72,7 +72,7 @@ const AuthPage = () => {
           return;
         }
         localStorage.setItem("token", result.token);
-        localStorage.setItem("user", result.user);
+        localStorage.setItem("user", JSON.stringify(result.user));
         navigate("/");
       } else {
         const result = await loginUser({
@@ -85,7 +85,7 @@ const AuthPage = () => {
           return;
         }
         localStorage.setItem("token", result.token);
-        localStorage.setItem("user", result.user);
+        localStorage.setItem("user", JSON.stringify(result.user));
         navigate("/");
       }
     } catch (error) {
