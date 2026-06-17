@@ -33,7 +33,11 @@ authRouter.post("/register", async (req, res) => {
 
     return res.status(201).json({
       token,
-      user,
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      },
     });
   } catch (error) {
     if (error instanceof Error) {
@@ -69,10 +73,14 @@ authRouter.post("/login", async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-    console.log(token);
+    console.log(token, user);
     return res.status(201).json({
       token,
-      user,
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      },
     });
   } catch (error) {
     if (error instanceof Error) {
