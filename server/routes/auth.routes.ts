@@ -70,7 +70,10 @@ authRouter.post("/login", async (req, res) => {
       expiresIn: "24h",
     });
     console.log(token);
-    return res.status(201).json(token);
+    return res.status(201).json({
+      token,
+      user,
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
