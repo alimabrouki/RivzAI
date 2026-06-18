@@ -8,11 +8,16 @@ async function loginUser(data: { email: string; password: string }) {
     },
     body: JSON.stringify(data),
   });
-  if (response.status === 404) {
-    const errorData = await response.json();
-    return { error: errorData.message };
+
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    return {
+      error: responseData.message,
+    };
   }
-  return response.json();
+
+  return responseData;
 }
 
 export default loginUser;
