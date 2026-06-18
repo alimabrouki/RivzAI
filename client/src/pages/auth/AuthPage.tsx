@@ -79,13 +79,13 @@ const AuthPage = () => {
           email,
           password,
         });
+
         if (result.error) {
           setAuthError(result.error);
-          console.log(result.error);
           return;
         }
         localStorage.setItem("token", result.token);
-        localStorage.setItem("user", JSON.stringify(result.user));
+        localStorage.setItem("user", JSON.stringify(result.user) || "null");
         navigate("/");
       }
     } catch (error) {
@@ -95,13 +95,6 @@ const AuthPage = () => {
     } finally {
       setIsSubmitting(false);
     }
-
-    console.log({
-      username,
-      email,
-      password,
-      mode: isLoginMode ? "login" : "register",
-    });
   };
   return (
     <>
@@ -109,7 +102,12 @@ const AuthPage = () => {
       <title>Auth</title>
 
       <div className="authPage">
-        <div className="authCard">
+        <div
+          className="authCard"
+          onKeyDown={(e) => {
+            if (e.key === "Enter") handleAuth();
+          }}
+        >
           <h1 className="authTitle">
             {isLoginMode ? "Sign in to RivzAI" : "Create your RivzAI account"}
           </h1>
