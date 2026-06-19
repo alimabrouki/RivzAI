@@ -103,10 +103,11 @@ const AuthPage = () => {
       <title>Auth</title>
 
       <div className="authPage">
-        <div
+        <form
           className="authCard"
-          onKeyDown={(e) => {
-            if (e.key === "Enter") handleAuth();
+          onSubmit={(e) => {
+            e.preventDefault();
+            handleAuth();
           }}
         >
           <h1 className="authTitle">
@@ -117,7 +118,7 @@ const AuthPage = () => {
             Access Teacher Mode, save homework, and manage your account.
           </p>
 
-          <button className="authButton">
+          <button type="button" className="authButton">
             <BsGoogle size={18} />
             {isLoginMode ? "Continue with Google" : "Register with Google"}
           </button>
@@ -136,6 +137,7 @@ const AuthPage = () => {
                 }}
                 type="text"
                 placeholder="Username"
+                autoComplete="username"
                 className="authInput"
               />
 
@@ -151,6 +153,7 @@ const AuthPage = () => {
             }}
             type="email"
             placeholder="Email address"
+            autoComplete="email"
             className="authInput"
           />
           {authError && <p className="authError">{authError}</p>}
@@ -165,6 +168,7 @@ const AuthPage = () => {
               }}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
+              autoComplete={isLoginMode ? "current-password" : "new-password"}
               className="authInput"
             />
             <button
@@ -179,7 +183,7 @@ const AuthPage = () => {
           {error.password && <p className="authError">{error.password}</p>}
 
           <button
-            onClick={handleAuth}
+            type="submit"
             className={`authButton ${
               (!isLoginMode && !isUsernameValid) ||
               !isEmailValid ||
@@ -207,7 +211,7 @@ const AuthPage = () => {
           >
             {isLoginMode ? "Create Account" : "Sign In"}
           </button>
-        </div>
+        </form>
       </div>
     </>
   );
