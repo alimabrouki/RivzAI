@@ -1,5 +1,5 @@
 import "../../styles/Auth/AuthPage.css";
-import { BsGoogle } from "react-icons/bs";
+import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -12,6 +12,7 @@ const AuthPage = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -155,16 +156,25 @@ const AuthPage = () => {
           {authError && <p className="authError">{authError}</p>}
           {error.email && <p className="authError">{error.email}</p>}
 
-          <input
-            value={password}
-            onChange={(e) => {
-              setPassword(e.target.value);
-              setAuthError("");
-            }}
-            type="password"
-            placeholder="Password"
-            className="authInput"
-          />
+          <div className="passwordWrapper">
+            <input
+              value={password}
+              onChange={(e) => {
+                setPassword(e.target.value);
+                setAuthError("");
+              }}
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+              className="authInput"
+            />
+            <button
+              type="button"
+              className="passwordToggle"
+              onClick={() => setShowPassword(!showPassword)}
+            >
+              {showPassword ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
+            </button>
+          </div>
 
           {error.password && <p className="authError">{error.password}</p>}
 
