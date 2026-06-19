@@ -11,12 +11,13 @@ async function registerUser(data: {
     body: JSON.stringify(data),
   });
 
-  if (response.status === 409) {
-    const errorData = await response.json();
-    return { error: errorData.message };
+  const responseData = await response.json();
+
+  if (!response.ok) {
+    return { error: responseData.message };
   }
 
-  return response.json();
+  return responseData;
 }
 
 export default registerUser;
