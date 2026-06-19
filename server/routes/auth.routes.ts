@@ -1,10 +1,13 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
 import jwt from "jsonwebtoken";
+import bcrypt from "bcryptjs";
 const authRouter = Router();
 
 authRouter.post("/register", async (req, res) => {
   const { email, password, username } = req.body;
+
+  const hashedPassword = bcrypt.hashSync(password, 10);
 
   try {
     const existingUser = await prisma.user.findUnique({
@@ -23,7 +26,7 @@ authRouter.post("/register", async (req, res) => {
       data: {
         username,
         email,
-        password,
+        password: hashedPassword,
       },
     });
 
