@@ -183,7 +183,9 @@
   color: var(--c-neutral-300);
   font-size: var(--fs-16);
   cursor: pointer;
-  transition: color 0.2s, background 0.2s;
+  transition:
+    color 0.2s,
+    background 0.2s;
 }
 
 .user-dropdown-signout:hover {
@@ -249,5 +251,90 @@
 
   .get-started-btn {
     padding: 13px;
+  }
+
+  .user-dropdown {
+    display: none;
+  }
+
+  .mobile-user-panel {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    width: 100%;
+  }
+
+  .mobile-user-header {
+    display: flex;
+    align-self: flex-start;
+    width: 100%;
+  }
+
+  .mobile-user-back {
+    background: none;
+    border: none;
+    color: var(--c-neutral-0);
+    cursor: pointer;
+    padding: 4px 8px;
+    display: flex;
+    background: linear-gradient(
+      90deg,
+      rgb(255 146 0 / 86%) 17%,
+      rgba(198, 122, 35, 0.797) 68%,
+      rgba(207, 140, 23, 0.83) 100%
+    );
+    border-radius: 15px;
+    width: fit-content;
+    position: absolute;
+    right: 100%;
+  }
+
+  .mobile-user-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    padding: 15px 0px;
+  }
+
+  .mobile-user-username {
+    color: var(--c-neutral-0);
+    font-size: var(--fs-20);
+    font-weight: 600;
+  }
+
+  .mobile-user-email {
+    color: var(--c-neutral-300);
+    font-size: var(--fs-16);
+  }
+
+  .mobile-user-signout {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 80%;
+    padding: 12px;
+    background: linear-gradient(
+      90deg,
+      rgb(255 146 0 / 86%) 17%,
+      rgba(198, 122, 35, 0.797) 68%,
+      rgba(207, 140, 23, 0.83) 100%
+    );
+    border: none;
+    border-radius: 8px;
+    color: var(--c-neutral-0);
+    font-size: var(--fs-18);
+    cursor: pointer;
+  }
+
+  .mobile-user-signout:hover {
+    background: linear-gradient(
+      90deg,
+      rgb(240, 181, 2) 17%,
+      rgba(240, 128, 0, 1) 68%,
+      rgba(255, 162, 0, 1) 100%
+    );
   }
 }
