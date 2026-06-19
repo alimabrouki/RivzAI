@@ -4,6 +4,7 @@ import cors from "cors";
 import authRouter from "./routes/auth.routes";
 import historyRouter from "./routes/history.routes";
 import userRouter from "./routes/user.routes";
+import authMiddleware from "./middleware/authMiddleware";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -16,7 +17,7 @@ app.use(
   }),
 );
 
-app.use("/auth", authRouter);
+app.use("/auth", authMiddleware, authRouter);
 
 app.use("/users", userRouter);
 
