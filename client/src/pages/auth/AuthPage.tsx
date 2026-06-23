@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import registerUser from "../../api/registerUser";
 import loginUser from "../../api/loginUser";
+import forgotPassword from "../../api/forgotPassword";
 
 const AuthPage = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
@@ -99,6 +100,16 @@ const AuthPage = () => {
       setIsSubmitting(false);
     }
   };
+
+  const handleForgotPass = async () => {
+    const result = await forgotPassword({ email });
+
+    if (result.error) {
+      setAuthError(result.error);
+      return;
+    }
+  };
+
   return (
     <>
       <link rel="icon" type="image/svg+xml" href={logo} />
@@ -135,6 +146,7 @@ const AuthPage = () => {
               {error.email && <p className="authError">{error.email}</p>}
 
               <button
+                onClick={handleForgotPass}
                 type="submit"
                 className={`authButton ${!isEmailValid ? "disabled" : ""}`}
               >
@@ -144,7 +156,9 @@ const AuthPage = () => {
           ) : (
             <>
               <h1 className="authTitle">
-                {isLoginMode ? "Sign in to RivzAI" : "Create your RivzAI account"}
+                {isLoginMode
+                  ? "Sign in to RivzAI"
+                  : "Create your RivzAI account"}
               </h1>
 
               <p className="authSubtitle">
@@ -174,7 +188,9 @@ const AuthPage = () => {
                     className="authInput"
                   />
 
-                  {error.username && <p className="authError">{error.username}</p>}
+                  {error.username && (
+                    <p className="authError">{error.username}</p>
+                  )}
                 </>
               )}
 
@@ -201,7 +217,9 @@ const AuthPage = () => {
                   }}
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
-                  autoComplete={isLoginMode ? "current-password" : "new-password"}
+                  autoComplete={
+                    isLoginMode ? "current-password" : "new-password"
+                  }
                   className="authInput"
                 />
                 <button
@@ -209,7 +227,11 @@ const AuthPage = () => {
                   className="passwordToggle"
                   onClick={() => setShowPassword(!showPassword)}
                 >
-                  {showPassword ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
+                  {showPassword ? (
+                    <BsEyeSlash size={18} />
+                  ) : (
+                    <BsEye size={18} />
+                  )}
                 </button>
               </div>
 
@@ -243,7 +265,11 @@ const AuthPage = () => {
             </>
           )}
           <p className="authSwitchText">
-            {forgotPass ? "Remember your password?" : isLoginMode ? "Don't have an account?" : "Already have an account?"}
+            {forgotPass
+              ? "Remember your password?"
+              : isLoginMode
+                ? "Don't have an account?"
+                : "Already have an account?"}
           </p>
 
           <button
@@ -256,7 +282,11 @@ const AuthPage = () => {
               }
             }}
           >
-            {forgotPass ? "Sign In" : isLoginMode ? "Create Account" : "Sign In"}
+            {forgotPass
+              ? "Sign In"
+              : isLoginMode
+                ? "Create Account"
+                : "Sign In"}
           </button>
         </form>
       </div>
