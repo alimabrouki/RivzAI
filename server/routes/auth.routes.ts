@@ -143,7 +143,7 @@ authRouter.post("/forgot-password", async (req, res) => {
     });
     const resetURL = `http://localhost:5173/auth/reset-password/${resetToken}`;
 
-    const resend = new Resend("re_RmQ3SxdH_GTASYDeW2KANXiBC3QBtWxLh");
+    const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
     await resend.emails.send({
       from: "Acme <onboarding@resend.dev>",
