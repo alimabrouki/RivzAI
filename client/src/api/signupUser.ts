@@ -1,11 +1,11 @@
 export const API_BASE = "http://localhost:8080/";
 
-async function registerUser(data: {
+async function signupUser(data: {
   email: string;
   password: string;
   username?: string;
 }) {
-  const response = await fetch(`${API_BASE}auth/register`, {
+  const response = await fetch(`${API_BASE}auth/signup`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(data),
@@ -20,4 +20,4 @@ async function registerUser(data: {
   return responseData;
 }
 
-export default registerUser;
+export default signupUser;

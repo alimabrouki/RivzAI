@@ -1,7 +1,7 @@
-import { API_BASE } from "./registerUser";
+import { API_BASE } from "./signupUser";
 
-async function loginUser(data: { email: string; password: string }) {
-  const response = await fetch(`${API_BASE}auth/login`, {
+async function signinUser(data: { email: string; password: string }) {
+  const response = await fetch(`${API_BASE}auth/signin`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -20,4 +20,4 @@ async function loginUser(data: { email: string; password: string }) {
   return responseData;
 }
 
-export default loginUser;
+export default signinUser;

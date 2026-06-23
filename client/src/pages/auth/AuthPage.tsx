@@ -3,12 +3,12 @@ import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import registerUser from "../../api/registerUser";
-import loginUser from "../../api/loginUser";
+import signupUser from "../../api/signupUser";
+import signinUser from "../../api/signinUser";
 import forgotPassword from "../../api/forgotPassword";
 
 const AuthPage = () => {
-  const [isLoginMode, setIsLoginMode] = useState(true);
+  const [isSigninMode, setIsSigninMode] = useState(true);
 
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -42,7 +42,7 @@ const AuthPage = () => {
       password: "",
     };
 
-    if (!isLoginMode && !isUsernameValid) {
+    if (!isSigninMode && !isUsernameValid) {
       newErrors.username = "Username must be at least 3 characters";
     }
 
@@ -65,8 +65,8 @@ const AuthPage = () => {
     }
 
     try {
-      if (!isLoginMode) {
-        const result = await registerUser({
+      if (!isSigninMode) {
+        const result = await signupUser({
           email,
           password,
           username,
@@ -79,7 +79,7 @@ const AuthPage = () => {
         localStorage.setItem("user", JSON.stringify(result.user));
         navigate("/");
       } else {
-        const result = await loginUser({
+        const result = await signinUser({
           email,
           password,
         });
@@ -103,6 +103,8 @@ const AuthPage = () => {
 
   const handleForgotPass = async () => {
     const result = await forgotPassword({ email });
+
+    console.log(result);
 
     if (result.error) {
       setAuthError(result.error);
@@ -156,7 +158,7 @@ const AuthPage = () => {
           ) : (
             <>
               <h1 className="authTitle">
-                {isLoginMode
+                {isSigninMode
                   ? "Sign in to RivzAI"
                   : "Create your RivzAI account"}
               </h1>
@@ -167,14 +169,14 @@ const AuthPage = () => {
 
               <button type="button" className="authButton">
                 <BsGoogle size={18} />
-                {isLoginMode ? "Continue with Google" : "Sign up with Google"}
+                {isSigninMode ? "Continue with Google" : "Sign up with Google"}
               </button>
 
               <div className="authDivider">
                 <span>or</span>
               </div>
 
-              {!isLoginMode && (
+              {!isSigninMode && (
                 <>
                   <input
                     value={username}
@@ -218,7 +220,7 @@ const AuthPage = () => {
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
                   autoComplete={
-                    isLoginMode ? "current-password" : "new-password"
+                    isSigninMode ? "current-password" : "new-password"
                   }
                   className="authInput"
                 />
@@ -240,7 +242,7 @@ const AuthPage = () => {
               <button
                 type="submit"
                 className={`authButton ${
-                  (!isLoginMode && !isUsernameValid) ||
+                  (!isSigninMode && !isUsernameValid) ||
                   !isEmailValid ||
                   !isPasswordValid
                     ? "disabled"
@@ -249,11 +251,11 @@ const AuthPage = () => {
               >
                 {isSubmitting && !authError
                   ? "Loading..."
-                  : isLoginMode
+                  : isSigninMode
                     ? "Sign In"
                     : "Create Account"}
               </button>
-              {isLoginMode && (
+              {isSigninMode && (
                 <button
                   type="button"
                   onClick={() => setForgotPass(true)}
@@ -267,7 +269,7 @@ const AuthPage = () => {
           <p className="authSwitchText">
             {forgotPass
               ? "Remember your password?"
-              : isLoginMode
+              : isSigninMode
                 ? "Don't have an account?"
                 : "Already have an account?"}
           </p>
@@ -278,13 +280,13 @@ const AuthPage = () => {
               if (forgotPass) {
                 setForgotPass(false);
               } else {
-                setIsLoginMode(!isLoginMode);
+                setIsSigninMode(!isSigninMode);
               }
             }}
           >
             {forgotPass
               ? "Sign In"
-              : isLoginMode
+              : isSigninMode
                 ? "Create Account"
                 : "Sign In"}
           </button>

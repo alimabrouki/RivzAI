@@ -1,4 +1,4 @@
-import { API_BASE } from "./registerUser";
+import { API_BASE } from "./signupUser";
 
 async function forgotPassword(data: { email: string }) {
   const response = await fetch(`${API_BASE}auth/forgot-password`, {
