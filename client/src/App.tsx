@@ -1,59 +1,61 @@
-import { Route, Routes, Navigate, useNavigate } from 'react-router'
-import { HomePage } from './pages/Home/HomePage'
-import { HistoryPage } from './pages/History/HistoryPage'
-import { ChatPage } from './pages/History/ChatPage'
-import './styles/index.css'
-import { useLocalStorage } from '../src/hooks/useLocalStorage'
-import { useState } from 'react'
-import TeacherMode from './pages/teacher-mode/TeacherMode'
-import SigninPage from './pages/auth/SigninPage'
-import SignupPage from './pages/auth/SignupPage'
-import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
-import ResetPasswordPage from './pages/auth/ResetPasswordPage'
-import type { HomeworkCard, Message } from './types/Chat'
-
+import { Route, Routes, useNavigate } from "react-router";
+import { HomePage } from "./pages/Home/HomePage";
+import { HistoryPage } from "./pages/History/HistoryPage";
+import { ChatPage } from "./pages/History/ChatPage";
+import "./styles/index.css";
+import { useLocalStorage } from "../src/hooks/useLocalStorage";
+import { useState } from "react";
+import TeacherMode from "./pages/teacher-mode/TeacherMode";
+import SigninPage from "./pages/auth/SigninPage";
+import SignupPage from "./pages/auth/SignupPage";
+import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
+import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import type { HomeworkCard, Message } from "./types/Chat";
 
 export const App = () => {
-  const [addedHistory, setAddedHistory] = useLocalStorage('Homeworks', [
+  const [addedHistory, setAddedHistory] = useLocalStorage("Homeworks", [
     {
       id: crypto.randomUUID(),
-      title: 'The Water Cycle Explained',
-      text: 'Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.',
+      title: "The Water Cycle Explained",
+      text: "Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.",
       messages: [
         {
           id: crypto.randomUUID(),
-          role: 'user',
-          content: 'Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.'
-        }
+          role: "user",
+          content:
+            "Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.",
+        },
       ],
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     },
     {
       id: crypto.randomUUID(),
-      title: 'Solve Quadratic Equations',
-      text: 'Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.',
+      title: "Solve Quadratic Equations",
+      text: "Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.",
       messages: [
         {
           id: crypto.randomUUID(),
-          role: 'user',
-          content: 'Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.'
-        }
+          role: "user",
+          content:
+            "Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.",
+        },
       ],
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     },
     {
       id: crypto.randomUUID(),
-      title: 'Photosynthesis Process',
-      text: 'Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.',
+      title: "Photosynthesis Process",
+      text: "Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.",
       messages: [
         {
           id: crypto.randomUUID(),
-          role: 'user',
-          content: 'Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.'
-        }
+          role: "user",
+          content:
+            "Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.",
+        },
       ],
-      timestamp: new Date().toISOString()
-    }
+      timestamp: new Date().toISOString(),
+    },
   ]);
   const [aiIsTyping, setAiIsTyping] = useState(false);
 
@@ -68,98 +70,121 @@ export const App = () => {
     messages: [
       {
         id: crypto.randomUUID(),
-        role: 'user',
+        role: "user",
         content: newPrompt,
         animated: true,
-        reaction: null
-      }
+        reaction: null,
+      },
     ],
-    timestamp: new Date().toISOString()
+    timestamp: new Date().toISOString(),
   });
 
-  const prependHistoryItem = (item: HomeworkCard) => setAddedHistory((prev: HomeworkCard[]) => [item, ...prev]);
+  const prependHistoryItem = (item: HomeworkCard) =>
+    setAddedHistory((prev: HomeworkCard[]) => [item, ...prev]);
 
   const addHistory = (newPrompt: string) => {
     const card = createHistoryItem(newPrompt);
     prependHistoryItem(card);
-    openHistoryCard(card.id)
-  }
+    openHistoryCard(card.id);
+  };
 
   const deleteHistoryItem = (deletedCardId: string) => {
     setAddedHistory((prev: HomeworkCard[]) =>
-      prev.filter((item) => item.id !== deletedCardId)
+      prev.filter((item) => item.id !== deletedCardId),
     );
-    navigate('/history/')
-  }
+    navigate("/history/");
+  };
 
   const handleHistoryCardClick = (homework: HomeworkCard) => {
-    openHistoryCard(homework.id)
-  }
+    openHistoryCard(homework.id);
+  };
 
   const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
   const addMessage = (cardId: string, message: Message) => {
     setAddedHistory((prev: HomeworkCard[]) =>
       prev.map((card) =>
-        card.id === cardId ? {
-          ...card,
-          messages: [
-            ...card.messages,
-            message
-          ]
-        } : card
-      )
-    )
-    setAiIsTyping(false)
-  }
+        card.id === cardId
+          ? {
+              ...card,
+              messages: [...card.messages, message],
+            }
+          : card,
+      ),
+    );
+    setAiIsTyping(false);
+  };
 
-  const markMessageAnimation = (cardId: string, msgId: string, reactionType?: 'like' | 'dislike' | null) => {
+  const markMessageAnimation = (
+    cardId: string,
+    msgId: string,
+    reactionType?: "like" | "dislike" | null,
+  ) => {
     setAddedHistory((prev: HomeworkCard[]) =>
       prev.map((card: HomeworkCard) =>
-        card.id === cardId ?
-          {
-            ...card,
-            messages: card.messages.map((m: Message) =>
-              m.id === msgId ?
-                {
-                  ...m,
-                  animated: false,
-                  reaction: m.reaction === reactionType ? null : reactionType
-                } : m
-            )
-          } : card
-      ))
-  }
+        card.id === cardId
+          ? {
+              ...card,
+              messages: card.messages.map((m: Message) =>
+                m.id === msgId
+                  ? {
+                      ...m,
+                      animated: false,
+                      reaction:
+                        m.reaction === reactionType ? null : reactionType,
+                    }
+                  : m,
+              ),
+            }
+          : card,
+      ),
+    );
+  };
 
   return (
     <Routes>
-      <Route index path='/' element={<HomePage addHistory={addHistory} addedHistory={addedHistory} />} />
-      <Route index path='/history'
-        element={<HistoryPage
-          addedHistory={addedHistory}
-          handleHistoryCardClick={handleHistoryCardClick}
-        />} />
-      <Route index path='/history/:cardId' element={
-        <ChatPage
-          deleteHistoryItem={deleteHistoryItem}
-          handleAiTyping={handleAiTyping}
-          aiIsTyping={aiIsTyping}
-          markMessageAnimation={markMessageAnimation}
-          addMessage={addMessage}
-          recentHomework={addedHistory}
-          closeChat={() => navigate(-1)}
-        />
-      } />
-      <Route index path='/teacher-mode/' element={
-        <TeacherMode />
-      } />
-      <Route path='/auth/' element={<Navigate to="/auth/signin" replace />} />
-      <Route path='/auth/signin' element={<SigninPage />} />
-      <Route path='/auth/signup' element={<SignupPage />} />
-      <Route path='/auth/forgot-password' element={<ForgotPasswordPage />} />
-      <Route path='/auth/reset-password/:token' element={<ResetPasswordPage />} />
+      <Route
+        index
+        path="/"
+        element={
+          <HomePage addHistory={addHistory} addedHistory={addedHistory} />
+        }
+      />
+      <Route
+        index
+        path="/history"
+        element={
+          <HistoryPage
+            addedHistory={addedHistory}
+            handleHistoryCardClick={handleHistoryCardClick}
+          />
+        }
+      />
+      <Route
+        index
+        path="/history/:cardId"
+        element={
+          <ChatPage
+            deleteHistoryItem={deleteHistoryItem}
+            handleAiTyping={handleAiTyping}
+            aiIsTyping={aiIsTyping}
+            markMessageAnimation={markMessageAnimation}
+            addMessage={addMessage}
+            recentHomework={addedHistory}
+            closeChat={() => navigate(-1)}
+          />
+        }
+      />
+      <Route index path="/teacher-mode/" element={<TeacherMode />} />
+      <Route path="/auth/signin" element={<SigninPage />} />
+      <Route path="/auth/signup" element={<SignupPage />} />
+      <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
+      <Route
+        path="/auth/reset-password/:token"
+        element={<ResetPasswordPage />}
+      />
     </Routes>
-  )
-}
+  );
+};
 
-export default App
+export default App;
