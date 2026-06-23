@@ -2,6 +2,8 @@ import { Router } from "express";
 import prisma from "../lib/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
+import crypto from "crypto";
+import { Resend } from "resend";
 const authRouter = Router();
 
 authRouter.post("/register", async (req, res) => {
@@ -102,6 +104,66 @@ authRouter.post("/login", async (req, res) => {
     return res.status(500).json({
       message: "Internal Server Error",
     });
+  }
+});
+
+authRouter.post("/forgot-password", async (req, res) => {
+  try {
+    const { email } = req.body;
+
+    if (!email) {
+      return res.status(400).json({ error: "email is required." });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: {
+        email,
+      },
+    });
+
+    if (!user) {
+      return res.status(404).json({
+        message: "If an account exists, a reset email has been sent",
+      });
+    }
+
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    const resetToken = crypto
+      .createHash("sha256")
+      .update(rawToken)
+      .digest("hex");
+    const expires = new Date(Date.now() + 15 * 60 * 1000);
+
+    await prisma.user.update({
+      where: { email },
+      data: {
+        reset_token: resetToken,
+        reset_token_expires: expires,
+      },
+    });
+    const resetURL = `http://localhost:5173/auth/reset-password/${resetToken}`;
+
+    const resend = new Resend("re_RmQ3SxdH_GTASYDeW2KANXiBC3QBtWxLh");
+
+    await resend.emails.send({
+      from: "alimabrouki9797@gmail.com",
+      to: email,
+      subject: "Password Reset",
+      html: `
+    <a href="${resetURL}">
+      Reset Password
+    </a>
+  `,
+    });
+
+    return res.status(200).json({
+      message: "If that email exists, a reset link has been sent.",
+    });
+  } catch (error) {
+    console.error("forgot password error:", error);
+    return res
+      .status(500)
+      .json({ error: "An internal server error occurred." });
   }
 });
 
