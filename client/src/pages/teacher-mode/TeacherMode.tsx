@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import "../../styles/Teacher-mode/TeacherMode.css";
 import { GraduationCap, BookOpen, ClipboardList } from "lucide-react";
-import logo from "../../assets/images/logo.png"
+import logo from "../../assets/images/logo.png";
 const TeacherMode = () => {
   return (
     <>
@@ -12,8 +12,8 @@ const TeacherMode = () => {
           <header className="teacherHeader">
             <h1>Teacher Mode</h1>
             <p>
-              Create structured assignments aligned with the Tunisian curriculum.
-              Teacher tools are currently under development.
+              Create structured assignments aligned with the Tunisian
+              curriculum. Teacher tools are currently under development.
             </p>
           </header>
 
@@ -57,7 +57,7 @@ const TeacherMode = () => {
 
           <div className="teacherCta">
             <p>Teacher accounts will be available after launch.</p>
-             <Link to="/auth" className='cta-btn'>
+            <Link to="/auth/signin" className="cta-btn">
               Get Started Free
             </Link>
           </div>

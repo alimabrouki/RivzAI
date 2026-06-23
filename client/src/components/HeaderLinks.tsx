@@ -126,7 +126,7 @@ export const HeaderLinks = () => {
                     )}
                   </div>
                 ) : (
-                  <Link to="/auth" className="get-started-btn">
+                  <Link to="/auth/signin" className="get-started-btn">
                     Get Started Free
                   </Link>
                 )}
