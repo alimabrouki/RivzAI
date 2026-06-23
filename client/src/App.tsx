@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from 'react-router'
+import { Route, Routes, Navigate, useNavigate } from 'react-router'
 import { HomePage } from './pages/Home/HomePage'
 import { HistoryPage } from './pages/History/HistoryPage'
 import { ChatPage } from './pages/History/ChatPage'
@@ -6,7 +6,10 @@ import './styles/index.css'
 import { useLocalStorage } from '../src/hooks/useLocalStorage'
 import { useState } from 'react'
 import TeacherMode from './pages/teacher-mode/TeacherMode'
-import AuthPage from './pages/auth/AuthPage'
+import SigninPage from './pages/auth/SigninPage'
+import SignupPage from './pages/auth/SignupPage'
+import ForgotPasswordPage from './pages/auth/ForgotPasswordPage'
+import ResetPasswordPage from './pages/auth/ResetPasswordPage'
 import type { HomeworkCard, Message } from './types/Chat'
 
 
@@ -150,9 +153,11 @@ export const App = () => {
       <Route index path='/teacher-mode/' element={
         <TeacherMode />
       } />
-      <Route index path='/auth/' element={
-        <AuthPage />
-      } />
+      <Route path='/auth/' element={<Navigate to="/auth/signin" replace />} />
+      <Route path='/auth/signin' element={<SigninPage />} />
+      <Route path='/auth/signup' element={<SignupPage />} />
+      <Route path='/auth/forgot-password' element={<ForgotPasswordPage />} />
+      <Route path='/auth/reset-password/:token' element={<ResetPasswordPage />} />
     </Routes>
   )
 }
