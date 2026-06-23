@@ -83,16 +83,20 @@
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
-  width: 100%;
+  width: 80%;
+  margin: 0 auto 1rem;
   padding: 0.9rem;
   font-weight: 600;
   border-radius: 10px;
   border: none;
   font-size: 0.95rem;
-  margin-bottom: 1rem;
   background: linear-gradient(135deg, #f59e0b, #f97316);
   cursor: pointer;
   transition: all 0.2s ease;
+}
+
+.authSwitchText {
+  padding: 7px 0px;
 }
 
 .authButton.disabled {
@@ -165,6 +169,22 @@
 
 .passwordToggle:hover {
   color: rgba(255, 255, 255, 0.8);
+}
+
+.authLabel {
+  display: block;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--c-neutral-200);
+  margin-bottom: 0.5rem;
+}
+
+.forgot-password {
+  background: transparent;
+  color: wheat;
+  font-size: 17px;
+  margin-bottom: 20px;
+  cursor: pointer;
 }
 
 .authError {
