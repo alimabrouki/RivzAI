@@ -6,7 +6,7 @@ import crypto from "crypto";
 import { Resend } from "resend";
 const authRouter = Router();
 
-authRouter.post("/register", async (req, res) => {
+authRouter.post("/signup", async (req, res) => {
   const { email, password, username } = req.body;
 
   if (!password) {
@@ -58,7 +58,7 @@ authRouter.post("/register", async (req, res) => {
   }
 });
 
-authRouter.post("/login", async (req, res) => {
+authRouter.post("/signin", async (req, res) => {
   const { email, password } = req.body;
 
   if (!password) {
@@ -73,7 +73,7 @@ authRouter.post("/login", async (req, res) => {
     });
     if (!user) {
       return res.status(404).json({
-        message: "This Email Is Not Registered",
+        message: "This Email Is Not Signed Up",
       });
     }
 
@@ -146,7 +146,7 @@ authRouter.post("/forgot-password", async (req, res) => {
     const resend = new Resend("re_RmQ3SxdH_GTASYDeW2KANXiBC3QBtWxLh");
 
     await resend.emails.send({
-      from: "alimabrouki9797@gmail.com",
+      from: "Acme <onboarding@resend.dev>",
       to: email,
       subject: "Password Reset",
       html: `
