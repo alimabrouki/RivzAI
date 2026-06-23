@@ -24,6 +24,8 @@ const AuthPage = () => {
 
   const [authError, setAuthError] = useState("");
 
+  const [forgotPass, setForgotPass] = useState(false);
+
   const navigate = useNavigate();
 
   const isEmailValid = email.includes("@");
@@ -110,106 +112,151 @@ const AuthPage = () => {
             handleAuth();
           }}
         >
-          <h1 className="authTitle">
-            {isLoginMode ? "Sign in to RivzAI" : "Create your RivzAI account"}
-          </h1>
-
-          <p className="authSubtitle">
-            Access Teacher Mode, save homework, and manage your account.
-          </p>
-
-          <button type="button" className="authButton">
-            <BsGoogle size={18} />
-            {isLoginMode ? "Continue with Google" : "Register with Google"}
-          </button>
-
-          <div className="authDivider">
-            <span>or</span>
-          </div>
-
-          {!isLoginMode && (
+          {forgotPass ? (
             <>
+              <h1 className="authTitle">Reset your password</h1>
+              <p className="authSubtitle">
+                Enter your email and we'll send you a reset link.
+              </p>
+
+              <label className="authLabel">Email address</label>
               <input
-                value={username}
+                value={email}
                 onChange={(e) => {
-                  setUsername(e.target.value);
+                  setEmail(e.target.value);
                   setAuthError("");
                 }}
-                type="text"
-                placeholder="Username"
-                autoComplete="username"
+                type="email"
+                placeholder="your@email.com"
+                autoComplete="email"
                 className="authInput"
               />
+              {authError && <p className="authError">{authError}</p>}
+              {error.email && <p className="authError">{error.email}</p>}
 
-              {error.username && <p className="authError">{error.username}</p>}
+              <button
+                type="submit"
+                className={`authButton ${!isEmailValid ? "disabled" : ""}`}
+              >
+                Send
+              </button>
+            </>
+          ) : (
+            <>
+              <h1 className="authTitle">
+                {isLoginMode ? "Sign in to RivzAI" : "Create your RivzAI account"}
+              </h1>
+
+              <p className="authSubtitle">
+                Access Teacher Mode, save homework, and manage your account.
+              </p>
+
+              <button type="button" className="authButton">
+                <BsGoogle size={18} />
+                {isLoginMode ? "Continue with Google" : "Sign up with Google"}
+              </button>
+
+              <div className="authDivider">
+                <span>or</span>
+              </div>
+
+              {!isLoginMode && (
+                <>
+                  <input
+                    value={username}
+                    onChange={(e) => {
+                      setUsername(e.target.value);
+                      setAuthError("");
+                    }}
+                    type="text"
+                    placeholder="Username"
+                    autoComplete="username"
+                    className="authInput"
+                  />
+
+                  {error.username && <p className="authError">{error.username}</p>}
+                </>
+              )}
+
+              <input
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  setAuthError("");
+                }}
+                type="email"
+                placeholder="Email address"
+                autoComplete="email"
+                className="authInput"
+              />
+              {authError && <p className="authError">{authError}</p>}
+              {error.email && <p className="authError">{error.email}</p>}
+
+              <div className="passwordWrapper">
+                <input
+                  value={password}
+                  onChange={(e) => {
+                    setPassword(e.target.value);
+                    setAuthError("");
+                  }}
+                  type={showPassword ? "text" : "password"}
+                  placeholder="Password"
+                  autoComplete={isLoginMode ? "current-password" : "new-password"}
+                  className="authInput"
+                />
+                <button
+                  type="button"
+                  className="passwordToggle"
+                  onClick={() => setShowPassword(!showPassword)}
+                >
+                  {showPassword ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
+                </button>
+              </div>
+
+              {error.password && <p className="authError">{error.password}</p>}
+
+              <button
+                type="submit"
+                className={`authButton ${
+                  (!isLoginMode && !isUsernameValid) ||
+                  !isEmailValid ||
+                  !isPasswordValid
+                    ? "disabled"
+                    : ""
+                }`}
+              >
+                {isSubmitting && !authError
+                  ? "Loading..."
+                  : isLoginMode
+                    ? "Sign In"
+                    : "Create Account"}
+              </button>
+              {isLoginMode && (
+                <button
+                  type="button"
+                  onClick={() => setForgotPass(true)}
+                  className="forgot-password"
+                >
+                  Forgot Password ?
+                </button>
+              )}
             </>
           )}
-
-          <input
-            value={email}
-            onChange={(e) => {
-              setEmail(e.target.value);
-              setAuthError("");
-            }}
-            type="email"
-            placeholder="Email address"
-            autoComplete="email"
-            className="authInput"
-          />
-          {authError && <p className="authError">{authError}</p>}
-          {error.email && <p className="authError">{error.email}</p>}
-
-          <div className="passwordWrapper">
-            <input
-              value={password}
-              onChange={(e) => {
-                setPassword(e.target.value);
-                setAuthError("");
-              }}
-              type={showPassword ? "text" : "password"}
-              placeholder="Password"
-              autoComplete={isLoginMode ? "current-password" : "new-password"}
-              className="authInput"
-            />
-            <button
-              type="button"
-              className="passwordToggle"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
-            </button>
-          </div>
-
-          {error.password && <p className="authError">{error.password}</p>}
-
-          <button
-            type="submit"
-            className={`authButton ${
-              (!isLoginMode && !isUsernameValid) ||
-              !isEmailValid ||
-              !isPasswordValid
-                ? "disabled"
-                : ""
-            }`}
-          >
-            {isSubmitting && !authError
-              ? "Loading..."
-              : isLoginMode
-                ? "Sign In"
-                : "Create Account"}
-          </button>
-
           <p className="authSwitchText">
-            {isLoginMode
-              ? "Don't have an account?"
-              : "Already have an account?"}
+            {forgotPass ? "Remember your password?" : isLoginMode ? "Don't have an account?" : "Already have an account?"}
           </p>
 
           <button
             className="authSwitchButton"
-            onClick={() => setIsLoginMode(!isLoginMode)}
+            onClick={() => {
+              if (forgotPass) {
+                setForgotPass(false);
+              } else {
+                setIsLoginMode(!isLoginMode);
+              }
+            }}
           >
-            {isLoginMode ? "Create Account" : "Sign In"}
+            {forgotPass ? "Sign In" : isLoginMode ? "Create Account" : "Sign In"}
           </button>
         </form>
       </div>
