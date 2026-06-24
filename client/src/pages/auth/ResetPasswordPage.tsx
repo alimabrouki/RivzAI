@@ -41,7 +41,10 @@ const ResetPasswordPage = () => {
       }
 
       setSuccess(true);
-    } catch (err) {
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
       setError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);

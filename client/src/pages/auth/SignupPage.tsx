@@ -46,7 +46,10 @@ const SignupPage = () => {
       localStorage.setItem("token", result.token);
       localStorage.setItem("user", JSON.stringify(result.user));
       navigate("/");
-    } catch (err) {
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
       setError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
