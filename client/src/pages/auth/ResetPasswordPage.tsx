@@ -1,5 +1,6 @@
 import "../../styles/Auth/ResetPasswordPage.css";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import resetPassword from "../../api/resetPassword";
@@ -65,6 +66,7 @@ const ResetPasswordPage = () => {
 
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Reset Password</title>
       <div className="authPage">
         <form
@@ -75,9 +77,7 @@ const ResetPasswordPage = () => {
           }}
         >
           <h1 className="authTitle">Set new password</h1>
-          <p className="authSubtitle">
-            Enter your new password below.
-          </p>
+          <p className="authSubtitle">Enter your new password below.</p>
 
           <label className="authLabel">New password</label>
           <div className="passwordWrapper">

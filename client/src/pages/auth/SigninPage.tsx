@@ -1,4 +1,5 @@
 import "../../styles/Auth/AuthPage.css";
+import logo from "../../assets/images/logo.png";
 import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -48,6 +49,7 @@ const SigninPage = () => {
 
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Sign In</title>
       <div className="authPage">
         <form

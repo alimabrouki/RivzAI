@@ -1,6 +1,7 @@
 import "../../styles/Auth/AuthPage.css";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import logo from "../../assets/images/logo.png";
 import forgotPassword from "../../api/forgotPassword";
 
 const ForgotPasswordPage = () => {
@@ -54,6 +55,7 @@ const ForgotPasswordPage = () => {
 
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Forgot Password</title>
       <div className="authPage">
         <form

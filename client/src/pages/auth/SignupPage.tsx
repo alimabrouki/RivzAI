@@ -1,4 +1,5 @@
 import "../../styles/Auth/AuthPage.css";
+import logo from "../../assets/images/logo.png";
 import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
@@ -54,6 +55,7 @@ const SignupPage = () => {
 
   return (
     <>
+      <link rel="icon" type="image/svg+xml" href={logo} />
       <title>Create Account</title>
       <div className="authPage">
         <form
