@@ -141,7 +141,7 @@ authRouter.post("/forgot-password", async (req, res) => {
         reset_token_expires: expires,
       },
     });
-    const resetURL = `http://localhost:5173/auth/reset-password/${resetToken}`;
+    const resetURL = `http://localhost:5173/auth/reset-password?token=${rawToken}`;
 
     const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
