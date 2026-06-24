@@ -35,7 +35,7 @@ export const HeaderLinks = () => {
   const handleSignOut = () => {
     localStorage.removeItem("user");
     localStorage.removeItem("token");
-    navigate("/auth");
+    navigate("/auth/signin");
   };
 
   useEffect(() => {
