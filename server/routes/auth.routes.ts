@@ -141,7 +141,7 @@ authRouter.post("/forgot-password", async (req, res) => {
         reset_token_expires: expires,
       },
     });
-    const resetURL = `http://localhost:5173/auth/reset-password?token=${rawToken}`;
+    const resetURL = `http://localhost:5173/auth/reset-password/${rawToken}`;
 
     const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
@@ -164,6 +164,76 @@ authRouter.post("/forgot-password", async (req, res) => {
     return res
       .status(500)
       .json({ error: "An internal server error occurred." });
+  }
+});
+
+authRouter.post("/reset-password", async (req, res) => {
+  try {
+    const { token, newPassword } = req.body;
+
+    if (!token || !newPassword) {
+      return res
+        .status(400)
+        .json({ error: "Token and new password are required." });
+    }
+
+    if (newPassword.length < 8) {
+      return res
+        .status(400)
+        .json({ error: "Password must be at least 8 characters long." });
+    }
+
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await prisma.user.findUnique({
+      where: {
+        reset_token: tokenHash,
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        error: "Invalid or expired password reset token.",
+      });
+    }
+
+    const now = new Date();
+
+    if (user.reset_token_expires && user.reset_token_expires < now) {
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          reset_token: null,
+          reset_token_expires: null,
+        },
+      });
+
+      return res.status(400).json({
+        error: "Invalid or expired password reset token.",
+      });
+    }
+
+    const newPasswordhashed = bcrypt.hashSync(newPassword, 10);
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        password: newPasswordhashed,
+        reset_token: null,
+        reset_token_expires: null,
+      },
+    });
+
+    return res.status(200).json({
+      message: "Password has been successfully reset.",
+    });
+  } catch (error) {
+    console.error("Reset password error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred.",
+    });
   }
 });
 
