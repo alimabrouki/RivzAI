@@ -8,7 +8,7 @@ import resetPassword from "../../api/resetPassword";
 const ResetPasswordPage = () => {
   const { token } = useParams();
 
-  const [password, setPassword] = useState("");
+  const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -16,8 +16,8 @@ const ResetPasswordPage = () => {
   const [error, setError] = useState("");
   const [success, setSuccess] = useState(false);
 
-  const isPasswordValid = password.length >= 8;
-  const doPasswordsMatch = password === confirmPassword;
+  const isPasswordValid = newPassword.length >= 8;
+  const doPasswordsMatch = newPassword === confirmPassword;
 
   const handleReset = async () => {
     if (!isPasswordValid) {
@@ -33,8 +33,8 @@ const ResetPasswordPage = () => {
     setError("");
 
     try {
-      const result = await resetPassword({ token: token!, password });
-
+      const result = await resetPassword({ token: token!, newPassword });
+      console.log(result);
       if (result.error) {
         setError(result.error);
         return;
@@ -85,9 +85,9 @@ const ResetPasswordPage = () => {
           <label className="authLabel">New password</label>
           <div className="passwordWrapper">
             <input
-              value={password}
+              value={newPassword}
               onChange={(e) => {
-                setPassword(e.target.value);
+                setNewPassword(e.target.value);
                 setError("");
               }}
               type={showPassword ? "text" : "password"}

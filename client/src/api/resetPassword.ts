@@ -1,6 +1,6 @@
 import { API_BASE } from "./signupUser";
 
-async function resetPassword(data: { token: string; password: string }) {
+async function resetPassword(data: { token: string; newPassword: string }) {
   const response = await fetch(`${API_BASE}auth/reset-password`, {
     method: "POST",
     headers: { "Content-type": "application/json" },
