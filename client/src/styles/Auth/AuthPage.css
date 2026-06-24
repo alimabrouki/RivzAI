@@ -93,6 +93,8 @@
   background: linear-gradient(135deg, #f59e0b, #f97316);
   cursor: pointer;
   transition: all 0.2s ease;
+  text-decoration: none;
+  color: #fff;
 }
 
 .authSwitchText {
@@ -180,11 +182,20 @@
 }
 
 .forgot-password {
+  display: flex;
+  justify-content: center;
   background: transparent;
   color: wheat;
   font-size: 17px;
-  margin-bottom: 20px;
+  margin: 25px;
   cursor: pointer;
+  text-decoration: none;
+}
+
+@media (max-width: 700px) {
+  .forgot-password {
+    margin: 30px;
+  }
 }
 
 .authError {
