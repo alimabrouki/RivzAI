@@ -77,13 +77,51 @@ authRouter.post("/signin", async (req, res) => {
       });
     }
 
+    const now = new Date();
+
+    if (user.lockUntil && user.lockUntil > now) {
+      return res.status(429).json({
+        message: "account is temporarily locked",
+      });
+    }
+
     const validPassword = bcrypt.compareSync(password, user.password);
 
+    const numberOfAttempts = user.failed_login_attempts! + 1;
+
     if (!validPassword) {
+      if (numberOfAttempts >= 5) {
+        await prisma.user.update({
+          where: { id: user.id },
+          data: {
+            lockUntil: new Date(Date.now() + 15 * 60 * 1000),
+          },
+        });
+        return res.status(429).json({
+          message: "too many failed attempts, try again in 15 minutes",
+        });
+      }
+
+      await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          failed_login_attempts: numberOfAttempts,
+        },
+      });
       return res.status(401).json({
         message: "Invalid Password",
       });
     }
+
+    await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        failed_login_attempts: 0,
+        lockUntil: null,
+      },
+    });
 
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
@@ -174,13 +212,13 @@ authRouter.post("/reset-password", async (req, res) => {
     if (!token || !newPassword) {
       return res
         .status(400)
-        .json({ error: "Token and new password are required." });
+        .json({ message: "Token and new password are required." });
     }
 
     if (newPassword.length < 8) {
       return res
         .status(400)
-        .json({ error: "Password must be at least 8 characters long." });
+        .json({ message: "Password must be at least 8 characters long." });
     }
 
     const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
@@ -193,7 +231,7 @@ authRouter.post("/reset-password", async (req, res) => {
 
     if (!user) {
       return res.status(400).json({
-        error: "Invalid or expired password reset token.",
+        message: "Invalid or expired password reset token.",
       });
     }
 
@@ -211,7 +249,7 @@ authRouter.post("/reset-password", async (req, res) => {
       });
 
       return res.status(400).json({
-        error: "Invalid or expired password reset token.",
+        message: "Invalid or expired password reset token.",
       });
     }
 
