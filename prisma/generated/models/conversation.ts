@@ -374,10 +374,6 @@ export type conversationUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.conversationScalarWhereInput | Prisma.conversationScalarWhereInput[]
 }
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
-}
-
 export type conversationCreateNestedOneWithoutMessagesInput = {
   create?: Prisma.XOR<Prisma.conversationCreateWithoutMessagesInput, Prisma.conversationUncheckedCreateWithoutMessagesInput>
   connectOrCreate?: Prisma.conversationCreateOrConnectWithoutMessagesInput
