@@ -13,16 +13,17 @@ datasource db {
 }
 
 model User {
-  id                    Int            @id @default(autoincrement())
-  username              String
-  email                 String         @unique
-  password              String
-  failed_login_attempts Int?
-  lockUntil             DateTime?
-  reset_token           String?        @unique
-  reset_token_expires   DateTime?
-  conversations         conversation[]
-  created_at            DateTime       @default(now())
+  id                       Int            @id @default(autoincrement())
+  username                 String
+  email                    String         @unique
+  password                 String
+  failed_login_attempts    Int?
+  lockUntil                DateTime?
+  reset_token              String?        @unique
+  reset_token_expires      DateTime?
+  last_reset_email_sent_at DateTime?
+  conversations            conversation[]
+  created_at               DateTime       @default(now())
 }
 
 model conversation {
