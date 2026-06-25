@@ -160,8 +160,22 @@ authRouter.post("/forgot-password", async (req, res) => {
     });
 
     if (!user) {
-      return res.status(404).json({
+      return res.status(200).json({
         message: "If an account exists, a reset email has been sent",
+      });
+    }
+
+    const now = new Date();
+
+    if (
+      user.next_reset_email_attempt_allowed_at &&
+      now < user.next_reset_email_attempt_allowed_at
+    ) {
+      const remainingMs =
+        user.next_reset_email_attempt_allowed_at.getTime() - now.getTime();
+      const remainingMinutes = Math.ceil(remainingMs / (1000 * 60));
+      return res.status(429).json({
+        message: `"Please wait for ${remainingMinutes} minute(s) before requesting another reset email."`,
       });
     }
 
@@ -179,6 +193,7 @@ authRouter.post("/forgot-password", async (req, res) => {
         reset_token_expires: expires,
       },
     });
+
     const resetURL = `http://localhost:5173/auth/reset-password/${rawToken}`;
 
     const resend = new Resend(`${process.env.RESEND_API_KEY}`);
@@ -192,6 +207,15 @@ authRouter.post("/forgot-password", async (req, res) => {
       Reset Password
     </a>
   `,
+    });
+
+    await prisma.user.update({
+      where: {
+        id: user.id,
+      },
+      data: {
+        next_reset_email_attempt_allowed_at: expires,
+      },
     });
 
     return res.status(200).json({
