@@ -203,3 +203,31 @@
   color: hsl(0deg 100% 47.57%);
   margin-bottom: 0.8rem;
 }
+
+.verify-email-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.verify-email-icon {
+  color: var(--c-orange);
+  margin-bottom: 1rem;
+}
+
+.verify-email-icon.verified {
+  color: #22c55e;
+}
+
+.verify-email-note {
+  font-size: 0.85rem;
+  color: var(--c-neutral-300);
+  margin-bottom: 1.5rem;
+}
+
+.verify-email-btn {
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
