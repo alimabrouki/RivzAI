@@ -10,6 +10,7 @@ import SigninPage from "./pages/auth/SigninPage";
 import SignupPage from "./pages/auth/SignupPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
+import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import type { HomeworkCard, Message } from "./types/Chat";
 
 export const App = () => {
@@ -183,6 +184,7 @@ export const App = () => {
         path="/auth/reset-password/:token"
         element={<ResetPasswordPage />}
       />
+      <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
     </Routes>
   );
 };
