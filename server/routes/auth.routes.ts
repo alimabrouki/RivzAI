@@ -59,13 +59,13 @@ authRouter.post("/signup", async (req, res) => {
 });
 
 authRouter.post("/signin", async (req, res) => {
-  const { email, password } = req.body;
-
-  if (!password) {
-    return res.status(400).json({ message: "Password is required" });
-  }
-
   try {
+    const { email, password } = req.body;
+
+    if (!password) {
+      return res.status(400).json({ message: "Password is required" });
+    }
+
     const user = await prisma.user.findUnique({
       where: {
         email,
@@ -78,27 +78,42 @@ authRouter.post("/signin", async (req, res) => {
     }
 
     const now = new Date();
-
+    if (user.lockUntil && user.lockUntil < now) {
+      await prisma.user.update({
+        where: { id: user.id },
+        data: {
+          failed_login_attempts: 0,
+          lockUntil: null,
+        },
+      });
+    }
     if (user.lockUntil && user.lockUntil > now) {
+      const remainingMs = user.lockUntil.getTime() - now.getTime();
+      const remainingMinutes = Math.ceil(remainingMs / (1000 * 60));
       return res.status(429).json({
-        message: "account is temporarily locked",
+        message: `account is temporarily locked try again in ${remainingMinutes} minutes`,
       });
     }
 
     const validPassword = bcrypt.compareSync(password, user.password);
 
-    const numberOfAttempts = user.failed_login_attempts! + 1;
+    const refreshedUser = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    const numberOfAttempts = refreshedUser!.failed_login_attempts! + 1;
 
     if (!validPassword) {
       if (numberOfAttempts >= 5) {
         await prisma.user.update({
           where: { id: user.id },
           data: {
-            lockUntil: new Date(Date.now() + 15 * 60 * 1000),
+            lockUntil: new Date(Date.now() + 1 * 60 * 1000),
           },
         });
+
         return res.status(429).json({
-          message: "too many failed attempts, try again in 15 minutes",
+          message: `too many failed attempts, try again later `,
         });
       }
 
