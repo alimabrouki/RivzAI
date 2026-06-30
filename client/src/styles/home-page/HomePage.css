@@ -149,6 +149,33 @@
   }
 }
 
+.verified-banner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 20px;
+  background: linear-gradient(135deg, #22c55e, #16a34a);
+  color: #fff;
+  font-size: var(--fs-18);
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 999;
+  animation: slideDown 0.4s ease-out;
+}
+
+@keyframes slideDown {
+  from {
+    transform: translateY(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
 @layer keyframes {
   @keyframes slideInFromBottom {
     0% {
