@@ -1,20 +1,20 @@
 import "../styles/index.css";
 import "../styles/header/Header.css";
-import { FaUserCircle } from "react-icons/fa";
+import { FaUserCircle, FaCheckCircle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";
-import { LogOut, ArrowLeft } from "lucide-react";
+import { LogOut, ArrowLeft, ShieldAlert } from "lucide-react";
 import { HamburgerMenu } from "./HamburgerMenu";
 import logo from "../assets/images/logo.png";
+import { useAuth } from "../hooks/useAuth";
 
 export const HeaderLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [showMobileUserMenu, setShowMobileUserMenu] = useState(false);
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   const userMenuRef = useRef<HTMLDivElement>(null);
-
-  const user = JSON.parse(localStorage.getItem("user") || "null");
 
   const location = useLocation();
   const handleHamMenu = (open: boolean) => {
@@ -33,7 +33,7 @@ export const HeaderLinks = () => {
   const isHistoryPage = location.pathname === "/history";
 
   const handleSignOut = () => {
-    localStorage.removeItem("user");
+    logout();
     localStorage.removeItem("token");
     navigate("/auth/signin");
   };
@@ -83,6 +83,15 @@ export const HeaderLinks = () => {
                   <span className="mobile-user-username">{user.username}</span>
                   <span className="mobile-user-email">{user.email}</span>
                 </div>
+                {user.verified ? (
+                  <div className="mobile-user-verified">
+                    <FaCheckCircle size={16} /> Verified
+                  </div>
+                ) : (
+                  <Link to="/auth/verify-email" className="mobile-user-verify">
+                    <ShieldAlert size={16} /> Verify Account
+                  </Link>
+                )}
                 <button className="mobile-user-signout" onClick={handleSignOut}>
                   <LogOut size={18} /> Log Out
                 </button>
@@ -115,6 +124,19 @@ export const HeaderLinks = () => {
                             {user.email}
                           </span>
                         </div>
+                        <div className="user-dropdown-divider" />
+                        {user.verified ? (
+                          <div className="user-dropdown-verified">
+                            <FaCheckCircle size={16} /> Verified
+                          </div>
+                        ) : (
+                          <Link
+                            to="/auth/verify-email"
+                            className="user-dropdown-verify"
+                          >
+                            <ShieldAlert size={16} /> Verify Account
+                          </Link>
+                        )}
                         <div className="user-dropdown-divider" />
                         <button
                           className="user-dropdown-signout"
