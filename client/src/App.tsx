@@ -6,7 +6,7 @@ import "./styles/index.css";
 import { useLocalStorage } from "../src/hooks/useLocalStorage";
 import { useState } from "react";
 import TeacherMode from "./pages/teacher-mode/TeacherMode";
-import SigninPage from "./pages/auth/SigninPage";
+import SigninPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
