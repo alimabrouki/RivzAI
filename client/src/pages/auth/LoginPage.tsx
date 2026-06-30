@@ -4,6 +4,7 @@ import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signinUser from "../../api/signinUser";
+import { useAuth } from "../../hooks/useAuth";
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
@@ -11,6 +12,7 @@ const SigninPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
+  const { login } = useAuth();
   const navigate = useNavigate();
 
   const isEmailValid = email.includes("@");
@@ -38,7 +40,7 @@ const SigninPage = () => {
       }
 
       localStorage.setItem("token", result.token);
-      localStorage.setItem("user", JSON.stringify(result.user) || "null");
+      login(result.user);
       navigate("/");
     } catch (error) {
       if (error instanceof Error) {
