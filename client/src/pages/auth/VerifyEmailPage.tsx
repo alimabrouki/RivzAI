@@ -2,10 +2,11 @@ import "../../styles/Auth/AuthPage.css";
 import logo from "../../assets/images/logo.png";
 import { Link } from "react-router-dom";
 import { LuMail } from "react-icons/lu";
+import { useAuth } from "../../hooks/useAuth";
 
 const VerifyEmailPage = () => {
-  const user = JSON.parse(localStorage.getItem("user") || "null");
-  const isVerified = user?.is_verified;
+  const { user } = useAuth();
+  const isVerified = user?.verified;
 
   if (isVerified) {
     return (
