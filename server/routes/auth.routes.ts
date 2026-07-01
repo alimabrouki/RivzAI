@@ -314,4 +314,64 @@ authRouter.post("/reset-password", async (req, res) => {
   }
 });
 
+authRouter.post("/verify-email", async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) {
+      return res.status(400).json({
+        message: "no email provided",
+      });
+    }
+
+    const user = await prisma.user.findUnique({
+      where: { email },
+    });
+
+    if (user?.verified) {
+      return res.status(409).json({
+        message: "email already verified",
+      });
+    }
+
+    const rawToken = crypto.randomBytes(32).toString("hex");
+    const verifiedToken = crypto
+      .createHash("sha256")
+      .update(rawToken)
+      .digest("hex");
+    const expires = new Date(Date.now() + 24 * 60 * 60 * 1000);
+
+    await prisma.user.update({
+      where: { email },
+      data: {
+        verified_token: verifiedToken,
+        verified_token_expires: expires,
+      },
+    });
+
+    const verifyURL = `http://localhost:5173/auth/verify-email/${rawToken}`;
+
+    const resend = new Resend(`${process.env.RESEND_API_KEY}`);
+
+    await resend.emails.send({
+      from: "Acme <onboarding@resend.dev>",
+      to: email,
+      subject: "Verify Email",
+      html: `
+    <a href="${verifyURL}">
+      Reset Password
+    </a>
+  `,
+    });
+
+    return res.status(200).json({
+      message: "verification email is sent",
+    });
+  } catch (error) {
+    console.error("Email verification error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred.",
+    });
+  }
+});
+
 export default authRouter;
