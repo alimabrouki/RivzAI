@@ -1,10 +1,10 @@
 import { API_BASE } from "./signupUser";
 
 async function verifyEmail(email: string) {
-  const response = await fetch(`${API_BASE}verify-email`, {
+  const response = await fetch(`${API_BASE}auth/verify-email`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(email),
+    body: JSON.stringify({ email }),
   });
 
   const responseData = await response.json();
