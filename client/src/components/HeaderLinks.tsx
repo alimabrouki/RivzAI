@@ -152,6 +152,7 @@ export const HeaderLinks = () => {
                           </div>
                         ) : (
                           <Link
+                            onClick={handleVerifyEmail}
                             to="/auth/verify-email"
                             className="user-dropdown-verify"
                           >
