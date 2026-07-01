@@ -678,6 +678,8 @@ export const UserScalarFieldEnum = {
   reset_token_expires: 'reset_token_expires',
   next_reset_email_attempt_allowed_at: 'next_reset_email_attempt_allowed_at',
   verified: 'verified',
+  verified_token: 'verified_token',
+  verified_token_expires: 'verified_token_expires',
   created_at: 'created_at'
 } as const
 

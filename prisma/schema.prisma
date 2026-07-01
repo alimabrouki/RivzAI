@@ -24,6 +24,8 @@ model User {
   next_reset_email_attempt_allowed_at DateTime?
   conversations                       conversation[]
   verified                            Boolean?
+  verified_token                      String?        @unique
+  verified_token_expires              DateTime?
   created_at                          DateTime       @default(now())
 }
 
