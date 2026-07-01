@@ -7,6 +7,7 @@ import { LogOut, ArrowLeft, ShieldAlert } from "lucide-react";
 import { HamburgerMenu } from "./HamburgerMenu";
 import logo from "../assets/images/logo.png";
 import { useAuth } from "../hooks/useAuth";
+import verifyEmail from "../api/verifyEmail";
 
 export const HeaderLinks = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -31,6 +32,22 @@ export const HeaderLinks = () => {
   };
 
   const isHistoryPage = location.pathname === "/history";
+
+  const handleVerifyEmail = async () => {
+    if (!user) return;
+
+    try {
+      const result = await verifyEmail(user.email);
+      if (result.error) {
+        console.error(result.error);
+        return;
+      }
+
+      console.log(result);
+    } catch (error) {
+      console.error("failed to verify email:", error);
+    }
+  };
 
   const handleSignOut = () => {
     logout();
@@ -88,7 +105,11 @@ export const HeaderLinks = () => {
                     <FaCheckCircle size={16} /> Verified
                   </div>
                 ) : (
-                  <Link to="/auth/verify-email" className="mobile-user-verify">
+                  <Link
+                    onClick={handleVerifyEmail}
+                    to="/auth/verify-email"
+                    className="mobile-user-verify"
+                  >
                     <ShieldAlert size={16} /> Verify Account
                   </Link>
                 )}
