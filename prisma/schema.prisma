@@ -23,6 +23,7 @@ model User {
   reset_token_expires                 DateTime?
   next_reset_email_attempt_allowed_at DateTime?
   conversations                       conversation[]
+  verified                            Boolean?
   created_at                          DateTime       @default(now())
 }
 
