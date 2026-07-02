@@ -20,7 +20,7 @@ const ComfirmVerifyEmailPage = () => {
       updateUser(result.updatedUser);
     }
     verify();
-    navigate("/");
+    navigate("/auth/verify-email");
   }, [updateUser, token, navigate]);
 
   return error ? (
