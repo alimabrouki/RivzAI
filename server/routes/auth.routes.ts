@@ -148,6 +148,7 @@ authRouter.post("/signin", async (req, res) => {
         id: user.id,
         email: user.email,
         username: user.username,
+        verified: user.verified,
       },
     });
   } catch (error) {
@@ -319,7 +320,7 @@ authRouter.post("/verify-email", async (req, res) => {
     const { email } = req.body;
     if (!email) {
       return res.status(400).json({
-        message: "no email provided",
+        message: "No email provided",
       });
     }
 
@@ -327,9 +328,15 @@ authRouter.post("/verify-email", async (req, res) => {
       where: { email },
     });
 
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+      });
+    }
+
     if (user?.verified) {
       return res.status(409).json({
-        message: "email already verified",
+        message: "Email id already verified",
       });
     }
 
@@ -358,13 +365,65 @@ authRouter.post("/verify-email", async (req, res) => {
       subject: "Verify Email",
       html: `
     <a href="${verifyURL}">
-      Reset Password
+      Verify Email
     </a>
   `,
     });
 
     return res.status(200).json({
-      message: "verification email is sent",
+      message: "Verification email is sent successfuly",
+    });
+  } catch (error) {
+    console.error("Email verification error:", error);
+    return res.status(500).json({
+      error: "An internal server error occurred.",
+    });
+  }
+});
+
+authRouter.get("/verify-email/:token", async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    if (!token) {
+      return res.status(400).json({
+        message: "Token is required",
+      });
+    }
+
+    const tokenHash = crypto.createHash("sha256").update(token).digest("hex");
+    const now = new Date();
+    const user = await prisma.user.findFirst({
+      where: {
+        verified_token: tokenHash,
+        verified_token_expires: {
+          gt: now,
+        },
+      },
+    });
+
+    if (!user) {
+      return res.status(400).json({
+        message: "Token is invalid or expired",
+      });
+    }
+
+    const updatedUser = await prisma.user.update({
+      where: { id: user.id },
+      data: {
+        verified: true,
+        verified_token: null,
+        verified_token_expires: null,
+      },
+    });
+
+    return res.status(200).json({
+      updatedUser: {
+        id: updatedUser.id,
+        email: updatedUser.email,
+        username: updatedUser.username,
+        verified: updatedUser.verified,
+      },
     });
   } catch (error) {
     console.error("Email verification error:", error);
