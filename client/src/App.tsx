@@ -12,6 +12,7 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import type { HomeworkCard, Message } from "./types/Chat";
+import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
 
 export const App = () => {
   const [addedHistory, setAddedHistory] = useLocalStorage("Homeworks", [
@@ -185,6 +186,10 @@ export const App = () => {
         element={<ResetPasswordPage />}
       />
       <Route path="/auth/verify-email" element={<VerifyEmailPage />} />
+      <Route
+        path="/auth/verify-email/:token"
+        element={<ComfirmVerifyEmailPage />}
+      />
     </Routes>
   );
 };
