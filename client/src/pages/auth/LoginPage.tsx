@@ -1,7 +1,7 @@
 import "../../styles/Auth/AuthPage.css";
 import logo from "../../assets/images/logo.png";
 import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signinUser from "../../api/signinUser";
 import { useAuth } from "../../hooks/useAuth";
@@ -12,11 +12,15 @@ const SigninPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [error, setError] = useState("");
-  const { login } = useAuth();
+  const { login, user } = useAuth();
   const navigate = useNavigate();
 
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
+
+  useEffect(() => {
+    if (user) navigate("/");
+  });
 
   const handleSignin = async () => {
     if (!isEmailValid) {
