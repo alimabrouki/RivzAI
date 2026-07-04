@@ -141,7 +141,7 @@ authRouter.post("/signin", async (req, res) => {
     const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-    console.log(token, user);
+
     return res.status(201).json({
       token,
       user: {
@@ -334,7 +334,7 @@ authRouter.post("/verify-email", async (req, res) => {
       });
     }
 
-    if (user?.verified) {
+    if (user.verified) {
       return res.status(409).json({
         message: "Email id already verified",
       });
