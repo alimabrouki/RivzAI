@@ -22,14 +22,14 @@ model User {
   reset_token                         String?        @unique
   reset_token_expires                 DateTime?
   next_reset_email_attempt_allowed_at DateTime?
-  conversations                       conversation[]
+  conversations                       Conversation[]
   verified                            Boolean?
   verified_token                      String?        @unique
   verified_token_expires              DateTime?
   created_at                          DateTime       @default(now())
 }
 
-model conversation {
+model Conversation {
   id        Int       @id @default(autoincrement())
   userId    Int
   user      User      @relation(fields: [userId], references: [id])
@@ -44,6 +44,6 @@ model Message {
   animated       Boolean
   reaction       String
   conversationId Int
-  conversation   conversation @relation(fields: [conversationId], references: [id])
+  conversation   Conversation @relation(fields: [conversationId], references: [id])
   createdAt      DateTime     @default(now())
 }
