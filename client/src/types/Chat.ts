@@ -1,15 +1,14 @@
-export type HomeworkCard = {
+export type Chat = {
   id: string;
-  title: string;
-  text: string;
+  title?: string;
   messages: Message[];
-  timestamp: string
-}
+  createdAt: Date;
+};
 
 export type Message = {
   id: string;
-  role: 'user' | 'ai';
+  role: string;
   content: string;
   animated?: boolean;
-  reaction?: 'like' | 'dislike' | null
-}
+  reaction?: string | null;
+};
