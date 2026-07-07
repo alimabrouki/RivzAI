@@ -3,51 +3,47 @@ import { getRelativeTime } from "../../utils/getRelativeTime";
 import "../../styles/history-page/HomeworkCards.css";
 import { MoveRight } from "lucide-react";
 import type { Chat } from "../../types/Chat";
-import getConversations from "../../api/getConversations";
 
-type HomeworkCardsProps = {
-  handleHistoryCardClick: (homework: HomeworkCard) => void;
+type ChatsProps = {
+  handleHistoryCardClick: (homework: Chat) => void;
+  chats: Chat[];
+  getChats: () => void;
 };
 
 export const HomeworkCards = memo(
-  ({ handleHistoryCardClick }: HomeworkCardsProps) => {
+  ({ handleHistoryCardClick, chats, getChats }: ChatsProps) => {
     const [limit, setLimit] = useState(10);
-    const [conversations, setConversations] = useState<Chat[]>([]);
+
     const handleLoadMore = () => {
       setLimit((prev) => prev + 10);
     };
 
     useEffect(() => {
-      async function getconvos() {
-        const result = await getConversations();
-        console.log(result);
-        setConversations(result);
-      }
-      getconvos();
+      getChats();
     }, []);
 
-    const visibleConversations = conversations.slice(0, limit);
+    const visibleChats = chats.slice(0, limit);
 
     return (
       <div className="homework-cards">
-        {visibleConversations.map((conversation) => (
+        {visibleChats.map((chat) => (
           <div
-            onClick={() => handleHistoryCardClick(conversation)}
+            onClick={() => handleHistoryCardClick(chat)}
             data-testid="homework-card"
             className="homework-card"
-            key={conversation.id}
+            key={chat.id}
           >
             <div className="left-line"></div>
             <div className="card-content">
-              <div className="homework-title">{conversation.title}</div>
+              <div className="homework-title">{chat.title}</div>
               <div className="user-prompt">
-                {conversation.messages.map((message) => (
+                {chat.messages.map((message) => (
                   <p>"{message.content}"</p>
                 ))}
               </div>
               <div className="card-details">
                 <span className="prompt-time">
-                  {getRelativeTime(conversation.createdAt)}
+                  {getRelativeTime(chat.createdAt)}
                 </span>
                 <span className="view-details">
                   <span>View Details </span>
@@ -57,7 +53,7 @@ export const HomeworkCards = memo(
             </div>
           </div>
         ))}
-        {visibleConversations.length < conversations.length && (
+        {visibleChats.length < chats.length && (
           <div className="load-more">
             <button onClick={handleLoadMore}>Load More</button>
           </div>

@@ -11,8 +11,9 @@ import SignupPage from "./pages/auth/SignupPage";
 import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
-import type { HomeworkCard, Message } from "./types/Chat";
+import type { Chat, Message } from "./types/Chat";
 import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
+import getUserChats from "./api/getUserChats";
 
 export const App = () => {
   const [addedHistory, setAddedHistory] = useLocalStorage("Homeworks", [
@@ -59,6 +60,12 @@ export const App = () => {
       timestamp: new Date().toISOString(),
     },
   ]);
+  const [chats, setChats] = useState<Chat[]>([]);
+  async function getChats() {
+    const result = await getUserChats();
+    console.log(result);
+    setChats(result);
+  }
   const [aiIsTyping, setAiIsTyping] = useState(false);
 
   const navigate = useNavigate();
@@ -97,7 +104,7 @@ export const App = () => {
     navigate("/history/");
   };
 
-  const handleHistoryCardClick = (homework: HomeworkCard) => {
+  const handleHistoryCardClick = (homework: Chat) => {
     openHistoryCard(homework.id);
   };
 
@@ -157,14 +164,15 @@ export const App = () => {
         path="/history"
         element={
           <HistoryPage
-            addedHistory={addedHistory}
+            chats={chats}
+            getChats={getChats}
             handleHistoryCardClick={handleHistoryCardClick}
           />
         }
       />
       <Route
         index
-        path="/history/:cardId"
+        path="/history/:chatId"
         element={
           <ChatPage
             deleteHistoryItem={deleteHistoryItem}
@@ -172,7 +180,7 @@ export const App = () => {
             aiIsTyping={aiIsTyping}
             markMessageAnimation={markMessageAnimation}
             addMessage={addMessage}
-            recentHomework={addedHistory}
+            chats={chats}
             closeChat={() => navigate(-1)}
           />
         }
