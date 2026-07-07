@@ -5,13 +5,13 @@ import { MoveRight } from "lucide-react";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
-  handleHistoryCardClick: (homework: Chat) => void;
+  openClickedChat: (id: string) => void;
   chats: Chat[];
   getChats: () => void;
 };
 
 export const HomeworkCards = memo(
-  ({ handleHistoryCardClick, chats, getChats }: ChatsProps) => {
+  ({ openClickedChat, chats, getChats }: ChatsProps) => {
     const [limit, setLimit] = useState(10);
 
     const handleLoadMore = () => {
@@ -28,7 +28,7 @@ export const HomeworkCards = memo(
       <div className="homework-cards">
         {visibleChats.map((chat) => (
           <div
-            onClick={() => handleHistoryCardClick(chat)}
+            onClick={() => openClickedChat(chat.id)}
             data-testid="homework-card"
             className="homework-card"
             key={chat.id}
@@ -38,7 +38,7 @@ export const HomeworkCards = memo(
               <div className="homework-title">{chat.title}</div>
               <div className="user-prompt">
                 {chat.messages.map((message) => (
-                  <p>"{message.content}"</p>
+                  <p key={message.id}>"{message.content}"</p>
                 ))}
               </div>
               <div className="card-details">

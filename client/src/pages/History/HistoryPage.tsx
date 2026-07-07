@@ -10,13 +10,13 @@ import logo from "../../assets/images/logo.png";
 
 type HistoryPageProps = {
   chats: Chat[];
-  handleHistoryCardClick: (homework: Chat) => void;
+  openClickedChat: (id: string) => void;
   getChats: () => void;
 };
 
 export const HistoryPage = ({
   chats,
-  handleHistoryCardClick,
+  openClickedChat,
   getChats,
 }: HistoryPageProps) => {
   return (
@@ -32,7 +32,7 @@ export const HistoryPage = ({
             <div className="dummy"></div>
             <FilterHistory />
             <HomeworkCards
-              handleHistoryCardClick={handleHistoryCardClick}
+              openClickedChat={openClickedChat}
               chats={chats}
               getChats={getChats}
             />

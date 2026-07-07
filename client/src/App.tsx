@@ -14,6 +14,7 @@ import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import type { Chat, Message } from "./types/Chat";
 import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
 import getUserChats from "./api/getUserChats";
+import openChat from "./api/openChat";
 
 export const App = () => {
   const [addedHistory, setAddedHistory] = useLocalStorage("Homeworks", [
@@ -61,11 +62,18 @@ export const App = () => {
     },
   ]);
   const [chats, setChats] = useState<Chat[]>([]);
+  const [clickedChat, setClickedChat] = useState<Chat[]>([]);
   async function getChats() {
     const result = await getUserChats();
     console.log(result);
     setChats(result);
   }
+
+  async function openClickedChat(chatId: string) {
+    const result = await openChat(chatId);
+    setClickedChat(result);
+  }
+
   const [aiIsTyping, setAiIsTyping] = useState(false);
 
   const navigate = useNavigate();
@@ -102,10 +110,6 @@ export const App = () => {
       prev.filter((item) => item.id !== deletedCardId),
     );
     navigate("/history/");
-  };
-
-  const handleHistoryCardClick = (homework: Chat) => {
-    openHistoryCard(homework.id);
   };
 
   const handleAiTyping = (state: boolean) => setAiIsTyping(state);
@@ -164,9 +168,9 @@ export const App = () => {
         path="/history"
         element={
           <HistoryPage
+            openClickedChat={openClickedChat}
             chats={chats}
             getChats={getChats}
-            handleHistoryCardClick={handleHistoryCardClick}
           />
         }
       />
@@ -176,6 +180,7 @@ export const App = () => {
         element={
           <ChatPage
             deleteHistoryItem={deleteHistoryItem}
+            clickedChat={clickedChat}
             handleAiTyping={handleAiTyping}
             aiIsTyping={aiIsTyping}
             markMessageAnimation={markMessageAnimation}
