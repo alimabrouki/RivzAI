@@ -1,8 +1,8 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
-async function getConversations() {
-  const response = await fetch(`${API_BASE}conversations`, {
+async function getUserChats() {
+  const response = await fetch(`${API_BASE}chats`, {
     method: "GET",
     headers: getAuthHeaders(),
   });
@@ -18,4 +18,4 @@ async function getConversations() {
   return responseData;
 }
 
-export default getConversations;
+export default getUserChats;

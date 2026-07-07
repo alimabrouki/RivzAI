@@ -1,9 +1,9 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
 import { Request, Response } from "express";
-const conversationsRouter = Router();
+const chatsRouter = Router();
 
-conversationsRouter.post("/", async (req: Request, res: Response) => {
+chatsRouter.post("/", async (req: Request, res: Response) => {
   const userId = req.user!.id;
   const { newPrompt } = req.body;
 
@@ -33,7 +33,7 @@ conversationsRouter.post("/", async (req: Request, res: Response) => {
   });
 });
 
-conversationsRouter.get("/", async (req: Request, res: Response) => {
+chatsRouter.get("/", async (req: Request, res: Response) => {
   const userId = req.user!.id;
 
   const convos = await prisma.conversation.findMany({
@@ -51,4 +51,4 @@ conversationsRouter.get("/", async (req: Request, res: Response) => {
   res.status(200).json(convos);
 });
 
-export default conversationsRouter;
+export default chatsRouter;

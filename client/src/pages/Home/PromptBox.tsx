@@ -5,7 +5,7 @@ import { UploadFile } from "../../features/input-output/UploadFile";
 import { SelectOptions } from "../../features/select-options/SelectOptions";
 import { MultiStepBtn } from "../../features/MultiStepBtn";
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
-import addConversation from "../../api/addConversation";
+import addChat from "../../api/addChat";
 
 // type PromptBoxProps = {
 //   addHistory: (newPrompt: string) => void
@@ -18,7 +18,7 @@ export const PromptBox = () => {
 
   const handleSubmit = async () => {
     try {
-      const result = await addConversation(textvalue);
+      const result = await addChat(textvalue);
       console.log(result.conversation);
       if (result.error) {
         setError(result.error);
