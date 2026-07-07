@@ -51,4 +51,18 @@ chatsRouter.get("/", async (req: Request, res: Response) => {
   res.status(200).json(convos);
 });
 
+chatsRouter.get("/:id", async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const chat = await prisma.conversation.findFirst({
+    where: {
+      id: Number(id),
+    },
+    include: {
+      messages: true,
+    },
+  });
+
+  res.status(200).json(chat);
+});
+
 export default chatsRouter;
