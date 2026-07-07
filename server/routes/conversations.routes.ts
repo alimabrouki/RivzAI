@@ -23,11 +23,32 @@ conversationsRouter.post("/", async (req: Request, res: Response) => {
         },
       },
     },
+    include: {
+      messages: true,
+    },
   });
 
   res.status(201).json({
     conversation,
   });
+});
+
+conversationsRouter.get("/", async (req: Request, res: Response) => {
+  const userId = req.user!.id;
+
+  const convos = await prisma.conversation.findMany({
+    where: {
+      userId,
+    },
+    include: {
+      messages: true,
+    },
+    orderBy: {
+      createdAt: "desc",
+    },
+  });
+
+  res.status(200).json(convos);
 });
 
 export default conversationsRouter;
