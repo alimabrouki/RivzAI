@@ -1,47 +1,67 @@
-import '../../styles/home-page/PromptBox.css'
-import { RecordAudio } from '../../features/input-output/RecordAudio'
-import { SolveItBtn } from '../../features/SolveItBtn'
-import { UploadFile } from '../../features/input-output/UploadFile'
-import { SelectOptions } from '../../features/select-options/SelectOptions'
-import { MultiStepBtn } from '../../features/MultiStepBtn'
-import { useState, type ChangeEvent, type KeyboardEvent } from 'react'
+import "../../styles/home-page/PromptBox.css";
+import { RecordAudio } from "../../features/input-output/RecordAudio";
+import { SolveItBtn } from "../../features/SolveItBtn";
+import { UploadFile } from "../../features/input-output/UploadFile";
+import { SelectOptions } from "../../features/select-options/SelectOptions";
+import { MultiStepBtn } from "../../features/MultiStepBtn";
+import { useState, type ChangeEvent, type KeyboardEvent } from "react";
+import addConversation from "../../api/addConversation";
 
-type PromptBoxProps = {
-  addHistory: (newPrompt: string) => void
-}
+// type PromptBoxProps = {
+//   addHistory: (newPrompt: string) => void
+// }
 
-export const PromptBox = ({ addHistory}: PromptBoxProps) => {
-  const [textvalue, setTextValue] = useState('');
-
+export const PromptBox = () => {
+  const [textvalue, setTextValue] = useState("");
+  const [error, setError] = useState("");
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
-
-  const handleSubmit = () => {
-    addHistory(textvalue)
-    setTextValue('')
-  }
+  const handleSubmit = async () => {
+    try {
+      const result = await addConversation(textvalue);
+      console.log(result.conversation);
+      if (result.error) {
+        setError(result.error);
+        return;
+      }
+      setTextValue("");
+    } catch (error) {
+      if (error instanceof Error) {
+        console.log(error.message);
+      }
+      setError("Something went wrong. Please try again.");
+    }
+  };
 
   const handleTextArea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setTextValue(e.target.value )
-  }
+    setTextValue(e.target.value);
+  };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       if (e.shiftKey) {
-        handleTextArea(e as unknown as ChangeEvent<HTMLTextAreaElement>)
-      } 
+        handleTextArea(e as unknown as ChangeEvent<HTMLTextAreaElement>);
+      }
       if (isMobile) {
         return;
       } else {
         e.preventDefault();
-        handleSubmit()
+        handleSubmit();
       }
     }
-  }
+  };
 
   return (
     <div className="prompt-box">
-      <textarea value={textvalue} onKeyDown={onKeyDown} onChange={handleTextArea} name="" id="" className='prompt-input' placeholder='Put your homework here, and let’s break it down together...' />
+      <textarea
+        value={textvalue}
+        onKeyDown={onKeyDown}
+        onChange={handleTextArea}
+        name=""
+        id=""
+        className="prompt-input"
+        placeholder="Put your homework here, and let’s break it down together..."
+      />
       <div className="inputs">
         <div className="input-output">
           <UploadFile />
@@ -50,6 +70,7 @@ export const PromptBox = ({ addHistory}: PromptBoxProps) => {
         <SelectOptions />
         <div className="btns">
           <MultiStepBtn />
+          {error && <p>{error}</p>}
           <SolveItBtn submit={() => handleSubmit()} />
         </div>
       </div>
@@ -59,5 +80,5 @@ export const PromptBox = ({ addHistory}: PromptBoxProps) => {
         <span>“Correct my answer”</span>
       </div>
     </div>
-  )
-}
+  );
+};
