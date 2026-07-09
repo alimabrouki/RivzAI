@@ -8,8 +8,9 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
     const userId = req.user!.id;
     const { newPrompt } = req.body;
 
-    const conversation = await prisma.conversation.create({
+    const chat = await prisma.chat.create({
       data: {
+        title: newPrompt.slice(0, 20),
         user: {
           connect: {
             id: userId,
@@ -29,9 +30,7 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
       },
     });
 
-    res.status(201).json({
-      conversation,
-    });
+    res.status(201).json(chat);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -46,7 +45,7 @@ chatsRouter.get("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
 
-    const convos = await prisma.conversation.findMany({
+    const chats = await prisma.chat.findMany({
       where: {
         userId,
       },
@@ -58,7 +57,7 @@ chatsRouter.get("/", async (req: Request, res: Response) => {
       },
     });
 
-    res.status(200).json(convos);
+    res.status(200).json(chats);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
@@ -72,7 +71,7 @@ chatsRouter.get("/", async (req: Request, res: Response) => {
 chatsRouter.get("/:id", async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-    const chat = await prisma.conversation.findFirst({
+    const chat = await prisma.chat.findFirst({
       where: {
         id: Number(id),
       },
@@ -97,7 +96,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
     const { id } = req.params;
     const { message } = req.body;
     console.log(message);
-    const chat = await prisma.conversation.update({
+    const chat = await prisma.chat.update({
       where: {
         id: Number(id),
       },
@@ -115,14 +114,18 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
         messages: true,
       },
     });
-
-    res.status(201).json(chat);
+    console.log(chat);
+    res.status(201).json({
+      success: true,
+      data: chat.messages,
+    });
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
     }
     return res.status(500).json({
-      message: "Internal Server Error",
+      success: false,
+      error: "Chat not found",
     });
   }
 });
