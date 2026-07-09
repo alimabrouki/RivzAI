@@ -2,9 +2,9 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.routes";
-import historyRouter from "./routes/history.routes";
 import userRouter from "./routes/user.routes";
 import authMiddleware from "./middleware/authMiddleware";
+import chatsRouter from "./routes/chats.routes";
 const app = express();
 const PORT = process.env.PORT || 8080;
 
@@ -17,11 +17,11 @@ app.use(
   }),
 );
 
-app.use("/auth", authMiddleware, authRouter);
+app.use("/auth", authRouter);
 
-app.use("/users", userRouter);
+app.use("/users", authMiddleware, userRouter);
 
-app.use("/history", historyRouter);
+app.use("/chats", authMiddleware, chatsRouter);
 
 app.listen(PORT, () => {
   console.log(`server runing on port ${PORT}`);
