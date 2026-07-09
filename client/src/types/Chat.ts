@@ -1,12 +1,12 @@
 export type Chat = {
-  id: string;
-  title?: string;
+  id: number;
+  title: string;
   messages: Message[];
   createdAt: Date;
 };
 
 export type Message = {
-  id: string;
+  id: number;
   role: string;
   content: string;
   animated?: boolean;
