@@ -7,11 +7,11 @@ import { MultiStepBtn } from "../../features/MultiStepBtn";
 import { useState, type ChangeEvent, type KeyboardEvent } from "react";
 import addChat from "../../api/addChat";
 
-// type PromptBoxProps = {
-//   addHistory: (newPrompt: string) => void
-// }
+type PromptBoxProps = {
+  openClickedChat: (id: number) => void;
+};
 
-export const PromptBox = () => {
+export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
   const [textvalue, setTextValue] = useState("");
   const [error, setError] = useState("");
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -19,12 +19,13 @@ export const PromptBox = () => {
   const handleSubmit = async () => {
     try {
       const result = await addChat(textvalue);
-      console.log(result.conversation);
       if (result.error) {
         setError(result.error);
         return;
       }
       setTextValue("");
+
+      openClickedChat(result.id);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);
