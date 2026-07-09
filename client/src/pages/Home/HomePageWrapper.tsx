@@ -1,6 +1,6 @@
 import "../../styles/hooks-styles/useIntersectionAnimation.css";
 import { PromptBox } from "./PromptBox";
-import { RecentHomework } from "./RecentHomework";
+import { RecentChat } from "./RecentChat";
 import { FeaturesBoxes } from "./FeaturesBoxes";
 import type { Chat } from "../../types/Chat";
 
@@ -30,7 +30,7 @@ export const HomePageWrapper = ({
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
         <PromptBox openClickedChat={openClickedChat} />
-        <RecentHomework chats={chats} />
+        <RecentChat chats={chats} />
         <FeaturesBoxes />
       </div>
     </div>
