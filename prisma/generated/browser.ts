@@ -23,10 +23,10 @@ export * from './enums.js';
  */
 export type User = Prisma.UserModel
 /**
- * Model conversation
+ * Model Chat
  * 
  */
-export type conversation = Prisma.conversationModel
+export type Chat = Prisma.ChatModel
 /**
  * Model Message
  * 
