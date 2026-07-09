@@ -2,7 +2,7 @@ import "../../styles/index.css";
 import "../../styles/header/Header.css";
 import "../../styles/history-page/HistoryPage.css";
 import { Header } from "../../components/Header";
-import { HomeworkCards } from "./HomeworkCards";
+import { ChatCards } from "./ChatCards";
 import { FilterHistory } from "./FilterHistory";
 import { SearchBar } from "./SearchBar";
 import type { Chat } from "../../types/Chat";
@@ -10,7 +10,7 @@ import logo from "../../assets/images/logo.png";
 
 type HistoryPageProps = {
   chats: Chat[];
-  openClickedChat: (id: string) => void;
+  openClickedChat: (id: number) => void;
   getChats: () => void;
 };
 
@@ -31,7 +31,7 @@ export const HistoryPage = ({
             <SearchBar chats={chats} />
             <div className="dummy"></div>
             <FilterHistory />
-            <HomeworkCards
+            <ChatCards
               openClickedChat={openClickedChat}
               chats={chats}
               getChats={getChats}
