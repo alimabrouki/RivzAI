@@ -17,6 +17,7 @@ async function addMessage(
 
   if (!response.ok) {
     return {
+      success: false,
       error: responseData.error,
     };
   }
