@@ -2,7 +2,7 @@ import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
 async function addConversation(newPrompt: string) {
-  const response = await fetch(`${API_BASE}conversations`, {
+  const response = await fetch(`${API_BASE}chats`, {
     method: "POST",
     headers: getAuthHeaders(),
     body: JSON.stringify({ newPrompt }),
