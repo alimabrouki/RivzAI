@@ -11,7 +11,7 @@ type PromptSectionProps = {
   handleAddMessage: (
     chatId: number,
     message: string,
-  ) => Promise<ActionResult<Message>>;
+  ) => Promise<ActionResult<Message[]>>;
   chatId: number;
   error: string;
   handleAiTyping: (state: boolean) => void;
