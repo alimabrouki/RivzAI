@@ -1,7 +1,7 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
-async function openChat(chatId: string) {
+async function openChat(chatId: number) {
   const response = await fetch(`${API_BASE}chats/${chatId}`, {
     method: "GET",
     headers: getAuthHeaders(),
