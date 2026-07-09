@@ -5,7 +5,7 @@ import { MoveRight } from "lucide-react";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
-  openClickedChat: (id: string) => void;
+  openClickedChat: (id: number) => void;
   chats: Chat[];
   getChats: () => void;
 };
