@@ -17,62 +17,9 @@ import getUserChats from "./api/getUserChats";
 import openChat from "./api/openChat";
 
 export const App = () => {
-  const [addedHistory, setAddedHistory] = useLocalStorage("Homeworks", [
-    {
-      id: crypto.randomUUID(),
-      title: "The Water Cycle Explained",
-      text: "Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.",
-      messages: [
-        {
-          id: crypto.randomUUID(),
-          role: "user",
-          content:
-            "Explain the stages of the water cycle in a simple way, including evaporation, condensation, precipitation, and collection, as if I’m a 7th-grade student.",
-        },
-      ],
-      timestamp: new Date().toISOString(),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Solve Quadratic Equations",
-      text: "Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.",
-      messages: [
-        {
-          id: crypto.randomUUID(),
-          role: "user",
-          content:
-            "Solve the quadratic equation 2x² + 5x – 3 = 0 step by step, showing how to use the quadratic formula and simplify the results.",
-        },
-      ],
-      timestamp: new Date().toISOString(),
-    },
-    {
-      id: crypto.randomUUID(),
-      title: "Photosynthesis Process",
-      text: "Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.",
-      messages: [
-        {
-          id: crypto.randomUUID(),
-          role: "user",
-          content:
-            "Describe the process of photosynthesis in plants, explaining how sunlight, water, and carbon dioxide produce glucose and oxygen, in a way that is easy to understand.",
-        },
-      ],
-      timestamp: new Date().toISOString(),
-    },
-  ]);
-  const [chats, setChats] = useState<Chat[]>([]);
-  const [clickedChat, setClickedChat] = useState<Chat[]>([]);
-  async function getChats() {
-    const result = await getUserChats();
-    console.log(result);
-    setChats(result);
-  }
-
-  async function openClickedChat(chatId: string) {
-    const result = await openChat(chatId);
-    setClickedChat(result);
-  }
+  const openClickedChat = (chatId: number) => {
+    navigate(`/history/${chatId}`);
+  };
 
   const [aiIsTyping, setAiIsTyping] = useState(false);
 
@@ -114,19 +61,19 @@ export const App = () => {
 
   const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
-  const addMessage = (cardId: string, message: Message) => {
-    setAddedHistory((prev: HomeworkCard[]) =>
-      prev.map((card) =>
-        card.id === cardId
-          ? {
-              ...card,
-              messages: [...card.messages, message],
-            }
-          : card,
-      ),
-    );
-    setAiIsTyping(false);
-  };
+  // const addMessage = (cardId: string, message: Message) => {
+  //   setAddedHistory((prev: HomeworkCard[]) =>
+  //     prev.map((card) =>
+  //       card.id === cardId
+  //         ? {
+  //             ...card,
+  //             messages: [...card.messages, message],
+  //           }
+  //         : card,
+  //     ),
+  //   );
+  //   setAiIsTyping(false);
+  // };
 
   const markMessageAnimation = (
     cardId: string,
@@ -159,20 +106,12 @@ export const App = () => {
       <Route
         index
         path="/"
-        element={
-          <HomePage addHistory={addHistory} addedHistory={addedHistory} />
-        }
+        element={<HomePage openClickedChat={openClickedChat} />}
       />
       <Route
         index
         path="/history"
-        element={
-          <HistoryPage
-            openClickedChat={openClickedChat}
-            chats={chats}
-            getChats={getChats}
-          />
-        }
+        element={<HistoryPage openClickedChat={openClickedChat} />}
       />
       <Route
         index
@@ -180,12 +119,9 @@ export const App = () => {
         element={
           <ChatPage
             deleteHistoryItem={deleteHistoryItem}
-            clickedChat={clickedChat}
             handleAiTyping={handleAiTyping}
             aiIsTyping={aiIsTyping}
             markMessageAnimation={markMessageAnimation}
-            addMessage={addMessage}
-            chats={chats}
             closeChat={() => navigate(-1)}
           />
         }
