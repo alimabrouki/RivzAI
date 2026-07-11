@@ -7,18 +7,25 @@ import { FilterHistory } from "./FilterHistory";
 import { SearchBar } from "./SearchBar";
 import type { Chat } from "../../types/Chat";
 import logo from "../../assets/images/logo.png";
+import { useEffect, useState } from "react";
+import getUserChats from "../../api/getUserChats";
 
 type HistoryPageProps = {
-  chats: Chat[];
   openClickedChat: (id: number) => void;
-  getChats: () => void;
 };
 
-export const HistoryPage = ({
-  chats,
-  openClickedChat,
-  getChats,
-}: HistoryPageProps) => {
+export const HistoryPage = ({ openClickedChat }: HistoryPageProps) => {
+  const [chats, setChats] = useState<Chat[]>([]);
+
+  useEffect(() => {
+    async function getChats() {
+      const result = await getUserChats();
+      console.log(result);
+      setChats(result);
+    }
+    getChats();
+  }, []);
+
   return (
     <>
       <link rel="icon" type="image/svg+xml" href={logo} />
@@ -31,11 +38,7 @@ export const HistoryPage = ({
             <SearchBar chats={chats} />
             <div className="dummy"></div>
             <FilterHistory />
-            <ChatCards
-              openClickedChat={openClickedChat}
-              chats={chats}
-              getChats={getChats}
-            />
+            <ChatCards openClickedChat={openClickedChat} chats={chats} />
           </div>
         </div>
       </div>
