@@ -2,17 +2,12 @@ import "../../styles/hooks-styles/useIntersectionAnimation.css";
 import { PromptBox } from "./PromptBox";
 import { RecentChat } from "./RecentChat";
 import { FeaturesBoxes } from "./FeaturesBoxes";
-import type { Chat } from "../../types/Chat";
 
 type HomePageWrapperProps = {
   openClickedChat: (id: number) => void;
-  chats: Chat[];
 };
 
-export const HomePageWrapper = ({
-  openClickedChat,
-  chats,
-}: HomePageWrapperProps) => {
+export const HomePageWrapper = ({ openClickedChat }: HomePageWrapperProps) => {
   return (
     <div className="wrapper">
       <div className="hero">
@@ -30,7 +25,7 @@ export const HomePageWrapper = ({
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
         <PromptBox openClickedChat={openClickedChat} />
-        <RecentChat chats={chats} />
+        <RecentChat />
         <FeaturesBoxes />
       </div>
     </div>

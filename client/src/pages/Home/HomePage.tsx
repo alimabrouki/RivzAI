@@ -6,21 +6,19 @@ import { HomePageWrapper } from "./HomePageWrapper";
 import { PresentFeatures } from "./PresentFeatures";
 import { Footer } from "./Footer";
 import logo from "../../assets/images/logo.png";
-import type { Chat } from "../../types/Chat";
 
 type HomePageProps = {
   openClickedChat: (id: number) => void;
-  chats: Chat[];
 };
 
-export const HomePage = ({ openClickedChat, chats }: HomePageProps) => {
+export const HomePage = ({ openClickedChat }: HomePageProps) => {
   return (
     <>
       <link rel="icon" type="image/svg+xml" href={logo} />
       <title>RivzAI</title>
       <Header />
       <div className="home-page">
-        <HomePageWrapper chats={chats} openClickedChat={openClickedChat} />
+        <HomePageWrapper openClickedChat={openClickedChat} />
       </div>
       <PresentFeatures />
       <Footer />

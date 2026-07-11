@@ -3,8 +3,20 @@ import "../../styles/home-page/RecentChat.css";
 import { Link } from "react-router-dom";
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation";
 import type { Chat } from "../../types/Chat";
+import { useEffect, useState } from "react";
+import getUserChats from "../../api/getUserChats";
 
-export const RecentChat = ({ chats }: { chats: Chat[] }) => {
+export const RecentChat = () => {
+  const [chats, setChats] = useState<Chat[]>([]);
+
+  useEffect(() => {
+    async function getChats() {
+      const result = await getUserChats();
+      console.log(result);
+      setChats(result);
+    }
+    getChats();
+  }, []);
   useIntersectionAnimation({ threshold: 0.1 });
   return (
     <div className="recent-homework slide-in">
