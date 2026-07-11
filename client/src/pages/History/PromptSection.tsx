@@ -4,27 +4,19 @@ import { RecordAudio } from "../../features/input-output/RecordAudio";
 import { UploadFile } from "../../features/input-output/UploadFile";
 import { SendHorizonal } from "lucide-react";
 import "../../styles/history-page/PromptSection.css";
-import type { Message } from "../../types/Chat";
-import type { ActionResult } from "../../types/ActionResult";
+import addMessage from "../../api/addMessage";
 
 type PromptSectionProps = {
-  handleAddMessage: (
-    chatId: number,
-    message: string,
-  ) => Promise<ActionResult<Message[]>>;
   chatId: number;
-  error: string;
   handleAiTyping: (state: boolean) => void;
 };
 
 export const PromptSection = ({
-  handleAddMessage,
   chatId,
-  error,
   handleAiTyping,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
-
+  const [error, setError] = useState("");
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
 
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -36,12 +28,14 @@ export const PromptSection = ({
   const submitPrompt = async () => {
     if (!isTyping.trim() || !chatId) return;
 
-    await handleAddMessage(chatId, isTyping);
-
+    const result = await addMessage(chatId, isTyping);
+    if (result.error) {
+      setError(result.error);
+    }
     setIsTyping("");
     handleAiTyping(true);
 
-    setTimeout(() => {}, 1500);
+    // setTimeout(() => {}, 1500);
   };
 
   const onKey = (e: KeyboardEvent) => {

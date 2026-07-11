@@ -5,10 +5,9 @@ import logo from "../../assets/images/logo.png";
 import { PromptSection } from "./PromptSection";
 import { ChatSection } from "./ChatSection";
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
-import { Navigate } from "react-router-dom";
-import type { Chat, Message } from "../../types/Chat";
-import addMessage from "../../api/addMessage";
-import type { ActionResult } from "../../types/ActionResult";
+import { useParams } from "react-router-dom";
+import type { Chat } from "../../types/Chat";
+import openChat from "../../api/openChat";
 
 type ChatPageProps = {
   closeChat: () => void;
@@ -19,8 +18,6 @@ type ChatPageProps = {
   ) => void;
   handleAiTyping: (state: boolean) => void;
   aiIsTyping: boolean;
-  chats: Chat[];
-  clickedChat: Chat;
   // deleteHistoryItem: (id: string) => void;
 };
 
@@ -29,30 +26,21 @@ export const ChatPage = ({
   markMessageAnimation,
   handleAiTyping,
   aiIsTyping,
-  clickedChat,
   // deleteHistoryItem,
 }: ChatPageProps) => {
+  const [chat, setChat] = useState<Chat>();
   const [isopen, setIsOpen] = useState(false);
-  const [messages, setMessages] = useState<Message[]>([]);
-  const [error, setError] = useState("");
+
+  const { chatId } = useParams();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
 
-  async function handleAddMessage(
-    chatId: number,
-    message: string,
-  ): Promise<ActionResult<Message[]>> {
-    const result = await addMessage(chatId, message);
-
-    if (result.data) {
-      setMessages(result.data);
+  useEffect(() => {
+    async function loadChat() {
+      const chat = await openChat(Number(chatId));
+      setChat(chat);
     }
-    if (result.error) {
-      setError(result.error);
-    }
-    console.log(result.data);
-    console.log(messages);
-    return result;
-  }
+    loadChat();
+  }, [chatId]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -91,8 +79,9 @@ export const ChatPage = ({
     return () => document.removeEventListener("keydown", handler);
   }, [isopen]);
 
-  if (!clickedChat) {
-    return <Navigate to={"/history/"} replace />;
+  if (!chat) {
+    // return <Navigate to={"/history/"} replace />;
+    return <p>loading...</p>;
   }
 
   return (
@@ -104,7 +93,7 @@ export const ChatPage = ({
         <div className="wrapper">
           <div className="chat-header">
             <img className="math-icon" src={mathIcon} alt="" />
-            <div className="homework-title">{clickedChat.title}</div>
+            <div className="homework-title">{chat.title}</div>
             <div className="head-btns">
               <BsFillTrash3Fill
                 className="delete-btn"
@@ -118,7 +107,7 @@ export const ChatPage = ({
             {isopen && (
               <div ref={deletionAlert} className="deletion-alert">
                 <div className="alert-message">
-                  Are You Sure You Want To Delete '{clickedChat.title}' ?
+                  Are You Sure You Want To Delete '{chat.title}' ?
                 </div>
                 <div className="alert-btns">
                   <button
@@ -138,14 +127,11 @@ export const ChatPage = ({
             aiIsTyping={aiIsTyping}
             // clickedChat={clickedChat}
             markMessageAnimation={markMessageAnimation}
-            messages={messages}
             handleAiTyping={handleAiTyping}
           />
           <PromptSection
             handleAiTyping={handleAiTyping}
-            handleAddMessage={handleAddMessage}
-            chatId={clickedChat.id}
-            error={error}
+            chatId={Number(chatId)}
           />
           <div className="mistakes-alert">
             RivzAI can make mistakes. Check Responses.
