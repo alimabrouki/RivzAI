@@ -5,15 +5,18 @@ import { UploadFile } from "../../features/input-output/UploadFile";
 import { SendHorizonal } from "lucide-react";
 import "../../styles/history-page/PromptSection.css";
 import addMessage from "../../api/addMessage";
+import type { Message } from "../../types/Chat";
 
 type PromptSectionProps = {
   chatId: number;
   handleAiTyping: (state: boolean) => void;
+  handeMessagesChanged: (state: Message[]) => void;
 };
 
 export const PromptSection = ({
   chatId,
   handleAiTyping,
+  handeMessagesChanged,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
   const [error, setError] = useState("");
@@ -31,6 +34,9 @@ export const PromptSection = ({
     const result = await addMessage(chatId, isTyping);
     if (result.error) {
       setError(result.error);
+    }
+    if (result.data) {
+      handeMessagesChanged(result.data);
     }
     setIsTyping("");
     handleAiTyping(true);

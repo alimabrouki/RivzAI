@@ -6,7 +6,7 @@ import { PromptSection } from "./PromptSection";
 import { ChatSection } from "./ChatSection";
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
-import type { Chat } from "../../types/Chat";
+import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 
 type ChatPageProps = {
@@ -30,14 +30,20 @@ export const ChatPage = ({
 }: ChatPageProps) => {
   const [chat, setChat] = useState<Chat>();
   const [isopen, setIsOpen] = useState(false);
+  const [messages, setMessages] = useState<Message[]>([]);
 
   const { chatId } = useParams();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
+
+  const handeMessagesChanged = (messages: Message[]) => {
+    setMessages(messages);
+  };
 
   useEffect(() => {
     async function loadChat() {
       const chat = await openChat(Number(chatId));
       setChat(chat);
+      setMessages(chat.messages);
     }
     loadChat();
   }, [chatId]);
@@ -125,11 +131,12 @@ export const ChatPage = ({
           </div>
           <ChatSection
             aiIsTyping={aiIsTyping}
-            // clickedChat={clickedChat}
+            messages={messages}
             markMessageAnimation={markMessageAnimation}
             handleAiTyping={handleAiTyping}
           />
           <PromptSection
+            handeMessagesChanged={handeMessagesChanged}
             handleAiTyping={handleAiTyping}
             chatId={Number(chatId)}
           />

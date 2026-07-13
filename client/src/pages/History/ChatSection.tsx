@@ -2,13 +2,8 @@
 import { Copy, Download, Share2, ThumbsDown, ThumbsUp } from "lucide-react";
 // import { TypingMessage } from "./TypingMessage";
 import "../../styles/history-page/ChatSection.css";
-import type {
-  //  Chat,
-  Message,
-} from "../../types/Chat";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { useParams } from "react-router-dom";
-import openChat from "../../api/openChat";
+import type { Message } from "../../types/Chat";
+import { useLayoutEffect, useRef } from "react";
 
 type ChatSectionProps = {
   markMessageAnimation: (
@@ -17,31 +12,19 @@ type ChatSectionProps = {
     reactionType?: "like" | "dislike" | null,
   ) => void;
   aiIsTyping: boolean;
-
+  messages: Message[];
   handleAiTyping: (state: boolean) => void;
 };
 
 export const ChatSection = ({
   // markMessageAnimation,
   aiIsTyping,
-  // clickedChat,
+  messages,
   // handleAiTyping,
 }: ChatSectionProps) => {
-  const [messages, setMessages] = useState<Message[]>([]);
-
-  const { chatId } = useParams();
   const lastMessage = useRef<HTMLDivElement | null>(null);
 
   // const aiMessage = messages.findLast((msg) => msg.role === "ai");
-
-  useEffect(() => {
-    if (!chatId) return;
-    const loadChat = async () => {
-      const chat = await openChat(Number(chatId));
-      setMessages(chat.messages);
-    };
-    loadChat();
-  }, [chatId]);
 
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({
