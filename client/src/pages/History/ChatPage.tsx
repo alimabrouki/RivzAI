@@ -5,7 +5,8 @@ import logo from "../../assets/images/logo.png";
 import { PromptSection } from "./PromptSection";
 import { ChatSection } from "./ChatSection";
 import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { Loader2 } from "lucide-react";
 import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 import deleteChat from "../../api/deleteChat";
@@ -32,8 +33,11 @@ export const ChatPage = ({
   const [chat, setChat] = useState<Chat>();
   const [isopen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
+  const [isDeleting, setIsDeleting] = useState(false);
+  const [isDeleted, setIsDeleted] = useState(false);
 
   const { chatId } = useParams();
+  const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
 
   const handeMessagesChanged = (messages: Message[]) => {
@@ -87,8 +91,11 @@ export const ChatPage = ({
   }, [isopen]);
 
   if (!chat) {
-    // return <Navigate to={"/history/"} replace />;
-    return <p>loading...</p>;
+    return (
+      <div className="chat-loading">
+        <Loader2 className="chat-loading-spinner" />
+      </div>
+    );
   }
 
   return (
@@ -113,20 +120,39 @@ export const ChatPage = ({
             </div>
             {isopen && (
               <div ref={deletionAlert} className="deletion-alert">
-                <div className="alert-message">
-                  Are You Sure You Want To Delete '{chat.title}' ?
-                </div>
-                <div className="alert-btns">
-                  <button
-                    onClick={() => deleteChat(chat.id)}
-                    className="yes-btn"
-                  >
-                    Yes
-                  </button>
-                  <button onClick={() => setIsOpen(!isopen)} className="no-btn">
-                    No
-                  </button>
-                </div>
+                {isDeleted ? (
+                  <div className="alert-message deleted-message">
+                    {chat.title} deleted
+                  </div>
+                ) : (
+                  <>
+                    <div className="alert-message">
+                      Are You Sure You Want To Delete '{chat.title}' ?
+                    </div>
+                    <div className="alert-btns">
+                      <button
+                        onClick={async () => {
+                          setIsDeleting(true);
+                          await deleteChat(chat.id);
+                          setIsDeleting(false);
+                          setIsDeleted(true);
+                          setTimeout(() => navigate("/history/"), 1500);
+                        }}
+                        className="yes-btn"
+                        disabled={isDeleting}
+                      >
+                        {isDeleting ? (
+                          <Loader2 className="spinner" />
+                        ) : (
+                          "Yes"
+                        )}
+                      </button>
+                      <button onClick={() => setIsOpen(!isopen)} className="no-btn">
+                        No
+                      </button>
+                    </div>
+                  </>
+                )}
               </div>
             )}
           </div>
