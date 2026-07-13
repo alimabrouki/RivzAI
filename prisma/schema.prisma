@@ -45,6 +45,6 @@ model Message {
   animated  Boolean
   reaction  String
   chatId    Int
-  chat      Chat     @relation(fields: [chatId], references: [id])
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
   createdAt DateTime @default(now())
 }
