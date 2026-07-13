@@ -1,19 +1,21 @@
 import { API_BASE } from "./signupUser";
 
 async function confirmVerifyEmail(token: string) {
-  const response = await fetch(`${API_BASE}auth/verify-email/${token}`, {
-    method: "GET",
-  });
+  try {
+    const response = await fetch(`${API_BASE}auth/verify-email/${token}`, {
+      method: "GET",
+    });
 
-  const responseData = await response.json();
+    const responseData = await response.json();
 
-  if (!response.ok) {
-    return {
-      error: responseData.message,
-    };
+    if (!response.ok) {
+      return { error: responseData.message };
+    }
+
+    return responseData;
+  } catch {
+    return { error: "Network error" };
   }
-
-  return responseData;
 }
 
 export default confirmVerifyEmail;

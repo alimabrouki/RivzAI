@@ -2,20 +2,22 @@ import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
 async function getUserChats() {
-  const response = await fetch(`${API_BASE}chats`, {
-    method: "GET",
-    headers: getAuthHeaders(),
-  });
+  try {
+    const response = await fetch(`${API_BASE}chats`, {
+      method: "GET",
+      headers: getAuthHeaders(),
+    });
 
-  const responseData = await response.json();
+    const responseData = await response.json();
 
-  if (!response.ok) {
-    return {
-      error: responseData.error,
-    };
+    if (!response.ok) {
+      return { error: responseData.error };
+    }
+
+    return responseData;
+  } catch {
+    return { error: "Network error" };
   }
-
-  return responseData;
 }
 
 export default getUserChats;
