@@ -141,13 +141,12 @@ export const ChatPage = ({
                         className="yes-btn"
                         disabled={isDeleting}
                       >
-                        {isDeleting ? (
-                          <Loader2 className="spinner" />
-                        ) : (
-                          "Yes"
-                        )}
+                        {isDeleting ? <Loader2 className="spinner" /> : "Yes"}
                       </button>
-                      <button onClick={() => setIsOpen(!isopen)} className="no-btn">
+                      <button
+                        onClick={() => setIsOpen(!isopen)}
+                        className="no-btn"
+                      >
                         No
                       </button>
                     </div>
