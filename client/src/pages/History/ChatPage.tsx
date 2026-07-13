@@ -8,6 +8,7 @@ import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
+import deleteChat from "../../api/deleteChat";
 
 type ChatPageProps = {
   closeChat: () => void;
@@ -117,7 +118,7 @@ export const ChatPage = ({
                 </div>
                 <div className="alert-btns">
                   <button
-                    // onClick={() => deleteHistoryItem(clickedChat.id)}
+                    onClick={() => deleteChat(chat.id)}
                     className="yes-btn"
                   >
                     Yes
