@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
 import { Request, Response } from "express";
+
 const chatsRouter = Router();
 
 chatsRouter.post("/", async (req: Request, res: Response) => {
@@ -35,8 +36,10 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
     if (error instanceof Error) {
       console.error(error.message);
     }
+
     return res.status(500).json({
-      message: "Internal Server Error",
+      success: false,
+      error: "Internal Server Error",
     });
   }
 });
@@ -62,43 +65,117 @@ chatsRouter.get("/", async (req: Request, res: Response) => {
     if (error instanceof Error) {
       console.error(error.message);
     }
+
     return res.status(500).json({
-      message: "Internal Server Error",
+      success: false,
+      error: "Internal Server Error",
     });
   }
 });
 
 chatsRouter.get("/:id", async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Number(req.params.id);
+
+    if (Number.isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid chat id",
+      });
+    }
+
     const chat = await prisma.chat.findFirst({
       where: {
-        id: Number(id),
+        id,
+        userId: req.user!.id,
       },
       include: {
         messages: true,
       },
     });
 
+    if (!chat) {
+      return res.status(404).json({
+        success: false,
+        error: "Chat not found",
+      });
+    }
+
     res.status(200).json(chat);
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
     }
+
     return res.status(500).json({
-      message: "Internal Server Error",
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+});
+
+chatsRouter.delete("/:id", async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
+
+    if (Number.isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid chat id",
+      });
+    }
+
+    const chat = await prisma.chat.findFirst({
+      where: {
+        id,
+        userId: req.user!.id,
+      },
+    });
+
+    if (!chat) {
+      return res.status(404).json({
+        success: false,
+        error: "Chat not found",
+      });
+    }
+
+    await prisma.chat.delete({
+      where: {
+        id,
+      },
+    });
+
+    res.status(200).json({
+      message: "Chat Deleted",
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
     });
   }
 });
 
 chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
   try {
-    const { id } = req.params;
+    const id = Number(req.params.id);
+
+    if (Number.isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid chat id",
+      });
+    }
+
     const { message } = req.body;
-    console.log(message);
+
     const chat = await prisma.chat.update({
       where: {
-        id: Number(id),
+        id,
       },
       data: {
         messages: {
@@ -114,7 +191,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
         messages: true,
       },
     });
-    console.log(chat);
+
     res.status(201).json({
       success: true,
       data: chat.messages,
@@ -123,9 +200,10 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
     if (error instanceof Error) {
       console.error(error.message);
     }
+
     return res.status(500).json({
       success: false,
-      error: "Chat not found",
+      error: "Internal Server Error",
     });
   }
 });
