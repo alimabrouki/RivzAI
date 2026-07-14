@@ -3,16 +3,37 @@ import prisma from "../lib/prisma";
 import { Request, Response } from "express";
 const messagesRouter = Router();
 
-messagesRouter.get("/:id", async (req: Request, res: Response) => {
-  const { chatId } = req.params;
+messagesRouter.patch("/:id", async (req: Request, res: Response) => {
+  try {
+    const id = Number(req.params.id);
 
-  const messages = await prisma.message.findFirst({
-    where: {
-      id: Number(chatId),
-    },
-  });
+    if (Number.isNaN(id)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid message id",
+      });
+    }
+    const { newContent } = req.body;
+    const newMessage = await prisma.message.update({
+      where: {
+        id,
+      },
+      data: {
+        content: newContent,
+      },
+    });
 
-  res.status(200).json(messages);
+    res.status(201).json(newMessage);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
 });
 
 export default messagesRouter;
