@@ -10,6 +10,7 @@ import { Loader2 } from "lucide-react";
 import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 import deleteChat from "../../api/deleteChat";
+import updateMessage from "../../api/updateMessage";
 
 type ChatPageProps = {
   closeChat: () => void;
@@ -43,6 +44,32 @@ export const ChatPage = ({
   const handeMessagesChanged = (messages: Message[]) => {
     setMessages(messages);
   };
+
+  const editMessage = async (msgId: number, newContent: string) => {
+    const newMessage = await updateMessage(msgId, newContent);
+
+    console.log("edited:", newMessage.id);
+
+    setMessages((prev) => {
+      console.log(
+        "before",
+        prev.map((m) => m.id),
+      );
+
+      const next = prev.map((m) => (m.id === msgId ? newMessage : m));
+
+      console.log(
+        "after",
+        next.map((m) => m.id),
+      );
+
+      return next;
+    });
+  };
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
 
   useEffect(() => {
     async function loadChat() {
@@ -160,6 +187,7 @@ export const ChatPage = ({
             messages={messages}
             markMessageAnimation={markMessageAnimation}
             handleAiTyping={handleAiTyping}
+            editMessage={editMessage}
           />
           <PromptSection
             handeMessagesChanged={handeMessagesChanged}

@@ -48,6 +48,68 @@
   margin-right: 30px;
 }
 
+.rslt-user-prompt .actions {
+  display: flex;
+  gap: 15px;
+  color: var(--c-neutral-300);
+  margin-top: 10px;
+}
+
+.rslt-user-prompt svg {
+  cursor: pointer;
+}
+
+.rslt-user-prompt .actions svg:hover {
+  color: var(--c-neutral-0);
+}
+
+.edit-mode {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.edit-textarea {
+  padding: 10px;
+  outline: none;
+  color: var(--c-neutral-0);
+  border-radius: 10px;
+  background-color: var(--c-neutral-600);
+  caret-color: var(--c-neutral-300);
+  resize: none;
+  font-size: 16px;
+  line-height: 1.4;
+  border: 2px solid var(--c-light-blue);
+  font-family: inherit;
+}
+
+.edit-btns {
+  display: flex;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.edit-btns button {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  padding: 6px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.edit-save-btn {
+  color: var(--c-b-darker);
+  background: var(--c-dark-orange);
+}
+
+.edit-cancel-btn {
+  color: var(--c-neutral-0);
+  background: var(--c-neutral-600);
+}
+
 @media (width <=700px) {
   .rslt-user-prompt {
     margin-right: 10px
