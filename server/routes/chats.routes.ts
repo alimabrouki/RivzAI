@@ -90,7 +90,11 @@ chatsRouter.get("/:id", async (req: Request, res: Response) => {
         userId: req.user!.id,
       },
       include: {
-        messages: true,
+        messages: {
+          orderBy: {
+            createdAt: "asc",
+          },
+        },
       },
     });
 
