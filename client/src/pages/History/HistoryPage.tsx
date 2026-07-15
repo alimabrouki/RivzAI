@@ -3,7 +3,6 @@ import "../../styles/header/Header.css";
 import "../../styles/history-page/HistoryPage.css";
 import { Header } from "../../components/Header";
 import { ChatCards } from "./ChatCards";
-import { FilterHistory } from "./FilterHistory";
 import { SearchBar } from "./SearchBar";
 import type { Chat } from "../../types/Chat";
 import logo from "../../assets/images/logo.png";
@@ -37,7 +36,6 @@ export const HistoryPage = ({ openClickedChat }: HistoryPageProps) => {
           <div className="recent-h">
             <SearchBar chats={chats} />
             <div className="dummy"></div>
-            <FilterHistory />
             <ChatCards openClickedChat={openClickedChat} chats={chats} />
           </div>
         </div>
