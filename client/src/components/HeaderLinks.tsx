@@ -123,9 +123,11 @@ export const HeaderLinks = () => {
                   Teacher Mode
                 </Link>
 
-                <Link to="/history" className="link">
-                  History
-                </Link>
+                {user && (
+                  <Link to="/history" className="link">
+                    History
+                  </Link>
+                )}
 
                 {user ? (
                   <div className="user-menu-container" ref={userMenuRef}>
