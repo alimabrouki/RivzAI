@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import { getRelativeTime } from "../../utils/getRelativeTime";
 import { differenceInDays } from "date-fns";
 import "../../styles/history-page/HomeworkCards.css";
-import { MoveRight } from "lucide-react";
+import { MoveRight, Loader2 } from "lucide-react";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
@@ -71,6 +71,14 @@ export const ChatCards = memo(({ openClickedChat, chats }: ChatsProps) => {
       chats: groups.older,
     },
   ];
+
+  if (chats.length === 0) {
+    return (
+      <div className="chat-loading">
+        <Loader2 className="chat-loading-spinner" />
+      </div>
+    );
+  }
 
   return (
     <div className="homework-cards">
