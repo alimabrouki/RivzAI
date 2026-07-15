@@ -1,8 +1,18 @@
-import { Copy, Download, Share2, ThumbsDown, ThumbsUp, Pencil, Check, X } from "lucide-react";
+import {
+  Copy,
+  Download,
+  Share2,
+  ThumbsDown,
+  ThumbsUp,
+  Pencil,
+  Check,
+  X,
+} from "lucide-react";
 import "../../styles/history-page/ChatSection.css";
 import type { Message } from "../../types/Chat";
 import { useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
+import { TypingMessage } from "./TypingMessage";
 
 type ChatSectionProps = {
   markMessageAnimation: (
@@ -90,12 +100,14 @@ export const ChatSection = ({
                 </div>
               ) : (
                 <>
-                  <p>{prompt.content}</p>
+                  {prompt.role === "ai" ? (
+                    <TypingMessage onDone={() => {}} text={prompt.content} />
+                  ) : (
+                    <p>{prompt.content}</p>
+                  )}
                   {prompt.role === "user" && (
                     <div className="actions">
-                      <Pencil
-                        onClick={() => startEditing(prompt)}
-                      />
+                      <Pencil onClick={() => startEditing(prompt)} />
                       <Copy onClick={() => handleCopy(prompt.content)} />
                     </div>
                   )}
@@ -137,6 +149,7 @@ export const ChatSection = ({
             </div>
           )}
         </div>
+        <div ref={lastMessage} className="dummy-msg"></div>
       </div>
     </>
   );

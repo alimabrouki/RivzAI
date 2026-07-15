@@ -11,12 +11,14 @@ type PromptSectionProps = {
   chatId: number;
   handleAiTyping: (state: boolean) => void;
   handeMessagesChanged: (state: Message[]) => void;
+  addAiMessage: () => void;
 };
 
 export const PromptSection = ({
   chatId,
   handleAiTyping,
   handeMessagesChanged,
+  addAiMessage,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
   const [error, setError] = useState("");
@@ -40,8 +42,7 @@ export const PromptSection = ({
     }
     setIsTyping("");
     handleAiTyping(true);
-
-    // setTimeout(() => {}, 1500);
+    addAiMessage();
   };
 
   const onKey = (e: KeyboardEvent) => {

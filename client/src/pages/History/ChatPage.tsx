@@ -45,26 +45,25 @@ export const ChatPage = ({
     setMessages(messages);
   };
 
+  const addAiMessage = () => {
+    setTimeout(() => {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: Number(crypto.randomUUID()),
+          content:
+            "You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.",
+          role: "ai",
+        },
+      ]);
+      handleAiTyping(false);
+    }, 1500);
+  };
+
   const editMessage = async (msgId: number, newContent: string) => {
     const newMessage = await updateMessage(msgId, newContent);
 
-    console.log("edited:", newMessage.id);
-
-    setMessages((prev) => {
-      console.log(
-        "before",
-        prev.map((m) => m.id),
-      );
-
-      const next = prev.map((m) => (m.id === msgId ? newMessage : m));
-
-      console.log(
-        "after",
-        next.map((m) => m.id),
-      );
-
-      return next;
-    });
+    setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
   };
 
   useEffect(() => {
@@ -190,6 +189,7 @@ export const ChatPage = ({
             editMessage={editMessage}
           />
           <PromptSection
+            addAiMessage={addAiMessage}
             handeMessagesChanged={handeMessagesChanged}
             handleAiTyping={handleAiTyping}
             chatId={Number(chatId)}
