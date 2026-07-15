@@ -12,7 +12,13 @@
     --c-neutral-200: hsl(252, 6%, 84%);
 
     --c-text-light: var(--c-neutral-0);
-    --c-header-bg: linear-gradient(23deg, var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
+    --c-header-bg: linear-gradient(
+      23deg,
+      var(--c-dark-blue),
+      var(--c-b-darker),
+      var(--c-light-blue),
+      var(--c-lighter-blue)
+    );
     --c-main-bg: var(--c-dark-blue);
     --c-second-bg: var(--c-b-darker);
 
@@ -29,7 +35,6 @@
     --fs-14: calc(14 / 16 * 1rem);
   }
 }
-
 
 @media (min-width: 1300px) {
   .chat-page .wrapper {
@@ -79,9 +84,8 @@
 
 @media (width <= 700px) {
   .head-btns {
-  gap: 10px;
-}
-
+    gap: 10px;
+  }
 }
 
 .delete-btn {
@@ -146,15 +150,19 @@
 }
 
 @keyframes spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .chat-loading {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
+  height: 40vh;
 }
 
 .chat-loading-spinner {
@@ -192,7 +200,6 @@
 }
 
 @keyframes typingBounce {
-
   0%,
   60%,
   100% {
