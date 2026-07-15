@@ -4,8 +4,14 @@ import { SolveItBtn } from "../../features/SolveItBtn";
 import { UploadFile } from "../../features/input-output/UploadFile";
 import { SelectOptions } from "../../features/select-options/SelectOptions";
 import { MultiStepBtn } from "../../features/MultiStepBtn";
-import { useState, type ChangeEvent, type KeyboardEvent } from "react";
+import {
+  useState,
+  useEffect,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import addChat from "../../api/addChat";
+import { AlertTriangle } from "lucide-react";
 
 type PromptBoxProps = {
   openClickedChat: (id: number) => void;
@@ -14,9 +20,21 @@ type PromptBoxProps = {
 export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
   const [textvalue, setTextValue] = useState("");
   const [error, setError] = useState("");
+  const [showWarning, setShowWarning] = useState(false);
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
+  useEffect(() => {
+    if (showWarning) {
+      const timer = setTimeout(() => setShowWarning(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showWarning]);
+
   const handleSubmit = async () => {
+    if (!textvalue.trim()) {
+      setShowWarning(true);
+      return;
+    }
     try {
       const result = await addChat(textvalue);
       if (result.error) {
@@ -54,14 +72,20 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
 
   return (
     <div className="prompt-box">
+      {showWarning && (
+        <div className="warning-popup">
+          <AlertTriangle size={16} />
+          <span>Please type something</span>
+        </div>
+      )}
       <textarea
         value={textvalue}
         onKeyDown={onKeyDown}
         onChange={handleTextArea}
         name=""
         id=""
-        className="prompt-input"
-        placeholder="Put your homework here, and let’s break it down together..."
+        className={`prompt-input${showWarning ? " prompt-input-warning" : ""}`}
+        placeholder="Put your homework here, and let's break it down together..."
       />
       <div className="inputs">
         <div className="input-output">
