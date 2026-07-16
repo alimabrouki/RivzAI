@@ -13,20 +13,27 @@ datasource db {
 }
 
 model User {
-  id                                  Int       @id @default(autoincrement())
+  id                                  Int          @id @default(autoincrement())
   username                            String
-  email                               String    @unique
-  password                            String
+  email                               String       @unique
+  password                            String?
   failed_login_attempts               Int?
   lockUntil                           DateTime?
-  reset_token                         String?   @unique
+  reset_token                         String?      @unique
   reset_token_expires                 DateTime?
   next_reset_email_attempt_allowed_at DateTime?
   chats                               Chat[]
   verified                            Boolean?
-  verified_token                      String?   @unique
+  verified_token                      String?      @unique
   verified_token_expires              DateTime?
-  created_at                          DateTime  @default(now())
+  provider                            AuthProvider @default(LOCAL)
+  googleId                            String?      @unique
+  created_at                          DateTime     @default(now())
+}
+
+enum AuthProvider {
+  LOCAL
+  GOOGLE
 }
 
 model Chat {

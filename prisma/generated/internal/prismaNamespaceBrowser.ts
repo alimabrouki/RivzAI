@@ -85,6 +85,8 @@ export const UserScalarFieldEnum = {
   verified: 'verified',
   verified_token: 'verified_token',
   verified_token_expires: 'verified_token_expires',
+  provider: 'provider',
+  googleId: 'googleId',
   created_at: 'created_at'
 } as const
 

@@ -49,6 +49,8 @@ export type UserMinAggregateOutputType = {
   verified: boolean | null
   verified_token: string | null
   verified_token_expires: Date | null
+  provider: $Enums.AuthProvider | null
+  googleId: string | null
   created_at: Date | null
 }
 
@@ -65,6 +67,8 @@ export type UserMaxAggregateOutputType = {
   verified: boolean | null
   verified_token: string | null
   verified_token_expires: Date | null
+  provider: $Enums.AuthProvider | null
+  googleId: string | null
   created_at: Date | null
 }
 
@@ -81,6 +85,8 @@ export type UserCountAggregateOutputType = {
   verified: number
   verified_token: number
   verified_token_expires: number
+  provider: number
+  googleId: number
   created_at: number
   _all: number
 }
@@ -109,6 +115,8 @@ export type UserMinAggregateInputType = {
   verified?: true
   verified_token?: true
   verified_token_expires?: true
+  provider?: true
+  googleId?: true
   created_at?: true
 }
 
@@ -125,6 +133,8 @@ export type UserMaxAggregateInputType = {
   verified?: true
   verified_token?: true
   verified_token_expires?: true
+  provider?: true
+  googleId?: true
   created_at?: true
 }
 
@@ -141,6 +151,8 @@ export type UserCountAggregateInputType = {
   verified?: true
   verified_token?: true
   verified_token_expires?: true
+  provider?: true
+  googleId?: true
   created_at?: true
   _all?: true
 }
@@ -235,7 +247,7 @@ export type UserGroupByOutputType = {
   id: number
   username: string
   email: string
-  password: string
+  password: string | null
   failed_login_attempts: number | null
   lockUntil: Date | null
   reset_token: string | null
@@ -244,6 +256,8 @@ export type UserGroupByOutputType = {
   verified: boolean | null
   verified_token: string | null
   verified_token_expires: Date | null
+  provider: $Enums.AuthProvider
+  googleId: string | null
   created_at: Date
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
@@ -274,7 +288,7 @@ export type UserWhereInput = {
   id?: Prisma.IntFilter<"User"> | number
   username?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   failed_login_attempts?: Prisma.IntNullableFilter<"User"> | number | null
   lockUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reset_token?: Prisma.StringNullableFilter<"User"> | string | null
@@ -283,6 +297,8 @@ export type UserWhereInput = {
   verified?: Prisma.BoolNullableFilter<"User"> | boolean | null
   verified_token?: Prisma.StringNullableFilter<"User"> | string | null
   verified_token_expires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
+  googleId?: Prisma.StringNullableFilter<"User"> | string | null
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   chats?: Prisma.ChatListRelationFilter
 }
@@ -291,7 +307,7 @@ export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   failed_login_attempts?: Prisma.SortOrderInput | Prisma.SortOrder
   lockUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   reset_token?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -300,6 +316,8 @@ export type UserOrderByWithRelationInput = {
   verified?: Prisma.SortOrderInput | Prisma.SortOrder
   verified_token?: Prisma.SortOrderInput | Prisma.SortOrder
   verified_token_expires?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   chats?: Prisma.ChatOrderByRelationAggregateInput
 }
@@ -309,26 +327,28 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   email?: string
   reset_token?: string
   verified_token?: string
+  googleId?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   username?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   failed_login_attempts?: Prisma.IntNullableFilter<"User"> | number | null
   lockUntil?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   reset_token_expires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   next_reset_email_attempt_allowed_at?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
   verified?: Prisma.BoolNullableFilter<"User"> | boolean | null
   verified_token_expires?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
+  provider?: Prisma.EnumAuthProviderFilter<"User"> | $Enums.AuthProvider
   created_at?: Prisma.DateTimeFilter<"User"> | Date | string
   chats?: Prisma.ChatListRelationFilter
-}, "id" | "email" | "reset_token" | "verified_token">
+}, "id" | "email" | "reset_token" | "verified_token" | "googleId">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   username?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   failed_login_attempts?: Prisma.SortOrderInput | Prisma.SortOrder
   lockUntil?: Prisma.SortOrderInput | Prisma.SortOrder
   reset_token?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -337,6 +357,8 @@ export type UserOrderByWithAggregationInput = {
   verified?: Prisma.SortOrderInput | Prisma.SortOrder
   verified_token?: Prisma.SortOrderInput | Prisma.SortOrder
   verified_token_expires?: Prisma.SortOrderInput | Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrderInput | Prisma.SortOrder
   created_at?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
@@ -352,7 +374,7 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.IntWithAggregatesFilter<"User"> | number
   username?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   failed_login_attempts?: Prisma.IntNullableWithAggregatesFilter<"User"> | number | null
   lockUntil?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
   reset_token?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
@@ -361,13 +383,15 @@ export type UserScalarWhereWithAggregatesInput = {
   verified?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   verified_token?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   verified_token_expires?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
+  provider?: Prisma.EnumAuthProviderWithAggregatesFilter<"User"> | $Enums.AuthProvider
+  googleId?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   created_at?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
   username: string
   email: string
-  password: string
+  password?: string | null
   failed_login_attempts?: number | null
   lockUntil?: Date | string | null
   reset_token?: string | null
@@ -376,6 +400,8 @@ export type UserCreateInput = {
   verified?: boolean | null
   verified_token?: string | null
   verified_token_expires?: Date | string | null
+  provider?: $Enums.AuthProvider
+  googleId?: string | null
   created_at?: Date | string
   chats?: Prisma.ChatCreateNestedManyWithoutUserInput
 }
@@ -384,7 +410,7 @@ export type UserUncheckedCreateInput = {
   id?: number
   username: string
   email: string
-  password: string
+  password?: string | null
   failed_login_attempts?: number | null
   lockUntil?: Date | string | null
   reset_token?: string | null
@@ -393,6 +419,8 @@ export type UserUncheckedCreateInput = {
   verified?: boolean | null
   verified_token?: string | null
   verified_token_expires?: Date | string | null
+  provider?: $Enums.AuthProvider
+  googleId?: string | null
   created_at?: Date | string
   chats?: Prisma.ChatUncheckedCreateNestedManyWithoutUserInput
 }
@@ -400,7 +428,7 @@ export type UserUncheckedCreateInput = {
 export type UserUpdateInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -409,6 +437,8 @@ export type UserUpdateInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chats?: Prisma.ChatUpdateManyWithoutUserNestedInput
 }
@@ -417,7 +447,7 @@ export type UserUncheckedUpdateInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -426,6 +456,8 @@ export type UserUncheckedUpdateInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   chats?: Prisma.ChatUncheckedUpdateManyWithoutUserNestedInput
 }
@@ -434,7 +466,7 @@ export type UserCreateManyInput = {
   id?: number
   username: string
   email: string
-  password: string
+  password?: string | null
   failed_login_attempts?: number | null
   lockUntil?: Date | string | null
   reset_token?: string | null
@@ -443,13 +475,15 @@ export type UserCreateManyInput = {
   verified?: boolean | null
   verified_token?: string | null
   verified_token_expires?: Date | string | null
+  provider?: $Enums.AuthProvider
+  googleId?: string | null
   created_at?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -458,6 +492,8 @@ export type UserUpdateManyMutationInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -465,7 +501,7 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -474,6 +510,8 @@ export type UserUncheckedUpdateManyInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -490,6 +528,8 @@ export type UserCountOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   verified_token?: Prisma.SortOrder
   verified_token_expires?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
 }
 
@@ -511,6 +551,8 @@ export type UserMaxOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   verified_token?: Prisma.SortOrder
   verified_token_expires?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
 }
 
@@ -527,6 +569,8 @@ export type UserMinOrderByAggregateInput = {
   verified?: Prisma.SortOrder
   verified_token?: Prisma.SortOrder
   verified_token_expires?: Prisma.SortOrder
+  provider?: Prisma.SortOrder
+  googleId?: Prisma.SortOrder
   created_at?: Prisma.SortOrder
 }
 
@@ -544,6 +588,10 @@ export type StringFieldUpdateOperationsInput = {
   set?: string
 }
 
+export type NullableStringFieldUpdateOperationsInput = {
+  set?: string | null
+}
+
 export type NullableIntFieldUpdateOperationsInput = {
   set?: number | null
   increment?: number
@@ -556,12 +604,12 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
+}
+
+export type EnumAuthProviderFieldUpdateOperationsInput = {
+  set?: $Enums.AuthProvider
 }
 
 export type DateTimeFieldUpdateOperationsInput = {
@@ -593,7 +641,7 @@ export type UserUpdateOneRequiredWithoutChatsNestedInput = {
 export type UserCreateWithoutChatsInput = {
   username: string
   email: string
-  password: string
+  password?: string | null
   failed_login_attempts?: number | null
   lockUntil?: Date | string | null
   reset_token?: string | null
@@ -602,6 +650,8 @@ export type UserCreateWithoutChatsInput = {
   verified?: boolean | null
   verified_token?: string | null
   verified_token_expires?: Date | string | null
+  provider?: $Enums.AuthProvider
+  googleId?: string | null
   created_at?: Date | string
 }
 
@@ -609,7 +659,7 @@ export type UserUncheckedCreateWithoutChatsInput = {
   id?: number
   username: string
   email: string
-  password: string
+  password?: string | null
   failed_login_attempts?: number | null
   lockUntil?: Date | string | null
   reset_token?: string | null
@@ -618,6 +668,8 @@ export type UserUncheckedCreateWithoutChatsInput = {
   verified?: boolean | null
   verified_token?: string | null
   verified_token_expires?: Date | string | null
+  provider?: $Enums.AuthProvider
+  googleId?: string | null
   created_at?: Date | string
 }
 
@@ -640,7 +692,7 @@ export type UserUpdateToOneWithWhereWithoutChatsInput = {
 export type UserUpdateWithoutChatsInput = {
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -649,6 +701,8 @@ export type UserUpdateWithoutChatsInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -656,7 +710,7 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   id?: Prisma.IntFieldUpdateOperationsInput | number
   username?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   failed_login_attempts?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
   lockUntil?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   reset_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -665,6 +719,8 @@ export type UserUncheckedUpdateWithoutChatsInput = {
   verified?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   verified_token?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   verified_token_expires?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  provider?: Prisma.EnumAuthProviderFieldUpdateOperationsInput | $Enums.AuthProvider
+  googleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   created_at?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
@@ -712,6 +768,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   verified?: boolean
   verified_token?: boolean
   verified_token_expires?: boolean
+  provider?: boolean
+  googleId?: boolean
   created_at?: boolean
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -730,6 +788,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verified?: boolean
   verified_token?: boolean
   verified_token_expires?: boolean
+  provider?: boolean
+  googleId?: boolean
   created_at?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -746,6 +806,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   verified?: boolean
   verified_token?: boolean
   verified_token_expires?: boolean
+  provider?: boolean
+  googleId?: boolean
   created_at?: boolean
 }, ExtArgs["result"]["user"]>
 
@@ -762,10 +824,12 @@ export type UserSelectScalar = {
   verified?: boolean
   verified_token?: boolean
   verified_token_expires?: boolean
+  provider?: boolean
+  googleId?: boolean
   created_at?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password" | "failed_login_attempts" | "lockUntil" | "reset_token" | "reset_token_expires" | "next_reset_email_attempt_allowed_at" | "verified" | "verified_token" | "verified_token_expires" | "created_at", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "username" | "email" | "password" | "failed_login_attempts" | "lockUntil" | "reset_token" | "reset_token_expires" | "next_reset_email_attempt_allowed_at" | "verified" | "verified_token" | "verified_token_expires" | "provider" | "googleId" | "created_at", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   chats?: boolean | Prisma.User$chatsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
@@ -782,7 +846,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     id: number
     username: string
     email: string
-    password: string
+    password: string | null
     failed_login_attempts: number | null
     lockUntil: Date | null
     reset_token: string | null
@@ -791,6 +855,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     verified: boolean | null
     verified_token: string | null
     verified_token_expires: Date | null
+    provider: $Enums.AuthProvider
+    googleId: string | null
     created_at: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
@@ -1228,6 +1294,8 @@ export interface UserFieldRefs {
   readonly verified: Prisma.FieldRef<"User", 'Boolean'>
   readonly verified_token: Prisma.FieldRef<"User", 'String'>
   readonly verified_token_expires: Prisma.FieldRef<"User", 'DateTime'>
+  readonly provider: Prisma.FieldRef<"User", 'AuthProvider'>
+  readonly googleId: Prisma.FieldRef<"User", 'String'>
   readonly created_at: Prisma.FieldRef<"User", 'DateTime'>
 }
     
