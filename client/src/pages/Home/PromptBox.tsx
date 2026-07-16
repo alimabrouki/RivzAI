@@ -57,16 +57,9 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
   };
 
   const onKeyDown = (e: KeyboardEvent) => {
-    if (e.key === "Enter") {
-      if (e.shiftKey) {
-        handleTextArea(e as unknown as ChangeEvent<HTMLTextAreaElement>);
-      }
-      if (isMobile) {
-        return;
-      } else {
-        e.preventDefault();
-        handleSubmit();
-      }
+    if (e.key === "Enter" && !e.shiftKey && !isMobile) {
+      e.preventDefault();
+      handleSubmit();
     }
   };
 
@@ -78,15 +71,20 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
           <span>Please type something</span>
         </div>
       )}
-      <textarea
-        value={textvalue}
-        onKeyDown={onKeyDown}
-        onChange={handleTextArea}
-        name=""
-        id=""
-        className={`prompt-input${showWarning ? " prompt-input-warning" : ""}`}
-        placeholder="Put your homework here, and let's break it down together..."
-      />
+      <div className="prompt-input-area">
+        <textarea
+          value={textvalue}
+          onKeyDown={onKeyDown}
+          onChange={handleTextArea}
+          className={`prompt-input${showWarning ? " prompt-input-warning" : ""}`}
+          placeholder="Put your homework here, and let's break it down together..."
+        />
+        <div className="formatted-prompts">
+          <span>"Solve this problem"</span>
+          <span>"Explain this chapter"</span>
+          <span>"Correct my answer"</span>
+        </div>
+      </div>
       <div className="inputs">
         <div className="input-output">
           <UploadFile />
@@ -95,14 +93,9 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         <SelectOptions />
         <div className="btns">
           <MultiStepBtn />
-          {error && <p>{error}</p>}
+          {error && <p className="error-text">{error}</p>}
           <SolveItBtn submit={() => handleSubmit()} />
         </div>
-      </div>
-      <div className="formatted-prompts">
-        <span>“Solve this problem”</span>
-        <span>“Explain this chapter”</span>
-        <span>“Correct my answer”</span>
       </div>
     </div>
   );
