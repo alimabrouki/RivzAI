@@ -15,11 +15,6 @@ import TextareaAutosize from "react-textarea-autosize";
 import { TypingMessage } from "./TypingMessage";
 
 type ChatSectionProps = {
-  markMessageAnimation: (
-    cardId: string,
-    msgId: string,
-    reactionType?: "like" | "dislike" | null,
-  ) => void;
   aiIsTyping: boolean;
   messages: Message[];
   handleAiTyping: (state: boolean) => void;

@@ -14,11 +14,6 @@ import updateMessage from "../../api/updateMessage";
 
 type ChatPageProps = {
   closeChat: () => void;
-  markMessageAnimation: (
-    cardId: string,
-    msgId: string,
-    reactionType?: "like" | "dislike" | null,
-  ) => void;
   handleAiTyping: (state: boolean) => void;
   aiIsTyping: boolean;
   // deleteHistoryItem: (id: string) => void;
@@ -26,7 +21,6 @@ type ChatPageProps = {
 
 export const ChatPage = ({
   closeChat,
-  markMessageAnimation,
   handleAiTyping,
   aiIsTyping,
   // deleteHistoryItem,
@@ -184,7 +178,6 @@ export const ChatPage = ({
           <ChatSection
             aiIsTyping={aiIsTyping}
             messages={messages}
-            markMessageAnimation={markMessageAnimation}
             handleAiTyping={handleAiTyping}
             editMessage={editMessage}
           />
