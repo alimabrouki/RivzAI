@@ -2,20 +2,22 @@ import { FaGithub, FaLinkedin } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
 import { Link } from "react-router-dom";
 import { useIntersectionAnimation } from "../../hooks/useIntersectionAnimation";
+import { useAuth } from "../../hooks/useAuth";
 import "../../styles/hooks-styles/useIntersectionAnimation.css";
 import "../../styles/home-page/Footer.css";
 
 export const Footer = () => {
   useIntersectionAnimation({ threshold: 0.1 });
+  const { user } = useAuth();
   return (
     <div className="footer slide-in">
       <h2 className="footer-title">
         Your Education Is Your Most Valuable Asset
       </h2>
       <p>Build it now — for free.</p>
-      <Link to="/auth/signin" className="get-started-btn">
-        Get Started Free
-      </Link>
+      <a href={user ? "#hero" : "/auth/signin"} className="get-started-btn">
+        {user ? "Start Now" : "Get Started Free"}
+      </a>
       <div className="social-links">
         <span>Built by a Student Who Knows the Pressure.</span>
         <span className="contact">Contact Me !</span>

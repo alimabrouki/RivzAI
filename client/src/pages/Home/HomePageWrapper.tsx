@@ -11,7 +11,7 @@ export const HomePageWrapper = ({ openClickedChat }: HomePageWrapperProps) => {
   return (
     <div className="wrapper">
       <div className="hero">
-        <h1 className="hero-title">
+        <h1 className="hero-title" id="hero">
           <span className="orange-hero-title">Rivz</span> With{" "}
           <span className="orange-hero-title">AI</span> Now!
         </h1>
