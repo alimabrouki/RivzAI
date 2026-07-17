@@ -3,6 +3,7 @@ import prisma from "../lib/prisma";
 import jwt from "jsonwebtoken";
 import bcrypt from "bcryptjs";
 import crypto from "crypto";
+import { OAuth2Client } from "google-auth-library";
 import { Resend } from "resend";
 const authRouter = Router();
 
@@ -95,7 +96,7 @@ authRouter.post("/signin", async (req, res) => {
       });
     }
 
-    const validPassword = bcrypt.compareSync(password, user.password);
+    const validPassword = bcrypt.compareSync(password, user.password!);
 
     const refreshedUser = await prisma.user.findUnique({
       where: { email },
@@ -429,6 +430,65 @@ authRouter.get("/verify-email/:token", async (req, res) => {
     console.error("Email verification error:", error);
     return res.status(500).json({
       error: "An internal server error occurred.",
+    });
+  }
+});
+
+const client = new OAuth2Client(process.env.VITE_GOOGLE_CLIENT_ID);
+
+authRouter.post("/google", async (req, res) => {
+  try {
+    const { token } = req.body;
+
+    const ticket = await client.verifyIdToken({
+      idToken: token,
+      audience: process.env.VITE_GOOGLE_CLIENT_ID,
+    });
+
+    const payload = ticket.getPayload();
+
+    if (!payload || !payload.email) {
+      return res.status(400).json({
+        error: "Invalid google token payload",
+      });
+    }
+
+    let user = await prisma.user.findUnique({
+      where: {
+        email: payload?.email,
+      },
+    });
+
+    if (!user) {
+      user = await prisma.user.create({
+        data: {
+          email: payload.email,
+          username: payload.name ?? "google user",
+        },
+      });
+    }
+
+    const appToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
+      expiresIn: "24h",
+    });
+
+    return res.status(201).json({
+      success: true,
+      data: appToken,
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+      },
+    });
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
     });
   }
 });
