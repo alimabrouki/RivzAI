@@ -47,6 +47,7 @@ authRouter.post("/signup", async (req, res) => {
         id: user.id,
         email: user.email,
         username: user.username,
+        verified: user.verified,
       },
     });
   } catch (error) {
@@ -459,6 +460,17 @@ authRouter.post("/google", async (req, res) => {
       },
     });
 
+    if (user && payload.email_verified && !user.verified) {
+      user = await prisma.user.update({
+        where: {
+          id: user.id,
+        },
+        data: {
+          verified: true,
+        },
+      });
+    }
+
     if (!user) {
       user = await prisma.user.create({
         data: {
@@ -471,14 +483,14 @@ authRouter.post("/google", async (req, res) => {
     const appToken = jwt.sign({ id: user.id }, process.env.JWT_SECRET!, {
       expiresIn: "24h",
     });
-
     return res.status(201).json({
       success: true,
-      data: appToken,
+      appToken,
       user: {
         id: user.id,
         email: user.email,
         username: user.username,
+        verified: user.verified,
       },
     });
   } catch (error) {
