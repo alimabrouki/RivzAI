@@ -1,5 +1,6 @@
 import "../../styles/Auth/ResetPasswordPage.css";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { Loader2 } from "lucide-react";
 import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -138,7 +139,7 @@ const ResetPasswordPage = () => {
               !isPasswordValid || !doPasswordsMatch ? "disabled" : ""
             }`}
           >
-            {isSubmitting ? "Resetting..." : "Reset Password"}
+            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Reset Password"}
           </button>
 
           <p className="authSwitchText">Remember your password?</p>

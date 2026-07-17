@@ -1,6 +1,7 @@
 import "../../styles/Auth/AuthPage.css";
 import logo from "../../assets/images/logo.png";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { Loader2 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signinUser from "../../api/signinUser";
@@ -121,7 +122,7 @@ const SigninPage = () => {
               !isEmailValid || !isPasswordValid ? "disabled" : ""
             }`}
           >
-            {isSubmitting ? "Loading..." : "Sign In"}
+            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Sign In"}
           </button>
 
           <Link to="/auth/forgot-password" className="forgot-password">

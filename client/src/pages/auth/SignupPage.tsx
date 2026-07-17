@@ -1,6 +1,7 @@
 import "../../styles/Auth/AuthPage.css";
 import logo from "../../assets/images/logo.png";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signupUser from "../../api/signupUser";
@@ -137,7 +138,7 @@ const SignupPage = () => {
                 : ""
             }`}
           >
-            {isSubmitting ? "Loading..." : "Create Account"}
+            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Create Account"}
           </button>
 
           <p className="authSwitchText">Already have an account?</p>

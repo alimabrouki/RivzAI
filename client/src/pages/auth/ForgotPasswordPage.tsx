@@ -1,4 +1,5 @@
 import "../../styles/Auth/AuthPage.css";
+import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
@@ -92,7 +93,7 @@ const ForgotPasswordPage = () => {
             type="submit"
             className={`authButton ${!isEmailValid ? "disabled" : ""}`}
           >
-            {isSubmitting ? "Sending..." : "Send"}
+            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Send"}
           </button>
 
           <p className="authSwitchText">Remember your password?</p>
