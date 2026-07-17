@@ -1,7 +1,11 @@
 import { GoogleLogin, type CredentialResponse } from "@react-oauth/google";
 import { API_BASE } from "../../api/signupUser";
+import { useAuth } from "../../hooks/useAuth";
+import { useNavigate } from "react-router-dom";
 
 function GoogleLoginButton() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     if (!credentialResponse.credential) {
       return {
@@ -27,6 +31,8 @@ function GoogleLoginButton() {
       }
 
       localStorage.setItem("token", responseData.appToken);
+      login(responseData.user);
+      navigate("/");
       return responseData;
     } catch {
       return {
