@@ -1,10 +1,11 @@
 import "../../styles/Auth/AuthPage.css";
 import logo from "../../assets/images/logo.png";
-import { BsGoogle, BsEye, BsEyeSlash } from "react-icons/bs";
+import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signupUser from "../../api/signupUser";
 import { useAuth } from "../../hooks/useAuth";
+import GoogleLoginButton from "./GoogleLoginButton";
 
 const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -75,10 +76,7 @@ const SignupPage = () => {
             Access Teacher Mode, save homework, and manage your account.
           </p>
 
-          <button type="button" className="authButton">
-            <BsGoogle size={18} />
-            Sign up with Google
-          </button>
+          <GoogleLoginButton />
 
           <div className="authDivider">
             <span>or</span>
