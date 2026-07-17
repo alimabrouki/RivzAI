@@ -2,7 +2,8 @@ import { memo, useState } from "react";
 import { getRelativeTime } from "../../utils/getRelativeTime";
 import { differenceInDays } from "date-fns";
 import "../../styles/history-page/HomeworkCards.css";
-import { MoveRight, Loader2 } from "lucide-react";
+import { MoveRight } from "lucide-react";
+import { Link } from "react-router-dom";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
@@ -74,8 +75,14 @@ export const ChatCards = memo(({ openClickedChat, chats }: ChatsProps) => {
 
   if (chats.length === 0) {
     return (
-      <div className="chat-loading">
-        <Loader2 className="chat-loading-spinner" />
+      <div className="chat-empty-state">
+        <p className="chat-empty-title">No chats yet</p>
+        <p className="chat-empty-subtitle">
+          Create your first chat to get started!
+        </p>
+        <Link to="/" className="get-started-btn">
+          Start Now
+        </Link>
       </div>
     );
   }
