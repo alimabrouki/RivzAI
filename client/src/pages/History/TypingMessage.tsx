@@ -14,7 +14,7 @@ export const TypingMessage = ({ text, onDone }: TypingMessageProps) => {
       const timeout = setTimeout(() => {
         setDisplayText((prev) => prev + text[currentIndex]);
         setCurrentIndex((prev) => prev + 1);
-      }, 30);
+      }, 1);
       return () => clearTimeout(timeout);
     }
     onDone();
