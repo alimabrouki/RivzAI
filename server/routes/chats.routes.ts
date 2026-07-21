@@ -1,6 +1,7 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
 import { Request, Response } from "express";
+import { ai } from "../lib/gemini";
 
 const chatsRouter = Router();
 
@@ -177,15 +178,40 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
 
     const { message } = req.body;
 
-    const chat = await prisma.chat.update({
+    const chat = await prisma.chat.findFirst({
       where: {
         id,
+        userId: req.user?.id,
+      },
+    });
+    if (!chat) {
+      return res.status(404).json({
+        success: false,
+        error: "Chat not found",
+      });
+    }
+
+    const aiResponse = await ai.models.generateContent({
+      model: "gemini-3.1-flash-lite",
+      contents: message,
+    });
+
+    if (!aiResponse.text) {
+      return res.status(400).json({
+        success: false,
+        error: "RivzAI is temporarily unvailable please try again in a moment",
+      });
+    }
+
+    const updatedChat = await prisma.chat.update({
+      where: {
+        id: id,
       },
       data: {
         messages: {
           create: {
-            content: message,
-            role: "user",
+            content: aiResponse.text,
+            role: "ai",
             animated: false,
             reaction: "",
           },
@@ -198,7 +224,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
 
     res.status(201).json({
       success: true,
-      data: chat.messages,
+      data: updatedChat.messages,
     });
   } catch (error) {
     if (error instanceof Error) {
