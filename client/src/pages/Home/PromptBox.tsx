@@ -42,7 +42,6 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         return;
       }
       setTextValue("");
-
       openClickedChat(result.id);
     } catch (error) {
       if (error instanceof Error) {

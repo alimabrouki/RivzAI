@@ -39,20 +39,20 @@ export const ChatPage = ({
     setMessages(messages);
   };
 
-  const addAiMessage = () => {
-    setTimeout(() => {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: Number(crypto.randomUUID()),
-          content:
-            "You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.",
-          role: "ai",
-        },
-      ]);
-      handleAiTyping(false);
-    }, 1500);
-  };
+  // const addAiMessage = () => {
+  //   setTimeout(() => {
+  //     setMessages((prev) => [
+  //       ...prev,
+  //       {
+  //         id: Number(crypto.randomUUID()),
+  //         content:
+  //           "You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.",
+  //         role: "ai",
+  //       },
+  //     ]);
+  //     handleAiTyping(false);
+  //   }, 1500);
+  // };
 
   const editMessage = async (msgId: number, newContent: string) => {
     const newMessage = await updateMessage(msgId, newContent);
@@ -182,7 +182,7 @@ export const ChatPage = ({
             editMessage={editMessage}
           />
           <PromptSection
-            addAiMessage={addAiMessage}
+            // addAiMessage={addAiMessage}
             handeMessagesChanged={handeMessagesChanged}
             handleAiTyping={handleAiTyping}
             chatId={Number(chatId)}
