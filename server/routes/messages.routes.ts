@@ -13,13 +13,14 @@ messagesRouter.patch("/:id", async (req: Request, res: Response) => {
         error: "Invalid message id",
       });
     }
-    const { newContent } = req.body;
+    const { newContent, animated } = req.body;
     const newMessage = await prisma.message.update({
       where: {
         id,
       },
       data: {
         content: newContent,
+        animated: animated,
       },
     });
 
