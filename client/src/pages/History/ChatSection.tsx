@@ -13,6 +13,7 @@ import type { Message } from "../../types/Chat";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { TypingMessage } from "./TypingMessage";
+import aiResponseAnimated from "../../api/aiResponseAnimated";
 
 type ChatSectionProps = {
   aiIsTyping: boolean;
@@ -102,8 +103,13 @@ export const ChatSection = ({
                 </div>
               ) : (
                 <>
-                  {prompt.role === "ai" ? (
-                    <TypingMessage onDone={() => {}} text={prompt.content} />
+                  {prompt.role === "ai" && !prompt.animated ? (
+                    <TypingMessage
+                      onDone={async () => {
+                        await aiResponseAnimated(prompt.id, true);
+                      }}
+                      text={prompt.content}
+                    />
                   ) : (
                     <p>{prompt.content}</p>
                   )}
@@ -113,7 +119,7 @@ export const ChatSection = ({
                       <Copy onClick={() => handleCopy(prompt.content)} />
                     </div>
                   )}
-                  {prompt.role === "ai" && !prompt.animated && (
+                  {prompt.role === "ai" && (
                     <div className="actions">
                       <Copy onClick={() => handleCopy(prompt.content)} />
                       <Download />
