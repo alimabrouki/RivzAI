@@ -6,7 +6,7 @@ import { API_BASE } from "./signupUser";
 async function addMessage(
   chatId: number,
   message: string,
-): Promise<ActionResult<Message[]>> {
+): Promise<ActionResult<Message>> {
   try {
     const response = await fetch(`${API_BASE}chats/${chatId}/messages`, {
       method: "POST",

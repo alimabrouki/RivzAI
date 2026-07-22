@@ -3,7 +3,6 @@ import { HomePage } from "./pages/Home/HomePage";
 import { HistoryPage } from "./pages/History/HistoryPage";
 import { ChatPage } from "./pages/History/ChatPage";
 import "./styles/index.css";
-import { useState } from "react";
 import TeacherMode from "./pages/teacher-mode/TeacherMode";
 import SigninPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";
@@ -17,11 +16,7 @@ export const App = () => {
     navigate(`/history/${chatId}`);
   };
 
-  const [aiIsTyping, setAiIsTyping] = useState(false);
-
   const navigate = useNavigate();
-
-  const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
   return (
     <Routes>
@@ -38,13 +33,7 @@ export const App = () => {
       <Route
         index
         path="/history/:chatId"
-        element={
-          <ChatPage
-            handleAiTyping={handleAiTyping}
-            aiIsTyping={aiIsTyping}
-            closeChat={() => navigate(-1)}
-          />
-        }
+        element={<ChatPage closeChat={() => navigate(-1)} />}
       />
       <Route index path="/teacher-mode/" element={<TeacherMode />} />
       <Route path="/auth/signin" element={<SigninPage />} />

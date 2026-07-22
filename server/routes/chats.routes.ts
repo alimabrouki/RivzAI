@@ -222,28 +222,19 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
       });
     }
 
-    const updatedChat = await prisma.chat.update({
-      where: {
-        id: id,
-      },
+    const aiMessage = await prisma.message.create({
       data: {
-        messages: {
-          create: {
-            content: aiResponse.text,
-            role: "ai",
-            animated: false,
-            reaction: "",
-          },
-        },
-      },
-      include: {
-        messages: true,
+        chatId: id,
+        content: aiResponse.text,
+        role: "ai",
+        animated: false,
+        reaction: "",
       },
     });
 
     res.status(201).json({
       success: true,
-      data: updatedChat.messages,
+      data: aiMessage,
     });
   } catch (error) {
     if (error instanceof Error) {

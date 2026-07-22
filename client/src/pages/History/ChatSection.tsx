@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import "../../styles/history-page/ChatSection.css";
 import type { Message } from "../../types/Chat";
-import { useLayoutEffect, useRef, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { TypingMessage } from "./TypingMessage";
 
@@ -25,6 +25,7 @@ export const ChatSection = ({
   aiIsTyping,
   messages,
   editMessage,
+  handleAiTyping,
 }: ChatSectionProps) => {
   const lastMessage = useRef<HTMLDivElement | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
@@ -36,6 +37,12 @@ export const ChatSection = ({
       block: "end",
     });
   }, [messages.length]);
+
+  useEffect(() => {
+    if (messages.at(-1)?.role === "ai") {
+      handleAiTyping(false);
+    }
+  }, [messages, handleAiTyping]);
 
   const handleCopy = (content: string) => {
     navigator.clipboard.writeText(content);

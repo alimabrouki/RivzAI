@@ -14,15 +14,11 @@ import updateMessage from "../../api/updateMessage";
 
 type ChatPageProps = {
   closeChat: () => void;
-  handleAiTyping: (state: boolean) => void;
-  aiIsTyping: boolean;
   // deleteHistoryItem: (id: string) => void;
 };
 
 export const ChatPage = ({
   closeChat,
-  handleAiTyping,
-  aiIsTyping,
   // deleteHistoryItem,
 }: ChatPageProps) => {
   const [chat, setChat] = useState<Chat>();
@@ -30,29 +26,28 @@ export const ChatPage = ({
   const [messages, setMessages] = useState<Message[]>([]);
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
+  const [aiIsTyping, setAiIsTyping] = useState(false);
 
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
 
-  const handeMessagesChanged = (messages: Message[]) => {
-    setMessages(messages);
+  const handleTempUserMsg = (isTyping: string) => {
+    const tempUserMsg = {
+      id: Number(crypto.randomUUID()),
+      content: isTyping,
+      role: "user",
+    };
+    setMessages((prev) => [...prev, tempUserMsg]);
+    setAiIsTyping(true);
   };
 
-  // const addAiMessage = () => {
-  //   setTimeout(() => {
-  //     setMessages((prev) => [
-  //       ...prev,
-  //       {
-  //         id: Number(crypto.randomUUID()),
-  //         content:
-  //           "You’re viewing a demo of RivzAI. The chat experience is under development and will be available soon.",
-  //         role: "ai",
-  //       },
-  //     ]);
-  //     handleAiTyping(false);
-  //   }, 1500);
-  // };
+  const handeMessagesChanged = (aiMessage: Message) => {
+    setAiIsTyping(false);
+    setMessages((prev) => [...prev, aiMessage]);
+  };
+
+  const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
   const editMessage = async (msgId: number, newContent: string) => {
     const newMessage = await updateMessage(msgId, newContent);
@@ -182,9 +177,9 @@ export const ChatPage = ({
             editMessage={editMessage}
           />
           <PromptSection
-            // addAiMessage={addAiMessage}
+            handleTempUserMsg={handleTempUserMsg}
             handeMessagesChanged={handeMessagesChanged}
-            handleAiTyping={handleAiTyping}
+            // handleAiTyping={handleAiTyping}
             chatId={Number(chatId)}
           />
           <div className="mistakes-alert">

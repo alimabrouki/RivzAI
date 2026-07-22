@@ -9,15 +9,16 @@ import type { Message } from "../../types/Chat";
 
 type PromptSectionProps = {
   chatId: number;
-  handleAiTyping: (state: boolean) => void;
-  handeMessagesChanged: (state: Message[]) => void;
-  // addAiMessage: () => void;
+  // handleAiTyping: (state: boolean) => void;
+  handeMessagesChanged: (aiMessage: Message) => void;
+  handleTempUserMsg: (isTyping: string) => void;
 };
 
 export const PromptSection = ({
   chatId,
-  handleAiTyping,
+  // handleAiTyping,
   handeMessagesChanged,
+  handleTempUserMsg,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
   const [error, setError] = useState("");
@@ -31,7 +32,8 @@ export const PromptSection = ({
 
   const submitPrompt = async () => {
     if (!isTyping.trim() || !chatId) return;
-
+    handleTempUserMsg(isTyping);
+    setIsTyping("");
     const result = await addMessage(chatId, isTyping);
     if (result.error) {
       setError(result.error);
@@ -39,8 +41,6 @@ export const PromptSection = ({
     if (result.data) {
       handeMessagesChanged(result.data);
     }
-    setIsTyping("");
-    handleAiTyping(true);
   };
 
   const onKey = (e: KeyboardEvent) => {
