@@ -191,6 +191,25 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
       });
     }
 
+    await prisma.chat.update({
+      where: {
+        id: id,
+      },
+      data: {
+        messages: {
+          create: {
+            content: message,
+            role: "user",
+            animated: false,
+            reaction: "",
+          },
+        },
+      },
+      include: {
+        messages: true,
+      },
+    });
+
     const aiResponse = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
       contents: message,
