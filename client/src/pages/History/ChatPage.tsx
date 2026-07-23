@@ -47,6 +47,18 @@ export const ChatPage = ({
     setMessages((prev) => [...prev, aiMessage]);
   };
 
+  const handleUpdateReaction = (promptId: number, reaction: string) => {
+    setMessages((prev) =>
+      prev.map((message) =>
+        message.id === promptId ? { ...message, reaction: reaction } : message,
+      ),
+    );
+  };
+
+  useEffect(() => {
+    console.log(messages);
+  }, [messages]);
+
   const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
   const editMessage = async (msgId: number, newContent: string) => {
@@ -171,6 +183,7 @@ export const ChatPage = ({
             )}
           </div>
           <ChatSection
+            handleUpdateReaction={handleUpdateReaction}
             aiIsTyping={aiIsTyping}
             messages={messages}
             handleAiTyping={handleAiTyping}

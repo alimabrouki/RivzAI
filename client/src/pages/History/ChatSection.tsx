@@ -14,12 +14,14 @@ import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { TypingMessage } from "./TypingMessage";
 import aiResponseAnimated from "../../api/aiResponseAnimated";
+import aiResponseReaction from "../../api/aiResponseReaction";
 
 type ChatSectionProps = {
   aiIsTyping: boolean;
   messages: Message[];
   handleAiTyping: (state: boolean) => void;
   editMessage: (msgId: number, newContent: string) => void;
+  handleUpdateReaction: (promptId: number, reaction: string) => void;
 };
 
 export const ChatSection = ({
@@ -27,17 +29,19 @@ export const ChatSection = ({
   messages,
   editMessage,
   handleAiTyping,
+  handleUpdateReaction,
 }: ChatSectionProps) => {
   const lastMessage = useRef<HTMLDivElement | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState("");
-
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({
       behavior: "smooth",
       block: "end",
     });
   }, [messages.length]);
+
+  // const handleReaction = () => {};
 
   useEffect(() => {
     if (messages.at(-1)?.role === "ai") {
@@ -128,8 +132,9 @@ export const ChatSection = ({
                           color:
                             prompt.reaction === "like" ? "var(--c-orange)" : "",
                         }}
-                        onClick={() => {
-                          // markMessageAnimation(card.id, prompt.id, "like");
+                        onClick={async () => {
+                          await aiResponseReaction(prompt.id, "like");
+                          handleUpdateReaction(prompt.id, "like");
                         }}
                       />
                       <ThumbsDown
@@ -138,6 +143,10 @@ export const ChatSection = ({
                             prompt.reaction === "dislike"
                               ? "var(--c-orange)"
                               : "",
+                        }}
+                        onClick={async () => {
+                          await aiResponseReaction(prompt.id, "dislike");
+                          handleUpdateReaction(prompt.id, "dislike");
                         }}
                       />
                       <Share2 />
