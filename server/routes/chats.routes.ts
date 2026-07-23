@@ -22,7 +22,6 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
           create: {
             role: "user",
             content: newPrompt,
-            reaction: "",
             animated: false,
           },
         },
@@ -201,7 +200,6 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
             content: message,
             role: "user",
             animated: false,
-            reaction: "",
           },
         },
       },
@@ -228,7 +226,6 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
         content: aiResponse.text,
         role: "ai",
         animated: false,
-        reaction: "",
       },
     });
 
