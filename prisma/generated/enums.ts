@@ -15,3 +15,11 @@ export const AuthProvider = {
 } as const
 
 export type AuthProvider = (typeof AuthProvider)[keyof typeof AuthProvider]
+
+
+export const Reaction = {
+  like: 'like',
+  dislike: 'dislike'
+} as const
+
+export type Reaction = (typeof Reaction)[keyof typeof Reaction]

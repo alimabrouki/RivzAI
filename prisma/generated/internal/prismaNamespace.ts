@@ -805,6 +805,20 @@ export type ListEnumAuthProviderFieldRefInput<$PrismaModel> = FieldRefInputType<
 
 
 /**
+ * Reference to a field of type 'Reaction'
+ */
+export type EnumReactionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Reaction'>
+    
+
+
+/**
+ * Reference to a field of type 'Reaction[]'
+ */
+export type ListEnumReactionFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Reaction[]'>
+    
+
+
+/**
  * Reference to a field of type 'Float'
  */
 export type FloatFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Float'>
