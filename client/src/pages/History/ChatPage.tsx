@@ -14,13 +14,9 @@ import updateMessage from "../../api/updateMessage";
 
 type ChatPageProps = {
   closeChat: () => void;
-  // deleteHistoryItem: (id: string) => void;
 };
 
-export const ChatPage = ({
-  closeChat,
-  // deleteHistoryItem,
-}: ChatPageProps) => {
+export const ChatPage = ({ closeChat }: ChatPageProps) => {
   const [chat, setChat] = useState<Chat>();
   const [isopen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -50,14 +46,15 @@ export const ChatPage = ({
   const handleUpdateReaction = (promptId: number, reaction: string) => {
     setMessages((prev) =>
       prev.map((message) =>
-        message.id === promptId ? { ...message, reaction: reaction } : message,
+        message.id === promptId
+          ? {
+              ...message,
+              reaction: reaction === message.reaction ? null : reaction,
+            }
+          : message,
       ),
     );
   };
-
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
 
   const handleAiTyping = (state: boolean) => setAiIsTyping(state);
 
@@ -66,10 +63,6 @@ export const ChatPage = ({
 
     setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
   };
-
-  useEffect(() => {
-    console.log(messages);
-  }, [messages]);
 
   useEffect(() => {
     async function loadChat() {
@@ -192,7 +185,6 @@ export const ChatPage = ({
           <PromptSection
             handleTempUserMsg={handleTempUserMsg}
             handeMessagesChanged={handeMessagesChanged}
-            // handleAiTyping={handleAiTyping}
             chatId={Number(chatId)}
           />
           <div className="mistakes-alert">
