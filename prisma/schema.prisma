@@ -45,13 +45,18 @@ model Chat {
   createdAt DateTime  @default(now())
 }
 
+enum Reaction {
+  like
+  dislike
+}
+
 model Message {
-  id        Int      @id @default(autoincrement())
+  id        Int       @id @default(autoincrement())
   content   String
   role      String
   animated  Boolean
-  reaction  String
+  reaction  Reaction?
   chatId    Int
-  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
-  createdAt DateTime @default(now())
+  chat      Chat      @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  createdAt DateTime  @default(now())
 }
