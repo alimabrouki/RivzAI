@@ -21,6 +21,7 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
   const [textvalue, setTextValue] = useState("");
   const [error, setError] = useState("");
   const [showWarning, setShowWarning] = useState(false);
+  const [showError, setShowError] = useState(false);
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   useEffect(() => {
@@ -30,6 +31,16 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
     }
   }, [showWarning]);
 
+  useEffect(() => {
+    if (showError) {
+      const timer = setTimeout(() => {
+        setShowError(false);
+        setError("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showError]);
+
   const handleSubmit = async () => {
     if (!textvalue.trim()) {
       setShowWarning(true);
@@ -38,7 +49,8 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
     try {
       const result = await addChat(textvalue);
       if (result.error) {
-        setError(result.error);
+        setError("Something went wrong. Please try again.");
+        setShowError(true);
         return;
       }
       setTextValue("");
@@ -48,6 +60,7 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         console.log(error.message);
       }
       setError("Something went wrong. Please try again.");
+      setShowError(true);
     }
   };
 
@@ -68,6 +81,12 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         <div className="warning-popup">
           <AlertTriangle size={16} />
           <span>Please type something</span>
+        </div>
+      )}
+      {showError && (
+        <div className="error-popup">
+          <AlertTriangle size={16} />
+          <span>{error}</span>
         </div>
       )}
       <div className="prompt-input-area">
@@ -92,7 +111,6 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         <SelectOptions />
         <div className="btns">
           <MultiStepBtn />
-          {error && <p className="error-text">{error}</p>}
           <SolveItBtn submit={() => handleSubmit()} />
         </div>
       </div>
