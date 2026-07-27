@@ -10,32 +10,36 @@ import ForgotPasswordPage from "./pages/auth/ForgotPasswordPage";
 import ResetPasswordPage from "./pages/auth/ResetPasswordPage";
 import VerifyEmailPage from "./pages/auth/VerifyEmailPage";
 import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
+import { ProtectedRoutes } from "./components/ProtectedRoutes";
 
 export const App = () => {
   const openClickedChat = (chatId: number) => {
     navigate(`/history/${chatId}`);
   };
-
   const navigate = useNavigate();
 
   return (
     <Routes>
+      <Route element={<ProtectedRoutes />}>
+        <Route
+          index
+          path="/history"
+          element={<HistoryPage openClickedChat={openClickedChat} />}
+        />
+        <Route
+          index
+          path="/history/:chatId"
+          element={<ChatPage closeChat={() => navigate(-1)} />}
+        />
+        <Route index path="/teacher-mode/" element={<TeacherMode />} />
+      </Route>
+
       <Route
         index
         path="/"
         element={<HomePage openClickedChat={openClickedChat} />}
       />
-      <Route
-        index
-        path="/history"
-        element={<HistoryPage openClickedChat={openClickedChat} />}
-      />
-      <Route
-        index
-        path="/history/:chatId"
-        element={<ChatPage closeChat={() => navigate(-1)} />}
-      />
-      <Route index path="/teacher-mode/" element={<TeacherMode />} />
+
       <Route path="/auth/signin" element={<SigninPage />} />
       <Route path="/auth/signup" element={<SignupPage />} />
       <Route path="/auth/forgot-password" element={<ForgotPasswordPage />} />
