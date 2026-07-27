@@ -1,19 +1,26 @@
-import { Navigate, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import isTokenExpired from "../utils/isTokenExpired";
 
 export function ProtectedRoutes() {
   const { logout } = useAuth();
+  const navigate = useNavigate();
 
   const token = localStorage.getItem("token");
 
-  if (!token) {
-    return <Navigate to="/auth/signin" replace />;
-  }
+  useEffect(() => {
+    if (!token || isTokenExpired()) {
+      logout();
+      if (isTokenExpired()) {
+        sessionStorage.setItem("sessionExpired", "true");
+      }
+      navigate("/auth/signin", { replace: true });
+    }
+  }, [logout, navigate, token]);
 
-  if (isTokenExpired()) {
-    logout();
-    return <Navigate to="/auth/signin" replace />;
+  if (!token || isTokenExpired()) {
+    return null;
   }
 
   return <Outlet />;

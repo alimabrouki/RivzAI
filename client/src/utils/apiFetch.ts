@@ -3,7 +3,8 @@ export async function apiFetch(input: RequestInfo, init?: RequestInit) {
   if (response.status === 401) {
     localStorage.removeItem("token");
     localStorage.removeItem("user");
-    window.location.href = "/";
+    sessionStorage.setItem("sessionExpired", "true");
+    window.location.href = "/auth/signin";
     throw new Error("Unauthorized");
   }
 

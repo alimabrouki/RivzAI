@@ -20,6 +20,17 @@ const SigninPage = () => {
   const isEmailValid = email.includes("@");
   const isPasswordValid = password.length >= 8;
 
+  const [showSessionExpired, setShowSessionExpired] = useState(false);
+
+  useEffect(() => {
+    if (sessionStorage.getItem("sessionExpired")) {
+      sessionStorage.removeItem("sessionExpired");
+      setShowSessionExpired(true);
+      const timer = setTimeout(() => setShowSessionExpired(false), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, []);
+
   useEffect(() => {
     if (user) navigate("/");
   });
@@ -70,6 +81,12 @@ const SigninPage = () => {
             handleSignin();
           }}
         >
+          {showSessionExpired && (
+            <p className="session-expired-banner">
+              Your session has expired. Please log in again.
+            </p>
+          )}
+
           <h1 className="authTitle">Sign in to RivzAI</h1>
           <p className="authSubtitle">
             Access Teacher Mode, save homework, and manage your account.
