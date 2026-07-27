@@ -1,9 +1,10 @@
+import { apiFetch } from "../utils/apiFetch";
 import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
 async function getUserChats() {
   try {
-    const response = await fetch(`${API_BASE}chats`, {
+    const response = await apiFetch(`${API_BASE}chats`, {
       method: "GET",
       headers: getAuthHeaders(),
     });
