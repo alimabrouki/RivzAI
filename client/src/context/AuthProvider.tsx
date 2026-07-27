@@ -1,12 +1,9 @@
 import { useEffect, useState } from "react";
 import { AuthContext } from "./AuthContext";
 import type { User } from "./AuthContext";
-import isTokenExpired from "../utils/isTokenExpired";
-import { useLocation } from "react-router-dom";
 
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const location = useLocation();
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
 
@@ -27,15 +24,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
 
   function logout() {
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
     setUser(null);
   }
-  useEffect(() => {
-    if (!isTokenExpired()) return;
-
-    queueMicrotask(() => {
-      logout();
-    });
-  }, [location.pathname]);
 
   return (
     <AuthContext.Provider value={{ user, login, updateUser, logout }}>
