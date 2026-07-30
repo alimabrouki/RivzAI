@@ -2,8 +2,6 @@ import "../../styles/home-page/PromptBox.css";
 import { RecordAudio } from "../../features/input-output/RecordAudio";
 import { SolveItBtn } from "../../features/SolveItBtn";
 import { UploadFile } from "../../features/input-output/UploadFile";
-import { SelectOptions } from "../../features/select-options/SelectOptions";
-import { MultiStepBtn } from "../../features/MultiStepBtn";
 import {
   useState,
   useEffect,
@@ -19,6 +17,7 @@ export const PromptBox = () => {
   const [error, setError] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [showError, setShowError] = useState(false);
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -44,6 +43,7 @@ export const PromptBox = () => {
       setShowWarning(true);
       return;
     }
+    setLoading(true);
     try {
       const result = await addChat(textvalue);
       if (result.error) {
@@ -59,6 +59,8 @@ export const PromptBox = () => {
       }
       setError("Something went wrong. Please try again.");
       setShowError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -87,6 +89,7 @@ export const PromptBox = () => {
           <span>{error}</span>
         </div>
       )}
+      {loading && <div className="prompt-spinner" />}
       <div className="prompt-input-area">
         <textarea
           value={textvalue}
@@ -106,9 +109,7 @@ export const PromptBox = () => {
           <UploadFile />
           <RecordAudio />
         </div>
-        <SelectOptions />
         <div className="btns">
-          <MultiStepBtn />
           <SolveItBtn submit={() => handleSubmit()} />
         </div>
       </div>
