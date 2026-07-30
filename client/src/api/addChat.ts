@@ -1,7 +1,7 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
 
-async function addConversation(newPrompt: string) {
+async function addChat(newPrompt: string) {
   try {
     const response = await fetch(`${API_BASE}chats`, {
       method: "POST",
@@ -18,4 +18,4 @@ async function addConversation(newPrompt: string) {
   }
 }
 
-export default addConversation;
+export default addChat;
