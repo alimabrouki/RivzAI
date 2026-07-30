@@ -43,15 +43,17 @@ function GoogleLoginButton() {
   };
 
   return (
-    <GoogleLogin
-      onSuccess={handleSuccess}
-      onError={() => console.log("google login failed")}
-      theme="filled_black"
-      shape="pill"
-      size="large"
-      text="continue_with"
-      width="350"
-    />
+    <div style={{ display: "flex", justifyContent: "center" }} className="">
+      <GoogleLogin
+        onSuccess={handleSuccess}
+        onError={() => console.log("google login failed")}
+        theme="filled_black"
+        shape="pill"
+        size="large"
+        text="continue_with"
+        width="250"
+      />
+    </div>
   );
 }
 
