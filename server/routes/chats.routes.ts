@@ -31,6 +31,27 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
       },
     });
 
+    const aiResponse = await ai.models.generateContent({
+      model: "gemini-3.1-flash-lite",
+      contents: newPrompt,
+    });
+
+    if (!aiResponse.text) {
+      return res.status(400).json({
+        success: false,
+        error: "RivzAI is temporarily unvailable please try again in a moment",
+      });
+    }
+
+    await prisma.message.create({
+      data: {
+        chatId: chat.id,
+        content: aiResponse.text,
+        role: "ai",
+        animated: false,
+      },
+    });
+
     res.status(201).json(chat);
   } catch (error) {
     if (error instanceof Error) {
