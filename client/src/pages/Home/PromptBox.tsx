@@ -12,16 +12,14 @@ import {
 } from "react";
 import addChat from "../../api/addChat";
 import { AlertTriangle } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
-type PromptBoxProps = {
-  openClickedChat: (id: number) => void;
-};
-
-export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
+export const PromptBox = () => {
   const [textvalue, setTextValue] = useState("");
   const [error, setError] = useState("");
   const [showWarning, setShowWarning] = useState(false);
   const [showError, setShowError] = useState(false);
+  const navigate = useNavigate();
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
   useEffect(() => {
@@ -54,7 +52,7 @@ export const PromptBox = ({ openClickedChat }: PromptBoxProps) => {
         return;
       }
       setTextValue("");
-      openClickedChat(result.id);
+      navigate(`/history/${result.id}`);
     } catch (error) {
       if (error instanceof Error) {
         console.log(error.message);

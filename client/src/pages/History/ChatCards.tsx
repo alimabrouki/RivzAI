@@ -3,19 +3,22 @@ import { getRelativeTime } from "../../utils/getRelativeTime";
 import { differenceInDays } from "date-fns";
 import "../../styles/history-page/HomeworkCards.css";
 import { MoveRight } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
-  openClickedChat: (id: number) => void;
   chats: Chat[];
 };
 
-export const ChatCards = memo(({ openClickedChat, chats }: ChatsProps) => {
+export const ChatCards = memo(({ chats }: ChatsProps) => {
   const [limit, setLimit] = useState(10);
-
+  const navigate = useNavigate();
   const handleLoadMore = () => {
     setLimit((prev) => prev + 10);
+  };
+
+  const openClickedChat = (chatId: number) => {
+    navigate(`/history/${chatId}`);
   };
 
   const groups: {

@@ -13,19 +13,12 @@ import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 
 export const App = () => {
-  const openClickedChat = (chatId: number) => {
-    navigate(`/history/${chatId}`);
-  };
   const navigate = useNavigate();
 
   return (
     <Routes>
       <Route element={<ProtectedRoutes />}>
-        <Route
-          index
-          path="/history"
-          element={<HistoryPage openClickedChat={openClickedChat} />}
-        />
+        <Route index path="/history" element={<HistoryPage />} />
         <Route
           index
           path="/history/:chatId"
@@ -34,11 +27,7 @@ export const App = () => {
         <Route index path="/teacher-mode/" element={<TeacherMode />} />
       </Route>
 
-      <Route
-        index
-        path="/"
-        element={<HomePage openClickedChat={openClickedChat} />}
-      />
+      <Route index path="/" element={<HomePage />} />
 
       <Route path="/auth/signin" element={<SigninPage />} />
       <Route path="/auth/signup" element={<SignupPage />} />

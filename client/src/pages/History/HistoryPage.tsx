@@ -9,11 +9,7 @@ import logo from "../../assets/images/logo.png";
 import { useEffect, useState } from "react";
 import getUserChats from "../../api/getUserChats";
 
-type HistoryPageProps = {
-  openClickedChat: (id: number) => void;
-};
-
-export const HistoryPage = ({ openClickedChat }: HistoryPageProps) => {
+export const HistoryPage = () => {
   const [chats, setChats] = useState<Chat[]>([]);
 
   useEffect(() => {
@@ -36,7 +32,7 @@ export const HistoryPage = ({ openClickedChat }: HistoryPageProps) => {
           <div className="recent-h">
             <SearchBar chats={chats} />
             <div className="dummy"></div>
-            <ChatCards openClickedChat={openClickedChat} chats={chats} />
+            <ChatCards chats={chats} />
           </div>
         </div>
       </div>

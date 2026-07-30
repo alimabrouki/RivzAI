@@ -3,11 +3,7 @@ import { PromptBox } from "./PromptBox";
 import { RecentChat } from "./RecentChat";
 import { FeaturesBoxes } from "./FeaturesBoxes";
 
-type HomePageWrapperProps = {
-  openClickedChat: (id: number) => void;
-};
-
-export const HomePageWrapper = ({ openClickedChat }: HomePageWrapperProps) => {
+export const HomePageWrapper = () => {
   return (
     <div className="wrapper">
       <div className="hero">
@@ -24,7 +20,7 @@ export const HomePageWrapper = ({ openClickedChat }: HomePageWrapperProps) => {
         <h3 className="under-title-two">
           jibnelk a9wa AI agent bech irivz w ye5dem m3ak as3eb les exercices
         </h3>
-        <PromptBox openClickedChat={openClickedChat} />
+        <PromptBox />
         <RecentChat />
         <FeaturesBoxes />
       </div>
