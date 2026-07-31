@@ -229,31 +229,28 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
       },
     });
 
-    const aiResponse = await ai.models.generateContent({
+    let fullText = "";
+
+    const stream = await ai.models.generateContentStream({
       model: "gemini-3.1-flash-lite",
       contents: message,
     });
 
-    if (!aiResponse.text) {
-      return res.status(400).json({
-        success: false,
-        error: "RivzAI is temporarily unvailable please try again in a moment",
-      });
+    for await (const chunk of stream) {
+      fullText += chunk.text;
+      res.write(chunk.text);
     }
 
-    const aiMessage = await prisma.message.create({
+    await prisma.message.create({
       data: {
         chatId: id,
-        content: aiResponse.text,
+        content: fullText,
         role: "ai",
         animated: false,
       },
     });
 
-    res.status(201).json({
-      success: true,
-      data: aiMessage,
-    });
+    res.end();
   } catch (error) {
     if (error instanceof Error) {
       console.error(error.message);
