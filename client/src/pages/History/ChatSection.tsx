@@ -10,10 +10,10 @@ import {
 } from "lucide-react";
 import "../../styles/history-page/ChatSection.css";
 import type { Message } from "../../types/Chat";
-import { useEffect, useLayoutEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
-import { TypingMessage } from "./TypingMessage";
-import aiResponseAnimated from "../../api/aiResponseAnimated";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import aiResponseReaction from "../../api/aiResponseReaction";
 
 type ChatSectionProps = {
@@ -28,7 +28,6 @@ export const ChatSection = ({
   aiIsTyping,
   messages,
   editMessage,
-  handleAiTyping,
   handleUpdateReaction,
 }: ChatSectionProps) => {
   const lastMessage = useRef<HTMLDivElement | null>(null);
@@ -40,14 +39,6 @@ export const ChatSection = ({
       block: "end",
     });
   }, [messages.length]);
-
-  // const handleReaction = () => {};
-
-  useEffect(() => {
-    if (messages.at(-1)?.role === "ai") {
-      handleAiTyping(false);
-    }
-  }, [messages, handleAiTyping]);
 
   const handleCopy = (content: string) => {
     navigator.clipboard.writeText(content);
@@ -107,23 +98,17 @@ export const ChatSection = ({
                 </div>
               ) : (
                 <>
-                  {prompt.role === "ai" && !prompt.animated ? (
-                    <TypingMessage
-                      onDone={async () => {
-                        await aiResponseAnimated(prompt.id, true);
-                      }}
-                      text={prompt.content}
-                    />
-                  ) : (
-                    <p>{prompt.content}</p>
-                  )}
+                  <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                    {prompt.content}
+                  </ReactMarkdown>
+
                   {prompt.role === "user" && (
                     <div className="actions">
                       <Pencil onClick={() => startEditing(prompt)} />
                       <Copy onClick={() => handleCopy(prompt.content)} />
                     </div>
                   )}
-                  {prompt.role === "ai" && (
+                  {prompt.role === "ai" && !aiIsTyping && (
                     <div className="actions">
                       <Copy onClick={() => handleCopy(prompt.content)} />
                       <Download />

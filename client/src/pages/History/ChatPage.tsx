@@ -48,7 +48,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
   };
 
   const handleAiChunks = (chunk: string) => {
-    setAiIsTyping(false);
     setMessages((prev) => {
       const lastMsg = prev.at(-1)!;
       return [
@@ -59,6 +58,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
         },
       ];
     });
+    setAiIsTyping(false);
   };
 
   const handleUpdateReaction = (promptId: number, reaction: string) => {
