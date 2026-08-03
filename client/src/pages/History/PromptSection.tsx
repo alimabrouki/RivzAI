@@ -15,14 +15,14 @@ import type { Message } from "../../types/Chat";
 
 type PromptSectionProps = {
   chatId: number;
-  // handleAiTyping: (state: boolean) => void;
+  handleTempAiMsg: () => void;
   handeMessagesChanged: (aiMessage: Message) => void;
   handleTempUserMsg: (isTyping: string) => void;
 };
 
 export const PromptSection = ({
   chatId,
-  // handleAiTyping,
+  handleTempAiMsg,
   handeMessagesChanged,
   handleTempUserMsg,
 }: PromptSectionProps) => {
@@ -50,6 +50,7 @@ export const PromptSection = ({
   const submitPrompt = async () => {
     if (!isTyping.trim() || !chatId) return;
     handleTempUserMsg(isTyping);
+    handleTempAiMsg();
     setIsTyping("");
     const result = await addMessage(chatId, isTyping);
     if (result.error) {

@@ -38,6 +38,15 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     setAiIsTyping(true);
   };
 
+  const handleTempAiMsg = () => {
+    const tempAiMsg = {
+      id: Number(crypto.randomUUID()),
+      content: "",
+      role: "ai",
+    };
+    setMessages((prev) => [...prev, tempAiMsg]);
+  };
+
   const handeMessagesChanged = (aiMessage: Message) => {
     setAiIsTyping(false);
     setMessages((prev) => [...prev, aiMessage]);
@@ -184,6 +193,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
           />
           <PromptSection
             handleTempUserMsg={handleTempUserMsg}
+            handleTempAiMsg={handleTempAiMsg}
             handeMessagesChanged={handeMessagesChanged}
             chatId={Number(chatId)}
           />
