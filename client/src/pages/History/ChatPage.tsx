@@ -30,7 +30,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
   const handleTempUserMsg = (isTyping: string) => {
     const tempUserMsg = {
-      id: Number(crypto.randomUUID()),
+      id: Math.floor(performance.now() * 1000),
       content: isTyping,
       role: "user",
     };
@@ -40,16 +40,25 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
   const handleTempAiMsg = () => {
     const tempAiMsg = {
-      id: Number(crypto.randomUUID()),
+      id: Math.floor(performance.now() * 1000) + 1,
       content: "",
       role: "ai",
     };
     setMessages((prev) => [...prev, tempAiMsg]);
   };
 
-  const handeMessagesChanged = (aiMessage: Message) => {
+  const handleAiChunks = (chunk: string) => {
     setAiIsTyping(false);
-    setMessages((prev) => [...prev, aiMessage]);
+    setMessages((prev) => {
+      const lastMsg = prev.at(-1)!;
+      return [
+        ...prev.slice(0, -1),
+        {
+          ...lastMsg,
+          content: lastMsg.content + chunk,
+        },
+      ];
+    });
   };
 
   const handleUpdateReaction = (promptId: number, reaction: string) => {
@@ -194,7 +203,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
           <PromptSection
             handleTempUserMsg={handleTempUserMsg}
             handleTempAiMsg={handleTempAiMsg}
-            handeMessagesChanged={handeMessagesChanged}
+            handleAiChunks={handleAiChunks}
             chatId={Number(chatId)}
           />
           <div className="mistakes-alert">
