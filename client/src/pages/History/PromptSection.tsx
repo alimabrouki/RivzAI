@@ -11,19 +11,18 @@ import { UploadFile } from "../../features/input-output/UploadFile";
 import { SendHorizonal, AlertTriangle } from "lucide-react";
 import "../../styles/history-page/PromptSection.css";
 import addMessage from "../../api/addMessage";
-import type { Message } from "../../types/Chat";
 
 type PromptSectionProps = {
   chatId: number;
   handleTempAiMsg: () => void;
-  handeMessagesChanged: (aiMessage: Message) => void;
+  handleAiChunks: (chunk: string) => void;
   handleTempUserMsg: (isTyping: string) => void;
 };
 
 export const PromptSection = ({
   chatId,
   handleTempAiMsg,
-  handeMessagesChanged,
+  handleAiChunks,
   handleTempUserMsg,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
@@ -49,16 +48,20 @@ export const PromptSection = ({
 
   const submitPrompt = async () => {
     if (!isTyping.trim() || !chatId) return;
+
     handleTempUserMsg(isTyping);
+
     handleTempAiMsg();
+
     setIsTyping("");
-    const result = await addMessage(chatId, isTyping);
-    if (result.error) {
+
+    try {
+      await addMessage(chatId, isTyping, (chunk) => {
+        handleAiChunks(chunk);
+      });
+    } catch {
       setError("Something went wrong. Please try again.");
       setShowError(true);
-    }
-    if (result.data) {
-      handeMessagesChanged(result.data);
     }
   };
 
