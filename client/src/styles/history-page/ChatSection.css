@@ -1,3 +1,7 @@
+svg {
+  display: inline;
+}
+@import "tailwindcss";
 .chat-section {
   height: 67vh;
   overflow-y: auto;
