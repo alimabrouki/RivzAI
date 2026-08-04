@@ -33,6 +33,8 @@ export const ChatSection = ({
   const lastMessage = useRef<HTMLDivElement | null>(null);
   const [editingId, setEditingId] = useState<number | null>(null);
   const [editingContent, setEditingContent] = useState("");
+  const [copiedId, setCopiedId] = useState<number | null>(null);
+  const copyTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   useLayoutEffect(() => {
     lastMessage.current?.scrollIntoView({
       behavior: "smooth",
@@ -40,9 +42,19 @@ export const ChatSection = ({
     });
   }, [messages.length]);
 
-  const handleCopy = (content: string) => {
+  const handleCopy = (id: number, content: string) => {
     navigator.clipboard.writeText(content);
+    if (copyTimeout.current) clearTimeout(copyTimeout.current);
+    setCopiedId(id);
+    copyTimeout.current = setTimeout(() => setCopiedId(null), 3000);
   };
+
+  const CopyButton = ({ id, content }: { id: number; content: string }) =>
+    copiedId === id ? (
+      <Check className="copy-check" />
+    ) : (
+      <Copy onClick={() => handleCopy(id, content)} />
+    );
 
   const startEditing = (msg: Message) => {
     setEditingId(msg.id);
@@ -105,12 +117,12 @@ export const ChatSection = ({
                   {prompt.role === "user" && (
                     <div className="actions">
                       <Pencil onClick={() => startEditing(prompt)} />
-                      <Copy onClick={() => handleCopy(prompt.content)} />
+                      <CopyButton id={prompt.id} content={prompt.content} />
                     </div>
                   )}
                   {prompt.role === "ai" && !aiIsTyping && (
                     <div className="actions">
-                      <Copy onClick={() => handleCopy(prompt.content)} />
+                      <CopyButton id={prompt.id} content={prompt.content} />
                       <Download />
                       <ThumbsUp
                         style={{
