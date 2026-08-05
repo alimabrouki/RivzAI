@@ -121,7 +121,7 @@ svg {
 }
 
 .rslt-ai-prompt {
-  line-height: 2.5;
+  line-height: 2.8;
   align-self: flex-start;
   color: var(--c-text-light);
   padding: 10px;
