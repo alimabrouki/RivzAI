@@ -11,12 +11,14 @@ import getUserChats from "../../api/getUserChats";
 
 export const HistoryPage = () => {
   const [chats, setChats] = useState<Chat[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     async function getChats() {
       const result = await getUserChats();
       console.log(result);
       setChats(result);
+      setLoading(false);
     }
     getChats();
   }, []);
@@ -32,7 +34,7 @@ export const HistoryPage = () => {
           <div className="recent-h">
             <SearchBar chats={chats} />
             <div className="dummy"></div>
-            <ChatCards chats={chats} />
+            <ChatCards chats={chats} loading={loading} />
           </div>
         </div>
       </div>

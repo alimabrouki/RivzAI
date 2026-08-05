@@ -2,15 +2,16 @@ import { memo, useState } from "react";
 import { getRelativeTime } from "../../utils/getRelativeTime";
 import { differenceInDays } from "date-fns";
 import "../../styles/history-page/HomeworkCards.css";
-import { MoveRight } from "lucide-react";
+import { MoveRight, Loader2 } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Chat } from "../../types/Chat";
 
 type ChatsProps = {
   chats: Chat[];
+  loading?: boolean;
 };
 
-export const ChatCards = memo(({ chats }: ChatsProps) => {
+export const ChatCards = memo(({ chats, loading }: ChatsProps) => {
   const [limit, setLimit] = useState(10);
   const navigate = useNavigate();
   const handleLoadMore = () => {
@@ -75,6 +76,14 @@ export const ChatCards = memo(({ chats }: ChatsProps) => {
       chats: groups.older,
     },
   ];
+
+  if (loading) {
+    return (
+      <div className="chat-loading">
+        <Loader2 className="chat-loading-spinner" />
+      </div>
+    );
+  }
 
   if (chats.length === 0) {
     return (
