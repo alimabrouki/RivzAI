@@ -36,21 +36,25 @@
   }
 }
 
-@media (min-width: 1300px) {
+.chat-page .wrapper {
+  padding-inline: 20px;
+}
+
+@media (min-width: 701px) and (max-width: 900px) {
   .chat-page .wrapper {
-    padding: 0px 200px;
+    padding-inline: 60px;
   }
 }
 
-@media (900px < width <=1300px) {
+@media (min-width: 901px) and (max-width: 1300px) {
   .chat-page .wrapper {
-    padding: 0px 130px;
+    padding-inline: 130px;
   }
 }
 
-@media (700px < width <=900px) {
+@media (min-width: 1301px) {
   .chat-page .wrapper {
-    padding: 0px 60px;
+    padding-inline: 200px;
   }
 }
 
@@ -70,6 +74,8 @@
 }
 
 .chat-header .homework-title {
+  min-width: 0;
+  flex: 1;
   margin-left: 20px;
   color: var(--c-text-light);
   word-break: break-word;
