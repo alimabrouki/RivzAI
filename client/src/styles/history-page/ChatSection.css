@@ -197,7 +197,7 @@ svg {
 }
 
 .rslt-ai-prompt {
-  line-height: 2.8;
+  line-height: 2.8 !important;
   align-self: flex-start;
   color: var(--c-text-light);
   padding: 10px;
@@ -205,6 +205,12 @@ svg {
   word-break: break-word;
   min-width: 0;
   max-width: min(800px, 100%);
+}
+
+.rslt-ai-prompt p,
+.rslt-ai-prompt li,
+.rslt-ai-prompt blockquote {
+  line-height: 2.8 !important;
 }
 
 .rslt-ai-prompt .actions {
