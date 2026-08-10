@@ -108,7 +108,10 @@ export const ChatCards = memo(({ chats, loading }: ChatsProps) => {
             <div key={section.title}>
               <h2 style={{ color: "var(--c-neutral-0)" }}>{section.title}</h2>
               {visibleChats.map((chat) => {
-                const lastMessage = chat.messages.at(-1);
+                const userMessages = chat.messages.filter(
+                  (msg) => msg.role === "user",
+                );
+                const lastUserMessage = userMessages.at(-1);
                 return (
                   chat && (
                     <div
@@ -121,7 +124,7 @@ export const ChatCards = memo(({ chats, loading }: ChatsProps) => {
                       <div className="card-content">
                         <div className="homework-title">{chat.title}</div>
                         <div className="user-prompt">
-                          <p>"{lastMessage?.content}"</p>
+                          <p>"{lastUserMessage?.content}"</p>
                         </div>
                         <div className="card-details">
                           <span className="prompt-time">
