@@ -8,11 +8,22 @@ const chatsRouter = Router();
 chatsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
-    const { newPrompt } = req.body;
+    const { newChatPrompt } = req.body;
+    const chatTitlePrompt = `Generate a short 3-5 word title for this prompt: "${newChatPrompt}" i want it serious and describing the user message perfectly and make the user remember exactly what happened in this chat when he sees the card in the future make it serious and simple like chat gpt . Return ONLY the title.`;
+    const aiGeneratedTitle = await ai.models.generateContent({
+      model: "gemini-3.1-flash-lite",
+      contents: chatTitlePrompt,
+      config: {
+        temperature: 0.2,
+        maxOutputTokens: 50,
+      },
+    });
 
     const chat = await prisma.chat.create({
       data: {
-        title: newPrompt.slice(0, 20),
+        title: aiGeneratedTitle
+          ? aiGeneratedTitle.text
+          : newChatPrompt.slice(0, 20),
         user: {
           connect: {
             id: userId,
@@ -21,7 +32,7 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
         messages: {
           create: {
             role: "user",
-            content: newPrompt,
+            content: newChatPrompt,
             animated: false,
           },
         },
@@ -33,7 +44,7 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
 
     const aiResponse = await ai.models.generateContent({
       model: "gemini-3.1-flash-lite",
-      contents: newPrompt,
+      contents: newChatPrompt,
     });
 
     if (!aiResponse.text) {
