@@ -74,8 +74,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     );
   };
 
-  const handleAiTyping = (state: boolean) => setAiIsTyping(state);
-
   const editMessage = async (msgId: number, newContent: string) => {
     const newMessage = await updateMessage(msgId, newContent);
 
@@ -197,7 +195,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
             handleUpdateReaction={handleUpdateReaction}
             aiIsTyping={aiIsTyping}
             messages={messages}
-            handleAiTyping={handleAiTyping}
             editMessage={editMessage}
           />
           <PromptSection

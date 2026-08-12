@@ -20,7 +20,6 @@ import { containsArabic } from "../../utils/containsArabic";
 type ChatSectionProps = {
   aiIsTyping: boolean;
   messages: Message[];
-  handleAiTyping: (state: boolean) => void;
   editMessage: (msgId: number, newContent: string) => void;
   handleUpdateReaction: (promptId: number, reaction: string) => void;
 };
