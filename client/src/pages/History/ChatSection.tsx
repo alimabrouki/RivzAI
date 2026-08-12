@@ -280,7 +280,6 @@ export const ChatSection = ({
                     {prompt.role === "ai" && !aiIsTyping && (
                       <div className="actions">
                         <CopyButton id={prompt.id} content={prompt.content} />
-                        <Download />
                         <ThumbsUp
                           style={{
                             color:
@@ -305,7 +304,6 @@ export const ChatSection = ({
                             handleUpdateReaction(prompt.id, "dislike");
                           }}
                         />
-                        <Share2 />
                       </div>
                     )}
                   </>
