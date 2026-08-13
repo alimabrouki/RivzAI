@@ -42,26 +42,26 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
       },
     });
 
-    const aiResponse = await ai.models.generateContent({
-      model: "gemini-3.1-flash-lite",
-      contents: newChatPrompt,
-    });
+    // const aiResponse = await ai.models.generateContent({
+    //   model: "gemini-3.1-flash-lite",
+    //   contents: newChatPrompt,
+    // });
 
-    if (!aiResponse.text) {
-      return res.status(400).json({
-        success: false,
-        error: "RivzAI is temporarily unvailable please try again in a moment",
-      });
-    }
+    // if (!aiResponse.text) {
+    //   return res.status(400).json({
+    //     success: false,
+    //     error: "RivzAI is temporarily unvailable please try again in a moment",
+    //   });
+    // }
 
-    await prisma.message.create({
-      data: {
-        chatId: chat.id,
-        content: aiResponse.text,
-        role: "ai",
-        animated: false,
-      },
-    });
+    // await prisma.message.create({
+    //   data: {
+    //     chatId: chat.id,
+    //     content: aiResponse.text,
+    //     role: "ai",
+    //     animated: false,
+    //   },
+    // });
 
     res.status(201).json(chat);
   } catch (error) {
@@ -274,4 +274,90 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
   }
 });
 
+chatsRouter.post("/:id/generate", async (req: Request, res: Response) => {
+  try {
+    const userId = req.user?.id;
+    const chatId = Number(req.params.id);
+
+    if (Number.isNaN(chatId)) {
+      return res.status(400).json({
+        success: false,
+        error: "Invalid chat id",
+      });
+    }
+
+    const chat = await prisma.chat.findFirst({
+      where: {
+        id: chatId,
+        userId,
+        messages: {
+          some: {
+            role: "user",
+          },
+          none: {
+            role: "ai",
+          },
+        },
+      },
+      include: {
+        messages: {
+          where: {
+            role: "user",
+          },
+          orderBy: {
+            createdAt: "asc",
+          },
+          take: 1,
+        },
+      },
+    });
+
+    if (!chat) {
+      return res.status(404).json({
+        success: false,
+        error: "Chat not found",
+      });
+    }
+
+    const userMessage = chat.messages[0];
+
+    if (!userMessage) {
+      return res.status(400).json({
+        success: false,
+        error: "Chat has no user message",
+      });
+    }
+
+    let fullText = "";
+    const stream = await ai.models.generateContentStream({
+      model: "gemini-3.1-flash-lite",
+      contents: userMessage.content,
+    });
+
+    for await (const chunk of stream) {
+      fullText += chunk.text;
+      res.write(chunk.text);
+    }
+
+    await prisma.message.create({
+      data: {
+        chatId,
+        content: fullText,
+        role: "ai",
+        animated: false,
+      },
+    });
+
+    res.end();
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(error.message);
+    }
+
+    return res.status(500).json({
+      success: false,
+      error: "Internal Server Error",
+    });
+  }
+});
 export default chatsRouter;
