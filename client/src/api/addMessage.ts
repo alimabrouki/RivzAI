@@ -22,10 +22,10 @@ async function addMessage(
   }
 
   const reader = response.body.getReader();
+  const decoder = new TextDecoder();
 
   while (true) {
     const { done, value } = await reader.read();
-    const decoder = new TextDecoder();
     if (done) break;
     const chunk = decoder.decode(value, { stream: true });
     onchunk(chunk);
