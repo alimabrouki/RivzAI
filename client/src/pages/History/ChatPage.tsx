@@ -11,6 +11,7 @@ import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 import deleteChat from "../../api/deleteChat";
 import updateMessage from "../../api/updateMessage";
+import generateFirstAiResponse from "../../api/generateFirstAiResponse";
 
 type ChatPageProps = {
   closeChat: () => void;
@@ -27,6 +28,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
+  const generationStarted = useRef(false);
 
   const handleTempUserMsg = (isTyping: string) => {
     const tempUserMsg = {
@@ -88,6 +90,24 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     }
     loadChat();
   }, [chatId]);
+
+  useEffect(() => {
+    if (!chat) return;
+    const hasUserMessage = chat.messages.some((m) => m.role === "user");
+    const hasAiMessage = chat.messages.some((m) => m.role === "ai");
+
+    if (!hasUserMessage || hasAiMessage) return;
+    if (generationStarted.current) return;
+    generationStarted.current = true;
+    async function generate() {
+      handleTempAiMsg();
+      setAiIsTyping(true);
+      await generateFirstAiResponse(Number(chatId), (chunk) => {
+        handleAiChunks(chunk);
+      });
+    }
+    generate();
+  }, [chat, chatId]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
