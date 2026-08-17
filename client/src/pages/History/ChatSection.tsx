@@ -1,13 +1,4 @@
-import {
-  Copy,
-  Download,
-  Share2,
-  ThumbsDown,
-  ThumbsUp,
-  Pencil,
-  Check,
-  X,
-} from "lucide-react";
+import { Copy, ThumbsDown, ThumbsUp, Pencil, Check, X } from "lucide-react";
 import "../../styles/history-page/ChatSection.css";
 import type { Message } from "../../types/Chat";
 import { useLayoutEffect, useRef, useState } from "react";
