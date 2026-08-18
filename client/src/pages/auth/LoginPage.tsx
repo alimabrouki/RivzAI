@@ -21,6 +21,7 @@ const SigninPage = () => {
   const isPasswordValid = password.length >= 8;
 
   const [showSessionExpired, setShowSessionExpired] = useState(false);
+  const [googleLoading, setGoogleLoading] = useState(false);
 
   useEffect(() => {
     if (sessionStorage.getItem("sessionExpired")) {
@@ -75,12 +76,18 @@ const SigninPage = () => {
       <title>Sign In</title>
       <div className="authPage">
         <form
-          className="authCard"
+          className={`authCard ${googleLoading ? "is-loading" : ""}`}
           onSubmit={(e) => {
             e.preventDefault();
             handleSignin();
           }}
         >
+          {googleLoading && (
+            <div className="authCardLoadingOverlay" aria-live="polite">
+              <Loader2 className="btn-spinner" />
+            </div>
+          )}
+
           {showSessionExpired && (
             <p className="session-expired-banner">
               Your session has expired. Please log in again.
@@ -92,7 +99,7 @@ const SigninPage = () => {
             Access Teacher Mode, save homework, and manage your account.
           </p>
 
-          <GoogleLoginButton />
+          <GoogleLoginButton onLoadingChange={setGoogleLoading} />
 
           <div className="authDivider">
             <span>or</span>

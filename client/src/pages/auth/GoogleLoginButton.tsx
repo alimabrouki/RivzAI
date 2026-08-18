@@ -3,11 +3,16 @@ import { API_BASE } from "../../api/signupUser";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate } from "react-router-dom";
 
-function GoogleLoginButton() {
+function GoogleLoginButton({
+  onLoadingChange,
+}: {
+  onLoadingChange?: (loading: boolean) => void;
+}) {
   const { login } = useAuth();
   const navigate = useNavigate();
   const handleSuccess = async (credentialResponse: CredentialResponse) => {
     if (!credentialResponse.credential) {
+      onLoadingChange?.(false);
       return {
         success: false,
         error: "no credential received",
@@ -24,6 +29,7 @@ function GoogleLoginButton() {
       const responseData = await response.json();
 
       if (!response.ok) {
+        onLoadingChange?.(false);
         return {
           success: false,
           error: responseData.error,
@@ -32,9 +38,11 @@ function GoogleLoginButton() {
 
       localStorage.setItem("token", responseData.appToken);
       login(responseData.user);
+      onLoadingChange?.(true);
       navigate("/");
       return responseData;
     } catch {
+      onLoadingChange?.(false);
       return {
         success: false,
         error: "network error",
