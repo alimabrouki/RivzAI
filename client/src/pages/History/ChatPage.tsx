@@ -83,12 +83,22 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
   };
 
   useEffect(() => {
+    let ignore = false;
     async function loadChat() {
       const chat = await openChat(Number(chatId));
+
+      if (ignore) return;
+
       setChat(chat);
       setMessages(chat.messages);
     }
+
     loadChat();
+    // this clean up will run immediatly after initial render because of React Strict Mode
+    // it will prevent the first render's state update so first ai message chunks below can update the state safely without loadChat overwrite the state update
+    return () => {
+      ignore = true;
+    };
   }, [chatId]);
 
   useEffect(() => {
