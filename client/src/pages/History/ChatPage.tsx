@@ -24,7 +24,8 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [isDeleted, setIsDeleted] = useState(false);
   const [aiIsTyping, setAiIsTyping] = useState(false);
-
+  const [error, setError] = useState("");
+  const [showError, setShowError] = useState(false);
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
@@ -82,6 +83,15 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
   };
 
+  const handleError = (error: string, state: boolean) => {
+    setError(error);
+    setShowError(state);
+  };
+
+  const handleAiIsTyping = (bool: boolean) => {
+    setAiIsTyping(bool);
+  };
+
   useEffect(() => {
     let ignore = false;
     async function loadChat() {
@@ -95,7 +105,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
     loadChat();
     // this clean up will run immediatly after initial render because of React Strict Mode
-    // it will prevent the first render's state update so first ai message chunks below can update the state safely without loadChat overwrite the state update
+    // it will prevent the first effect's state update so first ai message chunks below can update the state safely without loadChat overwrite the state update
     return () => {
       ignore = true;
     };
@@ -109,15 +119,32 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     if (!hasUserMessage || hasAiMessage) return;
     if (generationStarted.current) return;
     generationStarted.current = true;
-    async function generate() {
-      handleTempAiMsg();
-      setAiIsTyping(true);
-      await generateFirstAiResponse(Number(chatId), (chunk) => {
-        handleAiChunks(chunk);
-      });
+    try {
+      async function generate() {
+        handleTempAiMsg();
+        setAiIsTyping(true);
+        await generateFirstAiResponse(Number(chatId), (chunk) => {
+          handleAiChunks(chunk);
+        });
+      }
+      generate();
+    } catch {
+      setError("Something went wrong. Please try again.");
+      setShowError(true);
+    } finally {
+      setAiIsTyping(false);
     }
-    generate();
   }, [chat, chatId]);
+
+  useEffect(() => {
+    if (showError) {
+      const timer = setTimeout(() => {
+        setShowError(false);
+        setError("");
+      }, 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [showError]);
 
   useEffect(() => {
     const handler = (e: MouseEvent) => {
@@ -228,6 +255,10 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
             editMessage={editMessage}
           />
           <PromptSection
+            handleAiIsTyping={handleAiIsTyping}
+            showError={showError}
+            error={error}
+            handleError={handleError}
             handleTempUserMsg={handleTempUserMsg}
             handleTempAiMsg={handleTempAiMsg}
             handleAiChunks={handleAiChunks}

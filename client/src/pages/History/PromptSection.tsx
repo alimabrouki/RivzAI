@@ -1,10 +1,4 @@
-import {
-  useRef,
-  useState,
-  useEffect,
-  type ChangeEvent,
-  type KeyboardEvent,
-} from "react";
+import { useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { RecordAudio } from "../../features/input-output/RecordAudio";
 import { UploadFile } from "../../features/input-output/UploadFile";
@@ -17,28 +11,24 @@ type PromptSectionProps = {
   handleTempAiMsg: () => void;
   handleAiChunks: (chunk: string) => void;
   handleTempUserMsg: (isTyping: string) => void;
+  handleError: (error: string, state: boolean) => void;
+  showError: boolean;
+  error: string;
+  handleAiIsTyping: (bool: boolean) => void;
 };
 
 export const PromptSection = ({
   chatId,
   handleTempAiMsg,
+  handleError,
+  showError,
+  error,
+  handleAiIsTyping,
   handleAiChunks,
   handleTempUserMsg,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
-  const [error, setError] = useState("");
-  const [showError, setShowError] = useState(false);
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
-
-  useEffect(() => {
-    if (showError) {
-      const timer = setTimeout(() => {
-        setShowError(false);
-        setError("");
-      }, 3000);
-      return () => clearTimeout(timer);
-    }
-  }, [showError]);
 
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
 
@@ -60,8 +50,8 @@ export const PromptSection = ({
         handleAiChunks(chunk);
       });
     } catch {
-      setError("Something went wrong. Please try again.");
-      setShowError(true);
+      handleAiIsTyping(false);
+      handleError("Something went wrong. Please try again.", true);
     }
   };
 
