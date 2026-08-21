@@ -131,8 +131,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     } catch {
       setError("Something went wrong. Please try again.");
       setShowError(true);
-    } finally {
-      setAiIsTyping(false);
     }
   }, [chat, chatId]);
 

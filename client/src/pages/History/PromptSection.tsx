@@ -50,8 +50,9 @@ export const PromptSection = ({
         handleAiChunks(chunk);
       });
     } catch {
-      handleAiIsTyping(false);
       handleError("Something went wrong. Please try again.", true);
+    } finally {
+      handleAiIsTyping(false);
     }
   };
 
