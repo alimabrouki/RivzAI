@@ -50,6 +50,10 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     setMessages((prev) => [...prev, tempAiMsg]);
   };
 
+  const removeTempAiMsg = () => {
+    setMessages((prev) => [...prev.slice(0, -1)]);
+  };
+
   const handleAiChunks = (chunk: string) => {
     setMessages((prev) => {
       const lastMsg = prev.at(-1)!;
@@ -259,6 +263,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
             handleError={handleError}
             handleTempUserMsg={handleTempUserMsg}
             handleTempAiMsg={handleTempAiMsg}
+            removeTempAiMsg={removeTempAiMsg}
             handleAiChunks={handleAiChunks}
             chatId={Number(chatId)}
           />

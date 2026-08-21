@@ -15,6 +15,7 @@ type PromptSectionProps = {
   showError: boolean;
   error: string;
   handleAiIsTyping: (bool: boolean) => void;
+  removeTempAiMsg: () => void;
 };
 
 export const PromptSection = ({
@@ -26,6 +27,7 @@ export const PromptSection = ({
   handleAiIsTyping,
   handleAiChunks,
   handleTempUserMsg,
+  removeTempAiMsg,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
@@ -52,6 +54,7 @@ export const PromptSection = ({
     } catch {
       handleError("Something went wrong. Please try again.", true);
     } finally {
+      removeTempAiMsg();
       handleAiIsTyping(false);
     }
   };
