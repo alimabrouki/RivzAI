@@ -52,9 +52,9 @@ export const PromptSection = ({
         handleAiChunks(chunk);
       });
     } catch {
+      removeTempAiMsg();
       handleError("Something went wrong. Please try again.", true);
     } finally {
-      removeTempAiMsg();
       handleAiIsTyping(false);
     }
   };
