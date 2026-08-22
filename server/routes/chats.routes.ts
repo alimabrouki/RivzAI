@@ -2,6 +2,7 @@ import { Router } from "express";
 import prisma from "../lib/prisma";
 import { Request, Response } from "express";
 import { ai } from "../lib/gemini";
+import { Message } from "../../prisma/generated/client";
 
 const chatsRouter = Router();
 
@@ -196,11 +197,18 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
+function toGeminiHistory(messages: Message[]) {
+  return messages.map((message) => ({
+    role: message.role === "user" ? "user" : "model",
+    parts: [{ text: message.content }],
+  }));
+}
+
 chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
   try {
-    const id = Number(req.params.id);
+    const chatId = Number(req.params.id);
 
-    if (Number.isNaN(id)) {
+    if (Number.isNaN(chatId)) {
       return res.status(400).json({
         success: false,
         error: "Invalid chat id",
@@ -211,7 +219,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
 
     const chat = await prisma.chat.findFirst({
       where: {
-        id,
+        id: chatId,
         userId: req.user?.id,
       },
     });
@@ -224,7 +232,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
 
     await prisma.chat.update({
       where: {
-        id: id,
+        id: chatId,
       },
       data: {
         messages: {
@@ -240,11 +248,22 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
       },
     });
 
+    const messages = await prisma.message.findMany({
+      where: {
+        chatId,
+      },
+      orderBy: {
+        createdAt: "asc",
+      },
+    });
+
+    const history = toGeminiHistory(messages);
+
     let fullText = "";
 
     const stream = await ai.models.generateContentStream({
       model: "gemini-3.1-flash-lite",
-      contents: message,
+      contents: history,
     });
 
     for await (const chunk of stream) {
@@ -254,7 +273,7 @@ chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
 
     await prisma.message.create({
       data: {
-        chatId: id,
+        chatId,
         content: fullText,
         role: "ai",
         animated: false,
