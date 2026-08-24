@@ -1,5 +1,5 @@
 import "express";
-
+import "cors";
 export interface JWTPayload {
   id: number;
   email: string;
@@ -10,3 +10,5 @@ declare module "express" {
     user?: JWTPayload;
   }
 }
+
+declare module "cors" {}
