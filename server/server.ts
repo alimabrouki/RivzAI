@@ -8,13 +8,18 @@ import chatsRouter from "./routes/chats.routes";
 import messagesRouter from "./routes/messages.routes";
 const app = express();
 const PORT = process.env.PORT || 8080;
+const allowedOrigin =
+  process.env.NODE_ENV === "production"
+    ? process.env.CLIENT_URL
+    : "http://localhost:5173";
 
 app.use(express.json());
 
 app.use(
   cors({
-    origin: "http://localhost:5173",
+    origin: allowedOrigin,
     credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
   }),
 );
 
