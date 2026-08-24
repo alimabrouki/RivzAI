@@ -239,8 +239,10 @@ export const ChatSection = ({
                           />
                         ),
 
-                        code({ inline, children, ...props }) {
-                          return inline ? (
+                        code({ className, children, ...props }) {
+                          const isInline = !className;
+
+                          return isInline ? (
                             <code
                               className="rounded bg-slate-800 px-1.5 py-1 text-sm text-emerald-300 font-mono"
                               {...props}
