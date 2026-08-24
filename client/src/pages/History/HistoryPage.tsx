@@ -16,7 +16,6 @@ export const HistoryPage = () => {
   useEffect(() => {
     async function getChats() {
       const result = await getUserChats();
-      console.log(result);
       setChats(result);
       setLoading(false);
     }

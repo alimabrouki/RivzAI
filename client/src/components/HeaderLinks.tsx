@@ -42,8 +42,6 @@ export const HeaderLinks = () => {
         console.error(result.error);
         return;
       }
-
-      console.log(result);
     } catch (error) {
       console.error("failed to verify email:", error);
     }

@@ -56,7 +56,6 @@ export const RecentChat = () => {
     async function getChats() {
       if (user) {
         const result = await getUserChats();
-        console.log(result);
         setChats(result);
       }
     }

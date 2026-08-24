@@ -35,7 +35,6 @@ const ResetPasswordPage = () => {
 
     try {
       const result = await resetPassword({ token: token!, newPassword });
-      console.log(result);
       if (result.error) {
         setError(result.error);
         return;
@@ -139,7 +138,11 @@ const ResetPasswordPage = () => {
               !isPasswordValid || !doPasswordsMatch ? "disabled" : ""
             }`}
           >
-            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Reset Password"}
+            {isSubmitting ? (
+              <Loader2 className="btn-spinner" />
+            ) : (
+              "Reset Password"
+            )}
           </button>
 
           <p className="authSwitchText">Remember your password?</p>
