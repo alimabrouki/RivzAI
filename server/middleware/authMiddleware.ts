@@ -1,6 +1,6 @@
 import jwt from "jsonwebtoken";
-import { Request, Response, NextFunction } from "express";
-import { JWTPayload } from "../../global.ds";
+import type { Request, Response, NextFunction } from "express";
+import type { JWTPayload } from "../types/express";
 
 function authMiddleware(req: Request, res: Response, next: NextFunction) {
   const token = req.headers.authorization?.split(" ")[1];

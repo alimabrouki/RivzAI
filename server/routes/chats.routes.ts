@@ -1,8 +1,8 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 import { ai } from "../lib/gemini";
-import { Message } from "../../prisma/generated/client";
+import type { Message } from "../../prisma/generated/client";
 
 const chatsRouter = Router();
 

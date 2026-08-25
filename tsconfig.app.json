@@ -24,5 +24,8 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
-  "include": ["client/src"]
+  "include": [
+    "client/src",
+    "*.d.ts"
+, "server/types/express.d.ts"]
 }
