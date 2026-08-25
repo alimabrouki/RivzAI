@@ -7,11 +7,9 @@ import authMiddleware from "./middleware/authMiddleware";
 import chatsRouter from "./routes/chats.routes";
 import messagesRouter from "./routes/messages.routes";
 const app = express();
+
 const PORT = process.env.PORT || 8080;
-const allowedOrigin =
-  process.env.NODE_ENV === "production"
-    ? process.env.CLIENT_URL
-    : "http://localhost:5173";
+const allowedOrigin = process.env.CLIENT_URL || "http://localhost:5173";
 
 app.use(express.json());
 
@@ -23,14 +21,18 @@ app.use(
   }),
 );
 
-app.use("/auth", authRouter);
+// adapt Express server to netlify function
 
-app.use("/users", authMiddleware, userRouter);
+app.use("/api/auth", authRouter);
 
-app.use("/chats", authMiddleware, chatsRouter);
+app.use("/api/users", authMiddleware, userRouter);
 
-app.use("/messages", authMiddleware, messagesRouter);
+app.use("/api/chats", authMiddleware, chatsRouter);
+
+app.use("/api/messages", authMiddleware, messagesRouter);
 
 app.listen(PORT, () => {
   console.log(`server runing on port ${PORT}`);
 });
+
+export default app;
