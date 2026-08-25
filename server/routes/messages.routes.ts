@@ -1,6 +1,6 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
-import { Request, Response } from "express";
+import type { Request, Response } from "express";
 const messagesRouter = Router();
 
 messagesRouter.patch("/:id", async (req: Request, res: Response) => {

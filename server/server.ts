@@ -2,7 +2,6 @@ import "dotenv/config";
 import express from "express";
 import cors from "cors";
 import authRouter from "./routes/auth.routes";
-import userRouter from "./routes/user.routes";
 import authMiddleware from "./middleware/authMiddleware";
 import chatsRouter from "./routes/chats.routes";
 import messagesRouter from "./routes/messages.routes";
@@ -24,8 +23,6 @@ app.use(
 // adapt Express server to netlify function
 
 app.use("/api/auth", authRouter);
-
-app.use("/api/users", authMiddleware, userRouter);
 
 app.use("/api/chats", authMiddleware, chatsRouter);
 
