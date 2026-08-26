@@ -1,4 +1,10 @@
-import { useRef, useState, type ChangeEvent, type KeyboardEvent } from "react";
+import {
+  useEffect,
+  useRef,
+  useState,
+  type ChangeEvent,
+  type KeyboardEvent,
+} from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import { RecordAudio } from "../../features/input-output/RecordAudio";
 import { UploadFile } from "../../features/input-output/UploadFile";
@@ -33,6 +39,36 @@ export const PromptSection = ({
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
 
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+  useEffect(() => {
+    if (isMobile) return;
+
+    const handleGlobalTyping = (e: globalThis.KeyboardEvent) => {
+      const target = e.target as HTMLElement | null;
+      const isEditingControl =
+        target?.isContentEditable ||
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT";
+
+      if (
+        isEditingControl ||
+        e.key.length !== 1 ||
+        e.ctrlKey ||
+        e.metaKey ||
+        e.altKey
+      ) {
+        return;
+      }
+
+      e.preventDefault();
+      promptIn.current?.focus();
+      setIsTyping((current) => current + e.key);
+    };
+
+    document.addEventListener("keydown", handleGlobalTyping);
+    return () => document.removeEventListener("keydown", handleGlobalTyping);
+  }, [isMobile]);
 
   const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
     setIsTyping(e.target.value);

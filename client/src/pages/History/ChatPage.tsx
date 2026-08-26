@@ -176,7 +176,14 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
-      if (e.key === "Delete") {
+      const target = e.target as HTMLElement | null;
+      const isEditingControl =
+        target?.isContentEditable ||
+        target?.tagName === "INPUT" ||
+        target?.tagName === "TEXTAREA" ||
+        target?.tagName === "SELECT";
+
+      if (e.key === "Delete" && !isEditingControl) {
         setIsOpen(!isopen);
       }
     };
