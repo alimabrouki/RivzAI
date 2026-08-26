@@ -60,13 +60,27 @@
 
 .chat-page {
   position: relative;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.chat-page .wrapper {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
 }
 
 .chat-header {
   display: flex;
+  flex-shrink: 0;
   padding: 10px;
   align-items: center;
   border-bottom: 1px solid var(--c-neutral-600);
+}
+
+.chat-page .prompt-section {
+  flex-shrink: 0;
 }
 
 .math-icon {
@@ -200,8 +214,10 @@
 }
 
 .mistakes-alert {
+  align-self: stretch;
   text-align: center;
   margin: 7px 0px;
+  margin-top: auto;
   color: var(--c-neutral-200);
 }
 

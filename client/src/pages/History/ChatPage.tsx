@@ -267,9 +267,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
             handleAiChunks={handleAiChunks}
             chatId={Number(chatId)}
           />
-          <div className="mistakes-alert">
-            RivzAI can make mistakes. Check Responses.
-          </div>
         </div>
       </div>
     </>

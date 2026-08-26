@@ -313,8 +313,11 @@ export const ChatSection = ({
               </div>
             </div>
           )}
+          <div className="mistakes-alert">
+            RivzAI can make mistakes. Check Responses.
+          </div>
+          <div ref={lastMessage} className="dummy-msg"></div>
         </div>
-        <div ref={lastMessage} className="dummy-msg"></div>
       </div>
     </>
   );

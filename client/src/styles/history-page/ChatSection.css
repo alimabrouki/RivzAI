@@ -77,40 +77,43 @@ svg {
 }
 @import "tailwindcss";
 .chat-section {
-  height: 67vh;
-  overflow-y: auto;
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
   scroll-behavior: smooth;
 }
 
-@media (min-height: 700px) {
-  .chat-section {
-    height: 74vh;
-  }
+.chat-messages {
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  justify-content: flex-start;
 }
 
-.chat-section::-webkit-scrollbar {
+.chat-messages::-webkit-scrollbar {
   width: 10px;
 }
 
 @media (width <=700px) {
-  .chat-section::-webkit-scrollbar {
+  .chat-messages::-webkit-scrollbar {
     width: 4px;
   }
 }
 
-.chat-section::-webkit-scrollbar-track {
+.chat-messages::-webkit-scrollbar-track {
   background: transparent;
   margin: 6px 0px;
 }
 
-.chat-section::-webkit-scrollbar-thumb {
+.chat-messages::-webkit-scrollbar-thumb {
   background-clip: padding-box;
   background-color: var(--c-light-blue);
   border-radius: 12px;
   border: 1px solid transparent;
 }
 
-.chat-section::-webkit-scrollbar-thumb:hover {
+.chat-messages::-webkit-scrollbar-thumb:hover {
   background: var(--c-light-blue);
 }
 
