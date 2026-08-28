@@ -1,4 +1,4 @@
-export const API_BASE = "/api/";
+export const API_BASE = "api/";
 
 async function signupUser(data: {
   email: string;
