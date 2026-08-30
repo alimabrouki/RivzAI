@@ -110,7 +110,7 @@ authRouter.post("/signin", async (req, res) => {
         await prisma.user.update({
           where: { id: user.id },
           data: {
-            lockUntil: new Date(Date.now() + 1 * 60 * 1000),
+            lockUntil: new Date(Date.now() + 5 * 60 * 1000),
           },
         });
 
