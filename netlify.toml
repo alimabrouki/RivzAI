@@ -1,4 +1,4 @@
-[functions]
+[functions."*"]
   external_node_modules = ["express", "@prisma/client"]
   node_bundler = "esbuild"
 
