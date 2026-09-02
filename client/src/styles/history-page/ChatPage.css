@@ -87,6 +87,7 @@
 
 .chat-sidebar-mobile-trigger {
   display: none;
+  top: 8px;
 }
 
 .chat-page .prompt-section {
@@ -261,6 +262,7 @@
 
   .math-icon {
     width: 34px;
+    margin-left: 54px;
   }
 
   .chat-header .homework-title {

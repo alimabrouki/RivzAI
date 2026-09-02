@@ -73,6 +73,7 @@ export const ChatSection = ({
             alignItems: "flex-end",
             flexDirection: "column",
             margin: "20px 0",
+            padding: "0 5px",
           }}
           className="chat-messages"
         >
