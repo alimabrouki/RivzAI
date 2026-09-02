@@ -4,7 +4,7 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "build:functions": "esbuild netlify/functions/api.mjs --bundle --platform=node --format=esm --target=node20 --packages=bundle --outfile=dist/functions/api.mjs",
+    "build:functions": "esbuild netlify/functions/api.mjs --bundle --platform=node --format=esm --target=node20 --packages=external --outfile=dist/functions/api.mjs",
     "dev:client": "vite",
     "dev:server": "tsx watch server/server.ts",
     "dev": "concurrently \"npm run dev:client\" \"npm run dev:server\"",

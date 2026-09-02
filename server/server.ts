@@ -28,8 +28,10 @@ app.use("/api/chats", authMiddleware, chatsRouter);
 
 app.use("/api/messages", authMiddleware, messagesRouter);
 
-app.listen(PORT, () => {
-  console.log(`server runing on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`server runing on port ${PORT}`);
+  });
+}
 
 export default app;
