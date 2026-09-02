@@ -111,9 +111,10 @@ export const ChatSection = ({
                   </div>
                 ) : (
                   <>
-                    <ReactMarkdown
-                      remarkPlugins={[remarkGfm]}
-                      components={{
+                    <div className="chat-markdown">
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm]}
+                        components={{
                         h1: ({ children }) => (
                           <h1 className="text-4xl font-bold mt-8 mb-5 leading-tight">
                             {children}
@@ -260,10 +261,11 @@ export const ChatSection = ({
                             {children}
                           </pre>
                         ),
-                      }}
-                    >
-                      {prompt.content}
-                    </ReactMarkdown>
+                        }}
+                      >
+                        {prompt.content}
+                      </ReactMarkdown>
+                    </div>
 
                     {prompt.role === "user" && (
                       <div className="actions">
