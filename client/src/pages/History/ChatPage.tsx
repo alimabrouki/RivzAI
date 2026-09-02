@@ -4,20 +4,17 @@ import mathIcon from "../../assets/images/math-icon.svg";
 import logo from "../../assets/images/logo.png";
 import { PromptSection } from "./PromptSection";
 import { ChatSection } from "./ChatSection";
-import { BsFillArrowLeftCircleFill, BsFillTrash3Fill } from "react-icons/bs";
+import { BsFillTrash3Fill } from "react-icons/bs";
 import { useParams, useNavigate } from "react-router-dom";
-import { Loader2 } from "lucide-react";
+import { Loader2, PanelLeftOpen } from "lucide-react";
 import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 import deleteChat from "../../api/deleteChat";
 import updateMessage from "../../api/updateMessage";
 import generateFirstAiResponse from "../../api/generateFirstAiResponse";
+import { ChatSidebar } from "./ChatSidebar";
 
-type ChatPageProps = {
-  closeChat: () => void;
-};
-
-export const ChatPage = ({ closeChat }: ChatPageProps) => {
+export const ChatPage = () => {
   const [chat, setChat] = useState<Chat>();
   const [isopen, setIsOpen] = useState(false);
   const [messages, setMessages] = useState<Message[]>([]);
@@ -26,6 +23,8 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
   const [aiIsTyping, setAiIsTyping] = useState(false);
   const [error, setError] = useState("");
   const [showError, setShowError] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
@@ -96,8 +95,28 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
     setAiIsTyping(bool);
   };
 
+  const handleSidebarTrigger = () => {
+    if (window.matchMedia("(max-width: 800px)").matches) {
+      setIsSidebarOpen(true);
+      return;
+    }
+
+    setIsSidebarCollapsed((current) => !current);
+  };
+
+  const handleSidebarToggle = () => {
+    if (window.matchMedia("(max-width: 800px)").matches) {
+      setIsSidebarOpen(false);
+      return;
+    }
+
+    setIsSidebarCollapsed((current) => !current);
+  };
+
   useEffect(() => {
     let ignore = false;
+    generationStarted.current = false;
+
     async function loadChat() {
       const chat = await openChat(Number(chatId));
 
@@ -117,25 +136,27 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
   useEffect(() => {
     if (!chat) return;
+    if (chat.id !== Number(chatId)) return;
     const hasUserMessage = chat.messages.some((m) => m.role === "user");
     const hasAiMessage = chat.messages.some((m) => m.role === "ai");
 
     if (!hasUserMessage || hasAiMessage) return;
     if (generationStarted.current) return;
     generationStarted.current = true;
-    try {
-      async function generate() {
+    async function generate() {
+      try {
         handleTempAiMsg();
         setAiIsTyping(true);
         await generateFirstAiResponse(Number(chatId), (chunk) => {
           handleAiChunks(chunk);
         });
+      } catch {
+        setError("Something went wrong. Please try again.");
+        setShowError(true);
       }
-      generate();
-    } catch {
-      setError("Something went wrong. Please try again.");
-      setShowError(true);
     }
+
+    void generate();
   }, [chat, chatId]);
 
   useEffect(() => {
@@ -162,17 +183,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
 
     return () => document.removeEventListener("mousedown", handler);
   }, []);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") {
-        closeChat();
-      }
-    };
-    document.addEventListener("keydown", handleKeyDown);
-
-    return () => document.removeEventListener("keydown", handleKeyDown);
-  }, [closeChat]);
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => {
@@ -206,7 +216,42 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
       <title>Chat</title>
       <div className="chat-page">
         {isopen && <div className="backdrop"></div>}
-        <div className="wrapper">
+        {isSidebarOpen && (
+          <button
+            type="button"
+            className="chat-sidebar-backdrop"
+            onClick={() => setIsSidebarOpen(false)}
+            aria-label="Close chat list"
+          />
+        )}
+        {!isopen && isSidebarCollapsed && (
+          <button
+            type="button"
+            className="chat-sidebar-collapsed-trigger"
+            onClick={handleSidebarTrigger}
+            aria-label="Open chat list"
+          >
+            <PanelLeftOpen size={22} />
+          </button>
+        )}
+        {!isopen && !isSidebarOpen && (
+          <button
+            type="button"
+            className="chat-sidebar-mobile-trigger"
+            onClick={handleSidebarTrigger}
+            aria-label="Open chat list"
+          >
+            <PanelLeftOpen size={22} />
+          </button>
+        )}
+        <ChatSidebar
+          activeChatId={Number(chatId)}
+          isOpen={isSidebarOpen}
+          isCollapsed={isSidebarCollapsed}
+          onClose={() => setIsSidebarOpen(false)}
+          onToggle={handleSidebarToggle}
+        />
+        <main className="chat-workspace">
           <div className="chat-header">
             <img className="math-icon" src={mathIcon} alt="" />
             <div className="homework-title">{chat.title}</div>
@@ -214,10 +259,6 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
               <BsFillTrash3Fill
                 className="delete-btn"
                 onClick={() => setIsOpen(!isopen)}
-              />
-              <BsFillArrowLeftCircleFill
-                className="close-window"
-                onClick={closeChat}
               />
             </div>
             {isopen && (
@@ -274,7 +315,7 @@ export const ChatPage = ({ closeChat }: ChatPageProps) => {
             handleAiChunks={handleAiChunks}
             chatId={Number(chatId)}
           />
-        </div>
+        </main>
       </div>
     </>
   );

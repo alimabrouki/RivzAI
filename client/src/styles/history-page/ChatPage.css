@@ -36,35 +36,18 @@
   }
 }
 
-.chat-page .wrapper {
-  padding-inline: 20px;
-}
-
-@media (min-width: 701px) and (max-width: 900px) {
-  .chat-page .wrapper {
-    padding-inline: 60px;
-  }
-}
-
-@media (min-width: 901px) and (max-width: 1300px) {
-  .chat-page .wrapper {
-    padding-inline: 130px;
-  }
-}
-
-@media (min-width: 1301px) {
-  .chat-page .wrapper {
-    padding-inline: 200px;
-  }
-}
-
 .chat-page {
   position: relative;
+  display: flex;
   height: 100dvh;
   overflow: hidden;
 }
 
-.chat-page .wrapper {
+.chat-workspace {
+  flex: 1;
+  width: min(100%, 1280px);
+  margin: 0 auto;
+  padding-inline: clamp(72px, 10vw, 220px);
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -79,12 +62,47 @@
   border-bottom: 1px solid var(--c-neutral-600);
 }
 
+.chat-sidebar-collapsed-trigger,
+.chat-sidebar-mobile-trigger {
+  position: fixed;
+  z-index: 200;
+  top: 14px;
+  left: 14px;
+  display: flex;
+  width: auto;
+  padding: 8px;
+  color: var(--c-neutral-300);
+  background: var(--c-b-darker);
+  border: 1px solid rgb(174 174 183 / 28%);
+  border-radius: 9px;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 22%);
+  cursor: pointer;
+}
+
+.chat-sidebar-collapsed-trigger:hover,
+.chat-sidebar-mobile-trigger:hover {
+  color: var(--c-neutral-0);
+  background: rgb(255 255 255 / 8%);
+}
+
+.chat-sidebar-mobile-trigger {
+  display: none;
+}
+
 .chat-page .prompt-section {
   flex-shrink: 0;
 }
 
+@media (min-width: 801px) {
+  .chat-page .chat-section,
+  .chat-page .prompt-section {
+    width: min(100%, 900px);
+    align-self: center;
+  }
+}
+
 .math-icon {
-  width: 50px;
+  width: 42px;
 }
 
 .chat-header .homework-title {
@@ -204,6 +222,10 @@
   background: var(--c-bleu-bg);
 }
 
+.chat-sidebar-backdrop {
+  display: none;
+}
+
 .close-window {
   margin-left: auto;
   color: var(--c-neutral-300);
@@ -211,6 +233,49 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+}
+
+@media (width <= 800px) {
+  .chat-workspace {
+    padding-inline: 0;
+  }
+
+  .chat-sidebar-collapsed-trigger {
+    display: none;
+  }
+
+  .chat-sidebar-mobile-trigger {
+    display: flex;
+  }
+
+  .chat-sidebar-backdrop {
+    position: fixed;
+    z-index: 250;
+    inset: 0;
+    display: block;
+    width: 100%;
+    height: 100%;
+    background: rgb(0 0 20 / 60%);
+    cursor: pointer;
+  }
+
+  .math-icon {
+    width: 34px;
+  }
+
+  .chat-header .homework-title {
+    margin-left: 10px;
+  }
+
+  .chat-page .chat-section,
+  .chat-page .prompt-section {
+    width: 100%;
+    align-self: stretch;
+  }
+
+  .chat-page .prompt-section {
+    margin-inline: 0;
+  }
 }
 
 .mistakes-alert {

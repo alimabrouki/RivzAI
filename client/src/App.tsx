@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router";
+import { Route, Routes } from "react-router";
 import { HomePage } from "./pages/Home/HomePage";
 import { HistoryPage } from "./pages/History/HistoryPage";
 import { ChatPage } from "./pages/History/ChatPage";
@@ -13,17 +13,11 @@ import ComfirmVerifyEmailPage from "./pages/auth/ComfirmVerifyEmailPage";
 import { ProtectedRoutes } from "./components/ProtectedRoutes";
 
 export const App = () => {
-  const navigate = useNavigate();
-
   return (
     <Routes>
       <Route element={<ProtectedRoutes />}>
         <Route index path="/history" element={<HistoryPage />} />
-        <Route
-          index
-          path="/history/:chatId"
-          element={<ChatPage closeChat={() => navigate(-1)} />}
-        />
+        <Route index path="/history/:chatId" element={<ChatPage />} />
         <Route index path="/teacher-mode/" element={<TeacherMode />} />
       </Route>
 
