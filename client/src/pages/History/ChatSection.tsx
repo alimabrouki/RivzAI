@@ -79,6 +79,11 @@ export const ChatSection = ({
         >
           {messages.map((prompt) => {
             const isArabic = containsArabic(prompt.content);
+            const isTemporaryAiMessage =
+              prompt.role === "ai" && !prompt.content.trim();
+
+            if (isTemporaryAiMessage) return null;
+
             return (
               <div
                 dir="auto"
