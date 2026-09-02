@@ -1,6 +1,6 @@
 [functions."*"]
   external_node_modules = ["express", "@prisma/client"]
-  node_bundler = "none"
+  node_bundler = "esbuild"
 
 [[redirects]]
   from = "/api/*"
