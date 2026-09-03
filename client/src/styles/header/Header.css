@@ -119,6 +119,12 @@
   cursor: pointer;
 }
 
+@media (width <= 720px) {
+  .user-btn {
+    margin-left: 0px;
+  }
+}
+
 .user-icon {
   width: 25px;
   height: 25px;
