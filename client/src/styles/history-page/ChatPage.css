@@ -276,7 +276,9 @@
   }
 
   .chat-page .prompt-section {
-    margin-inline: 0;
+    width: calc(100% - 24px);
+    align-self: center;
+    margin-inline: 12px;
   }
 }
 
