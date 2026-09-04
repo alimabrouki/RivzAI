@@ -79,6 +79,13 @@ authRouter.post("/signin", async (req, res) => {
       });
     }
 
+    if (user.password === null) {
+      return res.status(401).json({
+        message:
+          "This account was created with Google. Please continue with Google.",
+      });
+    }
+
     const now = new Date();
     if (user.lockUntil && user.lockUntil < now) {
       await prisma.user.update({
