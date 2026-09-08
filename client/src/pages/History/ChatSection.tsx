@@ -5,6 +5,9 @@ import { useLayoutEffect, useRef, useState } from "react";
 import TextareaAutosize from "react-textarea-autosize";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 import aiResponseReaction from "../../api/aiResponseReaction";
 import { containsArabic } from "../../utils/containsArabic";
 
@@ -118,154 +121,155 @@ export const ChatSection = ({
                   <>
                     <div className="chat-markdown">
                       <ReactMarkdown
-                        remarkPlugins={[remarkGfm]}
+                        remarkPlugins={[remarkGfm, remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
                         components={{
-                        h1: ({ children }) => (
-                          <h1 className="text-4xl font-bold mt-8 mb-5 leading-tight">
-                            {children}
-                          </h1>
-                        ),
-
-                        h2: ({ children }) => (
-                          <h2 className="text-3xl font-semibold mt-7 mb-4 leading-tight">
-                            {children}
-                          </h2>
-                        ),
-
-                        h3: ({ children }) => (
-                          <h3 className="text-2xl font-semibold mt-6 mb-3 leading-snug">
-                            {children}
-                          </h3>
-                        ),
-
-                        h4: ({ children }) => (
-                          <h4 className="text-xl font-semibold mt-5 mb-2">
-                            {children}
-                          </h4>
-                        ),
-
-                        h5: ({ children }) => (
-                          <h5 className="text-lg font-semibold mt-4 mb-2">
-                            {children}
-                          </h5>
-                        ),
-
-                        h6: ({ children }) => (
-                          <h6 className="text-base font-semibold uppercase tracking-wide mt-4 mb-2 text-gray-400">
-                            {children}
-                          </h6>
-                        ),
-
-                        p: ({ children }) => (
-                          <p className="text-base leading-8 mb-4 text-gray-100">
-                            {children}
-                          </p>
-                        ),
-
-                        strong: ({ children }) => (
-                          <strong className="font-bold text-white">
-                            {children}
-                          </strong>
-                        ),
-
-                        em: ({ children }) => (
-                          <em className="italic">{children}</em>
-                        ),
-
-                        ul: ({ children }) => (
-                          <ul className="list-disc ps-6 my-4 space-y-2">
-                            {children}
-                          </ul>
-                        ),
-
-                        ol: ({ children }) => (
-                          <ol className="list-decimal ps-6 my-4 space-y-2">
-                            {children}
-                          </ol>
-                        ),
-
-                        li: ({ children }) => (
-                          <li className="text-base leading-8 text-gray-100">
-                            {children}
-                          </li>
-                        ),
-
-                        hr: () => <hr className="my-8 border-slate-700" />,
-
-                        blockquote: ({ children }) => (
-                          <blockquote className="border-s-4 border-sky-500 bg-slate-900/40 ps-4 py-2 italic my-5 text-gray-300">
-                            {children}
-                          </blockquote>
-                        ),
-
-                        a: ({ ...props }) => (
-                          <a
-                            {...props}
-                            className="text-sky-400 hover:text-sky-300 underline break-all"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                          />
-                        ),
-
-                        table: ({ children }) => (
-                          <div className="overflow-x-auto my-6">
-                            <table className="min-w-full border border-slate-700">
+                          h1: ({ children }) => (
+                            <h1 className="text-4xl font-bold mt-8 mb-5 leading-tight">
                               {children}
-                            </table>
-                          </div>
-                        ),
+                            </h1>
+                          ),
 
-                        thead: ({ children }) => (
-                          <thead className="bg-slate-800">{children}</thead>
-                        ),
+                          h2: ({ children }) => (
+                            <h2 className="text-3xl font-semibold mt-7 mb-4 leading-tight">
+                              {children}
+                            </h2>
+                          ),
 
-                        tbody: ({ children }) => <tbody>{children}</tbody>,
+                          h3: ({ children }) => (
+                            <h3 className="text-2xl font-semibold mt-6 mb-3 leading-snug">
+                              {children}
+                            </h3>
+                          ),
 
-                        tr: ({ children }) => (
-                          <tr className="border-b border-slate-700">
-                            {children}
-                          </tr>
-                        ),
+                          h4: ({ children }) => (
+                            <h4 className="text-xl font-semibold mt-5 mb-2">
+                              {children}
+                            </h4>
+                          ),
 
-                        th: ({ children }) => (
-                          <th className="border border-slate-700 px-4 py-2 text-start font-semibold">
-                            {children}
-                          </th>
-                        ),
+                          h5: ({ children }) => (
+                            <h5 className="text-lg font-semibold mt-4 mb-2">
+                              {children}
+                            </h5>
+                          ),
 
-                        td: ({ children }) => (
-                          <td className="border border-slate-700 px-4 py-2 align-top">
-                            {children}
-                          </td>
-                        ),
+                          h6: ({ children }) => (
+                            <h6 className="text-base font-semibold uppercase tracking-wide mt-4 mb-2 text-gray-400">
+                              {children}
+                            </h6>
+                          ),
 
-                        img: ({ ...props }) => (
-                          <img
-                            {...props}
-                            className="rounded-lg my-6 max-w-full h-auto"
-                          />
-                        ),
+                          p: ({ children }) => (
+                            <p className="text-base leading-8 mb-4 text-gray-100">
+                              {children}
+                            </p>
+                          ),
 
-                        code({ className, children, ...props }) {
-                          const isInline = !className;
+                          strong: ({ children }) => (
+                            <strong className="font-bold text-white">
+                              {children}
+                            </strong>
+                          ),
 
-                          return isInline ? (
-                            <code
-                              className="rounded bg-slate-800 px-1.5 py-1 text-sm text-emerald-300 font-mono"
+                          em: ({ children }) => (
+                            <em className="italic">{children}</em>
+                          ),
+
+                          ul: ({ children }) => (
+                            <ul className="list-disc ps-6 my-4 space-y-2">
+                              {children}
+                            </ul>
+                          ),
+
+                          ol: ({ children }) => (
+                            <ol className="list-decimal ps-6 my-4 space-y-2">
+                              {children}
+                            </ol>
+                          ),
+
+                          li: ({ children }) => (
+                            <li className="text-base leading-8 text-gray-100">
+                              {children}
+                            </li>
+                          ),
+
+                          hr: () => <hr className="my-8 border-slate-700" />,
+
+                          blockquote: ({ children }) => (
+                            <blockquote className="border-s-4 border-sky-500 bg-slate-900/40 ps-4 py-2 italic my-5 text-gray-300">
+                              {children}
+                            </blockquote>
+                          ),
+
+                          a: ({ ...props }) => (
+                            <a
                               {...props}
-                            >
-                              {children}
-                            </code>
-                          ) : (
-                            <code {...props}>{children}</code>
-                          );
-                        },
+                              className="text-sky-400 hover:text-sky-300 underline break-all"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                            />
+                          ),
 
-                        pre: ({ children }) => (
-                          <pre className="bg-slate-900 border border-slate-700 rounded-lg p-4 overflow-x-auto my-6">
-                            {children}
-                          </pre>
-                        ),
+                          table: ({ children }) => (
+                            <div className="overflow-x-auto my-6">
+                              <table className="min-w-full border border-slate-700">
+                                {children}
+                              </table>
+                            </div>
+                          ),
+
+                          thead: ({ children }) => (
+                            <thead className="bg-slate-800">{children}</thead>
+                          ),
+
+                          tbody: ({ children }) => <tbody>{children}</tbody>,
+
+                          tr: ({ children }) => (
+                            <tr className="border-b border-slate-700">
+                              {children}
+                            </tr>
+                          ),
+
+                          th: ({ children }) => (
+                            <th className="border border-slate-700 px-4 py-2 text-start font-semibold">
+                              {children}
+                            </th>
+                          ),
+
+                          td: ({ children }) => (
+                            <td className="border border-slate-700 px-4 py-2 align-top">
+                              {children}
+                            </td>
+                          ),
+
+                          img: ({ ...props }) => (
+                            <img
+                              {...props}
+                              className="rounded-lg my-6 max-w-full h-auto"
+                            />
+                          ),
+
+                          code({ className, children, ...props }) {
+                            const isInline = !className;
+
+                            return isInline ? (
+                              <code
+                                className="rounded bg-slate-800 px-1.5 py-1 text-sm text-emerald-300 font-mono"
+                                {...props}
+                              >
+                                {children}
+                              </code>
+                            ) : (
+                              <code {...props}>{children}</code>
+                            );
+                          },
+
+                          pre: ({ children }) => (
+                            <pre className="bg-slate-900 border border-slate-700 rounded-lg p-4 overflow-x-auto my-6">
+                              {children}
+                            </pre>
+                          ),
                         }}
                       >
                         {prompt.content}
