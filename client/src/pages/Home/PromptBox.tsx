@@ -98,11 +98,6 @@ export const PromptBox = () => {
           className={`prompt-input${showWarning ? " prompt-input-warning" : ""}`}
           placeholder="Put your homework here, and let's break it down together..."
         />
-        <div className="formatted-prompts">
-          <span>"Solve this problem"</span>
-          <span>"Explain this chapter"</span>
-          <span>"Correct my answer"</span>
-        </div>
       </div>
       <div className="inputs">
         <div className="input-output">

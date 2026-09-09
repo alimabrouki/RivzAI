@@ -8,6 +8,7 @@
   animation: slideInFromBottom 1s ease-out forwards;
   position: relative;
   display: flex;
+  width: min(100%, 750px);
   gap: 20px;
   padding: 20px;
 }
@@ -169,44 +170,6 @@
     opacity: 1;
     transform: translateX(-50%) translateY(0);
   }
-}
-
-/* --- Formatted Prompts --- */
-
-.formatted-prompts {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-
-@media (width <= 700px) {
-  .formatted-prompts {
-    display: none;
-  }
-}
-
-.formatted-prompts span {
-  background: linear-gradient(41deg, rgb(6 86 172 / 47%) 59%, rgb(0 0 53) 99%);
-  padding: 13px 4px;
-  border-radius: 8px;
-  font-size: var(--fs-18);
-  color: var(--c-neutral-200);
-  cursor: pointer;
-  backdrop-filter: blur(10px);
-  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
-  font-family: monospace;
-  transition: 0.2s ease;
-  text-align: center;
-}
-
-@media (width >= 900px) {
-  .formatted-prompts span {
-    padding: 13px 36px;
-  }
-}
-
-.formatted-prompts span:hover {
-  transform: translateY(-3px);
 }
 
 /* --- Controls Area --- */
