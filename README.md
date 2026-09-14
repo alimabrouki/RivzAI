@@ -4,7 +4,7 @@ RivzAI is an AI-powered educational chat platform designed to help Tunisian Bacc
 
 ## Live Demo
 
-🔗 **Demo:** [https://rivzai.netlify.app/](https://rivzai.netlify.app/)
+🔗 **Demo:** [https://rivzai.tn/](https://rivzai.tn/)
 
 ### Desktop View
 
