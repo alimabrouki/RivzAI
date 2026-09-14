@@ -21,7 +21,7 @@ async function updateMessage(msgId: number, newContent: string) {
   } catch {
     return {
       success: false,
-      error: "Network Error",
+      error: "Updating message failed please try again.",
     };
   }
 }

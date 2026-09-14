@@ -13,6 +13,7 @@ import deleteChat from "../../api/deleteChat";
 import updateMessage from "../../api/updateMessage";
 import generateFirstAiResponse from "../../api/generateFirstAiResponse";
 import { ChatSidebar } from "./ChatSidebar";
+import updateAiResponse from "../../api/updateAiResponse";
 
 export const ChatPage = () => {
   const [chat, setChat] = useState<Chat>();
@@ -80,10 +81,40 @@ export const ChatPage = () => {
     );
   };
 
-  const editMessage = async (msgId: number, newContent: string) => {
-    const newMessage = await updateMessage(msgId, newContent);
+  const loadChat = async () => {
+    const chat = await openChat(Number(chatId));
+    setChat(chat);
+    setMessages(chat.messages);
+  };
 
-    setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
+  const editMessage = async (msgId: number, newContent: string) => {
+    try {
+      const newMessage = await updateMessage(msgId, newContent);
+
+      setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
+
+      const relatedAIMsgId = newMessage.id + 1;
+
+      setMessages((prev) => prev.filter((msg) => msg.id !== relatedAIMsgId));
+
+      handleAiIsTyping(true);
+
+      handleTempAiMsg();
+
+      await updateAiResponse(
+        Number(chatId),
+        relatedAIMsgId,
+        newContent,
+        (chunk) => {
+          handleAiChunks(chunk);
+        },
+      );
+    } catch {
+      removeTempAiMsg();
+      handleError("Something went wrong. Please try again.", true);
+    } finally {
+      handleAiIsTyping(false);
+    }
   };
 
   const handleError = (error: string, state: boolean) => {
@@ -314,6 +345,7 @@ export const ChatPage = () => {
             removeTempAiMsg={removeTempAiMsg}
             handleAiChunks={handleAiChunks}
             chatId={Number(chatId)}
+            loadChat={loadChat}
           />
         </main>
       </div>

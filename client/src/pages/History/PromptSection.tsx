@@ -22,6 +22,7 @@ type PromptSectionProps = {
   error: string;
   handleAiIsTyping: (bool: boolean) => void;
   removeTempAiMsg: () => void;
+  loadChat: () => Promise<void>;
 };
 
 export const PromptSection = ({
@@ -34,6 +35,7 @@ export const PromptSection = ({
   handleAiChunks,
   handleTempUserMsg,
   removeTempAiMsg,
+  loadChat,
 }: PromptSectionProps) => {
   const [isTyping, setIsTyping] = useState("");
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
@@ -87,6 +89,7 @@ export const PromptSection = ({
       await addMessage(chatId, isTyping, (chunk) => {
         handleAiChunks(chunk);
       });
+      loadChat();
     } catch {
       removeTempAiMsg();
       handleError("Something went wrong. Please try again.", true);
