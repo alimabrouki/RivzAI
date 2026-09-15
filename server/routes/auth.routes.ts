@@ -219,17 +219,17 @@ authRouter.post("/forgot-password", async (req, res) => {
       },
     });
 
-    const resetURL = `http://localhost:5173/auth/reset-password/${rawToken}`;
+    const resetURL = `http://rivzai.tn/auth/reset-password/${rawToken}`;
 
     const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
     await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+      from: "Acme <onboarding@rivzai.tn>",
       to: email,
       subject: "Password Reset",
       html: `
     <a href="${resetURL}">
-      Reset Password
+      Click me to reset your password
     </a>
   `,
     });
@@ -364,17 +364,17 @@ authRouter.post("/verify-email", async (req, res) => {
       },
     });
 
-    const verifyURL = `http://localhost:5173/auth/verify-email/${rawToken}`;
+    const verifyURL = `http://rivzai.tn/auth/verify-email/${rawToken}`;
 
     const resend = new Resend(`${process.env.RESEND_API_KEY}`);
 
     await resend.emails.send({
-      from: "Acme <onboarding@resend.dev>",
+      from: "Acme <onboarding@rivzai.tn>",
       to: email,
       subject: "Verify Email",
       html: `
     <a href="${verifyURL}">
-      Verify Email
+     Click me to  verify your email
     </a>
   `,
     });
