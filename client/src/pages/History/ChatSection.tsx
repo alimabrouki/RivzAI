@@ -83,7 +83,7 @@ export const ChatSection = ({
           {messages.map((prompt) => {
             const isArabic = containsArabic(prompt.content);
             const isTemporaryAiMessage =
-              prompt.role === "ai" && !prompt.content.trim();
+              prompt.role === "model" && !prompt.content.trim();
 
             if (isTemporaryAiMessage) return null;
 
@@ -282,7 +282,7 @@ export const ChatSection = ({
                         <CopyButton id={prompt.id} content={prompt.content} />
                       </div>
                     )}
-                    {prompt.role === "ai" && !aiIsTyping && (
+                    {prompt.role === "model" && !aiIsTyping && (
                       <div className="actions">
                         <CopyButton id={prompt.id} content={prompt.content} />
                         <ThumbsUp
