@@ -1,16 +1,18 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
 import { API_BASE } from "./signupUser";
+import type { Message } from "../types/Chat";
 
 async function updateAiResponse(
   chatId: number,
   msgId: number,
-  userMessage: string,
+  updatedMsg: string,
+  chatHistory: Message[],
   onchunck: (chunk: string) => void,
 ): Promise<void> {
   const response = await fetch(`${API_BASE}messages/${msgId}`, {
     method: "POST",
     headers: getAuthHeaders(),
-    body: JSON.stringify({ userMessage, chatId }),
+    body: JSON.stringify({ updatedMsg, chatId, chatHistory }),
   });
 
   if (!response.ok) {

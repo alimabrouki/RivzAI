@@ -10,7 +10,6 @@ import { Loader2, PanelLeftOpen } from "lucide-react";
 import type { Chat, Message } from "../../types/Chat";
 import openChat from "../../api/openChat";
 import deleteChat from "../../api/deleteChat";
-import updateMessage from "../../api/updateMessage";
 import generateFirstAiResponse from "../../api/generateFirstAiResponse";
 import { ChatSidebar } from "./ChatSidebar";
 import updateAiResponse from "../../api/updateAiResponse";
@@ -45,7 +44,7 @@ export const ChatPage = () => {
     const tempAiMsg = {
       id: Math.floor(performance.now() * 1000) + 1,
       content: "",
-      role: "ai",
+      role: "model",
     };
     setMessages((prev) => [...prev, tempAiMsg]);
   };
@@ -87,15 +86,20 @@ export const ChatPage = () => {
     setMessages(chat.messages);
   };
 
-  const editMessage = async (msgId: number, newContent: string) => {
+  const editMessage = async (msgId: number, updatedMsg: string) => {
     try {
-      const newMessage = await updateMessage(msgId, newContent);
+      const index = messages.findIndex((m) => m.id === msgId);
 
-      setMessages((prev) => prev.map((m) => (m.id === msgId ? newMessage : m)));
+      if (index === -1) return;
 
-      const relatedAIMsgId = newMessage.id + 1;
+      const updatedUserMsg = {
+        ...messages[index],
+        content: updatedMsg,
+      };
 
-      setMessages((prev) => prev.filter((msg) => msg.id !== relatedAIMsgId));
+      const chatHistory = [...messages.slice(0, index), updatedUserMsg];
+
+      setMessages(chatHistory);
 
       handleAiIsTyping(true);
 
@@ -103,12 +107,14 @@ export const ChatPage = () => {
 
       await updateAiResponse(
         Number(chatId),
-        relatedAIMsgId,
-        newContent,
+        msgId,
+        updatedMsg,
+        chatHistory,
         (chunk) => {
           handleAiChunks(chunk);
         },
       );
+      loadChat();
     } catch {
       removeTempAiMsg();
       handleError("Something went wrong. Please try again.", true);
@@ -169,7 +175,7 @@ export const ChatPage = () => {
     if (!chat) return;
     if (chat.id !== Number(chatId)) return;
     const hasUserMessage = chat.messages.some((m) => m.role === "user");
-    const hasAiMessage = chat.messages.some((m) => m.role === "ai");
+    const hasAiMessage = chat.messages.some((m) => m.role === "model");
 
     if (!hasUserMessage || hasAiMessage) return;
     if (generationStarted.current) return;
