@@ -15,7 +15,7 @@ messagesRouter.patch("/:id", async (req: Request, res: Response) => {
         error: "Invalid message id",
       });
     }
-    const { newContent, animated, reaction } = req.body;
+    const { animated, reaction } = req.body;
     const reactionType = await prisma.message.findUnique({
       where: {
         id,
@@ -30,7 +30,6 @@ messagesRouter.patch("/:id", async (req: Request, res: Response) => {
         id,
       },
       data: {
-        content: newContent,
         animated: animated,
         reaction: reaction === reactionType?.reaction ? null : reaction,
       },
@@ -60,7 +59,7 @@ messagesRouter.post("/:id", async (req: Request, res: Response) => {
   try {
     const msgId = Number(req.params.id);
 
-    const { chatId } = req.body;
+    const { updatedMsg, chatId, chatHistory } = req.body;
 
     if (!msgId) {
       return res.status(404).json({
@@ -68,18 +67,27 @@ messagesRouter.post("/:id", async (req: Request, res: Response) => {
       });
     }
 
-    const messages = await prisma.message.findMany({
+    const updatedUserMsg = await prisma.message.update({
+      where: {
+        id: msgId,
+      },
+      data: {
+        content: updatedMsg,
+      },
+    });
+
+    await prisma.message.deleteMany({
       where: {
         chatId,
-      },
-      orderBy: {
-        createdAt: "asc",
+        createdAt: {
+          gt: updatedUserMsg.createdAt,
+        },
       },
     });
 
     let fullModelResponse = "";
 
-    const history = toGeminiHistory(messages);
+    const history = toGeminiHistory(chatHistory);
 
     const stream = await ai.models.generateContentStream({
       model: "gemini-3.1-flash-lite",
@@ -91,19 +99,12 @@ messagesRouter.post("/:id", async (req: Request, res: Response) => {
       res.write(chunk.text);
     }
 
-    await prisma.message.upsert({
-      create: {
+    await prisma.message.create({
+      data: {
+        chatId,
         content: fullModelResponse,
-        role: "ai",
+        role: "model",
         animated: false,
-        reaction: null,
-        chatId: chatId,
-      },
-      update: {
-        content: fullModelResponse,
-      },
-      where: {
-        id: msgId,
       },
     });
 
