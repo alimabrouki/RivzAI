@@ -2,7 +2,7 @@ import { memo, useState } from "react";
 import { getRelativeTime } from "../../utils/getRelativeTime";
 import { differenceInDays } from "date-fns";
 import "../../styles/history-page/HomeworkCards.css";
-import { MoveRight, Loader2 } from "lucide-react";
+import { MoveRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import type { Chat } from "../../types/Chat";
 
@@ -79,8 +79,23 @@ export const ChatCards = memo(({ chats, loading }: ChatsProps) => {
 
   if (loading) {
     return (
-      <div className="chat-loading">
-        <Loader2 className="chat-loading-spinner" />
+      <div
+        style={{ marginTop: "80px" }}
+        className="homework-cards animate-pulse"
+        role="status"
+        aria-label="Loading chats"
+      >
+        {Array.from({ length: 3 }, (_, index) => (
+          <div
+            className="homework-card homework-card-skeleton"
+            key={index}
+            aria-hidden="true"
+          >
+            <span className="skeleton-line skeleton-title" />
+            <span className="skeleton-line skeleton-prompt" />
+            <span className="skeleton-line skeleton-details" />
+          </div>
+        ))}
       </div>
     );
   }
