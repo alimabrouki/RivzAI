@@ -63,7 +63,9 @@
   gap: 10px;
   color: var(--c-neutral-0);
   border-radius: 10px;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
 }
 
 .new-chat-button {
@@ -115,7 +117,10 @@
   border-radius: 9px;
   font-size: 0.9rem;
   line-height: 1.35;
-  transition: background-color 0.18s ease, border-color 0.18s ease, color 0.18s ease;
+  transition:
+    background-color 0.18s ease,
+    border-color 0.18s ease,
+    color 0.18s ease;
 }
 
 .chat-sidebar-item + .chat-sidebar-item {
@@ -136,7 +141,11 @@
 
 .chat-sidebar-item.is-active {
   color: var(--c-neutral-0);
-  background: linear-gradient(90deg, rgb(245 155 0 / 20%), rgb(255 255 255 / 7%));
+  background: linear-gradient(
+    90deg,
+    rgb(245 155 0 / 20%),
+    rgb(255 255 255 / 7%)
+  );
   border-color: rgb(245 155 0 / 30%);
 }
 
@@ -147,9 +156,28 @@
   font-size: 0.86rem;
   line-height: 1.45;
 }
+.chat-card.animate-pulse {
+  animation: history-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
 
-.chat-sidebar-loading svg {
-  animation: chat-sidebar-spin 0.7s linear infinite;
+@keyframes history-pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+
+.chat-card-skeleton {
+  cursor: default;
+  height: 120px;
+}
+
+.chat-card-skeleton-line {
+  display: block;
+  height: 40px;
+  width: 100%;
+  border-radius: 6px;
+  background-color: #2e2e5d69;
+  margin-top: 5px;
 }
 
 .chat-sidebar-history {
@@ -191,5 +219,4 @@
   .chat-sidebar.is-collapsed {
     margin-left: 0;
   }
-
 }

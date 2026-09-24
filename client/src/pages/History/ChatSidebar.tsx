@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { History, Loader2, MessageSquarePlus, PanelLeftClose } from "lucide-react";
+import { History, MessageSquarePlus, PanelLeftClose } from "lucide-react";
 import type { Chat } from "../../types/Chat";
 import getUserChats from "../../api/getUserChats";
 import logo from "../../assets/images/logo.png";
@@ -75,8 +75,20 @@ export const ChatSidebar = ({
       <div className="chat-sidebar-list" aria-label="Your conversations">
         <p className="chat-sidebar-label">Your chats</p>
         {loading ? (
-          <div className="chat-sidebar-loading">
-            <Loader2 size={20} />
+          <div className="chat-card animate-pulse">
+            <div className="chat-card-skeleton">
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+              <span className="chat-card-skeleton-line"></span>
+            </div>
           </div>
         ) : chats.length ? (
           chats.map((item) => (
