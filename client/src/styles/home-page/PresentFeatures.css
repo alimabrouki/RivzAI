@@ -1,9 +1,5 @@
-:root {
-  --c-green: oklch(0.72 0.22 149.58);
-  --c-dark-orange: #ff8216;
-}
-
 .present-features {
+  --c-green: oklch(0.72 0.22 149.58);
   display: flex;
   justify-content: center;
   flex-direction: column;
