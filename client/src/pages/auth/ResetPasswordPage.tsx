@@ -1,4 +1,4 @@
-import "../../styles/Auth/ResetPasswordPage.css";
+import "../../styles/Auth/AuthPage.css";
 import { BsEye, BsEyeSlash } from "react-icons/bs";
 import { Loader2 } from "lucide-react";
 import logo from "../../assets/images/logo.png";

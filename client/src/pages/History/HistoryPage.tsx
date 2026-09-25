@@ -1,5 +1,3 @@
-import "../../styles/index.css";
-import "../../styles/header/Header.css";
 import "../../styles/history-page/HistoryPage.css";
 import { Header } from "../../components/Header";
 import { ChatCards } from "./ChatCards";

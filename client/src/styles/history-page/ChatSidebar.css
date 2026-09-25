@@ -149,7 +149,6 @@
   border-color: rgb(245 155 0 / 30%);
 }
 
-.chat-sidebar-loading,
 .chat-sidebar-empty {
   padding: 16px 9px;
   color: var(--c-neutral-300);
@@ -158,12 +157,6 @@
 }
 .chat-card.animate-pulse {
   animation: history-pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-}
-
-@keyframes history-pulse {
-  50% {
-    opacity: 0.5;
-  }
 }
 
 .chat-card-skeleton {
@@ -190,12 +183,6 @@
 .chat-sidebar-history:hover {
   color: var(--c-neutral-0);
   background: rgb(255 255 255 / 7%);
-}
-
-@keyframes chat-sidebar-spin {
-  to {
-    transform: rotate(360deg);
-  }
 }
 
 @media (width <= 800px) {

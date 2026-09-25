@@ -1,4 +1,3 @@
-import '../styles/index.css'
 import '../styles/header/Header.css'
 import {HeaderLinks} from './HeaderLinks'
 

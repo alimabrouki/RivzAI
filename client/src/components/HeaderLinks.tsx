@@ -1,5 +1,3 @@
-import "../styles/index.css";
-import "../styles/header/Header.css";
 import { FaUserCircle, FaCheckCircle } from "react-icons/fa";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useState, useRef, useEffect } from "react";

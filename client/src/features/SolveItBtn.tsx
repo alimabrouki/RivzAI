@@ -1,6 +1,3 @@
-import "../styles/index.css";
-import "../styles/header/Header.css";
-import "../styles/home-page/HomePage.css";
 import { useRef, useState, type MouseEvent } from "react";
 
 type SolveItBtnProps = {

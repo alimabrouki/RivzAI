@@ -1,5 +1,3 @@
-import "../../styles/index.css";
-import "../../styles/header/Header.css";
 import "../../styles/home-page/HomePage.css";
 import { Header } from "../../components/Header";
 import { HomePageWrapper } from "./HomePageWrapper";

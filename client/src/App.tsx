@@ -2,7 +2,6 @@ import { Route, Routes } from "react-router";
 import { HomePage } from "./pages/Home/HomePage";
 import { HistoryPage } from "./pages/History/HistoryPage";
 import { ChatPage } from "./pages/History/ChatPage";
-import "./styles/index.css";
 import TeacherMode from "./pages/teacher-mode/TeacherMode";
 import SigninPage from "./pages/auth/LoginPage";
 import SignupPage from "./pages/auth/SignupPage";

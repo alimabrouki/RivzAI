@@ -1,35 +1,3 @@
-@layer root {
-  :root {
-    --c-orange: hsl(38, 100%, 48%);
-    --c-dark-blue: hsl(220, 72%, 22%);
-    --c-b-darker: hsl(240deg 100% 10.31% / 89%);
-    --c-bleu-bg: hsl(240deg 100% 10% / 64%);
-    --c-light-blue: hsl(211, 93%, 35%);
-    --c-lighter-blue: hsl(190, 88%, 52%);
-    --c-neutral-0: hsl(0, 0%, 100%);
-    --c-neutral-600: hsl(243, 23%, 30%);
-    --c-neutral-300: #aeaeb7;
-    --c-neutral-200: hsl(252, 6%, 84%);
-
-    --c-text-light: var(--c-neutral-0);
-    --c-header-bg: linear-gradient(23deg, var(--c-dark-blue), var(--c-b-darker), var(--c-light-blue), var(--c-lighter-blue));
-    --c-main-bg: var(--c-dark-blue);
-    --c-second-bg: var(--c-b-darker);
-
-    --main-bx-shdw: 0 4px 30px rgb(0 0 0 / 34%);
-    --input-bx-shdw: 0 4px 30px rgb(0 0 0 / 20%);
-
-    --fs-96: calc(96 / 16 * 1rem);
-    --fs-52: calc(52 / 16 * 1rem);
-    --fs-32: calc(32 / 16 * 1rem);
-    --fs-28: calc(28 / 16 * 1rem);
-    --fs-20: calc(20 / 16 * 1rem);
-    --fs-18: calc(18 / 16 * 1rem);
-    --fs-16: calc(16 / 16 * 1rem);
-    --fs-14: calc(14 / 16 * 1rem);
-  }
-}
-
 .home-page {
   background: radial-gradient(at 10% 20%, hsla(220, 72%, 22%, 1) 0%, transparent 50%), radial-gradient(at 80% 0%, hsla(35, 100%, 30%, 0.3) 0%, transparent 50%), radial-gradient(at 0% 100%, hsla(220, 72%, 18%, 1) 0%, transparent 50%), radial-gradient(at 100% 100%, hsl(35deg 100% 48% / 24%) 0%, transparent 50%), linear-gradient(180deg, hsl(220, 72%, 20%) 0%, hsl(220, 65%, 16%) 100%);
 
@@ -146,33 +114,6 @@
     text-wrap: balance;
     animation: slideInFromBottom 1s ease-out forwards;
     width: 100%;
-  }
-}
-
-.verified-banner {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  padding: 14px 20px;
-  background: linear-gradient(135deg, #22c55e, #16a34a);
-  color: #fff;
-  font-size: var(--fs-18);
-  font-weight: 600;
-  position: sticky;
-  top: 0;
-  z-index: 999;
-  animation: slideDown 0.4s ease-out;
-}
-
-@keyframes slideDown {
-  from {
-    transform: translateY(-100%);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
   }
 }
 

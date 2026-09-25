@@ -1,5 +1,3 @@
-import '../styles/index.css'
-import '../styles/header/Header.css'
 import { Menu, X } from 'lucide-react'
 
 type HamburgerMenuProps = {
