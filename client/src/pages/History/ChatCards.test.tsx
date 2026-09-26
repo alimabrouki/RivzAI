@@ -1,5 +1,6 @@
 import { it, describe, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import { ChatCards } from "./ChatCards";
 import "@testing-library/jest-dom";
 
@@ -9,13 +10,22 @@ describe("homework cards", () => {
       {
         id: 1,
         title: "math homework",
-        text: "Solve x + 2 = 5",
-        messages: [],
+        messages: [
+          {
+            id: 1,
+            role: "user",
+            content: "Solve x + 2 = 5",
+          },
+        ],
         createdAt: new Date(),
       },
     ];
 
-    render(<ChatCards chats={chat} />);
+    render(
+      <MemoryRouter>
+        <ChatCards chats={chat} />
+      </MemoryRouter>,
+    );
 
     expect(screen.getByText("math homework")).toBeInTheDocument();
 
