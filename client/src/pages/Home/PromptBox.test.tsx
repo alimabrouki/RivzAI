@@ -1,14 +1,17 @@
 import { it, describe, expect } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { PromptBox } from "./PromptBox";
+import { MemoryRouter } from "react-router-dom";
 
 describe("prompt box", () => {
   it("saves a prompt into history", () => {
-    render(<PromptBox />);
-
-    const promptBoxInput = screen.getByPlaceholderText(
-      "Put your homework here, and let’s break it down together...",
+    render(
+      <MemoryRouter>
+        <PromptBox />
+      </MemoryRouter>,
     );
+
+    const promptBoxInput = screen.getByTestId("promptBoxInput");
 
     const solveItBtn = screen.getByTestId("solve-it");
 

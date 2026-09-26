@@ -97,6 +97,7 @@ export const PromptBox = () => {
           onChange={handleTextArea}
           className={`prompt-input${showWarning ? " prompt-input-warning" : ""}`}
           placeholder="Put your homework here, and let's break it down together..."
+          data-testId="promptBoxInput"
         />
       </div>
       <div className="inputs">
