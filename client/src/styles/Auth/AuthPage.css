@@ -38,6 +38,7 @@
   background: rgba(12, 18, 38, 0.56);
   backdrop-filter: blur(2px);
   z-index: 2;
+  border-radius: 16px;
 }
 
 .authCardLoadingOverlay .btn-spinner {
@@ -189,6 +190,15 @@
   font-size: 0.95rem;
   color: hsl(0deg 100% 47.57%);
   margin-bottom: 0.8rem;
+}
+
+.authCard .authErrorPopup {
+  top: 4px;
+  width: fit-content;
+  max-width: calc(100% - 1rem);
+  white-space: normal;
+  line-height: 1.35;
+  text-align: left;
 }
 
 .verify-email-card {

@@ -3,30 +3,32 @@ import { Loader2 } from "lucide-react";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/logo.png";
+import { useAuthError } from "../../hooks/useAuthError";
+import AuthErrorPopup from "./AuthErrorPopup";
 import forgotPassword from "../../api/forgotPassword";
 
 const ForgotPasswordPage = () => {
   const [email, setEmail] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const { error, showError, clearError } = useAuthError();
   const [sent, setSent] = useState(false);
 
   const isEmailValid = email.includes("@");
 
   const handleForgotPass = async () => {
     if (!isEmailValid) {
-      setError("Please enter a valid email");
+      showError("Please enter a valid email");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    clearError();
 
     try {
       const result = await forgotPassword({ email });
 
       if (result.error) {
-        setError(result.error);
+        showError(result.error);
         return;
       }
 
@@ -35,7 +37,7 @@ const ForgotPasswordPage = () => {
       if (error instanceof Error) {
         console.log(error.message);
       }
-      setError("Something went wrong. Please try again.");
+      showError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -69,6 +71,8 @@ const ForgotPasswordPage = () => {
             handleForgotPass();
           }}
         >
+          <AuthErrorPopup message={error} />
+
           <h1 className="authTitle">Reset your password</h1>
           <p className="authSubtitle">
             Enter your email and we'll send you a reset link.
@@ -79,15 +83,13 @@ const ForgotPasswordPage = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              setError("");
+              clearError();
             }}
             type="email"
             placeholder="your@email.com"
             autoComplete="email"
             className="authInput"
           />
-
-          {error && <p className="authError">{error}</p>}
 
           <button
             type="submit"

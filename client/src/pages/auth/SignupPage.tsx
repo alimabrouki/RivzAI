@@ -6,7 +6,9 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signupUser from "../../api/signupUser";
 import { useAuth } from "../../hooks/useAuth";
+import { useAuthError } from "../../hooks/useAuthError";
 import GoogleLoginButton from "./GoogleLoginButton";
+import AuthErrorPopup from "./AuthErrorPopup";
 
 const SignupPage = () => {
   const [username, setUsername] = useState("");
@@ -14,7 +16,7 @@ const SignupPage = () => {
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const { error, showError, clearError } = useAuthError();
   const { login } = useAuth();
   const navigate = useNavigate();
 
@@ -24,26 +26,26 @@ const SignupPage = () => {
 
   const handleSignup = async () => {
     if (!isUsernameValid) {
-      setError("Username must be at least 3 characters");
+      showError("Username must be at least 3 characters");
       return;
     }
     if (!isEmailValid) {
-      setError("Please enter a valid email");
+      showError("Please enter a valid email");
       return;
     }
     if (!isPasswordValid) {
-      setError("Password must be at least 8 characters");
+      showError("Password must be at least 8 characters");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    clearError();
 
     try {
       const result = await signupUser({ email, password, username });
 
       if (result.error) {
-        setError(result.error);
+        showError(result.error);
         return;
       }
 
@@ -54,7 +56,7 @@ const SignupPage = () => {
       if (error instanceof Error) {
         console.log(error.message);
       }
-      setError("Something went wrong. Please try again.");
+      showError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -72,6 +74,8 @@ const SignupPage = () => {
             handleSignup();
           }}
         >
+          <AuthErrorPopup message={error} />
+
           <h1 className="authTitle">Create your RivzAI account</h1>
           <p className="authSubtitle">
             Access Teacher Mode, save homework, and manage your account.
@@ -87,7 +91,7 @@ const SignupPage = () => {
             value={username}
             onChange={(e) => {
               setUsername(e.target.value);
-              setError("");
+              clearError();
             }}
             type="text"
             placeholder="Username"
@@ -99,7 +103,7 @@ const SignupPage = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              setError("");
+              clearError();
             }}
             type="email"
             placeholder="Email address"
@@ -112,7 +116,7 @@ const SignupPage = () => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                setError("");
+                clearError();
               }}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -128,8 +132,6 @@ const SignupPage = () => {
             </button>
           </div>
 
-          {error && <p className="authError">{error}</p>}
-
           <button
             type="submit"
             className={`authButton ${
@@ -138,7 +140,11 @@ const SignupPage = () => {
                 : ""
             }`}
           >
-            {isSubmitting ? <Loader2 className="btn-spinner" /> : "Create Account"}
+            {isSubmitting ? (
+              <Loader2 className="btn-spinner" />
+            ) : (
+              "Create Account"
+            )}
           </button>
 
           <p className="authSwitchText">Already have an account?</p>

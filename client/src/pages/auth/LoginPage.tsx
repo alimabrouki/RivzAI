@@ -6,14 +6,16 @@ import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import signinUser from "../../api/signinUser";
 import { useAuth } from "../../hooks/useAuth";
+import { useAuthError } from "../../hooks/useAuthError";
 import GoogleLoginButton from "./GoogleLoginButton";
+import AuthErrorPopup from "./AuthErrorPopup";
 
 const SigninPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const { error, showError, clearError } = useAuthError();
   const { login, user } = useAuth();
   const navigate = useNavigate();
 
@@ -38,22 +40,22 @@ const SigninPage = () => {
 
   const handleSignin = async () => {
     if (!isEmailValid) {
-      setError("Please enter a valid email");
+      showError("Please enter a valid email");
       return;
     }
     if (!isPasswordValid) {
-      setError("Password must be at least 8 characters");
+      showError("Password must be at least 8 characters");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    clearError();
 
     try {
       const result = await signinUser({ email, password });
 
       if (result.error) {
-        setError(result.error);
+        showError(result.error);
         return;
       }
 
@@ -64,7 +66,7 @@ const SigninPage = () => {
       if (error instanceof Error) {
         console.log(error.message);
       }
-      setError("Something went wrong. Please try again.");
+      showError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -88,6 +90,8 @@ const SigninPage = () => {
             </div>
           )}
 
+          <AuthErrorPopup message={error} />
+
           {showSessionExpired && (
             <p className="session-expired-banner">
               Your session has expired. Please log in again.
@@ -109,7 +113,7 @@ const SigninPage = () => {
             value={email}
             onChange={(e) => {
               setEmail(e.target.value);
-              setError("");
+              clearError();
             }}
             type="email"
             placeholder="Email address"
@@ -122,7 +126,7 @@ const SigninPage = () => {
               value={password}
               onChange={(e) => {
                 setPassword(e.target.value);
-                setError("");
+                clearError();
               }}
               type={showPassword ? "text" : "password"}
               placeholder="Password"
@@ -137,8 +141,6 @@ const SigninPage = () => {
               {showPassword ? <BsEyeSlash size={18} /> : <BsEye size={18} />}
             </button>
           </div>
-
-          {error && <p className="authError">{error}</p>}
 
           <button
             type="submit"

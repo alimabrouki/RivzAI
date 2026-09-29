@@ -5,6 +5,8 @@ import logo from "../../assets/images/logo.png";
 import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import resetPassword from "../../api/resetPassword";
+import { useAuthError } from "../../hooks/useAuthError";
+import AuthErrorPopup from "./AuthErrorPopup";
 
 const ResetPasswordPage = () => {
   const { token } = useParams();
@@ -14,7 +16,7 @@ const ResetPasswordPage = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [error, setError] = useState("");
+  const { error, showError, clearError } = useAuthError();
   const [success, setSuccess] = useState(false);
 
   const isPasswordValid = newPassword.length >= 8;
@@ -22,21 +24,21 @@ const ResetPasswordPage = () => {
 
   const handleReset = async () => {
     if (!isPasswordValid) {
-      setError("Password must be at least 8 characters");
+      showError("Password must be at least 8 characters");
       return;
     }
     if (!doPasswordsMatch) {
-      setError("Passwords do not match");
+      showError("Passwords do not match");
       return;
     }
 
     setIsSubmitting(true);
-    setError("");
+    clearError();
 
     try {
       const result = await resetPassword({ token: token!, newPassword });
       if (result.error) {
-        setError(result.error);
+        showError(result.error);
         return;
       }
 
@@ -45,7 +47,7 @@ const ResetPasswordPage = () => {
       if (error instanceof Error) {
         console.log(error.message);
       }
-      setError("Something went wrong. Please try again.");
+      showError("Something went wrong. Please try again.");
     } finally {
       setIsSubmitting(false);
     }
@@ -79,6 +81,8 @@ const ResetPasswordPage = () => {
             handleReset();
           }}
         >
+          <AuthErrorPopup message={error} />
+
           <h1 className="authTitle">Set new password</h1>
           <p className="authSubtitle">Enter your new password below.</p>
 
@@ -88,7 +92,7 @@ const ResetPasswordPage = () => {
               value={newPassword}
               onChange={(e) => {
                 setNewPassword(e.target.value);
-                setError("");
+                clearError();
               }}
               type={showPassword ? "text" : "password"}
               placeholder="New password"
@@ -110,7 +114,7 @@ const ResetPasswordPage = () => {
               value={confirmPassword}
               onChange={(e) => {
                 setConfirmPassword(e.target.value);
-                setError("");
+                clearError();
               }}
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm password"
@@ -129,8 +133,6 @@ const ResetPasswordPage = () => {
               )}
             </button>
           </div>
-
-          {error && <p className="authError">{error}</p>}
 
           <button
             type="submit"
