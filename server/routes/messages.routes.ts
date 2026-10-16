@@ -2,7 +2,7 @@ import { Router } from "express";
 import prisma from "../lib/prisma";
 import type { Request, Response } from "express";
 import type { Message } from "../../prisma/generated/client";
-import { ai } from "../lib/gemini";
+import { gemini } from "../lib/gemini";
 const messagesRouter = Router();
 
 messagesRouter.patch("/:id", async (req: Request, res: Response) => {
@@ -89,8 +89,8 @@ messagesRouter.post("/:id", async (req: Request, res: Response) => {
 
     const history = toGeminiHistory(chatHistory);
 
-    const stream = await ai.models.generateContentStream({
-      model: "gemini-3.1-flash-lite",
+    const stream = await gemini.models.generateContentStream({
+      model: "gemini-3.5-flash-lite",
       contents: history,
     });
 
