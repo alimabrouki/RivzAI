@@ -10,13 +10,19 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const { newChatPrompt } = req.body;
-    const chatTitlePrompt = `Generate a short 2-5 word title for this prompt: "${newChatPrompt}" i want it serious and describing the user message perfectly and make the user remember exactly what happened in this chat when he sees the card in the future make it serious and simple like chat gpt . Return ONLY the title.`;
+    const chatTitlePrompt = `You are a chat title generator. Summarize the user's message in 2 to 3 natural words.
+    User message: "${newChatPrompt}"
+    Rules:
+    - If the message is just a greeting (like "hello", "hi", "hey"), return "Greeting" or "Hello".
+    - Write it in plain, conversational language (like ChatGPT or Gemini).
+    - Do not make it dramatic, corporate, or overly formal.
+    - No punctuation, no quotes. Return ONLY the title text.`;
     const aiGeneratedTitle = await gemini.models.generateContent({
       model: "gemini-3.5-flash-lite",
       contents: chatTitlePrompt,
       config: {
-        temperature: 0.2,
-        maxOutputTokens: 50,
+        temperature: 0.1,
+        maxOutputTokens: 10,
       },
     });
 
