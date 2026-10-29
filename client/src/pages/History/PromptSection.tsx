@@ -16,7 +16,7 @@ type PromptSectionProps = {
   chatId: number;
   handleTempAiMsg: () => void;
   handleAiChunks: (chunk: string) => void;
-  handleTempUserMsg: (isTyping: string) => void;
+  handleTempUserMsg: (promptText: string) => void;
   handleError: (error: string, state: boolean) => void;
   showError: boolean;
   error: string;
@@ -37,7 +37,7 @@ export const PromptSection = ({
   removeTempAiMsg,
   loadChat,
 }: PromptSectionProps) => {
-  const [isTyping, setIsTyping] = useState("");
+  const [promptText, setPromptText] = useState("");
   const promptIn = useRef<HTMLTextAreaElement | null>(null);
 
   const isMobile = /Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
@@ -65,7 +65,7 @@ export const PromptSection = ({
 
       e.preventDefault();
       promptIn.current?.focus();
-      setIsTyping((current) => current + e.key);
+      setPromptText((current) => current + e.key);
     };
 
     document.addEventListener("keydown", handleGlobalTyping);
@@ -73,20 +73,20 @@ export const PromptSection = ({
   }, [isMobile]);
 
   const handleTextarea = (e: ChangeEvent<HTMLTextAreaElement>) => {
-    setIsTyping(e.target.value);
+    setPromptText(e.target.value);
   };
 
   const submitPrompt = async () => {
-    if (!isTyping.trim() || !chatId) return;
+    if (!promptText.trim() || !chatId) return;
 
-    handleTempUserMsg(isTyping);
+    handleTempUserMsg(promptText);
 
     handleTempAiMsg();
 
-    setIsTyping("");
+    setPromptText("");
 
     try {
-      await addMessage(chatId, isTyping, (chunk) => {
+      await addMessage(chatId, promptText, (chunk) => {
         handleAiChunks(chunk);
       });
       loadChat();
@@ -123,7 +123,7 @@ export const PromptSection = ({
       )}
       <TextareaAutosize
         onKeyDown={onKey}
-        value={isTyping}
+        value={promptText}
         onChange={handleTextarea}
         ref={promptIn}
         className="prompt-in"
@@ -138,7 +138,7 @@ export const PromptSection = ({
         <UploadFile />
         <button
           onClick={submitPrompt}
-          style={{ background: isTyping ? "var(--c-dark-orange" : "" }}
+          style={{ background: promptText ? "var(--c-dark-orange" : "" }}
           className="submit-prompt"
         >
           <SendHorizonal />
