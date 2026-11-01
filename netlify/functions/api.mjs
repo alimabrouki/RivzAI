@@ -1,5 +1,6 @@
 import serverless from "serverless-http";
 import app from "../../server/server";
+import Stream from "stream";
 
 const handler = serverless(app);
 
@@ -17,6 +18,7 @@ export default async (request, context) => {
     isBase64Encoded: false,
     queryStringParameters: Object.fromEntries(url.searchParams),
     multiValueQueryStringParameters: {},
+    Stream: true,
   };
   const result = await handler(event, context);
 
