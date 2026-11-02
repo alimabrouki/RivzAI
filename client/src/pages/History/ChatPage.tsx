@@ -13,6 +13,7 @@ import deleteChat from "../../api/deleteChat";
 import generateFirstAiResponse from "../../api/generateFirstAiResponse";
 import { ChatSidebar } from "./ChatSidebar";
 import updateAiResponse from "../../api/updateAiResponse";
+import generateChatTitle from "../../api/generateChatTitle";
 
 export const ChatPage = () => {
   const [chat, setChat] = useState<Chat>();
@@ -25,6 +26,7 @@ export const ChatPage = () => {
   const [showError, setShowError] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [chatTitle, setChatTitle] = useState("");
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
@@ -187,6 +189,9 @@ export const ChatPage = () => {
         await generateFirstAiResponse(Number(chatId), (chunk) => {
           handleAiChunks(chunk);
         });
+        await generateChatTitle(Number(chatId), (chunk) => {
+          setChatTitle(chunk);
+        });
       } catch {
         setError("Something went wrong. Please try again.");
         setShowError(true);
@@ -291,7 +296,7 @@ export const ChatPage = () => {
         <main className="chat-workspace">
           <div className="chat-header">
             <img className="math-icon" src={mathIcon} alt="" />
-            <div className="homework-title">{chat.title}</div>
+            <div className="homework-title">{chatTitle}</div>
             <div className="head-btns">
               <BsFillTrash3Fill
                 className="delete-btn"
