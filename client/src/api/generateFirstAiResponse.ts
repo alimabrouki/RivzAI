@@ -1,14 +1,13 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
-import { API_BASE } from "./signupUser";
 
 async function generateFirstAiResponse(
   chatId: number,
   onchunk: (chunk: string) => void,
 ) {
-  const response = await fetch(`${API_BASE}chats/${chatId}/generate`, {
+  const response = await fetch(`/.netlify/functions/stream-first-ai-response`, {
     method: "POST",
     headers: getAuthHeaders(),
-    body: JSON.stringify({}),
+    body: JSON.stringify({ chatId }),
   });
   if (!response.ok) {
     const error = await response.json();
