@@ -2,7 +2,7 @@ import { Router } from "express";
 import prisma from "../lib/prisma";
 import type { Request, Response } from "express";
 import { gemini } from "../lib/gemini";
-import { toGeminiHistory } from "../utils/toGeminiHistory";
+// import { toGeminiHistory } from "../utils/toGeminiHistory";
 
 const chatsRouter = Router();
 
@@ -182,179 +182,179 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
   }
 });
 
-chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
-  try {
-    const chatId = Number(req.params.id);
+// chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
+//   try {
+//     const chatId = Number(req.params.id);
 
-    if (Number.isNaN(chatId)) {
-      return res.status(400).json({
-        success: false,
-        error: "Invalid chat id",
-      });
-    }
+//     if (Number.isNaN(chatId)) {
+//       return res.status(400).json({
+//         success: false,
+//         error: "Invalid chat id",
+//       });
+//     }
 
-    const { message } = req.body;
+//     const { message } = req.body;
 
-    const chat = await prisma.chat.findFirst({
-      where: {
-        id: chatId,
-        userId: req.user?.id,
-      },
-    });
-    if (!chat) {
-      return res.status(404).json({
-        success: false,
-        error: "Chat not found",
-      });
-    }
+//     const chat = await prisma.chat.findFirst({
+//       where: {
+//         id: chatId,
+//         userId: req.user?.id,
+//       },
+//     });
+//     if (!chat) {
+//       return res.status(404).json({
+//         success: false,
+//         error: "Chat not found",
+//       });
+//     }
 
-    await prisma.chat.update({
-      where: {
-        id: chatId,
-      },
-      data: {
-        messages: {
-          create: {
-            content: message,
-            role: "user",
-            animated: false,
-          },
-        },
-      },
-      include: {
-        messages: true,
-      },
-    });
+//     await prisma.chat.update({
+//       where: {
+//         id: chatId,
+//       },
+//       data: {
+//         messages: {
+//           create: {
+//             content: message,
+//             role: "user",
+//             animated: false,
+//           },
+//         },
+//       },
+//       include: {
+//         messages: true,
+//       },
+//     });
 
-    const messages = await prisma.message.findMany({
-      where: {
-        chatId,
-      },
-      orderBy: {
-        createdAt: "asc",
-      },
-    });
+//     const messages = await prisma.message.findMany({
+//       where: {
+//         chatId,
+//       },
+//       orderBy: {
+//         createdAt: "asc",
+//       },
+//     });
 
-    const history = toGeminiHistory(messages);
+//     const history = toGeminiHistory(messages);
 
-    let fullText = "";
+//     let fullText = "";
 
-    const stream = await gemini.models.generateContentStream({
-      model: "gemini-3.5-flash-lite",
-      contents: history,
-    });
+//     const stream = await gemini.models.generateContentStream({
+//       model: "gemini-3.5-flash-lite",
+//       contents: history,
+//     });
 
-    for await (const chunk of stream) {
-      fullText += chunk.text;
-      res.write(chunk.text);
-    }
+//     for await (const chunk of stream) {
+//       fullText += chunk.text;
+//       res.write(chunk.text);
+//     }
 
-    await prisma.message.create({
-      data: {
-        chatId,
-        content: fullText,
-        role: "model",
-        animated: false,
-      },
-    });
+//     await prisma.message.create({
+//       data: {
+//         chatId,
+//         content: fullText,
+//         role: "model",
+//         animated: false,
+//       },
+//     });
 
-    res.end();
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
+//     res.end();
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       console.error(error.message);
+//     }
 
-    return res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
-    });
-  }
-});
+//     return res.status(500).json({
+//       success: false,
+//       error: "Internal Server Error",
+//     });
+//   }
+// });
 
-chatsRouter.post("/:id/generate", async (req: Request, res: Response) => {
-  try {
-    const userId = req.user?.id;
-    const chatId = Number(req.params.id);
+// chatsRouter.post("/:id/generate", async (req: Request, res: Response) => {
+//   try {
+//     const userId = req.user?.id;
+//     const chatId = Number(req.params.id);
 
-    if (Number.isNaN(chatId)) {
-      return res.status(400).json({
-        success: false,
-        error: "Invalid chat id",
-      });
-    }
+//     if (Number.isNaN(chatId)) {
+//       return res.status(400).json({
+//         success: false,
+//         error: "Invalid chat id",
+//       });
+//     }
 
-    const chat = await prisma.chat.findFirst({
-      where: {
-        id: chatId,
-        userId,
-        messages: {
-          some: {
-            role: "user",
-          },
-          none: {
-            role: "model",
-          },
-        },
-      },
-      include: {
-        messages: {
-          where: {
-            role: "user",
-          },
-          orderBy: {
-            createdAt: "asc",
-          },
-          take: 1,
-        },
-      },
-    });
+//     const chat = await prisma.chat.findFirst({
+//       where: {
+//         id: chatId,
+//         userId,
+//         messages: {
+//           some: {
+//             role: "user",
+//           },
+//           none: {
+//             role: "model",
+//           },
+//         },
+//       },
+//       include: {
+//         messages: {
+//           where: {
+//             role: "user",
+//           },
+//           orderBy: {
+//             createdAt: "asc",
+//           },
+//           take: 1,
+//         },
+//       },
+//     });
 
-    if (!chat) {
-      return res.status(404).json({
-        success: false,
-        error: "Chat not found",
-      });
-    }
+//     if (!chat) {
+//       return res.status(404).json({
+//         success: false,
+//         error: "Chat not found",
+//       });
+//     }
 
-    const userMessage = chat.messages[0];
+//     const userMessage = chat.messages[0];
 
-    if (!userMessage) {
-      return res.status(400).json({
-        success: false,
-        error: "Chat has no user message",
-      });
-    }
+//     if (!userMessage) {
+//       return res.status(400).json({
+//         success: false,
+//         error: "Chat has no user message",
+//       });
+//     }
 
-    let fullText = "";
-    const stream = await gemini.models.generateContentStream({
-      model: "gemini-3.5-flash-lite",
-      contents: userMessage.content,
-    });
+//     let fullText = "";
+//     const stream = await gemini.models.generateContentStream({
+//       model: "gemini-3.5-flash-lite",
+//       contents: userMessage.content,
+//     });
 
-    for await (const chunk of stream) {
-      fullText += chunk.text;
-      res.write(chunk.text);
-    }
+//     for await (const chunk of stream) {
+//       fullText += chunk.text;
+//       res.write(chunk.text);
+//     }
 
-    await prisma.message.create({
-      data: {
-        chatId,
-        content: fullText,
-        role: "model",
-        animated: false,
-      },
-    });
+//     await prisma.message.create({
+//       data: {
+//         chatId,
+//         content: fullText,
+//         role: "model",
+//         animated: false,
+//       },
+//     });
 
-    res.end();
-  } catch (error) {
-    if (error instanceof Error) {
-      console.error(error.message);
-    }
+//     res.end();
+//   } catch (error) {
+//     if (error instanceof Error) {
+//       console.error(error.message);
+//     }
 
-    return res.status(500).json({
-      success: false,
-      error: "Internal Server Error",
-    });
-  }
-});
+//     return res.status(500).json({
+//       success: false,
+//       error: "Internal Server Error",
+//     });
+//   }
+// });
 export default chatsRouter;
