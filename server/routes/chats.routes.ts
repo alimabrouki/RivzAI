@@ -2,7 +2,7 @@ import { Router } from "express";
 import prisma from "../lib/prisma";
 import type { Request, Response } from "express";
 import { gemini } from "../lib/gemini";
-import type { Message } from "../../prisma/generated/client";
+import { toGeminiHistory } from "../utils/toGeminiHistory";
 
 const chatsRouter = Router();
 
@@ -181,13 +181,6 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
     });
   }
 });
-
-function toGeminiHistory(messages: Message[]) {
-  return messages.map((message) => ({
-    role: message.role === "user" ? "user" : "model",
-    parts: [{ text: message.content }],
-  }));
-}
 
 chatsRouter.post("/:id/messages", async (req: Request, res: Response) => {
   try {
