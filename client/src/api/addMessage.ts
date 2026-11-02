@@ -1,15 +1,14 @@
 import { getAuthHeaders } from "../utils/getAuthheaders";
-import { API_BASE } from "./signupUser";
 
 async function addMessage(
   chatId: number,
-  message: string,
+  userPrompt: string,
   onchunk: (chunk: string) => void,
 ): Promise<void> {
-  const response = await fetch(`${API_BASE}chats/${chatId}/messages`, {
+  const response = await fetch(`/.netlify/functions/chat-stream`, {
     method: "POST",
     headers: getAuthHeaders(),
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({ userPrompt, chatId }),
   });
 
   if (!response.ok) {
