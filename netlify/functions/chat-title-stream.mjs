@@ -79,7 +79,7 @@ export default async (request, context) => {
               id: Number(chatId),
             },
             data: {
-              title: fullTitle,
+              title: fullTitle ? fullTitle : firstUserPrompt.slice(0, 20),
             },
           });
         } catch (error) {

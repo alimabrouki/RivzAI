@@ -1,8 +1,6 @@
 import { Router } from "express";
 import prisma from "../lib/prisma";
 import type { Request, Response } from "express";
-import { gemini } from "../lib/gemini";
-// import { toGeminiHistory } from "../utils/toGeminiHistory";
 
 const chatsRouter = Router();
 
@@ -10,27 +8,10 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
   try {
     const userId = req.user!.id;
     const { newChatPrompt } = req.body;
-    const chatTitlePrompt = `You are a chat title generator. Summarize the user's message in 2 to 3 natural words.
-    User message: "${newChatPrompt}"
-    Rules:
-    - If the message is just a greeting (like "hello", "hi", "hey"), return "Greeting" or "Hello".
-    - Write it in plain, conversational language (like ChatGPT or Gemini).
-    - Do not make it dramatic, corporate, or overly formal.
-    - No punctuation, no quotes. Return ONLY the title text.`;
-    const aiGeneratedTitle = await gemini.models.generateContent({
-      model: "gemini-3.5-flash-lite",
-      contents: chatTitlePrompt,
-      config: {
-        temperature: 0.1,
-        maxOutputTokens: 10,
-      },
-    });
 
     const chat = await prisma.chat.create({
       data: {
-        title: aiGeneratedTitle
-          ? aiGeneratedTitle.text
-          : newChatPrompt.slice(0, 20),
+        title: "",
         user: {
           connect: {
             id: userId,

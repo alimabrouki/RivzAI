@@ -26,7 +26,6 @@ export const ChatPage = () => {
   const [showError, setShowError] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
-  const [chatTitle, setChatTitle] = useState("");
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
@@ -83,9 +82,13 @@ export const ChatPage = () => {
   };
 
   const loadChat = async () => {
-    const chat = await openChat(Number(chatId));
-    setChat(chat);
-    setMessages(chat.messages);
+    try {
+      const chat = await openChat(Number(chatId));
+      setChat(chat);
+      setMessages(chat.messages);
+    } catch {
+      handleError("Could not load chat. Please try again.", true);
+    }
   };
 
   const editMessage = async (msgId: number, updatedMsg: string) => {
@@ -152,17 +155,32 @@ export const ChatPage = () => {
     setIsSidebarCollapsed((current) => !current);
   };
 
+  const handleGenerateTitle = (chunk: string) => {
+    setChat((prev) => {
+      if (!prev) return prev;
+      return {
+        ...prev,
+        title: prev.title + chunk,
+      };
+    });
+  };
+
   useEffect(() => {
     let ignore = false;
     generationStarted.current = false;
 
     async function loadChat() {
-      const chat = await openChat(Number(chatId));
+      try {
+        const chat = await openChat(Number(chatId));
 
-      if (ignore) return;
+        if (ignore) return;
 
-      setChat(chat);
-      setMessages(chat.messages);
+        setChat(chat);
+        setMessages(chat.messages);
+      } catch {
+        if (ignore) return;
+        handleError("Could not load chat. Please try again.", true);
+      }
     }
 
     loadChat();
@@ -183,15 +201,18 @@ export const ChatPage = () => {
     if (generationStarted.current) return;
     generationStarted.current = true;
     async function generate() {
+      const titleTask = generateChatTitle(Number(chatId), (chunk) => {
+        handleGenerateTitle(chunk);
+      }).catch(() => {
+        handleError("Chat title generation failed:", true);
+      });
       try {
         handleTempAiMsg();
         setAiIsTyping(true);
         await generateFirstAiResponse(Number(chatId), (chunk) => {
           handleAiChunks(chunk);
         });
-        await generateChatTitle(Number(chatId), (chunk) => {
-          setChatTitle(chunk);
-        });
+        await titleTask;
       } catch {
         setError("Something went wrong. Please try again.");
         setShowError(true);
@@ -296,7 +317,7 @@ export const ChatPage = () => {
         <main className="chat-workspace">
           <div className="chat-header">
             <img className="math-icon" src={mathIcon} alt="" />
-            <div className="homework-title">{chatTitle}</div>
+            <div className="homework-title">{chat.title}</div>
             <div className="head-btns">
               <BsFillTrash3Fill
                 className="delete-btn"
