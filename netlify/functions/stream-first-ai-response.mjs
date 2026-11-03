@@ -82,8 +82,6 @@ export default async (request, context) => {
               controller.enqueue(encoder.encode(text));
             }
           }
-          controller.close();
-
           await prisma.message.create({
             data: {
               chatId,
@@ -92,6 +90,7 @@ export default async (request, context) => {
               animated: false,
             },
           });
+          controller.close();
         } catch (error) {
           controller.error(error);
         }

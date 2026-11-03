@@ -26,6 +26,7 @@ export const ChatPage = () => {
   const [showError, setShowError] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
+  const [chatListRefreshKey, setChatListRefreshKey] = useState(0);
   const { chatId } = useParams();
   const navigate = useNavigate();
   const deletionAlert = useRef<HTMLDivElement | null>(null);
@@ -155,16 +156,6 @@ export const ChatPage = () => {
     setIsSidebarCollapsed((current) => !current);
   };
 
-  const handleGenerateTitle = (chunk: string) => {
-    setChat((prev) => {
-      if (!prev) return prev;
-      return {
-        ...prev,
-        title: prev.title + chunk,
-      };
-    });
-  };
-
   useEffect(() => {
     let ignore = false;
     generationStarted.current = false;
@@ -201,11 +192,23 @@ export const ChatPage = () => {
     if (generationStarted.current) return;
     generationStarted.current = true;
     async function generate() {
+      let generatedTitle = "";
       const titleTask = generateChatTitle(Number(chatId), (chunk) => {
-        handleGenerateTitle(chunk);
-      }).catch(() => {
-        handleError("Chat title generation failed:", true);
-      });
+        generatedTitle += chunk;
+        setChat((prev) => {
+          if (!prev) return prev;
+          return {
+            ...prev,
+            title: generatedTitle,
+          };
+        });
+      })
+        .then(() => {
+          setChatListRefreshKey((key) => key + 1);
+        })
+        .catch(() => {
+          handleError("Chat title generation failed:", true);
+        });
       try {
         handleTempAiMsg();
         setAiIsTyping(true);
@@ -313,6 +316,7 @@ export const ChatPage = () => {
           isCollapsed={isSidebarCollapsed}
           onClose={() => setIsSidebarOpen(false)}
           onToggle={handleSidebarToggle}
+          refreshKey={chatListRefreshKey}
         />
         <main className="chat-workspace">
           <div className="chat-header">

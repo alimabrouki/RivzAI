@@ -23,7 +23,11 @@ async function generateChatTitle(
 
   while (true) {
     const { done, value } = await reader.read();
-    if (done) break;
+    if (done) {
+      const finalChunk = decoder.decode();
+      if (finalChunk) onchunk(finalChunk);
+      break;
+    }
     const chunk = decoder.decode(value, { stream: true });
     onchunk(chunk);
   }

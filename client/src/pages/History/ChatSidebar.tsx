@@ -12,6 +12,7 @@ type ChatSidebarProps = {
   isCollapsed: boolean;
   onClose: () => void;
   onToggle: () => void;
+  refreshKey: number;
 };
 
 export const ChatSidebar = ({
@@ -20,6 +21,7 @@ export const ChatSidebar = ({
   isCollapsed,
   onClose,
   onToggle,
+  refreshKey,
 }: ChatSidebarProps) => {
   const [chats, setChats] = useState<Chat[]>([]);
   const [loading, setLoading] = useState(true);
@@ -44,7 +46,7 @@ export const ChatSidebar = ({
     return () => {
       ignore = true;
     };
-  }, []);
+  }, [refreshKey]);
 
   return (
     <aside

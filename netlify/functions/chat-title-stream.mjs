@@ -72,16 +72,20 @@ export default async (request, context) => {
               controller.enqueue(encoder.encode(text));
             }
           }
-          controller.close();
+          const title = fullTitle || firstUserPrompt.slice(0, 20);
+          if (!fullTitle) {
+            controller.enqueue(encoder.encode(title));
+          }
 
           await prisma.chat.update({
             where: {
               id: Number(chatId),
             },
             data: {
-              title: fullTitle ? fullTitle : firstUserPrompt.slice(0, 20),
+              title,
             },
           });
+          controller.close();
         } catch (error) {
           controller.error(error);
         }

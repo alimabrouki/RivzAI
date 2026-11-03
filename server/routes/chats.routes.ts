@@ -11,7 +11,7 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
 
     const chat = await prisma.chat.create({
       data: {
-        title: "",
+        title: newChatPrompt.slice(0, 20),
         user: {
           connect: {
             id: userId,
