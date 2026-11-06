@@ -21,7 +21,6 @@ chatsRouter.post("/", async (req: Request, res: Response) => {
           create: {
             role: "user",
             content: newChatPrompt,
-            animated: false,
           },
         },
       },
@@ -198,7 +197,6 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
 //           create: {
 //             content: message,
 //             role: "user",
-//             animated: false,
 //           },
 //         },
 //       },
@@ -235,7 +233,6 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
 //         chatId,
 //         content: fullText,
 //         role: "model",
-//         animated: false,
 //       },
 //     });
 
@@ -322,7 +319,6 @@ chatsRouter.delete("/:id", async (req: Request, res: Response) => {
 //         chatId,
 //         content: fullText,
 //         role: "model",
-//         animated: false,
 //       },
 //     });
 

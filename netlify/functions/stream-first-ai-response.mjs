@@ -15,7 +15,7 @@ export default async (request, context) => {
   }
 
   const { userId, body } = authResult;
-  const { chatId, userPrompt } = body;
+  const { chatId } = body;
 
   try {
     const chat = await prisma.chat.findFirst({
@@ -87,7 +87,6 @@ export default async (request, context) => {
               chatId,
               content: fullText,
               role: "model",
-              animated: false,
             },
           });
           controller.close();

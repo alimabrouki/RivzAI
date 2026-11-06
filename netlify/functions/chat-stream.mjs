@@ -29,7 +29,6 @@ export default async (request, context) => {
           create: {
             content: userPrompt,
             role: "user",
-            animated: false,
           },
         },
       },
@@ -74,7 +73,6 @@ export default async (request, context) => {
               chatId,
               content: fullText,
               role: "model",
-              animated: false,
             },
           });
 

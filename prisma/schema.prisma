@@ -54,7 +54,6 @@ model Message {
   id        Int       @id @default(autoincrement())
   content   String
   role      String
-  animated  Boolean
   reaction  Reaction?
   chatId    Int
   chat      Chat      @relation(fields: [chatId], references: [id], onDelete: Cascade)

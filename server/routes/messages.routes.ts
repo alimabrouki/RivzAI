@@ -15,7 +15,7 @@ messagesRouter.patch("/:id", async (req: Request, res: Response) => {
         error: "Invalid message id",
       });
     }
-    const { animated, reaction } = req.body;
+    const { reaction } = req.body;
     const reactionType = await prisma.message.findUnique({
       where: {
         id,
@@ -30,7 +30,6 @@ messagesRouter.patch("/:id", async (req: Request, res: Response) => {
         id,
       },
       data: {
-        animated: animated,
         reaction: reaction === reactionType?.reaction ? null : reaction,
       },
     });
@@ -104,7 +103,6 @@ messagesRouter.post("/:id", async (req: Request, res: Response) => {
         chatId,
         content: fullModelResponse,
         role: "model",
-        animated: false,
       },
     });
 
