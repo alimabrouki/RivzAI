@@ -2,6 +2,18 @@ import prisma from "../../server/lib/prisma";
 import { gemini } from "../../server/lib/gemini";
 import { authenticateAndValidateChat } from "./utils/authMiddleware";
 import { toGeminiHistory } from "../../server/utils/toGeminiHistory";
+import { readFileSync } from "fs";
+import { join } from "path";
+
+const instructionsPath = join(
+  import.meta.dirname,
+  "..",
+  "..",
+  "server",
+  "prompts",
+  "core.md",
+);
+const coreInstruction = readFileSync(instructionsPath, "utf-8");
 
 export default async (request, context) => {
   if (request.method !== "POST") {
@@ -53,6 +65,9 @@ export default async (request, context) => {
     const geminiStream = await gemini.models.generateContentStream({
       model: "gemini-3.5-flash-lite",
       contents: history,
+      config: {
+        systemInstruction: coreInstruction,
+      },
     });
 
     const encoder = new TextEncoder();
